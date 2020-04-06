@@ -3,49 +3,34 @@
 osascript <<EOF
   tell application "iTerm2"
     tell current session of first window
-      set newSession to (split horizontally with same profile)
-      tell newSession
-        write text "postgres -F -D services/postgres/data"
+      set postgresSession to (split horizontally with same profile)
+      tell postgresSession
+        write text "bin/local-start-postgres"
       end tell
-    end tell
-  end tell
-EOF
-osascript <<EOF
-  tell application "iTerm2"
-    tell current session of first window
-      set newSession to (split horizontally with same profile)
-      tell newSession
-        write text "npx webpack-dev-server"
+
+      set webpackSession to (split horizontally with same profile)
+      tell webpackSession
+        write text "bin/local-start-webpack"
       end tell
-    end tell
-  end tell
-EOF
-osascript <<EOF
-  tell application "iTerm2"
-    tell current session of first window
-      set newSession to (split horizontally with same profile)
-      tell newSession
-        write text "mix phx.server"
+
+      set phoenixSession to (split horizontally with same profile)
+      tell phoenixSession
+        write text "bin/local-start-phoenix"
       end tell
-    end tell
-  end tell
-EOF
-osascript <<EOF
-  tell application "iTerm2"
-    tell current session of first window
-      set newSession to (split horizontally with same profile)
-      tell newSession
-        write text "mix test.watch --stale"
+
+      set backendTestSession to (split horizontally with same profile)
+      tell backendTestSession
+        write text "bin/local-start-backend-tests"
       end tell
-    end tell
-  end tell
-EOF
-osascript <<EOF
-  tell application "iTerm2"
-    tell current session of first window
-      set newSession to (split horizontally with same profile)
-      tell newSession
-        write text "npx esw --color --watch --ext .js --ext .gql browser-client/**/* browser-server/**/* desktop-client/**/* desktop-server/**/* @internal/**/*"
+
+      set eslintSession to (split horizontally with same profile)
+      tell eslintSession
+        write text "bin/local-start-eslint"
+      end tell
+
+      set storybookSession to (split horizontally with same profile)
+      tell storybookSession
+        write text "bin/local-start-storybook"
       end tell
     end tell
   end tell

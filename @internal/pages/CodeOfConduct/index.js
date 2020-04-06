@@ -26,49 +26,49 @@ export default function CodeOfConduct () {
         include:
       </p>
 
-      <UnorderedList>
-        <ListItem>Using welcoming and inclusive language</ListItem>
-        <ListItem>Being respectful of differing viewpoints and experiences</ListItem>
-        <ListItem>Gracefully accepting constructive criticism</ListItem>
-        <ListItem>Focusing on what is best for the community</ListItem>
-        <ListItem>Showing empathy towards other community members</ListItem>
-        <ListItem>Don’t be a harsh judge</ListItem>
-        <ListItem>Credit others for their work</ListItem>
-      </UnorderedList>
+      <ul>
+        <li>Using welcoming and inclusive language</li>
+        <li>Being respectful of differing viewpoints and experiences</li>
+        <li>Gracefully accepting constructive criticism</li>
+        <li>Focusing on what is best for the community</li>
+        <li>Showing empathy towards other community members</li>
+        <li>Don’t be a harsh judge</li>
+        <li>Credit others for their work</li>
+      </ul>
 
       <p>
         Examples of unacceptable behavior by participants include:
       </p>
 
-      <UnorderedList>
-        <ListItem>
+      <ul>
+        <li>
           The use of sexualized language or imagery and unwelcome sexual attention or advances
-        </ListItem>
+        </li>
 
-        <ListItem>
+        <li>
           Trolling, insulting/derogatory comments, and personal or political attacks
-        </ListItem>
+        </li>
 
-        <ListItem>
+        <li>
           Public or private harassment
-        </ListItem>
+        </li>
 
-        <ListItem>
+        <li>
           Publishing others’ private information, such as a physical or electronic address, without explicit permission
-        </ListItem>
+        </li>
 
-        <ListItem>
+        <li>
           Harshly criticizing the work of newer Lacqueristas
-        </ListItem>
+        </li>
 
-        <ListItem>
+        <li>
           Asking people to clean-up before posing their polishes – it is 100% okay to post nail art in its pre-cleanup state
-        </ListItem>
+        </li>
 
-        <ListItem>
+        <li>
           Other conduct which could reasonably be considered inappropriate in a professional setting
-        </ListItem>
-      </UnorderedList>
+        </li>
+      </ul>
     </section>
 
     <h2>
