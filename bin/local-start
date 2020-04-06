@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+osascript <<EOF
+  tell application "iTerm2"
+    tell current session of first window
+      set newSession to (split horizontally with same profile)
+      tell newSession
+        write text "postgres -F -D services/postgres/data"
+      end tell
+    end tell
+  end tell
+EOF
+osascript <<EOF
+  tell application "iTerm2"
+    tell current session of first window
+      set newSession to (split horizontally with same profile)
+      tell newSession
+        write text "npx webpack-dev-server"
+      end tell
+    end tell
+  end tell
+EOF
+osascript <<EOF
+  tell application "iTerm2"
+    tell current session of first window
+      set newSession to (split horizontally with same profile)
+      tell newSession
+        write text "mix phx.server"
+      end tell
+    end tell
+  end tell
+EOF
+osascript <<EOF
+  tell application "iTerm2"
+    tell current session of first window
+      set newSession to (split horizontally with same profile)
+      tell newSession
+        write text "mix test.watch --stale"
+      end tell
+    end tell
+  end tell
+EOF
+osascript <<EOF
+  tell application "iTerm2"
+    tell current session of first window
+      set newSession to (split horizontally with same profile)
+      tell newSession
+        write text "npx esw --color --watch --ext .js --ext .gql browser-client/**/* browser-server/**/* desktop-client/**/* desktop-server/**/* @internal/**/*"
+      end tell
+    end tell
+  end tell
+EOF
