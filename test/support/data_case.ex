@@ -1,4 +1,4 @@
-defmodule Blank.DataCase do
+defmodule Example.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule Blank.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use BlankWeb.DataCase, async: true`, although
+  by setting `use ExampleWeb.DataCase, async: true`, although
   this option is not recommendded for other databases.
   """
 
@@ -18,20 +18,20 @@ defmodule Blank.DataCase do
 
   using do
     quote do
-      alias Blank.Database.Repo
+      alias Example.Database.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Blank.DataCase
+      import Example.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blank.Database.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Example.Database.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Blank.Database.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Example.Database.Repo, {:shared, self()})
     end
 
     :ok

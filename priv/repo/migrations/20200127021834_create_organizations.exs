@@ -1,4 +1,4 @@
-defmodule Blank.Repo.Migrations.CreateOrganizations do
+defmodule Example.Repo.Migrations.CreateOrganizations do
   use Ecto.Migration
 
   def change do

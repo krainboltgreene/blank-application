@@ -17,13 +17,13 @@ export default graphql(query)(function LandingPage () {
 
   return <Page layoutStyle={layoutStyle}>
     <Helmet>
-      <title>Blank</title>
+      <title>Example</title>
       <meta name="description" content="A description" />
     </Helmet>
     <section id="forOrganizations">
       a image
       <header css={{}}>
-        <h1>Blank For Business</h1>
+        <h1>Example For Business</h1>
       </header>
       introduction
       callToAction
@@ -31,7 +31,7 @@ export default graphql(query)(function LandingPage () {
     <section id="forPlayers">
       b image
       <header css={{}}>
-        <h1>Blank For Players</h1>
+        <h1>Example For Players</h1>
       </header>
       introduction
       callToAction

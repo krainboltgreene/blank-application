@@ -4,9 +4,9 @@
 
 docker-credential-gcr configure-docker &&
 gcloud iam service-accounts create local-kubernetes --display-name "Handles all local kubernetes credentials" &&
-gcloud projects add-iam-policy-binding blank --member serviceAccount:local-kubernetes@blank.iam.gserviceaccount.com --role roles/iam.serviceAccountTokenCreator &&
-gcloud projects add-iam-policy-binding blank --member serviceAccount:local-kubernetes@blank.iam.gserviceaccount.com --role roles/viewer &&
-gcloud iam service-accounts keys create ./tmp/gcloud-key.json --iam-account local-kubernetes@blank.iam.gserviceaccount.com
+gcloud projects add-iam-policy-binding example --member serviceAccount:local-kubernetes@example.iam.gserviceaccount.com --role roles/iam.serviceAccountTokenCreator &&
+gcloud projects add-iam-policy-binding example --member serviceAccount:local-kubernetes@example.iam.gserviceaccount.com --role roles/viewer &&
+gcloud iam service-accounts keys create ./tmp/gcloud-key.json --iam-account local-kubernetes@example.iam.gserviceaccount.com
 # Switch to docker-for-desktop
-# kubectl create secret docker-registry gcr-json-key --docker-server gcr.io --docker-username _json_key --docker-password "$(cat ./tmp/gcloud-key.json)" --docker-email local-kubernetes@blank.iam.gserviceaccount.com
+# kubectl create secret docker-registry gcr-json-key --docker-server gcr.io --docker-username _json_key --docker-password "$(cat ./tmp/gcloud-key.json)" --docker-email local-kubernetes@example.iam.gserviceaccount.com
 # Switch back

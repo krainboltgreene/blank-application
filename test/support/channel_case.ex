@@ -1,4 +1,4 @@
-defmodule BlankWeb.ChannelCase do
+defmodule ExampleWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule BlankWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint BlankWeb.Endpoint
+      @endpoint ExampleWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blank.Database.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Example.Database.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Blank.Database.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Example.Database.Repo, {:shared, self()})
     end
 
     :ok

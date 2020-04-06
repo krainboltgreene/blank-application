@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :blank, Blank.Database.Repo,
+config :example, Example.Database.Repo,
   username: "postgres",
   password: "password",
-  database: "blank_dev",
+  database: "example_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :blank, Blank.Database.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :blank, BlankWeb.Endpoint,
+config :example, ExampleWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,

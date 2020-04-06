@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: server-backend
-        image: gcr.io/blank/server-backend:latest
+        image: gcr.io/example/server-backend:latest
         ports:
         - containerPort: 3000
         env:

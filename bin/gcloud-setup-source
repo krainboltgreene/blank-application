@@ -2,7 +2,7 @@
 
 gcloud source repos create mvp &&
 git config --global credential.'https://source.developers.google.com'.helper gcloud.sh &&
-git remote add cloud https://source.developers.google.com/p/difference-engineers/r/blank &&
-git remote set-url origin git@github.com:difference-engineers/blank.git &&
+git remote add cloud https://source.developers.google.com/p/difference-engineers/r/example &&
+git remote set-url origin git@github.com:difference-engineers/example.git &&
 git push origin core &&
 git push cloud core

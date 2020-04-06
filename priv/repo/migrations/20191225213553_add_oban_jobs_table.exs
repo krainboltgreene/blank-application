@@ -1,4 +1,4 @@
-defmodule Blank.Database.Repo.Migrations.AddObanJobsTable do
+defmodule Example.Database.Repo.Migrations.AddObanJobsTable do
   use Ecto.Migration
 
   def up do

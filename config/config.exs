@@ -8,20 +8,20 @@
 use Mix.Config
 
 # Configures for ecto
-config :blank,
-  ecto_repos: [Blank.Database.Repo],
+config :example,
+  ecto_repos: [Example.Database.Repo],
   generators: [binary_id: true]
 
 # Configures the endpoint
-config :blank, BlankWeb.Endpoint,
+config :example, ExampleWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "JGuPqitGiv1A5WgWCxBQ8E2n7qzF8ThtUA/j0N1lfZzsvRv9VToPD4gADyCdbHaI",
-  render_errors: [view: BlankWeb.ErrorView, accepts: ["json"]],
-  pubsub: [name: Blank.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: ExampleWeb.ErrorView, accepts: ["json"]],
+  pubsub: [name: Example.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configure background processor oban
-config :blank, Oban,
-  repo: Blank.Database.Repo,
+config :example, Oban,
+  repo: Example.Database.Repo,
   prune: {:maxlen, 10_000},
   queues: [default: 10, mailers: 10, events: 50, media: 2, google_places: 1]
 
@@ -34,10 +34,10 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :paper_trail,
-  repo: Blank.Database.Repo,
+  repo: Example.Database.Repo,
   item_type: Ecto.UUID,
   originator_type: Ecto.UUID,
-  originator: [name: :account, model: Blank.Models.Account]
+  originator: [name: :account, model: Example.Models.Account]
 
 config :google_maps,
   api_key: "YOUR API KEY HERE"
