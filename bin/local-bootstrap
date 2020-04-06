@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-initdb --username=postgres --pwprompt services/postgres/data
 psql -v ON_ERROR_STOP=1 --host "localhost" --username "postgres" --dbname "template1" <<-EOSQL
   BEGIN;
     CREATE EXTENSION IF NOT EXISTS "citext";
@@ -21,3 +20,7 @@ psql -v ON_ERROR_STOP=1 --host "localhost" --username "postgres" --dbname "templ
     CREATE EXTENSION IF NOT EXISTS "tablefunc";
   COMMIT;
 EOSQL
+mix deps.get
+npm install
+mix compile
+mix ecto.reset
