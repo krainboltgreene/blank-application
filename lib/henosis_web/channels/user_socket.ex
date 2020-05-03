@@ -1,9 +1,9 @@
-defmodule ClumsyChinchillaWeb.UserSocket do
+defmodule HenosisWeb.UserSocket do
   use Phoenix.Socket
-  use Absinthe.Phoenix.Socket, schema: ClumsyChinchilla.Graphql.Schema
+  use Absinthe.Phoenix.Socket, schema: Henosis.Graphql.Schema
 
   ## Channels
-  # channel "room:*", ClumsyChinchillaWeb.RoomChannel
+  # channel "room:*", HenosisWeb.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

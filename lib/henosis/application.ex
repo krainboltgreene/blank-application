@@ -21,7 +21,6 @@ defmodule Henosis.Application do
         HenosisWeb.Endpoint,
         # Starts a worker by calling: Henosis.Worker.start_link(arg)
         # {Henosis.Worker, arg},
-        {Oban, Application.get_env(:henosis, Oban)},
         {Absinthe.Subscription, [HenosisWeb.Endpoint]}
       ],
       strategy: :one_for_one,

@@ -19,12 +19,6 @@ config :henosis, HenosisWeb.Endpoint,
   render_errors: [view: HenosisWeb.ErrorView, accepts: ["json"]],
   pubsub: [name: Henosis.PubSub, adapter: Phoenix.PubSub.PG2]
 
-# Configure background processor oban
-config :henosis, Oban,
-  repo: Henosis.Database.Repo,
-  prune: {:maxlen, 10_000},
-  queues: [default: 10, mailers: 10, events: 50, media: 2, google_places: 1]
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
