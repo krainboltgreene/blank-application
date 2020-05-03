@@ -1,35 +1,28 @@
 #!/usr/bin/env bash
-
 osascript <<EOF
   tell application "iTerm2"
-    tell current session of first window
-      set postgresSession to (split horizontally with same profile)
-      tell postgresSession
+    tell first window
+      tell current session of (create tab with default profile)
         write text "bin/local-start-postgres"
       end tell
 
-      set webpackSession to (split horizontally with same profile)
-      tell webpackSession
-        write text "bin/local-start-webpack"
-      end tell
-
-      set phoenixSession to (split horizontally with same profile)
-      tell phoenixSession
+      tell current session of (create tab with default profile)
         write text "bin/local-start-phoenix"
-      end tell
 
-      set backendTestSession to (split horizontally with same profile)
-      tell backendTestSession
+        select split horizontally with same profile
+
         write text "bin/local-start-backend-tests"
       end tell
 
-      set eslintSession to (split horizontally with same profile)
-      tell eslintSession
-        write text "bin/local-start-eslint"
-      end tell
+      tell current session of (create tab with default profile)
+        write text "bin/local-start-webpack"
 
-      set storybookSession to (split horizontally with same profile)
-      tell storybookSession
+        select split horizontally with same profile
+
+        write text "bin/local-start-eslint"
+
+        select split horizontally with same profile
+
         write text "bin/local-start-storybook"
       end tell
     end tell

@@ -1,18 +1,19 @@
+/* eslint-disable import/no-commonjs */
 /* eslint-disable import/no-nodejs-modules */
-import {resolve} from "path";
-import webpackNodeExternals from "webpack-node-externals";
-import {EnvironmentPlugin} from "webpack";
-import {CleanWebpackPlugin} from "clean-webpack-plugin";
-import {Plugin as WebpackCommonShake} from "webpack-common-shake";
-import DotenvWebpack from "dotenv-webpack";
-import {config as dotenvConfiguration} from "dotenv";
+const {resolve} = require("path");
+const webpackNodeExternals = require("webpack-node-externals");
+const {EnvironmentPlugin} = require("webpack");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const {Plugin: WebpackCommonShake} = require("webpack-common-shake");
+const DotenvWebpack = require("dotenv-webpack");
+const {config: dotenvConfiguration} = require("dotenv");
 
 dotenvConfiguration();
 
 const inputDirectory = [__dirname, "..", "..", "browser-server"];
 const outputDirectory = [__dirname, "..", "..", "tmp", "browser"];
 
-export default {
+module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   module: {
