@@ -27,7 +27,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :absinthe, schema: ClumsyChinchillaWeb.Graphql.Schema
+config :absinthe, schema: HenosisWeb.Graphql.Schema
 
 config :paper_trail,
   repo: Henosis.Database.Repo,
