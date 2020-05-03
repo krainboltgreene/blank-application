@@ -54,7 +54,6 @@ defmodule Example.MixProject do
       {:countries, "~> 1.5"},
       {:envy, "~> 1.1"},
       {:machinery, "~> 1.0"},
-      {:oban, "~> 1.0"},
       {:flippant, "~> 1.0"},
       {:google_maps, "~> 0.11"},
       {:cors_plug, "~> 1.5"},

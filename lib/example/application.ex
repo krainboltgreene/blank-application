@@ -21,7 +21,6 @@ defmodule Example.Application do
         ExampleWeb.Endpoint,
         # Starts a worker by calling: Example.Worker.start_link(arg)
         # {Example.Worker, arg},
-        {Oban, Application.get_env(:example, Oban)},
         {Absinthe.Subscription, [ExampleWeb.Endpoint]}
       ],
       strategy: :one_for_one,
