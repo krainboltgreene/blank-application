@@ -2,7 +2,7 @@ defmodule HenosisWeb.Router do
   use HenosisWeb, :router
 
   pipeline :api do
-    plug CORSPlug, origin: "http://localhost:9000"
+    plug CORSPlug, origin: ["http://localhost:9000", "http://localhost:8080"]
     plug :accepts, ["json"]
     plug :fetch_session
     plug Henosis.Plugs.GraphqlSessionContext
