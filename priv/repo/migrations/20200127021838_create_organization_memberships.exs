@@ -11,7 +11,7 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateOrganizationMemberships do
 
       add :organization_id,
           references(:organizations, on_delete: :nothing, type: :binary_id),
-        null: false
+          null: false
 
       timestamps()
     end

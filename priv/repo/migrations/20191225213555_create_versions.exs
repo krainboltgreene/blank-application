@@ -10,7 +10,7 @@ defmodule Repo.Migrations.AddVersions do
 
       add :originator_id,
           references(:accounts, on_delete: :nothing, type: :binary_id),
-        null: false
+          null: false
 
       add :origin, :text
       add :meta, :map

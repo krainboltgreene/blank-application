@@ -17,14 +17,14 @@ defmodule ClumsyChinchillaWeb.Graphql.Mutations.Permission do
   object :permission_mutations do
     @desc "Create a new permission"
     field :create_permission, :permission do
-      arg :input, non_null(:new_permission)
+      arg(:input, non_null(:new_permission))
       middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Permissions.create/3)
     end
 
     @desc "Update an existing permission"
     field :update_permission, :permission do
-      arg :input, non_null(:permission_changeset)
+      arg(:input, non_null(:permission_changeset))
 
       middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Permissions.update/3)
@@ -32,7 +32,7 @@ defmodule ClumsyChinchillaWeb.Graphql.Mutations.Permission do
 
     @desc "Permanently delete an existing permission"
     field :destroy_permission, :permission do
-      arg :input, non_null(:permission_identifier)
+      arg(:input, non_null(:permission_identifier))
 
       middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Permissions.destroy/3)

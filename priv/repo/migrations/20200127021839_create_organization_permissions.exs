@@ -7,7 +7,7 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateOrganizationAccountPermissions 
 
       add :permission_id,
           references(:permissions, on_delete: :nothing, type: :binary_id),
-        null: false
+          null: false
 
       add :organization_membership_id,
           references(:organization_memberships, on_delete: :nothing, type: :binary_id),

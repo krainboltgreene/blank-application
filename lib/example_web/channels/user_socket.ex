@@ -38,7 +38,8 @@ defmodule ClumsyChinchillaWeb.UserSocket do
   #     ClumsyChinchillaWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  @spec id(%{optional(any) => any, assigns: %{optional(any) => any, account_id: binary}}) :: binary
+  @spec id(%{optional(any) => any, assigns: %{optional(any) => any, account_id: binary}}) ::
+          binary
   def id(socket), do: "user_socket:#{socket.assigns.account_id}"
 
   defp account_from_session(%{"session_id" => id}) do

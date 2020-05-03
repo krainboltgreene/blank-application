@@ -18,8 +18,7 @@ defmodule ClumsyChinchillaWeb do
   """
 
   @spec controller ::
-          {:__block__, [],
-           [{:alias, [...], [...]} | {:import, [...], [...]} | {:use, [...], [...]}, ...]}
+          {:__block__, [], [{:alias, [...], [...]} | {:import, [...], [...]} | {:use, [...], [...]}, ...]}
   def controller do
     quote do
       use Phoenix.Controller, namespace: ClumsyChinchillaWeb
@@ -31,8 +30,7 @@ defmodule ClumsyChinchillaWeb do
   end
 
   @spec view ::
-          {:__block__, [],
-           [{:alias, [...], [...]} | {:import, [...], [...]} | {:use, [...], [...]}, ...]}
+          {:__block__, [], [{:alias, [...], [...]} | {:import, [...], [...]} | {:use, [...], [...]}, ...]}
   def view do
     quote do
       use Phoenix.View,

@@ -25,8 +25,11 @@ defmodule ClumsyChinchillaWeb.Graphql.Resolvers.Accounts do
     %ClumsyChinchilla.Models.Account{}
     |> ClumsyChinchilla.Models.Account.changeset(attributes)
     |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> ClumsyChinchilla.Database.Repo.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
+      %Ecto.Changeset{valid?: true} = changeset ->
+        ClumsyChinchilla.Database.Repo.insert(changeset)
+
+      %Ecto.Changeset{valid?: false} = changeset ->
+        {:error, changeset}
     end
   end
 
@@ -36,8 +39,11 @@ defmodule ClumsyChinchillaWeb.Graphql.Resolvers.Accounts do
     ClumsyChinchilla.Database.Repo.get!(ClumsyChinchilla.Models.Account, id)
     |> ClumsyChinchilla.Models.Account.changeset(input)
     |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> ClumsyChinchilla.Database.Repo.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
+      %Ecto.Changeset{valid?: true} = changeset ->
+        ClumsyChinchilla.Database.Repo.insert(changeset)
+
+      %Ecto.Changeset{valid?: false} = changeset ->
+        {:error, changeset}
     end
   end
 

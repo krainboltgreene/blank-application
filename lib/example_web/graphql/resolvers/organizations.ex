@@ -10,13 +10,17 @@ defmodule ClumsyChinchillaWeb.Graphql.Resolvers.Organizations do
     {:ok, ClumsyChinchilla.Database.Repo.get(ClumsyChinchilla.Models.Organization, id)}
   end
 
-  @spec create(any, %{input: map}, any) :: {:ok, %ClumsyChinchilla.Models.Organization{}} | {:error, any}
+  @spec create(any, %{input: map}, any) ::
+          {:ok, %ClumsyChinchilla.Models.Organization{}} | {:error, any}
   def create(_parent, %{input: input}, _resolution) do
     %ClumsyChinchilla.Models.Organization{}
     |> ClumsyChinchilla.Models.Organization.changeset(input)
     |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> ClumsyChinchilla.Database.Repo.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
+      %Ecto.Changeset{valid?: true} = changeset ->
+        ClumsyChinchilla.Database.Repo.insert(changeset)
+
+      %Ecto.Changeset{valid?: false} = changeset ->
+        {:error, changeset}
     end
   end
 
@@ -26,8 +30,11 @@ defmodule ClumsyChinchillaWeb.Graphql.Resolvers.Organizations do
     ClumsyChinchilla.Database.Repo.get!(ClumsyChinchilla.Models.Organization, id)
     |> ClumsyChinchilla.Models.Organization.changeset(input)
     |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> ClumsyChinchilla.Database.Repo.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
+      %Ecto.Changeset{valid?: true} = changeset ->
+        ClumsyChinchilla.Database.Repo.insert(changeset)
+
+      %Ecto.Changeset{valid?: false} = changeset ->
+        {:error, changeset}
     end
   end
 
