@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "eslint": "eslint --ext .js,.gql jest.config.js babel.config.js webpack/ .storybook/ browser-client/ browser-server/ @internal/",
+    "eslint": "eslint --ext .js,.gql jest.config.js babel.config.js webpack/ storybook/ browser-client/ browser-server/ @internal/",
     "prepublishOnly": "npm run build",
     "storybook": "build-storybook"
   },
