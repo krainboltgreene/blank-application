@@ -1,4 +1,4 @@
-defmodule ClumsyChinchillaWeb.ConnCase do
+defmodule HenosisWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule ClumsyChinchillaWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use ClumsyChinchillaWeb.ConnCase, async: true`, although
+  by setting `use HenosisWeb.ConnCase, async: true`, although
   this option is not recommendded for other databases.
   """
 
@@ -21,18 +21,18 @@ defmodule ClumsyChinchillaWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
+      alias HenosisWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint ClumsyChinchillaWeb.Endpoint
+      @endpoint HenosisWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ClumsyChinchilla.Database.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Henosis.Database.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(ClumsyChinchilla.Database.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Henosis.Database.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

@@ -1,9 +1,9 @@
-defmodule ClumsyChinchilla.MixProject do
+defmodule Henosis.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :clumsy_chinchilla,
+      app: :henosis,
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule ClumsyChinchilla.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {ClumsyChinchilla.Application, []},
+      mod: {Henosis.Application, []},
       extra_applications: [:logger, :runtime_tools, :absinthe_plug, :google_maps]
     ]
   end

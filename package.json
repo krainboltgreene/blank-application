@@ -1,8 +1,8 @@
 {
-  "name": "clumsy_chinchilla",
+  "name": "henosis",
   "version": "1.0.0",
   "private": true,
-  "description": "The frontend application for Clumsy Chinchilla",
+  "description": "The frontend application for Henosis",
   "keywords": [],
   "contributors": [
     {
@@ -12,9 +12,9 @@
     }
   ],
   "license": "MIT",
-  "homepage": "https://github.com/difference-engineers/clumsy_chinchilla#readme",
-  "repository": "github:difference-engineers/clumsy_chinchilla",
-  "bugs": "https://github.com/difference-engineers/clumsy_chinchilla/issues",
+  "homepage": "https://github.com/difference-engineers/henosis#readme",
+  "repository": "github:difference-engineers/henosis",
+  "bugs": "https://github.com/difference-engineers/henosis/issues",
   "engines": {
     "node": "13.1.0",
     "npm": "6.12.1"
@@ -38,6 +38,7 @@
     "@storybook/addons": "5.3.18",
     "@storybook/react": "5.3.18",
     "acorn": "6.4.1",
+    "case": "1.6.3",
     "chokidar": "3.4.0",
     "chokidar-cli": "2.1.0",
     "clean-webpack-plugin": "3.0.0",
@@ -110,6 +111,7 @@
     "react-router-dom": "5.1.2",
     "react-spring": "8.0.27",
     "react-use": "14.2.0",
+    "react-syntax-highlighter": "12.2.1",
     "rebound": "0.1.0",
     "recompose": "0.30.0",
     "redux": "4.0.5",

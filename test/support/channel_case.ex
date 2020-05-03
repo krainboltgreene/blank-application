@@ -1,4 +1,4 @@
-defmodule ClumsyChinchillaWeb.ChannelCase do
+defmodule HenosisWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule ClumsyChinchillaWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint ClumsyChinchillaWeb.Endpoint
+      @endpoint HenosisWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ClumsyChinchilla.Database.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Henosis.Database.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(ClumsyChinchilla.Database.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Henosis.Database.Repo, {:shared, self()})
     end
 
     :ok
