@@ -4,9 +4,13 @@ defmodule Example.Repo.Migrations.CreateOrganizationMemberships do
   def change do
     create table(:organization_memberships, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :account_id, references(:accounts, on_delete: :nothing, type: :binary_id), null: false
 
-      add :organization_id, references(:organizations, on_delete: :nothing, type: :binary_id),
+      add :account_id,
+          references(:accounts, on_delete: :nothing, type: :binary_id),
+          null: false
+
+      add :organization_id,
+          references(:organizations, on_delete: :nothing, type: :binary_id),
         null: false
 
       timestamps()

@@ -57,7 +57,6 @@ defmodule Example.BusinessTest do
 
     test "works" do
       renraku = found_organization()
-
     end
   end
 end

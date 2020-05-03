@@ -5,6 +5,7 @@ defmodule Example.Application do
 
   use Application
 
+  @spec start(any, any) :: {:error, any} | {:ok, pid}
   def start(_type, _args) do
     unless Mix.env() == :prod do
       Envy.auto_load()
@@ -30,6 +31,7 @@ defmodule Example.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @spec config_change(any, any, any) :: :ok
   def config_change(changed, _new, removed) do
     ExampleWeb.Endpoint.config_change(changed, removed)
     :ok

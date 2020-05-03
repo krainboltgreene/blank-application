@@ -8,13 +8,15 @@ defmodule Example.Database.Repo.Migrations.CreateAccounts do
       add :unconfirmed_email, :citext
       add :username, :citext
       add :name, :text
-      add :onboarding_state, :citext, null: false, default: "converted"
-      add :role_state, :citext, null: false, default: "user"
+      add :onboarding_state, :citext, null: false
+      add :role_state, :citext, null: false
       add :password_hash, :string
 
       timestamps()
     end
 
     create unique_index(:accounts, [:email])
+    create index(:accounts, :onboarding_state)
+    create index(:accounts, :role_state)
   end
 end

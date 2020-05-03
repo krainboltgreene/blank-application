@@ -2,7 +2,7 @@
 images:
   - "gcr.io/$PROJECT_ID/server-backend:latest"
   - "gcr.io/$PROJECT_ID/server-backend:$SHORT_SHA"
-timeout: "5m"
+timeout: "300s"
 steps:
   - name: "gcr.io/cloud-builders/docker"
     entrypoint: "sh"

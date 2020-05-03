@@ -21,6 +21,7 @@ defmodule ExampleWeb.Graphql.Resolvers.Sessions do
     end
   end
 
+  @spec destroy(any, any, %{context: %{current_account: %{id: any}}}) :: {:ok, %{id: any}}
   def destroy(_parent, _arguments, %{context: %{current_account: %{id: id}}})
       when not is_nil(id) do
     {:ok, %{id: id}}

@@ -16,6 +16,7 @@ defmodule ExampleWeb.Router do
       before_send: {__MODULE__, :absinthe_before_send}
   end
 
+  @spec absinthe_before_send(any, any) :: any
   def absinthe_before_send(
         %Plug.Conn{method: "POST"} = connection,
         %Absinthe.Blueprint{} = blueprint

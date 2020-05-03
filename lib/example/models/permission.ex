@@ -12,6 +12,7 @@ defmodule Example.Models.Permission do
     timestamps()
   end
 
+  @spec changeset(map, map) :: Ecto.Changeset.t()
   @doc false
   def changeset(record, attributes) do
     record

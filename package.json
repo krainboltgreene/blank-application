@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "eslint": "eslint --ext .js --ext .gql browser-client/**/* browser-server/**/* desktop-client/**/* desktop-server/**/* @internal/**/*",
+    "eslint": "eslint --ext .js,.gql jest.config.js babel.config.js webpack/ .storybook/ browser-client/ browser-server/ @internal/",
     "prepublishOnly": "npm run build",
     "storybook": "build-storybook"
   },
@@ -31,9 +31,9 @@
     "@storybook/addon-a11y": "5.3.14",
     "@storybook/addon-actions": "5.3.14",
     "@storybook/addon-console": "1.2.1",
+    "@storybook/addon-docs": "5.3.18",
     "@storybook/addon-knobs": "5.3.14",
     "@storybook/addon-links": "5.3.14",
-    "@storybook/addon-notes": "5.3.14",
     "@storybook/addon-storysource": "5.3.14",
     "@storybook/addon-viewport": "5.3.14",
     "@storybook/addons": "5.3.14",

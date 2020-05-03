@@ -17,7 +17,7 @@ defmodule ExampleWeb.Graphql.Mutations.Organization do
   object :organization_mutations do
     @desc "Create a new organization"
     field :create_organization, :organization do
-      arg :input, non_null(:new_organization)
+      arg(:input, non_null(:new_organization))
 
       middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&ExampleWeb.Graphql.Resolvers.Organizations.create/3)

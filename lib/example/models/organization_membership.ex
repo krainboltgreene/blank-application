@@ -12,6 +12,16 @@ defmodule Example.Models.OrganizationMembership do
     timestamps()
   end
 
+  @spec changeset(
+          {map, map} | %{:__struct__ => atom | %{__changeset__: map}, optional(atom) => any},
+          :invalid
+          | %{
+              :account => any,
+              :organization => any,
+              optional(:__struct__) => none,
+              optional(atom | binary) => any
+            }
+        ) :: Ecto.Changeset.t()
   @doc false
   def changeset(record, attributes) do
     record

@@ -1,7 +1,6 @@
 /* eslint-disable import/no-commonjs, import/no-nodejs-modules */
 
 const {resolve} = require("path");
-const {readFileSync} = require("fs");
 const {HashedModuleIdsPlugin} = require("webpack");
 const {HotModuleReplacementPlugin} = require("webpack");
 const {EnvironmentPlugin} = require("webpack");
@@ -13,7 +12,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const DotenvWebpack = require("dotenv-webpack");
 const {config: dotenvConfiguration} = require("dotenv");
-const {render} = require("mustache");
 
 dotenvConfiguration();
 

@@ -30,10 +30,12 @@ defmodule Example.Models.Account do
     timestamps()
   end
 
-  def unconfirmed?(%Example.Models.Account{unconfirmed_email: _}), do: true
+  @spec unconfirmed?(map() | any()) :: true | false
+  def unconfirmed?(%{unconfirmed_email: _}), do: true
   def unconfirmed?(_), do: false
 
   @doc false
+  @spec changeset(map, map) :: Ecto.Changeset.t()
   def changeset(record, attributes) do
     record
     |> change()

@@ -33,13 +33,13 @@ module.exports = {
   },
   reportUnusedDisableDirectives: true,
   rules: {
-    "babel/camelcase": "error",
+    "babel/camelcase": "warn",
     "babel/new-cap": "off", // Already handled
     "babel/no-invalid-this": "error",
     "babel/no-unused-expressions": "error",
     "babel/object-curly-spacing": "error",
     "babel/quotes": "error",
-    "babel/semi": "off", // Already handled
+    "babel/semi": ["error", "always"], // Already handled
     "babel/valid-typeof": "error",
     "emotion/import-from-emotion": "error",
     "emotion/jsx-import": "off", // I use babel
@@ -64,7 +64,7 @@ module.exports = {
     "import/no-absolute-path": "error",
     "import/no-amd": "error",
     "import/no-anonymous-default-export": ["error", {"allowObject": true}],
-    "import/no-commonjs": "error",
+    "import/no-commonjs": "warn",
     "import/no-cycle": "error",
     "import/no-default-export": "error",
     "import/no-deprecated": "error",
@@ -316,7 +316,7 @@ module.exports = {
     "block-spacing": "error",
     "brace-style": "error",
     "callback-return": "error",
-    "camelcase": "warn",
+    "camelcase": "off", // handled by babel
     "capitalized-comments": "off", // What a stupid rule
     "class-methods-use-this": "error",
     "comma-dangle": ["error", "always-multiline"],
@@ -540,7 +540,7 @@ module.exports = {
     "rest-spread-spacing": "error",
     "semi-spacing": "error",
     "semi-style": "error",
-    "semi": ["error", "always"],
+    "semi": "off", // handled by babel/semi
     "sort-imports": "off", // Not worth the hassle
     "sort-keys": "off",
     "sort-vars": "off", // I don't like making busy work for myself

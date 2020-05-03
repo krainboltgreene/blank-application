@@ -1,8 +1,10 @@
 defmodule Example.Plugs.GraphqlSessionContext do
   @behaviour Plug
 
+  @spec init(any) :: any
   def init(opts), do: opts
 
+  @spec call(any, any) :: any
   def call(%Plug.Conn{method: "POST"} = connection, _) do
     session_id = Plug.Conn.get_session(connection, :session_id)
 

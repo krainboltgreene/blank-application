@@ -60,7 +60,8 @@ config :example, Example.Database.Repo,
         For example: ecto://USER:PASS@HOST/DATABASE
         """,
         pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
-      )
+      ),
+  prepare: :unnamed
 
 config :example, ExampleWeb.Endpoint,
   http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
