@@ -14,7 +14,7 @@ defmodule HenosisWeb.Router do
     forward "/", Absinthe.Plug,
       schema: HenosisWeb.Graphql.Schema,
       analyze_complexity: true,
-      max_complexity: 50,
+      max_complexity: 200,
       before_send: {__MODULE__, :absinthe_before_send}
   end
 
