@@ -2,10 +2,10 @@ import React from "react";
 import {graphql} from "@apollo/react-hoc";
 import {useQuery} from "@apollo/react-hooks";
 import {Helmet} from "react-helmet-async";
-import query from "./index.gql";
 
 import {Page} from "@internal/elements";
-import {Link} from "@internal/elements";
+// import {Link} from "@internal/elements";
+import query from "./index.gql";
 
 const layoutStyle = {
   "display": "grid",
