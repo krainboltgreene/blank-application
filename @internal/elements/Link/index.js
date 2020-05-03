@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 // import ComponentLink from "react-router-component-link";
 import {Link as ReactRouterLink} from "react-router-dom";

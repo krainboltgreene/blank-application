@@ -13,6 +13,8 @@ defmodule ClumsyChinchillaWeb.Router do
 
     forward "/", Absinthe.Plug,
       schema: ClumsyChinchillaWeb.Graphql.Schema,
+      analyze_complexity: true,
+      max_complexity: 50,
       before_send: {__MODULE__, :absinthe_before_send}
   end
 

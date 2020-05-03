@@ -482,7 +482,7 @@ module.exports = {
     "no-trailing-spaces": "error",
     "no-undef-init": "error",
     "no-undef": "error",
-    "no-undefined": "error",
+    "no-undefined": "off", // We're OK with null not existing, in favor of undefined
     "no-underscore-dangle": "error",
     "no-unexpected-multiline": "error",
     "no-unmodified-loop-condition": "error",
@@ -562,6 +562,30 @@ module.exports = {
     "wrap-iife": "error",
     "wrap-regex": "error",
     "yield-star-spacing": "error",
-    "yoda": "error"
+    "yoda": "error",
+    "graphql/capitalized-type-name": "error",
+    "graphql/named-operations": "error",
+    "graphql/no-deprecated-fields": "error",
+    // "graphql/required-fields": "error", // A strange rule, might be useful in the future
+    "graphql/template-strings": "error",
+    "grouped-accessor-pairs": "error",
+    "jest/require-to-throw-message": "error",
+    "jest/valid-title": "error",
+    "no-constructor-return": "error",
+    "no-dupe-else-if": "error",
+    "no-setter-return": "error",
+    "prefer-exponentiation-operator": "error",
+    "react/function-component-definition": "error",
+    "react/jsx-no-script-url": "error",
+    "react/no-adjacent-inline-elements": "error",
+    "unicorn/better-regex": "error",
+    "unicorn/no-null": "error",
+    "unicorn/prefer-modern-dom-apis": "error",
+    "unicorn/prefer-negative-index": "error",
+    "unicorn/prefer-number-properties": "error",
+    "unicorn/prefer-replace-all": "error",
+    "unicorn/prefer-set-has": "error",
+    "unicorn/prefer-trim-start-end": "error",
+    "unicorn/string-content": "error"
   }
 };

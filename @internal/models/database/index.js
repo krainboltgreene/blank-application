@@ -15,6 +15,7 @@ const DATABASE_CONFIGURATION = {
     active: false,
   },
   local: {
+    // eslint-disable-next-line babel/camelcase
     auto_compaction: true,
   },
   remote: {
@@ -28,6 +29,7 @@ const REPLICATION_CONFIGURATION = {
   live: true,
   retry: true,
   heartbeat: true,
+  // eslint-disable-next-line babel/camelcase
   batch_size: 250,
 };
 
@@ -105,7 +107,7 @@ export default {
 
         dispatch.database.replicate({from: "remote", to: "local"});
       },
-      async index (nothing, {database}) {
+      async index (_nothing, {database}) {
         await database.local.client.search({
           fields: ["words"],
           build: true,
@@ -119,12 +121,12 @@ export default {
           build: true,
         });
       },
-      async create ([type, location]) {
-        return dispatch.database.storeClient([type, await new PouchDB(location, DATABASE_CONFIGURATION[type])]);
+      create ([type, location]) {
+        return dispatch.database.storeClient([type, new PouchDB(location, DATABASE_CONFIGURATION[type])]);
       },
       async check (type, {database}) {
         if (visibility.hidden()) {
-          return null;
+          return undefined;
         }
 
         return dispatch.database.updateMetadata([type, await database[type].client.info()]);
@@ -164,6 +166,7 @@ export default {
         const results = await database.local.client.search({
           query,
           fields,
+          // eslint-disable-next-line babel/camelcase
           include_docs: true,
         });
 

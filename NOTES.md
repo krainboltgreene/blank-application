@@ -9,6 +9,10 @@ Some abstract notes I need while working on this project
     - clumsy-chinchilla for the url
     - clumsy_chinchilla for the slug
 
+## New EsLint rules
+
+`npx eslint-find-rules --unused .eslintrc.js`
+
 ## Secrets
 
 To create an encrypted value for a environment variable you can:
@@ -33,3 +37,5 @@ This generates a pgbouncer md5 hash for userlists:
 - <https://github.com/elixirdrops/kerosene> (pagination)
 - <https://github.com/bitgamma/boltun> (postgrese listener)
 - <https://github.com/sobolevn/ecto_autoslug_field>
+- <https://github.com/absinthe-graphql/dataloader>
+- https://hex.pm/packages/kronky
