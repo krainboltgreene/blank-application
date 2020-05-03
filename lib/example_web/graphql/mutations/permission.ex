@@ -1,4 +1,4 @@
-defmodule ExampleWeb.Graphql.Mutations.Permission do
+defmodule ClumsyChinchillaWeb.Graphql.Mutations.Permission do
   use Absinthe.Schema.Notation
 
   input_object :new_permission do
@@ -18,24 +18,24 @@ defmodule ExampleWeb.Graphql.Mutations.Permission do
     @desc "Create a new permission"
     field :create_permission, :permission do
       arg :input, non_null(:new_permission)
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Permissions.create/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Permissions.create/3)
     end
 
     @desc "Update an existing permission"
     field :update_permission, :permission do
       arg :input, non_null(:permission_changeset)
 
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Permissions.update/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Permissions.update/3)
     end
 
     @desc "Permanently delete an existing permission"
     field :destroy_permission, :permission do
       arg :input, non_null(:permission_identifier)
 
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Permissions.destroy/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Permissions.destroy/3)
     end
   end
 end

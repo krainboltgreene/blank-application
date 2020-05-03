@@ -1,4 +1,4 @@
-defmodule Example.Application do
+defmodule ClumsyChinchilla.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -16,15 +16,15 @@ defmodule Example.Application do
     Supervisor.start_link(
       [
         # Start the Ecto repository
-        Example.Database.Repo,
+        ClumsyChinchilla.Database.Repo,
         # Start the endpoint when the application starts
-        ExampleWeb.Endpoint,
-        # Starts a worker by calling: Example.Worker.start_link(arg)
-        # {Example.Worker, arg},
-        {Absinthe.Subscription, [ExampleWeb.Endpoint]}
+        ClumsyChinchillaWeb.Endpoint,
+        # Starts a worker by calling: ClumsyChinchilla.Worker.start_link(arg)
+        # {ClumsyChinchilla.Worker, arg},
+        {Absinthe.Subscription, [ClumsyChinchillaWeb.Endpoint]}
       ],
       strategy: :one_for_one,
-      name: Example.Supervisor
+      name: ClumsyChinchilla.Supervisor
     )
   end
 
@@ -32,7 +32,7 @@ defmodule Example.Application do
   # whenever the application is updated.
   @spec config_change(any, any, any) :: :ok
   def config_change(changed, _new, removed) do
-    ExampleWeb.Endpoint.config_change(changed, removed)
+    ClumsyChinchillaWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

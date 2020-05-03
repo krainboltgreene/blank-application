@@ -1,4 +1,4 @@
-defmodule ExampleWeb.Graphql.Mutations.Account do
+defmodule ClumsyChinchillaWeb.Graphql.Mutations.Account do
   use Absinthe.Schema.Notation
 
   input_object :new_account do
@@ -25,31 +25,31 @@ defmodule ExampleWeb.Graphql.Mutations.Account do
     field :create_account, :account do
       arg(:input, non_null(:new_account))
 
-      resolve(&ExampleWeb.Graphql.Resolvers.Accounts.create/3)
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.update_session_id/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Accounts.create/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.update_session_id/2)
     end
 
     @desc "Update an existing account"
     field :update_account, :account do
       arg(:input, non_null(:account_changeset))
 
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Accounts.update/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Accounts.update/3)
     end
 
     field :grant_administration_powers, :account do
       arg(:input, non_null(:account_identifier))
 
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Accounts.grant_administration_powers/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Accounts.grant_administration_powers/3)
     end
 
     @desc "Permanently delete an existing account"
     field :destroy_account, :account do
       arg(:input, non_null(:account_identifier))
 
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Accounts.destroy/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Accounts.destroy/3)
     end
   end
 end

@@ -1,4 +1,4 @@
-defmodule ExampleWeb.Graphql.Subscriptions.Organization do
+defmodule ClumsyChinchillaWeb.Graphql.Subscriptions.Organization do
   use Absinthe.Schema.Notation
 
   object :organization_subscriptions do

@@ -1,5 +1,5 @@
-defmodule ExampleWeb.ErrorView do
-  use ExampleWeb, :view
+defmodule ClumsyChinchillaWeb.ErrorView do
+  use ClumsyChinchillaWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

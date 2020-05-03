@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Example.Database.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(ClumsyChinchilla.Database.Repo, :manual)

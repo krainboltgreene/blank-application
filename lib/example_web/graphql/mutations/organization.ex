@@ -1,4 +1,4 @@
-defmodule ExampleWeb.Graphql.Mutations.Organization do
+defmodule ClumsyChinchillaWeb.Graphql.Mutations.Organization do
   use Absinthe.Schema.Notation
 
   input_object :new_organization do
@@ -19,24 +19,24 @@ defmodule ExampleWeb.Graphql.Mutations.Organization do
     field :create_organization, :organization do
       arg(:input, non_null(:new_organization))
 
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Organizations.create/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Organizations.create/3)
     end
 
     @desc "Update an existing organization"
     field :update_organization, :organization do
       arg(:input, non_null(:organization_changeset))
 
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Organizations.update/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Organizations.update/3)
     end
 
     @desc "Permanently delete an existing organization"
     field :destroy_organization, :organization do
       arg(:input, non_null(:organization_identifier))
 
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Organizations.destroy/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Organizations.destroy/3)
     end
   end
 end

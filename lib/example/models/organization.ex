@@ -1,4 +1,4 @@
-defmodule Example.Models.Organization do
+defmodule ClumsyChinchilla.Models.Organization do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,8 +6,8 @@ defmodule Example.Models.Organization do
   @foreign_key_type :binary_id
   schema "organizations" do
     field :name, :string
-    field :slug, Example.Slugs.Name.Type
-    has_many :organization_memberships, Example.Models.OrganizationMembership
+    field :slug, ClumsyChinchilla.Slugs.Name.Type
+    has_many :organization_memberships, ClumsyChinchilla.Models.OrganizationMembership
     has_many :accounts, through: [:organization_memberships, :account]
 
     timestamps()
@@ -19,7 +19,7 @@ defmodule Example.Models.Organization do
     record
     |> cast(attributes, [:name])
     |> validate_required([:name])
-    |> Example.Slugs.Name.maybe_generate_slug()
-    |> Example.Slugs.Name.unique_constraint()
+    |> ClumsyChinchilla.Slugs.Name.maybe_generate_slug()
+    |> ClumsyChinchilla.Slugs.Name.unique_constraint()
   end
 end

@@ -53,7 +53,7 @@ defmodule Estate do
                   %{:id => id, unquote(column_name) => unquote(Atom.to_string(from))} = record
                 )
                 when not is_nil(id) do
-              Example.Database.Repo.transaction(fn ->
+              ClumsyChinchilla.Database.Repo.transaction(fn ->
                 record
                 |> Ecto.Changeset.change()
                 |> unquote(:"before_#{event_name}_from_#{from}")()
@@ -61,7 +61,7 @@ defmodule Estate do
                   unquote(column_name)
                 ])
                 |> Ecto.Changeset.validate_required(unquote(column_name))
-                |> Example.Database.Repo.update()
+                |> ClumsyChinchilla.Database.Repo.update()
                 |> unquote(:"after_#{event_name}_from_#{from}")()
               end)
             end

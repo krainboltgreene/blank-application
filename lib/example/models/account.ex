@@ -1,4 +1,4 @@
-defmodule Example.Models.Account do
+defmodule ClumsyChinchilla.Models.Account do
   use Ecto.Schema
   import Estate, only: [state_machines: 1]
   import Ecto.Changeset
@@ -24,7 +24,7 @@ defmodule Example.Models.Account do
     field :role_state, :string, default: "user"
     field :password, :string, virtual: true
     field :password_hash, :string
-    has_many :organization_memberships, Example.Models.OrganizationMembership
+    has_many :organization_memberships, ClumsyChinchilla.Models.OrganizationMembership
     has_many :organizations, through: [:organization_memberships, :organization]
 
     timestamps()
@@ -56,7 +56,7 @@ defmodule Example.Models.Account do
   # If have email, given email, and not the same then remove given email and update unconfirmed
   # If have email, given email, and the same then remove given email and return changeset
   defp replace_email_with_unconfirmed_email(
-         %Ecto.Changeset{changes: %Example.Models.Account{email: recorded_email}} = changeset,
+         %Ecto.Changeset{changes: %ClumsyChinchilla.Models.Account{email: recorded_email}} = changeset,
          %{email: unconfirmed_email} = attributes
        )
        when is_bitstring(recorded_email) and is_bitstring(unconfirmed_email) do
@@ -71,7 +71,7 @@ defmodule Example.Models.Account do
 
   # If have no email, and given email, remove given email and update confirmed
   defp replace_email_with_unconfirmed_email(
-         %Ecto.Changeset{data: %Example.Models.Account{email: nil}} = changeset,
+         %Ecto.Changeset{data: %ClumsyChinchilla.Models.Account{email: nil}} = changeset,
          %{email: unconfirmed_email} = attributes
        )
        when is_bitstring(unconfirmed_email) do

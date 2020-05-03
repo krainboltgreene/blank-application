@@ -1,6 +1,6 @@
-defmodule ExampleWeb.Graphql.Types.Organization do
+defmodule ClumsyChinchillaWeb.Graphql.Types.Organization do
   use Absinthe.Schema.Notation
-  use Absinthe.Ecto, repo: Example.Database.Repo
+  use Absinthe.Ecto, repo: ClumsyChinchilla.Database.Repo
 
   object :organization do
     field :id, non_null(:id)

@@ -1,14 +1,14 @@
-defmodule ExampleWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :example
+defmodule ClumsyChinchillaWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :clumsy_chinchilla
   use Absinthe.Phoenix.Endpoint
 
   @session_options [
     store: :cookie,
-    key: "_example_key",
+    key: "_clumsy_chinchilla_key",
     signing_salt: "aiVLsWxs"
   ]
 
-  socket "/socket", ExampleWeb.UserSocket,
+  socket "/socket", ClumsyChinchillaWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -18,7 +18,7 @@ defmodule ExampleWeb.Endpoint do
   # when deploying your static files in production.
   # plug Plug.Static,
   #   at: "/",
-  #   from: :example,
+  #   from: :clumsy_chinchilla,
   #   gzip: false,
   #   only: ["css", "fonts", "images", "js", "favicon.ico", "robots.txt"]
 
@@ -46,5 +46,5 @@ defmodule ExampleWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session, @session_options
 
-  plug ExampleWeb.Router
+  plug ClumsyChinchillaWeb.Router
 end

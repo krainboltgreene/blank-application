@@ -1,18 +1,18 @@
-defmodule ExampleWeb.Router do
-  use ExampleWeb, :router
+defmodule ClumsyChinchillaWeb.Router do
+  use ClumsyChinchillaWeb, :router
 
   pipeline :api do
     plug CORSPlug, origin: "http://localhost:9000"
     plug :accepts, ["json"]
     plug :fetch_session
-    plug Example.Plugs.GraphqlSessionContext
+    plug ClumsyChinchilla.Plugs.GraphqlSessionContext
   end
 
   scope "/" do
     pipe_through :api
 
     forward "/", Absinthe.Plug,
-      schema: ExampleWeb.Graphql.Schema,
+      schema: ClumsyChinchillaWeb.Graphql.Schema,
       before_send: {__MODULE__, :absinthe_before_send}
   end
 

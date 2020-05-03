@@ -1,9 +1,9 @@
-defmodule Example.MixProject do
+defmodule ClumsyChinchilla.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :example,
+      app: :clumsy_chinchilla,
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule Example.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Example.Application, []},
+      mod: {ClumsyChinchilla.Application, []},
       extra_applications: [:logger, :runtime_tools, :absinthe_plug, :google_maps]
     ]
   end

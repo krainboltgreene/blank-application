@@ -1,4 +1,4 @@
-defmodule ExampleWeb.Graphql.Mutations.Session do
+defmodule ClumsyChinchillaWeb.Graphql.Mutations.Session do
   use Absinthe.Schema.Notation
 
   input_object :new_session do
@@ -11,15 +11,15 @@ defmodule ExampleWeb.Graphql.Mutations.Session do
     field :create_session, :session do
       arg(:input, non_null(:new_session))
 
-      resolve(&ExampleWeb.Graphql.Resolvers.Sessions.create/3)
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.update_session_id/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Sessions.create/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.update_session_id/2)
     end
 
     @desc "Permanently delete an existing session"
     field :destroy_session, :session do
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.require_authentication/2)
-      resolve(&ExampleWeb.Graphql.Resolvers.Sessions.create/3)
-      middleware(&ExampleWeb.Graphql.Middlewares.Sessions.update_session_id/2)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.require_authentication/2)
+      resolve(&ClumsyChinchillaWeb.Graphql.Resolvers.Sessions.create/3)
+      middleware(&ClumsyChinchillaWeb.Graphql.Middlewares.Sessions.update_session_id/2)
     end
   end
 end

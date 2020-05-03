@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :example, Example.Database.Repo,
+config :clumsy_chinchilla, ClumsyChinchilla.Database.Repo,
   username: "postgres",
   password: "password",
-  database: "example_dev",
+  database: "clumsy_chinchilla_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
@@ -16,7 +16,7 @@ config :example, Example.Database.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :example, ExampleWeb.Endpoint,
+config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,

@@ -1,16 +1,16 @@
-defmodule Example.BusinessTest do
-  use Example.DataCase, async: true
-  use ExampleWeb.ConnCase
+defmodule ClumsyChinchilla.BusinessTest do
+  use ClumsyChinchilla.DataCase, async: true
+  use ClumsyChinchillaWeb.ConnCase
 
-  @endpoint ExampleWeb.Endpoint
+  @endpoint ClumsyChinchillaWeb.Endpoint
 
   describe "business" do
     def create_owner_account() do
-      # {:ok, account} = %Example.Models.Account{}
-      # |> Example.Models.Account.changeset(%{
-      #   email: "sally@example.com"
+      # {:ok, account} = %ClumsyChinchilla.Models.Account{}
+      # |> ClumsyChinchilla.Models.Account.changeset(%{
+      #   email: "sally@clumsy-chinchilla.com"
       # })
-      # |> Example.Database.Repo.insert()
+      # |> ClumsyChinchilla.Database.Repo.insert()
       # account
 
       post(build_conn(), "/graphql", Jason.encode!("
@@ -23,32 +23,32 @@ defmodule Example.BusinessTest do
     def found_organization() do
       owner = create_owner_account()
 
-      # owner_permission = Example.Database.Repo.get_by(Example.Models.Permission, name: "Owner")
+      # owner_permission = ClumsyChinchilla.Database.Repo.get_by(ClumsyChinchilla.Models.Permission, name: "Owner")
 
       # assert owner_permission
 
-      # {:ok, organization} = %Example.Models.Organization{}
-      #     |> Example.Models.Organization.changeset(%{
+      # {:ok, organization} = %ClumsyChinchilla.Models.Organization{}
+      #     |> ClumsyChinchilla.Models.Organization.changeset(%{
       #       name: "Hasbro"
       #     })
-      #     |> Example.Database.Repo.insert()
+      #     |> ClumsyChinchilla.Database.Repo.insert()
       # {:ok, organization_membership} =
-      #   %Example.Models.OrganizationMembership{}
-      #   |> Example.Models.OrganizationMembership.changeset(%{
+      #   %ClumsyChinchilla.Models.OrganizationMembership{}
+      #   |> ClumsyChinchilla.Models.OrganizationMembership.changeset(%{
       #     account: owner,
       #     organization: organization
       #   })
-      #   |> Example.Database.Repo.insert()
+      #   |> ClumsyChinchilla.Database.Repo.insert()
       # {:ok, _} =
-      #   %Example.Models.OrganizationPermission{}
-      #   |> Example.Models.OrganizationPermission.changeset(%{
+      #   %ClumsyChinchilla.Models.OrganizationPermission{}
+      #   |> ClumsyChinchilla.Models.OrganizationPermission.changeset(%{
       #     organization_membership: organization_membership,
       #     permission: owner_permission
       #   })
-      #   |> Example.Database.Repo.insert()
+      #   |> ClumsyChinchilla.Database.Repo.insert()
       # assert Enum.member?(
       #     organization
-      #       |> Example.Database.Repo.preload(:accounts)
+      #       |> ClumsyChinchilla.Database.Repo.preload(:accounts)
       #       |> Map.fetch!(:accounts),
       #     owner
       #   )

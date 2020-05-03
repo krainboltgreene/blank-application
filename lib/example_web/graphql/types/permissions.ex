@@ -1,6 +1,6 @@
-defmodule ExampleWeb.Graphql.Types.Permission do
+defmodule ClumsyChinchillaWeb.Graphql.Types.Permission do
   use Absinthe.Schema.Notation
-  use Absinthe.Ecto, repo: Example.Database.Repo
+  use Absinthe.Ecto, repo: ClumsyChinchilla.Database.Repo
 
   object :permission do
     field :id, non_null(:id)

@@ -1,5 +1,5 @@
-defmodule Example.Database.Repo do
+defmodule ClumsyChinchilla.Database.Repo do
   use Ecto.Repo,
-    otp_app: :example,
+    otp_app: :clumsy_chinchilla,
     adapter: Ecto.Adapters.Postgres
 end

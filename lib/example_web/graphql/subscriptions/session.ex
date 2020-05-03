@@ -1,4 +1,4 @@
-defmodule ExampleWeb.Graphql.Subscriptions.Session do
+defmodule ClumsyChinchillaWeb.Graphql.Subscriptions.Session do
   use Absinthe.Schema.Notation
 
   object :session_subscriptions do

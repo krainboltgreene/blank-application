@@ -1,4 +1,4 @@
-defmodule Example.Database.Repo.Migrations.CreateAccounts do
+defmodule ClumsyChinchilla.Database.Repo.Migrations.CreateAccounts do
   use Ecto.Migration
 
   def change do

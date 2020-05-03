@@ -1,12 +1,12 @@
-defmodule Example.Models.OrganizationPermission do
+defmodule ClumsyChinchilla.Models.OrganizationPermission do
   use Ecto.Schema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organization_permissions" do
-    belongs_to :organization_membership, Example.Models.OrganizationMembership, primary_key: true
-    belongs_to :permission, Example.Models.Permission, primary_key: true
+    belongs_to :organization_membership, ClumsyChinchilla.Models.OrganizationMembership, primary_key: true
+    belongs_to :permission, ClumsyChinchilla.Models.Permission, primary_key: true
     has_one :account, through: [:organization_membership, :account]
     has_one :organization, through: [:organization_membership, :organization]
 

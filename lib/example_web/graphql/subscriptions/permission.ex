@@ -1,4 +1,4 @@
-defmodule ExampleWeb.Graphql.Subscriptions.Permission do
+defmodule ClumsyChinchillaWeb.Graphql.Subscriptions.Permission do
   use Absinthe.Schema.Notation
 
   object :permission_subscriptions do

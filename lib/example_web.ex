@@ -1,12 +1,12 @@
-defmodule ExampleWeb do
+defmodule ClumsyChinchillaWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use ExampleWeb, :controller
-      use ExampleWeb, :view
+      use ClumsyChinchillaWeb, :controller
+      use ClumsyChinchillaWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -22,11 +22,11 @@ defmodule ExampleWeb do
            [{:alias, [...], [...]} | {:import, [...], [...]} | {:use, [...], [...]}, ...]}
   def controller do
     quote do
-      use Phoenix.Controller, namespace: ExampleWeb
+      use Phoenix.Controller, namespace: ClumsyChinchillaWeb
 
       import Plug.Conn
-      import ExampleWeb.Gettext
-      alias ExampleWeb.Router.Helpers, as: Routes
+      import ClumsyChinchillaWeb.Gettext
+      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -36,15 +36,15 @@ defmodule ExampleWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/example_web/templates",
-        namespace: ExampleWeb
+        root: "lib/clumsy_chinchilla_web/templates",
+        namespace: ClumsyChinchillaWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
-      import ExampleWeb.ErrorHelpers
-      import ExampleWeb.Gettext
-      alias ExampleWeb.Router.Helpers, as: Routes
+      import ClumsyChinchillaWeb.ErrorHelpers
+      import ClumsyChinchillaWeb.Gettext
+      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -61,7 +61,7 @@ defmodule ExampleWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import ExampleWeb.Gettext
+      import ClumsyChinchillaWeb.Gettext
     end
   end
 

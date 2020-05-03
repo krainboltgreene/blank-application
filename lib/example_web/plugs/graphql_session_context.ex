@@ -1,4 +1,4 @@
-defmodule Example.Plugs.GraphqlSessionContext do
+defmodule ClumsyChinchilla.Plugs.GraphqlSessionContext do
   @behaviour Plug
 
   @spec init(any) :: any
@@ -10,7 +10,7 @@ defmodule Example.Plugs.GraphqlSessionContext do
 
     account =
       if session_id do
-        Example.Database.Repo.get(Example.Models.Account, session_id)
+        ClumsyChinchilla.Database.Repo.get(ClumsyChinchilla.Models.Account, session_id)
       end
 
     Absinthe.Plug.put_options(

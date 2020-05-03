@@ -1,6 +1,6 @@
-defmodule Example do
+defmodule ClumsyChinchilla do
   @moduledoc """
-  Example keeps the contexts that define your domain
+  ClumsyChinchilla keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

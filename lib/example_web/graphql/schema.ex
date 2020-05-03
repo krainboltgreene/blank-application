@@ -1,30 +1,30 @@
-defmodule ExampleWeb.Graphql.Schema do
+defmodule ClumsyChinchillaWeb.Graphql.Schema do
   use Absinthe.Schema
 
   import_types(Absinthe.Type.Custom)
 
-  import_types(ExampleWeb.Graphql.Types.{
+  import_types(ClumsyChinchillaWeb.Graphql.Types.{
     Account,
     Permission,
     Organization,
     Session
   })
 
-  import_types(ExampleWeb.Graphql.Queries.{
+  import_types(ClumsyChinchillaWeb.Graphql.Queries.{
     Account,
     Permission,
     Organization,
     Session
   })
 
-  import_types(ExampleWeb.Graphql.Mutations.{
+  import_types(ClumsyChinchillaWeb.Graphql.Mutations.{
     Account,
     Permission,
     Organization,
     Session
   })
 
-  import_types(ExampleWeb.Graphql.Subscriptions.{
+  import_types(ClumsyChinchillaWeb.Graphql.Subscriptions.{
     Account,
     Permission,
     Organization,

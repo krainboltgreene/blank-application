@@ -8,16 +8,16 @@
 use Mix.Config
 
 # Configures for ecto
-config :example,
-  ecto_repos: [Example.Database.Repo],
+config :clumsy_chinchilla,
+  ecto_repos: [ClumsyChinchilla.Database.Repo],
   generators: [binary_id: true]
 
 # Configures the endpoint
-config :example, ExampleWeb.Endpoint,
+config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "JGuPqitGiv1A5WgWCxBQ8E2n7qzF8ThtUA/j0N1lfZzsvRv9VToPD4gADyCdbHaI",
-  render_errors: [view: ExampleWeb.ErrorView, accepts: ["json"]],
-  pubsub: [name: Example.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: ClumsyChinchillaWeb.ErrorView, accepts: ["json"]],
+  pubsub: [name: ClumsyChinchilla.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -28,10 +28,10 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :paper_trail,
-  repo: Example.Database.Repo,
+  repo: ClumsyChinchilla.Database.Repo,
   item_type: Ecto.UUID,
   originator_type: Ecto.UUID,
-  originator: [name: :account, model: Example.Models.Account]
+  originator: [name: :account, model: ClumsyChinchilla.Models.Account]
 
 config :google_maps,
   api_key: "YOUR API KEY HERE"

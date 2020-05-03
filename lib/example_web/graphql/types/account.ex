@@ -1,6 +1,6 @@
-defmodule ExampleWeb.Graphql.Types.Account do
+defmodule ClumsyChinchillaWeb.Graphql.Types.Account do
   use Absinthe.Schema.Notation
-  use Absinthe.Ecto, repo: Example.Database.Repo
+  use Absinthe.Ecto, repo: ClumsyChinchilla.Database.Repo
 
   object :account do
     field :id, non_null(:id)
