@@ -87,7 +87,7 @@ module.exports = {
     "import/no-unused-modules": "error",
     "import/no-useless-path-segments": "error",
     "import/no-webpack-loader-syntax": "error",
-    "import/order": "error",
+    "import/order": ["error", { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]}],
     "import/prefer-default-export": "warn",
     "import/unambiguous": "error",
     "jest/consistent-test-it": "error",
