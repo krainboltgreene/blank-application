@@ -101,11 +101,13 @@ export default {
         await dispatch.database.check("local");
         setInterval(() => dispatch.database.check("local"), INFO_INTERVAL);
 
-        await dispatch.database.create(["remote", process.env.COUCHDB_URI]);
-        await dispatch.database.check("remote");
-        setInterval(() => dispatch.database.check("remote"), INFO_INTERVAL);
+        if (process.env.COUCHDB_URI) {
+          await dispatch.database.create(["remote", process.env.COUCHDB_URI]);
+          await dispatch.database.check("remote");
+          setInterval(() => dispatch.database.check("remote"), INFO_INTERVAL);
 
-        dispatch.database.replicate({from: "remote", to: "local"});
+          dispatch.database.replicate({from: "remote", to: "local"});
+        }
       },
       async index (_nothing, {database}) {
         await database.local.client.search({
