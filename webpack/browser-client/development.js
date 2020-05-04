@@ -26,10 +26,25 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /index\.js$/u,
+        test: /\.js$/u,
         exclude: /node_modules/u,
         use: {
           loader: "babel-loader",
+        },
+      },
+      {
+        test: /\.scss$/u,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.(?:png|jpe?g|gif|xml|txt|json)$/u,
+        exclude: /node_modules/u,
+        use: {
+          loader: "file-loader",
         },
       },
       {
@@ -40,6 +55,7 @@ module.exports = {
     ],
   },
   entry: [
+    "react-hot-loader/patch",
     resolve(...inputDirectory, "index.js"),
   ],
   target: "web",
@@ -126,8 +142,15 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    overlay: true,
-    port: 9000,
+  },
+  watchOptions: {
+    ignored: ["node_modules"],
+  },
+  resolve: {
+    alias: {
+      "@internal/styles": resolve(...inputDirectory, "@internal/styles"),
+      "react-dom": "@hot-loader/react-dom",
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),

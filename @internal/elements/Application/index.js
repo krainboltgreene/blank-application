@@ -1,7 +1,7 @@
 import React from "react";
 import {Route, Switch} from "react-router";
+import {hot} from "react-hot-loader/root";
 
-import ErrorBoundry from "./ErrorBoundry";
 import {OurTechnology} from "@internal/pages";
 import {PrivacyPolicy} from "@internal/pages";
 import {TermsOfService} from "@internal/pages";
@@ -11,8 +11,10 @@ import {LandingPage} from "@internal/pages";
 import {DataPolicy} from "@internal/pages";
 import {SignUp} from "@internal/pages";
 import {PageNotFound} from "@internal/pages";
+import ErrorBoundry from "./ErrorBoundry";
+import "./index.scss";
 
-export default function Application () {
+export default hot(function Application () {
   if (process.env.DESTKOP) {
     return <ErrorBoundry>
       <Switch>
@@ -35,4 +37,4 @@ export default function Application () {
       <Route component={PageNotFound} />
     </Switch>
   </ErrorBoundry>;
-}
+});

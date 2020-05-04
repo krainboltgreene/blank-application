@@ -2,7 +2,6 @@ module.exports = {
   parser: "babel-eslint",
   plugins: [
     "babel",
-    "emotion",
     "filenames",
     "import",
     "jest",
@@ -41,11 +40,6 @@ module.exports = {
     "babel/quotes": "error",
     "babel/semi": ["error", "always"], // Already handled
     "babel/valid-typeof": "error",
-    "emotion/import-from-emotion": "error",
-    "emotion/jsx-import": "off", // I use babel
-    "emotion/no-vanilla": "error",
-    "emotion/styled-import": "error",
-    "emotion/syntax-preference": "error",
     "filenames/match-exported": "error",
     "filenames/match-regex": "off", // doesn't work for me
     "filenames/no-index": "off", // doesn't work for me

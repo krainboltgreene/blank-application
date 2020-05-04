@@ -1,0 +1,27 @@
+@import "@internal/styles/index.scss";
+
+#landing-page.Page {
+  grid-template-columns: 3fr 1fr;
+  column-gap: 0px;
+  padding: 0px;
+
+  p {
+    color: white;
+  }
+
+  #splash {
+    @extend .image;
+  }
+
+  #pitch {
+    background-color: var(--dark-background-color);
+
+    h1 {
+      @extend .title;
+    }
+
+    h2 {
+      @extend .subtitle;
+    }
+  }
+}

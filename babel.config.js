@@ -15,7 +15,6 @@ module.exports = {
         development: process.env.NODE_ENV !== "production",
       },
     ],
-    "@emotion/babel-preset-css-prop",
     process.env.NODE_ENV === "production" ? "minify" : undefined,
   ].filter((preset) => preset),
   plugins: [
@@ -29,6 +28,7 @@ module.exports = {
         },
       },
     ],
+    process.env.NODE_ENV === "production" ? undefined : "react-hot-loader/babel",
     process.env.NODE_ENV === "production" ? undefined : "annotate-console-log",
   ].filter((preset) => preset),
 };
