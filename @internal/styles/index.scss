@@ -1,6 +1,5 @@
 @charset "utf-8";
-@import "https://fonts.googleapis.com/css?family=Handlee%7COpen+Sans";
-@import "~bulma/bulma.sass";
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap');
 
 :root {
   // Extra small devices (portrait phones, less than 576px)
@@ -304,10 +303,13 @@
   --blue-grey-800: #37474f;
   --blue-grey-900: #263238;
 
-  --primary-color: var(--blue-400);
+  --primary-color: var(--blue-800);
   --neutral-color: var(--grey-50);
-  --dark-color: rgba(180, 91, 113, 1);
-  --dark-background-color: rgb(2, 2, 2);
-  --secondary-text-color: rgba(75, 75, 75, 0.85);
-  --inverse-link-color: rgba(197, 239, 247, 1);
+  --dark-color: var(--blue-grey-900);
+  --primary-text-color: var(--blue-grey-50);
+  --secondary-text-color: var(--blue-grey-300);
 }
+
+$family-sans-serif: "Maven Pro", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+@import "~bulma/bulma.sass";

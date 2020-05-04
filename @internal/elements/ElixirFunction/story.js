@@ -1,3 +1,4 @@
+/* eslint-disable func-style */
 import React from "react";
 import {text} from "@storybook/addon-knobs";
 import {number} from "@storybook/addon-knobs";
@@ -6,9 +7,8 @@ import {array} from "@storybook/addon-knobs";
 import {snake} from "case";
 import ElixirFunction from ".";
 
-
 export default {title: "<ElixirFunction>"};
-export const normal = () => {
+export function normal () {
   const declaration = text("declaration", "def");
   const name = text("name", "Greet Person");
   const version = number("version", 1, {range: true, min: 1, max: 90, step: 1});
@@ -44,4 +44,4 @@ end`;
     source={source}
     slug={slug}
   />;
-};
+}

@@ -49,31 +49,31 @@ export default function ElixirFunction (properties) {
         {name} <em className="text-muted"><small>(v{version})</small></em>
       </h3>
 
-      <section className="card-text" css={{"white-space": "pre-wrap"}}>
+      <section className="card-text" css={{whiteSpace: "pre-wrap"}}>
         <p>
           {documentation}
         </p>
       </section>
 
-      <section className="card-text" css={{"margin-top": "5px", "margin-bottom": "5px"}}>
+      <section className="card-text" css={{marginTop: "5px", marginBottom: "5px"}}>
         <SyntaxHighlighter language="elixir">
           {`@spec ${typespec}`}
         </SyntaxHighlighter>
       </section>
 
-      <section className="card-text" css={{"margin-top": "5px", "margin-bottom": "5px"}}>
+      <section className="card-text" css={{marginTop: "5px", marginBottom: "5px"}}>
         <SyntaxHighlighter language="elixir">
           {`%{${inputs.join(", ")}}`}
         </SyntaxHighlighter>
       </section>
 
-      <section className="card-text" css={{"margin-top": "5px", "margin-bottom": "5px"}}>
+      <section className="card-text" css={{marginTop: "5px", marginBottom: "5px"}}>
         <SyntaxHighlighter language="elixir">
           {`when ${guards.join(" ")}`}
         </SyntaxHighlighter>
       </section>
 
-      <section className="card-text" css={{"margin-top": "5px", "margin-bottom": "5px"}}>
+      <section className="card-text" css={{marginTop: "5px", marginBottom: "5px"}}>
         <SyntaxHighlighter language="elixir">
           {body}
         </SyntaxHighlighter>

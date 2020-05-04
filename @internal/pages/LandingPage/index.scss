@@ -1,27 +1,68 @@
 @import "@internal/styles/index.scss";
 
 #landing-page.Page {
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2.5fr 1.5fr;
   column-gap: 0px;
   padding: 0px;
-
-  p {
-    color: white;
-  }
 
   #splash {
     @extend .image;
   }
 
-  #pitch {
-    background-color: var(--dark-background-color);
+  #hero {
+    display: grid;
+    align-items: center;
+    align-content: center;
+    padding-right: 35px;
+    background-color: rgba(2, 2, 2, 1);
 
     h1 {
       @extend .title;
+      @extend .is-1;
+      color: var(--primary-color);
     }
 
-    h2 {
+    h4 {
       @extend .subtitle;
+      @extend .is-4;
+      color: var(--secondary-text-color);
+    }
+  }
+
+  #spacer {
+    grid-column: 1/-1;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 0px;
+    background: linear-gradient(#020202 0%, var(--blue-200) 15%, var(--blue-100) 35%, var(--blue-50) 65%, var(--neutral-color) 100%);
+  }
+
+  #pitch {
+    @extend .container;
+    @extend .content;
+    @extend .is-medium;
+    grid-column: 1/-1;
+  }
+
+  #points {
+    @extend .container;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    row-gap: 10px;
+    grid-column: 1/-1;
+
+    .point {
+      &:not(:last-child) {
+        margin-bottom: 0px;
+      }
+      @extend .box;
+      .graphic {
+        text-align: center;
+      }
+      .explination {
+        @extend .content;
+      }
     }
   }
 }
