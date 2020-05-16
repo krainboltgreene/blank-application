@@ -76,7 +76,7 @@ module.exports = {
     "import/no-relative-parent-imports": "off", // doesn't work for me
     "import/no-restricted-paths": "error",
     "import/no-self-import": "error",
-    "import/no-unassigned-import": "error",
+    "import/no-unassigned-import": "off", // flies in the face of modern importing
     "import/no-unresolved": "error",
     "import/no-unused-modules": "error",
     "import/no-useless-path-segments": "error",
