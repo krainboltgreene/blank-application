@@ -9,6 +9,7 @@ import {BrowserRouter} from "react-router-dom";
 import {HelmetProvider} from "react-helmet-async";
 import {Provider as ReduxProvider} from "react-redux";
 import {ApolloProvider} from "@apollo/react-hooks";
+import {RecoilRoot} from "recoil";
 
 
 import {Application} from "@internal/elements";
@@ -23,11 +24,13 @@ store.dispatch.database.initialize()
 render(
   <BrowserRouter>
     <HelmetProvider>
-      <ReduxProvider store={store}>
-        <ApolloProvider client={sdk}>
-          <Application />
-        </ApolloProvider>
-      </ReduxProvider>
+      <RecoilRoot>
+        <ReduxProvider store={store}>
+          <ApolloProvider client={sdk}>
+            <Application />
+          </ApolloProvider>
+        </ReduxProvider>
+      </RecoilRoot>
     </HelmetProvider>
   </BrowserRouter>,
   document.querySelector("#application")

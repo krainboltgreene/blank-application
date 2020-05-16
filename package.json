@@ -113,6 +113,7 @@
     "react-syntax-highlighter": "12.2.1",
     "react-use": "14.2.0",
     "rebound": "0.1.0",
+    "recoil": "0.0.7",
     "recompose": "0.30.0",
     "redux": "4.0.5",
     "redux-logger": "3.0.6",
