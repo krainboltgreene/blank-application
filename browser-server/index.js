@@ -11,9 +11,9 @@ import compression from "compression";
 import {parse} from "mustache";
 import {render} from "mustache";
 import helmet from "helmet";
+import {Application} from "@internal/elements";
 import logger from "./logger";
 import store from "./store";
-import {Application} from "@internal/elements";
 
 const template = readFileSync(path.join(__dirname, "assets", "index.html"), "utf8");
 const application = express();
@@ -27,7 +27,6 @@ application.use(helmet());
 
 application.use("/assets", express.static(path.join(__dirname, "assets"), {fallthrough: false, index: false}));
 application.get("*", (request, response) => {
-  const helmetContext = {};
   const routerContext = {};
   const content = renderToString(
     <ReduxProvider store={store}>
