@@ -12,30 +12,24 @@ import {LandingPage} from "@internal/pages";
 import {DataPolicy} from "@internal/pages";
 import {SignUp} from "@internal/pages";
 import {PageNotFound} from "@internal/pages";
+import MaybeAuthenticated from "./MaybeAuthenticated";
 import ErrorBoundry from "./ErrorBoundry";
 import "./index.scss";
 
 export default hot(function Application () {
-  if (process.env.DESTKOP) {
-    return <ErrorBoundry>
+  return <ErrorBoundry>
+    <MaybeAuthenticated>
       <Switch>
+        <Route path="/code-of-conduct" component={CodeOfConduct} />
+        <Route path="/data-policy" component={DataPolicy} />
+        <Route path="/our-technology" component={OurTechnology} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
+        <Route path="/terms-of-service" component={TermsOfService} />
+        <Route path="/this-is-us" component={ThisIsUs} />
+        <Route path="/sign-up" component={SignUp} />
         <Route exact path="/" component={LandingPage} />
         <Route component={PageNotFound} />
       </Switch>
-    </ErrorBoundry>;
-  }
-
-  return <ErrorBoundry>
-    <Switch>
-      <Route path="/code-of-conduct" component={CodeOfConduct} />
-      <Route path="/data-policy" component={DataPolicy} />
-      <Route path="/our-technology" component={OurTechnology} />
-      <Route path="/privacy-policy" component={PrivacyPolicy} />
-      <Route path="/terms-of-service" component={TermsOfService} />
-      <Route path="/this-is-us" component={ThisIsUs} />
-      <Route path="/sign-up" component={SignUp} />
-      <Route exact path="/" component={LandingPage} />
-      <Route component={PageNotFound} />
-    </Switch>
+    </MaybeAuthenticated>
   </ErrorBoundry>;
 });

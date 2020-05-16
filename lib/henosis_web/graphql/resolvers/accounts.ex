@@ -1,13 +1,21 @@
 defmodule HenosisWeb.Graphql.Resolvers.Accounts do
-  @spec list(any, any, any) :: {:ok, [%Henosis.Models.Account{}]} | {:error, any}
-  def list(_parent, _arguments, _resolution) do
+  @spec list(any, any, %{context: %{current_account: %Henosis.Models.Account{id: String.t()}}}) :: {:ok, list(%Henosis.Models.Account{})}
+  def list(_parent, _arguments, %{context: %{current_account: current_account}}) when not is_nil(current_account) do
     {:ok, Henosis.Database.Repo.all(Henosis.Models.Account)}
+  end
+
+  @spec list(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
+  def list(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+    {:error, :unauthenticated}
   end
 
   @spec find(any, %{input: %{id: bitstring}}, any) ::
           {:ok, %Henosis.Models.Account{}} | {:error, any}
   def find(_parent, %{input: %{id: id}}, _resolution) when not is_nil(id) and is_bitstring(id) do
     {:ok, Henosis.Database.Repo.get(Henosis.Models.Account, id)}
+  end
+  def find(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+    {:error, :unauthenticated}
   end
 
   @spec create(any, %{input: %{email: bitstring, password: bitstring} | %{email: bitstring}}, any) ::
@@ -40,6 +48,9 @@ defmodule HenosisWeb.Graphql.Resolvers.Accounts do
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
   end
+  def update(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+    {:error, :unauthenticated}
+  end
 
   @spec destroy(any, %{input: %{id: bitstring}}, any) ::
           {:ok, %Henosis.Models.Account{}} | {:error, any}
@@ -47,6 +58,9 @@ defmodule HenosisWeb.Graphql.Resolvers.Accounts do
       when not is_nil(id) and is_bitstring(id) do
     Henosis.Database.Repo.get(Henosis.Models.Account, id)
     |> Henosis.Database.Repo.delete()
+  end
+  def destroy(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+    {:error, :unauthenticated}
   end
 
   @spec grant_administration_powers(any, %{input: %{id: bitstring}}, any) ::
@@ -56,6 +70,9 @@ defmodule HenosisWeb.Graphql.Resolvers.Accounts do
     Henosis.Database.Repo.get!(Henosis.Models.Account, id)
     |> Henosis.Models.Account.grant_administrator_powers!()
   end
+  def grant_administration_powers(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+    {:error, :unauthenticated}
+  end
 
   @spec revoke_administration_powers(any, %{input: %{id: bitstring}}, any) ::
           {:ok, %Henosis.Models.Account{}} | {:error, any}
@@ -63,5 +80,8 @@ defmodule HenosisWeb.Graphql.Resolvers.Accounts do
       when is_bitstring(id) do
     Henosis.Database.Repo.get!(Henosis.Models.Account, id)
     |> Henosis.Models.Account.revoke_administrator_powers!()
+  end
+  def revoke_administration_powers(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+    {:error, :unauthenticated}
   end
 end

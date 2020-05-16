@@ -18,7 +18,6 @@ defmodule HenosisWeb.Graphql.Mutations.Permission do
     @desc "Create a new permission"
     field :create_permission, :permission do
       arg(:input, non_null(:new_permission))
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Permissions.create/3)
     end
 
@@ -26,7 +25,6 @@ defmodule HenosisWeb.Graphql.Mutations.Permission do
     field :update_permission, :permission do
       arg(:input, non_null(:permission_changeset))
 
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Permissions.update/3)
     end
 
@@ -34,7 +32,6 @@ defmodule HenosisWeb.Graphql.Mutations.Permission do
     field :destroy_permission, :permission do
       arg(:input, non_null(:permission_identifier))
 
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Permissions.destroy/3)
     end
   end

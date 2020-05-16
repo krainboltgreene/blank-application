@@ -17,7 +17,6 @@ defmodule HenosisWeb.Graphql.Mutations.Session do
 
     @desc "Permanently delete an existing session"
     field :destroy_session, :session do
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Sessions.create/3)
       middleware(&HenosisWeb.Graphql.Middlewares.Sessions.update_session_id/2)
     end

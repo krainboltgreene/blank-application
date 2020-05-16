@@ -19,7 +19,6 @@ defmodule HenosisWeb.Graphql.Mutations.Organization do
     field :create_organization, :organization do
       arg(:input, non_null(:new_organization))
 
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Organizations.create/3)
     end
 
@@ -27,7 +26,6 @@ defmodule HenosisWeb.Graphql.Mutations.Organization do
     field :update_organization, :organization do
       arg(:input, non_null(:organization_changeset))
 
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Organizations.update/3)
     end
 
@@ -35,7 +33,6 @@ defmodule HenosisWeb.Graphql.Mutations.Organization do
     field :destroy_organization, :organization do
       arg(:input, non_null(:organization_identifier))
 
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Organizations.destroy/3)
     end
   end

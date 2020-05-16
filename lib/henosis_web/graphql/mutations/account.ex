@@ -33,14 +33,12 @@ defmodule HenosisWeb.Graphql.Mutations.Account do
     field :update_account, :account do
       arg(:input, non_null(:account_changeset))
 
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Accounts.update/3)
     end
 
     field :grant_administration_powers, :account do
       arg(:input, non_null(:account_identifier))
 
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Accounts.grant_administration_powers/3)
     end
 
@@ -48,7 +46,6 @@ defmodule HenosisWeb.Graphql.Mutations.Account do
     field :destroy_account, :account do
       arg(:input, non_null(:account_identifier))
 
-      middleware(&HenosisWeb.Graphql.Middlewares.Sessions.require_authentication/2)
       resolve(&HenosisWeb.Graphql.Resolvers.Accounts.destroy/3)
     end
   end

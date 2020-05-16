@@ -21,9 +21,21 @@ defmodule HenosisWeb.Graphql.Resolvers.Sessions do
     end
   end
 
-  @spec destroy(any, any, %{context: %{current_account: %{id: any}}}) :: {:ok, %{id: any}}
+  @spec destroy(any, any, %{context: %{current_account: %{id: String.t()}}}) :: {:ok, %{id: String.t()}}
   def destroy(_parent, _arguments, %{context: %{current_account: %{id: id}}})
       when not is_nil(id) do
     {:ok, %{id: id}}
+  end
+  def destroy(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+    {:error, :unauthenticated}
+  end
+
+  @spec find(any, any, %{context: %{current_account: %{id: String.t()}}}) :: {:ok, %{id: String.t()}}
+  def find(_parent, _arguments, %{context: %{current_account: %{id: id}}})
+      when not is_nil(id) do
+    {:ok, %{id: id}}
+  end
+  def find(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+    {:error, :unauthenticated}
   end
 end
