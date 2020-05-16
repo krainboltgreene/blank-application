@@ -7,7 +7,6 @@ import {isNil} from "@unction/complete";
 import {withoutKeys} from "@unction/complete";
 
 const REMAINING_PROP_NAMES = [
-  "kind",
   "href",
   "children",
 ];
