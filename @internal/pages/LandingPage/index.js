@@ -1,16 +1,27 @@
 import React from "react";
-import {graphql} from "@apollo/react-hoc";
 import {useQuery} from "@apollo/react-hooks";
 import {Helmet} from "react-helmet-async";
+import {useSelector} from "react-redux";
+import {dig} from "@unction/complete";
 
 import {Page} from "@internal/elements";
-// import {Link} from "@internal/elements";
+import {Link} from "@internal/elements";
+import {Loading} from "@internal/elements";
 import query from "./index.gql";
 import "./index.scss";
 import splash from "./splash.jpg";
 
-export default graphql(query)(function LandingPage () {
-  const {loading, error, data} = useQuery(query);
+export default function LandingPage () {
+  const currentAccount = useSelector(dig(["session", "createAccount"]));
+  const {loading, error} = useQuery(query);
+
+  if (loading) {
+    return <Loading kind="overlay" />;
+  }
+
+  if (currentAccount && error) {
+    return <section>Error...</section>;
+  }
 
   return <Page id="landing-page">
     <Helmet>
@@ -24,7 +35,11 @@ export default graphql(query)(function LandingPage () {
 
     <section id="hero">
       <h1>Henosis</h1>
-      <h4>is a better way to <strong>deploy</strong>, <strong>manage</strong>, and <strong>run</strong> Elixir applications in the cloud. You&apos;ll going to like it up here.</h4>
+      <h4>is a better way to <strong>write</strong>, <strong>release</strong>, <strong>manage</strong>, and <strong>observe</strong> Elixir applications above the cloud. You&apos;ll going to like it up here.</h4>
+      <section id="call-to-action">
+        <Link id="buy" href="/sign-up">Join Us</Link>
+        <Link id="use" href="/deploy-henosis">Deploy Henosis</Link>
+      </section>
     </section>
 
     <hr id="spacer" />
@@ -75,4 +90,4 @@ export default graphql(query)(function LandingPage () {
       </section>
     </section>
   </Page>;
-});
+}

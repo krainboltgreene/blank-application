@@ -26,6 +26,25 @@
       @extend .subtitle;
       @extend .is-4;
       color: var(--secondary-text-color);
+      strong {
+        color: var(--secondary-text-color);
+      }
+    }
+
+    #call-to-action {
+      @extend .buttons;
+      a {
+        @extend .button;
+
+        &#use {
+          @extend .is-link;
+          @extend .is-outlined;
+        }
+
+        &#buy {
+          @extend .is-primary;
+        }
+      }
     }
   }
 
