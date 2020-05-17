@@ -1,9 +1,8 @@
 import React from "react";
 import {useQuery} from "@apollo/react-hooks";
+import {useRecoilState} from "recoil";
 import {Helmet} from "react-helmet-async";
-import {useSelector} from "react-redux";
-import {dig} from "@unction/complete";
-
+import {currentAccount as currentAccountState} from "@internal/atoms";
 import {Page} from "@internal/elements";
 import {Link} from "@internal/elements";
 import {Loading} from "@internal/elements";
@@ -12,7 +11,7 @@ import "./index.scss";
 import splash from "./splash.jpg";
 
 export default function LandingPage () {
-  const currentAccount = useSelector(dig(["session", "createAccount"]));
+  const [currentAccount] = useRecoilState(currentAccountState);
   const {loading, error} = useQuery(query);
 
   if (loading) {

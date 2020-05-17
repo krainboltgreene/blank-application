@@ -2,7 +2,6 @@
 import React from "react";
 import {Route, Switch} from "react-router";
 import {hot} from "react-hot-loader/root";
-
 import {OurTechnology} from "@internal/pages";
 import {PrivacyPolicy} from "@internal/pages";
 import {TermsOfService} from "@internal/pages";
@@ -12,8 +11,8 @@ import {LandingPage} from "@internal/pages";
 import {DataPolicy} from "@internal/pages";
 import {SignUp} from "@internal/pages";
 import {PageNotFound} from "@internal/pages";
-import MaybeAuthenticated from "./MaybeAuthenticated";
 import ErrorBoundry from "./ErrorBoundry";
+import MaybeAuthenticated from "./MaybeAuthenticated";
 import "./index.scss";
 
 export default hot(function Application () {

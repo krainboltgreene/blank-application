@@ -46,7 +46,7 @@ export default function SignUpForm () {
       value={password}
     />
     <section>
-      <button disable={createAccountLoading} className="btn btn-primary" type="submit">Sign Up</button>
+      <button disabled={createAccountLoading} className="btn btn-primary" type="submit">Sign Up</button>
     </section>
   </form>;
 }
