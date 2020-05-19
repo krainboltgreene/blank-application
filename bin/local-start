@@ -6,24 +6,27 @@ osascript <<EOF
         write text "bin/local-start-phoenix"
 
         select split horizontally with same profile
-        write text "bin/local-start-webpack"
+        write text "bin/local-start-webpack-server"
+
+        select split horizontally with same profile
+        write text "bin/local-start-webpack-client"
       end tell
 
       tell current session of (create tab with default profile)
         write text "bin/local-start-postgres"
       end tell
 
-      tell current session of (create tab with default profile)
-        write text "bin/local-start-eslint"
+      # tell current session of (create tab with default profile)
+      #   write text "bin/local-start-eslint"
 
-        select split horizontally with same profile
+      #   select split horizontally with same profile
 
-        write text "bin/local-start-storybook"
+      #   write text "bin/local-start-storybook"
 
-        select split horizontally with same profile
+      #   select split horizontally with same profile
 
-        write text "bin/local-start-backend-tests"
-      end tell
+      #   write text "bin/local-start-backend-tests"
+      # end tell
     end tell
   end tell
 EOF

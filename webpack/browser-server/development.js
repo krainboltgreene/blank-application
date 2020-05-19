@@ -3,13 +3,17 @@
 const {resolve} = require("path");
 const webpackNodeExternals = require("webpack-node-externals");
 const {EnvironmentPlugin} = require("webpack");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const {Plugin: WebpackCommonShake} = require("webpack-common-shake");
+const {HotModuleReplacementPlugin} = require("webpack");
 const DotenvWebpack = require("dotenv-webpack");
 const {config: dotenvConfiguration} = require("dotenv");
+const NodemonWebpackPlugin = require("nodemon-webpack-plugin");
+const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 
 dotenvConfiguration();
 
+const PACKAGE_ASSETS = [];
 const inputDirectory = [__dirname, "..", "..", "browser-server"];
 const outputDirectory = [__dirname, "..", "..", "tmp", "browser"];
 
@@ -19,16 +23,31 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /index\.js$/u,
+        test: /\.scss$/u,
+        use: [
+          "isomorphic-style-loader",
+          "css-loader",
+          "sass-loader",
+        ],
+      },
+      {
+        test: /\.(?:png|jpe?g|gif|xml|txt|json)$/u,
         exclude: /node_modules/u,
         use: {
-          loader: "babel-loader",
+          loader: "file-loader",
         },
       },
       {
         test: /\.gql$/u,
         exclude: /node_modules/u,
         loader: "graphql-tag/loader",
+      },
+      {
+        test: /\.js$/u,
+        exclude: /node_modules/u,
+        use: {
+          loader: "babel-loader",
+        },
       },
     ],
   },
@@ -46,18 +65,37 @@ module.exports = {
   output: {
     path: resolve(...outputDirectory),
   },
-  optimization: {
-    minimize: false,
+  watchOptions: {
+    ignored: ["node_modules"],
+  },
+  resolve: {
+    alias: {
+      "@internal/styles": resolve(...inputDirectory, "@internal/styles"),
+      "react-dom": "@hot-loader/react-dom",
+    },
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new DotenvWebpack(),
+    new HotModuleReplacementPlugin(),
+    new WebpackCommonShake(),
+    new CopyWebpackPlugin([{
+      from: resolve(...inputDirectory, "..", "assets"),
+      to: resolve(...outputDirectory, "assets"),
+    }]),
+    ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
+      from,
+      to: resolve(...outputDirectory, "assets", ...to),
+    }])),
     new EnvironmentPlugin([
       "NODE_ENV",
       "COUCHDB_USERNAME",
       "COUCHDB_PASSWORD",
       "COUCHDB_URI",
     ]),
-    new WebpackCommonShake(),
+    new NodemonWebpackPlugin({
+      watch: resolve(...outputDirectory),
+      script: resolve(...outputDirectory, "main.js"),
+      ext: "js,html",
+    }),
   ],
 };

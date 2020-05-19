@@ -3,8 +3,10 @@ import {InMemoryCache} from "apollo-cache-inmemory";
 import {HttpLink} from "apollo-link-http";
 import {onError} from "apollo-link-error";
 import {ApolloLink} from "apollo-link";
+import fetch from "node-fetch";
 
 export default new ApolloClient({
+  ssrMode: true,
   link: ApolloLink.from([
     onError(({graphQLErrors, networkError}) => {
       if (graphQLErrors) {
@@ -19,6 +21,7 @@ export default new ApolloClient({
     new HttpLink({
       uri: "http://localhost:4000/",
       credentials: "same-origin",
+      fetch,
     }),
   ]),
   cache: new InMemoryCache(),

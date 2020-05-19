@@ -1,9 +1,15 @@
-import path from "path"; // eslint-disable-line import/no-nodejs-modules
-import {readFileSync} from "fs"; // eslint-disable-line import/no-nodejs-modules
+/* eslint-disable import/no-internal-modules */
+/* eslint-disable import/no-nodejs-modules */
+import {join} from "path";
+import {access} from "fs";
+import {readFileSync} from "fs";
 import React from "react";
 import {Provider as ReduxProvider} from "react-redux";
 import {StaticRouter} from "react-router";
-import {renderToString} from "react-dom/server"; // eslint-disable-line import/no-internal-modules
+import {HelmetProvider} from "react-helmet-async";
+import {ApolloProvider} from "@apollo/react-hooks";
+import {RecoilRoot} from "recoil";
+import {renderToString} from "react-dom/server";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
@@ -14,8 +20,9 @@ import helmet from "helmet";
 import {Application} from "@internal/elements";
 import logger from "./logger";
 import store from "./store";
+import sdk from "./sdk";
 
-const template = readFileSync(path.join(__dirname, "assets", "index.html"), "utf8");
+const template = readFileSync(join(__dirname, "index.html"), "utf8");
 const application = express();
 
 parse(template);
@@ -25,15 +32,29 @@ application.use(compression());
 application.use(cors());
 application.use(helmet());
 
-application.use("/assets", express.static(path.join(__dirname, "assets"), {fallthrough: false, index: false}));
-application.get("*", (request, response) => {
+application.use("/assets", express.static(join(__dirname, "assets"), {fallthrough: false, index: false}));
+application.get("*", function handleHotStar (request, response, next) {
+  if ((/client-.+/u).test(request.path)) {
+    return response.redirect(`http://localhost:8080/${request.path}`);
+  }
+
+  return next();
+});
+
+application.get("*", function handleStar (request, response) {
   const routerContext = {};
   const content = renderToString(
-    <ReduxProvider store={store}>
-      <StaticRouter location={request.url} context={routerContext}>
-        <Application />
-      </StaticRouter>
-    </ReduxProvider>
+    <StaticRouter location={request.url} context={routerContext}>
+      <HelmetProvider>
+        <RecoilRoot>
+          <ReduxProvider store={store}>
+            <ApolloProvider client={sdk}>
+              <Application />
+            </ApolloProvider>
+          </ReduxProvider>
+        </RecoilRoot>
+      </HelmetProvider>
+    </StaticRouter>
   );
 
   if (routerContext.url) {
@@ -43,9 +64,9 @@ application.get("*", (request, response) => {
   return response.send(render(template, {
     content,
     googleTagManagerId: "",
-    supportEmail: "",
+    supportEmail: "support@henosis.com",
     metadata: {
-      title: "Kemeplen",
+      title: "Henosis",
     },
   }));
 });
