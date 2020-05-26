@@ -1,8 +1,6 @@
-/* eslint-disable import/no-internal-modules */
 import React from "react";
 import {LightAsync as SyntaxHighlighter} from "react-syntax-highlighter";
 import Link from "../Link";
-
 
 export default function Exception ({kind, as, metadata}) {
   console.debug({as, metadata});
