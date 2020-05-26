@@ -22,7 +22,7 @@ export default function LandingPage () {
     return <section>Error...</section>;
   }
 
-  return <Page id="landing-page">
+  return <Page id="LandingPage">
     <Helmet>
       <title>Henosis</title>
       <meta name="description" content="A description" />
