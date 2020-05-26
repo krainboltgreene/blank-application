@@ -2,8 +2,11 @@
 /* eslint-disable import/no-nodejs-modules */
 
 const {resolve} = require("path");
+const {HashedModuleIdsPlugin} = require("webpack");
 const {HotModuleReplacementPlugin} = require("webpack");
 const {EnvironmentPlugin} = require("webpack");
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+const {Plugin: WebpackCommonShake} = require("webpack-common-shake");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const DotenvWebpack = require("dotenv-webpack");
@@ -58,6 +61,8 @@ module.exports = {
   target: "web",
   output: {
     path: resolve(...outputDirectory),
+    filename: "client-[name].[hash].js",
+    chunkFilename: "[id].[chunkhash].js",
   },
   devServer: {
     hot: true,
@@ -85,6 +90,12 @@ module.exports = {
     }),
     new EnvironmentPlugin([
       "NODE_ENV",
+      "COUCHDB_USERNAME",
+      "COUCHDB_PASSWORD",
+      "COUCHDB_URI",
     ]),
+    new WebpackCommonShake(),
+    new HashedModuleIdsPlugin(),
+    // new BundleAnalyzerPlugin({analyzerMode: "static", openAnalyzer: false}),
   ],
 };

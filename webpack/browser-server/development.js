@@ -4,12 +4,10 @@ const {resolve} = require("path");
 const webpackNodeExternals = require("webpack-node-externals");
 const {EnvironmentPlugin} = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const {Plugin: WebpackCommonShake} = require("webpack-common-shake");
 const {HotModuleReplacementPlugin} = require("webpack");
 const DotenvWebpack = require("dotenv-webpack");
 const {config: dotenvConfiguration} = require("dotenv");
 const NodemonWebpackPlugin = require("nodemon-webpack-plugin");
-const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 
 dotenvConfiguration();
 
@@ -26,7 +24,7 @@ module.exports = {
         test: /\.scss$/u,
         use: [
           "isomorphic-style-loader",
-          "css-loader",
+          {loader: "css-loader", options: {importLoaders: 1}},
           "sass-loader",
         ],
       },
@@ -77,7 +75,6 @@ module.exports = {
   plugins: [
     new DotenvWebpack(),
     new HotModuleReplacementPlugin(),
-    new WebpackCommonShake(),
     new CopyWebpackPlugin([{
       from: resolve(...inputDirectory, "..", "assets"),
       to: resolve(...outputDirectory, "assets"),
@@ -88,9 +85,6 @@ module.exports = {
     }])),
     new EnvironmentPlugin([
       "NODE_ENV",
-      "COUCHDB_USERNAME",
-      "COUCHDB_PASSWORD",
-      "COUCHDB_URI",
     ]),
     new NodemonWebpackPlugin({
       watch: resolve(...outputDirectory),

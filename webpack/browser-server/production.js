@@ -1,17 +1,19 @@
 /* eslint-disable import/no-commonjs */
 /* eslint-disable import/no-nodejs-modules */
-
 const {resolve} = require("path");
-const {HotModuleReplacementPlugin} = require("webpack");
+const webpackNodeExternals = require("webpack-node-externals");
 const {EnvironmentPlugin} = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WebpackAssetsManifest = require("webpack-assets-manifest");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const {Plugin: WebpackCommonShake} = require("webpack-common-shake");
+const {HotModuleReplacementPlugin} = require("webpack");
 const DotenvWebpack = require("dotenv-webpack");
 const {config: dotenvConfiguration} = require("dotenv");
+const NodemonWebpackPlugin = require("nodemon-webpack-plugin");
 
 dotenvConfiguration();
 
-const inputDirectory = [__dirname, "..", "..", "browser-client"];
+const PACKAGE_ASSETS = [];
+const inputDirectory = [__dirname, "..", "..", "browser-server"];
 const outputDirectory = [__dirname, "..", "..", "tmp", "browser"];
 
 module.exports = {
@@ -20,9 +22,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/u,
+        test: /\.scss$/u,
         use: [
-          "style-loader",
+          "isomorphic-style-loader",
           {loader: "css-loader", options: {importLoaders: 1}},
           "sass-loader",
         ],
@@ -32,9 +34,6 @@ module.exports = {
         exclude: /node_modules/u,
         use: {
           loader: "file-loader",
-          options: {
-            name: "client-[name].[hash].js",
-          },
         },
       },
       {
@@ -52,16 +51,18 @@ module.exports = {
     ],
   },
   entry: [
-    "react-hot-loader/patch",
     resolve(...inputDirectory, "index.js"),
   ],
-  target: "web",
+  target: "node",
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
+  externals: [
+    webpackNodeExternals(),
+  ],
   output: {
     path: resolve(...outputDirectory),
-  },
-  devServer: {
-    hot: true,
-    writeToDisk: true,
   },
   watchOptions: {
     ignored: ["node_modules"],
@@ -75,16 +76,25 @@ module.exports = {
   plugins: [
     new DotenvWebpack(),
     new HotModuleReplacementPlugin(),
-    new WebpackAssetsManifest({
-      output: "asset-integrity-manifest.json",
-      integrity: false,
-    }),
-    new HtmlWebpackPlugin({
-      hash: true,
-      template: resolve(...inputDirectory, "..", "templates", "index.html"),
-    }),
+    new WebpackCommonShake(),
+    new CopyWebpackPlugin([{
+      from: resolve(...inputDirectory, "..", "assets"),
+      to: resolve(...outputDirectory, "assets"),
+    }]),
+    ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
+      from,
+      to: resolve(...outputDirectory, "assets", ...to),
+    }])),
     new EnvironmentPlugin([
       "NODE_ENV",
+      "COUCHDB_USERNAME",
+      "COUCHDB_PASSWORD",
+      "COUCHDB_URI",
     ]),
+    new NodemonWebpackPlugin({
+      watch: resolve(...outputDirectory),
+      script: resolve(...outputDirectory, "main.js"),
+      ext: "js,html",
+    }),
   ],
 };
