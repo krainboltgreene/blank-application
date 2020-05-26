@@ -3,9 +3,9 @@ import React from "react";
 import "./index.scss";
 
 export default function Page (properties) {
-  const {children} = properties;
+  const {children, ...remainingProperties} = properties;
 
-  return <main className="Page" {...properties}>
+  return <main className="Page" {...remainingProperties}>
     {children}
   </main>;
 }
