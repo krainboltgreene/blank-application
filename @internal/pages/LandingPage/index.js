@@ -35,6 +35,7 @@ export default function LandingPage () {
     <section id="hero">
       <h1>Henosis</h1>
       <h4>is a better way to <strong>write</strong>, <strong>release</strong>, <strong>manage</strong>, and <strong>observe</strong> Elixir applications above the cloud. You&apos;ll going to like it up here.</h4>
+
       <section id="call-to-action">
         <Link id="buy" href="/sign-up">Join Us</Link>
         <Link id="use" href="/deploy-henosis">Deploy Henosis</Link>
