@@ -17,7 +17,7 @@ config :henosis, HenosisWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "JGuPqitGiv1A5WgWCxBQ8E2n7qzF8ThtUA/j0N1lfZzsvRv9VToPD4gADyCdbHaI",
   render_errors: [view: HenosisWeb.ErrorView, accepts: ["json"]],
-  pubsub: [name: Henosis.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Henosis.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,

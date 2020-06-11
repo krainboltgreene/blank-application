@@ -1,6 +1,5 @@
 defmodule HenosisWeb.Graphql.Types.Organization do
   use Absinthe.Schema.Notation
-  use Absinthe.Ecto, repo: Henosis.Database.Repo
 
   object :organization do
     field :id, non_null(:id)

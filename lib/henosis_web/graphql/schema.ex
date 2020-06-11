@@ -1,5 +1,8 @@
 defmodule HenosisWeb.Graphql.Schema do
   use Absinthe.Schema
+  # import AbsintheErrorPayload.Payload
+
+  import_types(AbsintheErrorPayload.ValidationMessageTypes)
 
   import_types(Absinthe.Type.Custom)
 
@@ -30,10 +33,6 @@ defmodule HenosisWeb.Graphql.Schema do
     Organization,
     Session
   })
-
-  def middleware(middleware, _field, _object) do
-    middleware ++ [Crudry.Middlewares.TranslateErrors]
-  end
 
   query do
     import_fields(:account_queries)

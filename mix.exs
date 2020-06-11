@@ -33,33 +33,33 @@ defmodule Henosis.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4"},
-      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix, "~> 1.5"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.1"},
       {:postgrex, "~> 0.15"},
       {:ecto_enum, "~> 1.4"},
       {:ecto_autoslug_field, "~> 2.0"},
       {:paper_trail, "~> 0.8.2"},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.18"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:plug_cowboy, "~> 2.2"},
       {:argon2_elixir, "~> 2.1"},
-      {:absinthe, "~> 1.4"},
-      {:absinthe_plug, "~> 1.4"},
-      {:absinthe_phoenix, "~> 1.4"},
-      {:absinthe_ecto, "~> 0.1"},
-      {:crudry, "~> 2.1"},
+      {:absinthe, "~> 1.5"},
+      {:absinthe_plug, "~> 1.5"},
+      {:absinthe_error_payload, "~> 1.0"},
+      {:absinthe_phoenix, "~> 2.0"},
+      {:dataloader, "~> 1.0"},
       {:comeonin, "~> 5.2"},
       {:countries, "~> 1.5"},
       {:envy, "~> 1.1"},
       {:machinery, "~> 1.0"},
       {:flippant, "~> 1.0"},
       {:google_maps, "~> 0.11"},
-      {:cors_plug, "~> 1.5"},
+      {:cors_plug, "~> 2.0"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false},
-      {:credo, "~> 1.2", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 

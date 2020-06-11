@@ -1,6 +1,5 @@
 defmodule HenosisWeb.Graphql.Types.ElixirModule do
   use Absinthe.Schema.Notation
-  use Absinthe.Ecto, repo: Henosis.Database.Repo
 
   object :elixir_module do
     field :id, non_null(:id)

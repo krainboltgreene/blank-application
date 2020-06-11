@@ -17,11 +17,13 @@ defmodule Henosis.Application do
       [
         # Start the Ecto repository
         Henosis.Database.Repo,
+        # Start the PubSub system
+        {Phoenix.PubSub, name: Henosis.PubSub},
         # Start the endpoint when the application starts
         HenosisWeb.Endpoint,
         # Starts a worker by calling: Henosis.Worker.start_link(arg)
         # {Henosis.Worker, arg},
-        {Absinthe.Subscription, [HenosisWeb.Endpoint]}
+        {Absinthe.Subscription, HenosisWeb.Endpoint}
       ],
       strategy: :one_for_one,
       name: Henosis.Supervisor
