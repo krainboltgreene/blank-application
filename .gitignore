@@ -22,10 +22,6 @@
 # Ignore secret data
 /.env
 
-# Ignore master key for decrypting credentials and more.
-# /kubernetes/runtime-secrets.yaml
-# /kubernetes/test/
-
 # The directory Mix will write compiled artifacts to.
 /_build/
 
