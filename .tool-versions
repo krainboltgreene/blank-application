@@ -1,6 +1,6 @@
 postgres 12.2
 redis 5.0.3
 nodejs 14.1.0
-elixir 1.10.1
-erlang 21.3.3
+elixir 1.10.3
+erlang 23.0.2
 kubectl 1.14.1
