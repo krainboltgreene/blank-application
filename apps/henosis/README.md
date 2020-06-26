@@ -1,3 +1,0 @@
-# Henosis
-
-**TODO: Add description**

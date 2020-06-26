@@ -1,4 +1,4 @@
-defmodule Henosis.Repo.Migrations.CreateOrganizations do
+defmodule ClumsyChinchilla.Repo.Migrations.CreateOrganizations do
   use Ecto.Migration
 
   def change do

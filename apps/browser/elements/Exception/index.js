@@ -1,5 +1,4 @@
 import React from "react";
-import {LightAsync as SyntaxHighlighter} from "react-syntax-highlighter";
 import Link from "../Link";
 
 export default function Exception ({kind, as, metadata}) {
@@ -11,17 +10,9 @@ export default function Exception ({kind, as, metadata}) {
 
       <p>
         The web application you are using is having trouble running. We have been notified of the issue
-        automatically, but we might need to reach out to you for more information. <Link href="https://public-issues.henosis.com">You can
-        track the status of this issue by visiting our issue tracker at https://public-issues.henosis.com.</Link>
+        automatically, but we might need to reach out to you for more information. <Link href="https://public-issues.clumsy_chinchilla.com">You can
+        track the status of this issue by visiting our issue tracker at https://public-issues.clumsy_chinchilla.com.</Link>
       </p>
-
-      <p>
-        If you&apos;re curious, the exception is:
-      </p>
-
-      <SyntaxHighlighter language="javascript">
-        {as.message}
-      </SyntaxHighlighter>
     </section>;
   }
 

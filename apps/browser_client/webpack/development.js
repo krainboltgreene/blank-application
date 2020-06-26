@@ -69,7 +69,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "@henosis/styles": resolve(...sharedDirectory, "styles"),
+      "@clumsy_chinchilla/styles": resolve(...sharedDirectory, "styles"),
       "react-dom": "@hot-loader/react-dom",
     },
   },

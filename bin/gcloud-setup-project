@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcloud projects create --set-as-default henosis &&
+gcloud projects create --set-as-default clumsy_chinchilla &&
 gcloud config set compute/zone us-west1-a &&
 gcloud config set compute/region us-west1 &&
 gcloud config set functions/region us-west1 &&

@@ -23,4 +23,4 @@ EOSQL
 mix deps.get
 npm install
 mix compile
-mix ecto.setup
+mix setup

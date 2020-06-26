@@ -46,7 +46,7 @@ erl_crash.dump
 /.elixir_ls/
 
 # Ignore package tarball (built via "mix hex.build").
-henosis-*.tar
+clumsy_chinchilla-*.tar
 
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment

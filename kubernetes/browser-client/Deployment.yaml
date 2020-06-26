@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: browser-client
-        image: gcr.io/henosis/browser-client:latest
+        image: gcr.io/clumsy_chinchilla/browser-client:latest
         ports:
         - containerPort: 3000
         env:
@@ -38,6 +38,6 @@ spec:
         - name: REDIS_CACHE_HOST
           value: redis-origin.default
         - name: WWW_ORIGIN
-          value: "https://www.henosis.com"
+          value: "https://www.clumsy_chinchilla.com"
         - name: RESOURCE_ORIGIN
-          value: "https://resources.henosis.com"
+          value: "https://resources.clumsy_chinchilla.com"

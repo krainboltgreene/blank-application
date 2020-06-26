@@ -4,7 +4,7 @@ use Mix.Config
 config :database, Database.Repo,
   username: "postgres",
   password: "password",
-  database: "henosis_dev",
+  database: "clumsy_chinchilla_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
@@ -16,7 +16,7 @@ config :database, Database.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :henosis_web, HenosisWeb.Endpoint,
+config :clumsy_chinchilla_web, ClumsyChinchillaWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -48,13 +48,13 @@ config :henosis_web, HenosisWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :henosis_web, HenosisWeb.Endpoint,
+config :clumsy_chinchilla_web, ClumsyChinchillaWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/henosis_web/(live|views)/.*(ex)$",
-      ~r"lib/henosis_web/templates/.*(eex)$"
+      ~r"lib/clumsy_chinchilla_web/(live|views)/.*(ex)$",
+      ~r"lib/clumsy_chinchilla_web/templates/.*(eex)$"
     ]
   ]
 

@@ -4,7 +4,7 @@
 
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $(gcloud config config-helper --format='value(credential.access_token)')" https://cloudbuild.googleapis.com/v1/projects/henosis/triggers \
+  -H "Authorization: Bearer $(gcloud config config-helper --format='value(credential.access_token)')" https://cloudbuild.googleapis.com/v1/projects/clumsy_chinchilla/triggers \
   -d '{
       "trigger_template": {
         "repoName": "mvp",
@@ -14,7 +14,7 @@ curl -XPOST \
     }' &&
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $(gcloud config config-helper --format='value(credential.access_token)')" https://cloudbuild.googleapis.com/v1/projects/henosis/triggers \
+  -H "Authorization: Bearer $(gcloud config config-helper --format='value(credential.access_token)')" https://cloudbuild.googleapis.com/v1/projects/clumsy_chinchilla/triggers \
   -d '{
       "trigger_template": {
         "repoName": "mvp",

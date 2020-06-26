@@ -2,15 +2,15 @@ import React from "react";
 import {useLazyQuery} from "@apollo/react-hooks";
 import {useCookie} from "react-use";
 import {useRecoilState} from "recoil";
-import {isSessionPresent as isSessionPresentState} from "@henosis/atoms";
-import {currentAccount as currentAccountState} from "@henosis/atoms";
+import {isSessionPresent as isSessionPresentState} from "@clumsy_chinchilla/atoms";
+import {currentAccount as currentAccountState} from "@clumsy_chinchilla/atoms";
 import Exception from "../../Exception";
 
 import query from "./index.gql";
 
 export default function MaybeAuthenticated ({children}) {
   const [fetchCurrentSession, {error, data, loading}] = useLazyQuery(query);
-  const [cookie] = useCookie("_henosis_key");
+  const [cookie] = useCookie("_clumsy_chinchilla_key");
   const [isSessionPresent, setIsSessionPresent] = useRecoilState(isSessionPresentState);
   const [, setCurrentAccount] = useRecoilState(currentAccountState);
 

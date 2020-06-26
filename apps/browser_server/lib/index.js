@@ -17,7 +17,7 @@ import compression from "compression";
 import {parse} from "mustache";
 import {render} from "mustache";
 import helmet from "helmet";
-import {Application} from "@henosis/elements";
+import {Application} from "@clumsy_chinchilla/elements";
 import logger from "./logger";
 import store from "./store";
 import sdk from "./sdk";
@@ -64,9 +64,9 @@ application.get("*", function handleStar (request, response) {
   return response.send(render(template, {
     content,
     googleTagManagerId: "",
-    supportEmail: "support@henosis.com",
+    supportEmail: "support@clumsy_chinchilla.com",
     metadata: {
-      title: "Henosis",
+      title: "ClumsyChinchilla",
     },
   }));
 });

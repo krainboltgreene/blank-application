@@ -14,19 +14,19 @@ config :database,
   ecto_repos: [Database.Repo]
 
 # Configure Mix tasks and generators
-config :henosis,
+config :clumsy_chinchilla,
   ecto_repos: [Database.Repo]
 
-config :henosis_web,
+config :clumsy_chinchilla_web,
   ecto_repos: [Database.Repo],
-  generators: [context_app: :henosis, binary_id: true]
+  generators: [context_app: :clumsy_chinchilla, binary_id: true]
 
 # Configures the endpoint
-config :henosis_web, HenosisWeb.Endpoint,
+config :clumsy_chinchilla_web, ClumsyChinchillaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "5VNIbfli/JkHqzWzyFkeMKZw0RKORlHo62lCIYm0YJWmei7Awkv5yMriLTl9PJI6",
-  render_errors: [view: HenosisWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Henosis.PubSub,
+  render_errors: [view: ClumsyChinchillaWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: ClumsyChinchilla.PubSub,
   live_view: [signing_salt: "ImpUMv5Z"]
 
 # Configures Elixir's Logger
@@ -38,7 +38,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # Tell Absinthe what schema to use
-config :absinthe, schema: HenosisWeb.Graphql.Schema
+config :absinthe, schema: Graphql.Schema
 
 # Setup configuration for paper_trail
 config :paper_trail,

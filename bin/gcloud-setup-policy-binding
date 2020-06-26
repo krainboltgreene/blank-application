@@ -6,10 +6,10 @@ read cloudbuildAccount &&
 echo "What is the email for your container engine account?" &&
 read containerAccount
 
-gcloud projects add-iam-policy-binding henosis --role roles/container.admin --member serviceAccount:$cloudbuildAdmin
+gcloud projects add-iam-policy-binding clumsy_chinchilla --role roles/container.admin --member serviceAccount:$cloudbuildAdmin
 gcloud kms keys add-iam-policy-binding POSTGRES_SUPERUSER_PASSWORD --location global --keyring runtime-secrets --member serviceAccount:$cloudbuildAccount --role roles/cloudkms.cryptoKeyEncrypterDecrypter
 gcloud kms keys add-iam-policy-binding POSTGRES_APPLICATION_PASSWORD --location global --keyring runtime-secrets --member serviceAccount:$cloudbuildAccount --role roles/cloudkms.cryptoKeyEncrypterDecrypter
 gcloud kms keys add-iam-policy-binding POSTGRES_SUPERUSER_PASSWORD --location global --keyring runtime-secrets --member serviceAccount:$containerAccount --role roles/cloudkms.cryptoKeyEncrypterDecrypter
 gcloud kms keys add-iam-policy-binding POSTGRES_APPLICATION_PASSWORD --location global --keyring runtime-secrets --member serviceAccount:$containerAccount --role roles/cloudkms.cryptoKeyEncrypterDecrypter
-gcloud kms keys add-iam-policy-binding POSTGRES_SUPERUSER_PASSWORD --location global --keyring runtime-secrets --member serviceAccount:local-kubernetes@henosis.iam.gserviceaccount.com --role roles/cloudkms.cryptoKeyEncrypterDecrypter
-gcloud kms keys add-iam-policy-binding POSTGRES_APPLICATION_PASSWORD --location global --keyring runtime-secrets --member serviceAccount:local-kubernetes@henosis.iam.gserviceaccount.com --role roles/cloudkms.cryptoKeyEncrypterDecrypter
+gcloud kms keys add-iam-policy-binding POSTGRES_SUPERUSER_PASSWORD --location global --keyring runtime-secrets --member serviceAccount:local-kubernetes@clumsy_chinchilla.iam.gserviceaccount.com --role roles/cloudkms.cryptoKeyEncrypterDecrypter
+gcloud kms keys add-iam-policy-binding POSTGRES_APPLICATION_PASSWORD --location global --keyring runtime-secrets --member serviceAccount:local-kubernetes@clumsy_chinchilla.iam.gserviceaccount.com --role roles/cloudkms.cryptoKeyEncrypterDecrypter

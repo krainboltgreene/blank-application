@@ -1,8 +1,8 @@
 {
-  "name": "henosis",
+  "name": "clumsy_chinchilla",
   "version": "1.0.0",
   "private": true,
-  "description": "The frontend application for Henosis",
+  "description": "The frontend application for ClumsyChinchilla",
   "keywords": [],
   "contributors": [
     {
@@ -12,9 +12,9 @@
     }
   ],
   "license": "MIT",
-  "homepage": "https://github.com/difference-engineers/henosis#readme",
-  "repository": "github:difference-engineers/henosis",
-  "bugs": "https://github.com/difference-engineers/henosis/issues",
+  "homepage": "https://github.com/difference-engineers/clumsy_chinchilla#readme",
+  "repository": "github:difference-engineers/clumsy_chinchilla",
+  "bugs": "https://github.com/difference-engineers/clumsy_chinchilla/issues",
   "engines": {
     "node": "13.1.0",
     "npm": "6.12.1"

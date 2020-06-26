@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Page} from "@henosis/elements";
+import {Page} from "@clumsy_chinchilla/elements";
 
 export default function ThisIsUs () {
   return <Page subtitle="This Is Us" kind="article">

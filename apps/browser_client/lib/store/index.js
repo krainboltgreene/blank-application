@@ -1,7 +1,7 @@
 import {init} from "@rematch/core";
 import {createLogger} from "redux-logger";
 
-import {database} from "@henosis/models";
+import {database} from "@clumsy_chinchilla/models";
 
 export default init({
   models: {

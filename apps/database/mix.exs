@@ -36,10 +36,17 @@ defmodule Database.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix_pubsub, "~> 2.0"},
+      {:postgrex, "~> 0.15"},
       {:ecto_sql, "~> 3.4"},
-      {:postgrex, ">= 0.0.0"},
-      {:jason, "~> 1.0"}
+      {:ecto_enum, "~> 1.4"},
+      {:ecto_autoslug_field, "~> 2.0"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:comeonin, "~> 5.2"},
+      {:argon2_elixir, "~> 2.1"},
+      {:paper_trail, "~> 0.8"},
+      {:jason, "~> 1.0"},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:estate, in_umbrella: true},
     ]
   end
 

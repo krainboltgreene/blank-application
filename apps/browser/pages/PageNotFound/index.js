@@ -1,7 +1,7 @@
 import React from "react";
 import {Helmet} from "react-helmet-async";
 
-import {Page} from "@henosis/elements";
+import {Page} from "@clumsy_chinchilla/elements";
 
 export default function PageNotFound () {
   return <Page kind="article">

@@ -23,7 +23,7 @@ module.exports = {
       "module-resolver",
       {
         alias: {
-          "^@henosis/(.+)$": "./apps/browser/\\1",
+          "^@clumsy_chinchilla/(.+)$": "./apps/browser/\\1",
           "^@assets/(.+)$": "./apps/browser/assets/\\1",
         },
       },

@@ -17,7 +17,7 @@ COPY bin/docker-cmd-browser-client bin/docker-cmd
 COPY assets/ assets/
 COPY client/ client/
 COPY server/ server/
-COPY @henosis/ @henosis/
+COPY @clumsy_chinchilla/ @clumsy_chinchilla/
 
 RUN heroku-buildpack-nodejs-master/bin/detect /home/application/
 RUN heroku-buildpack-nodejs-master/bin/compile /home/application/ /tmp/cache /tmp/env

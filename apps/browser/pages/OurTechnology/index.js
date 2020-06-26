@@ -1,5 +1,5 @@
 import React from "react";
-import {Page} from "@henosis/elements";
+import {Page} from "@clumsy_chinchilla/elements";
 
 export default function OurTechnology () {
   return <Page subtitle="Our Technology" kind="article">
