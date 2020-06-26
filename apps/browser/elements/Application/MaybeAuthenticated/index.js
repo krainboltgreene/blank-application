@@ -2,8 +2,8 @@ import React from "react";
 import {useLazyQuery} from "@apollo/react-hooks";
 import {useCookie} from "react-use";
 import {useRecoilState} from "recoil";
-import {isSessionPresent as isSessionPresentState} from "@internal/atoms";
-import {currentAccount as currentAccountState} from "@internal/atoms";
+import {isSessionPresent as isSessionPresentState} from "@henosis/atoms";
+import {currentAccount as currentAccountState} from "@henosis/atoms";
 import Exception from "../../Exception";
 
 import query from "./index.gql";

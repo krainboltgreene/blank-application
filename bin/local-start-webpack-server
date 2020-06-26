@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-npx webpack-cli --watch --config webpack/browser-server/development.js
+npx webpack-cli --watch --config apps/browser_server/webpack/development.js

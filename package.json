@@ -20,8 +20,8 @@
     "npm": "6.12.1"
   },
   "scripts": {
-    "build": "webpack --config webpack/browser-server/development.js --config webpack/browser-client/development.js",
-    "eslint": "eslint --ext .js,.gql jest.config.js babel.config.js webpack/ storybook/ browser-client/ browser-server/ @internal/",
+    "build": "webpack --config apps/browser_server/webpack/development.js --config apps/browser_client/webpack/development.js",
+    "eslint": "eslint --ext .js,.gql jest.config.js babel.config.js storybook/ apps/browsers/ apps/browser_server/ apps/browser_client/",
     "prepublishOnly": "npm run build",
     "storybook": "build-storybook"
   },

@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Page} from "@internal/elements";
+import {Page} from "@henosis/elements";
 
 export default function PrivacyPolicy () {
   return <Page subtitle="Privacy Policy" kind="article">

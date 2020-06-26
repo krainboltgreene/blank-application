@@ -17,7 +17,7 @@ import compression from "compression";
 import {parse} from "mustache";
 import {render} from "mustache";
 import helmet from "helmet";
-import {Application} from "@internal/elements";
+import {Application} from "@henosis/elements";
 import logger from "./logger";
 import store from "./store";
 import sdk from "./sdk";

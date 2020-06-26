@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {useMutation} from "@apollo/react-hooks";
-import {Field} from "@internal/elements";
+import {Field} from "@henosis/elements";
 import createAccountMutation from "./createAccount.gql";
 
 export default function SignUpForm () {

@@ -90,155 +90,155 @@ defmodule Database.Models.ElixirModule do
     is_list(elixir_directives)
   do
 
-  {:defmodule, [],
-    [
-      {:__aliases__, [], [String.to_atom(slug)]},
-      [
-        do: {:__block__, [],
-        [
-          Enum.concat([
-            [{:@, [], [{:moduledoc, [], [documentation]}]}],
-            Enum.map(elixir_types, &Database.Models.ElixirModuleType.as_ast/1),
-            Enum.map(elixir_typeps, &Database.Models.ElixirModuleType.as_ast/1),
-            Enum.map(elixir_opeques, &Database.Models.ElixirModuleType.as_ast/1),
-            Enum.map(elixir_callbacks, &Database.Models.ElixirModuleType.as_ast/1),
-            Enum.map(elixir_macrocallbacks, &Database.Models.ElixirModuleType.as_ast/1),
-            Enum.map(elixir_optional_callbacks, &Database.Models.ElixirModuleAttribute.as_ast/1),
-          ]),
-          {:@, [],
-            [{:doc, [], ["Translates an error message using gettext.\n"]}]},
-          {:@, [],
-            [
-              {:spec, [],
-              [
-                {:when, [],
-                  [
-                    {:"::", [],
-                    [
-                      {:example, [],
-                        [
-                          {:%{}, [],
-                          [
-                            # a: {:binary, [], nil},
-                            # b: {:|, [], [{...}, ...]}
-                          ]}
-                        ]},
-                      {:binary, [], nil}
-                    ]},
-                    {:and, [],
-                    [
-                      {:or, [],
-                        [
-                          {:is_bitstring, [], [{:b, [], nil}]},
-                          {:is_integer, [], [{:b, [], nil}]}
-                        ]},
-                      {:is_bitstring, [], [{:a, [], nil}]}
-                    ]}
-                  ]}
-              ]}
-            ]},
-          {:def, [],
-            [
-              {:when, [],
-              [
-                {:example, [],
-                  [
-                    {:%{}, [],
-                    [a: {:a, [], nil}, b: {:b, [], nil}]}
-                  ]},
-                {:and, [],
-                  [
-                    {:is_bitstring, [], [{:a, [], nil}]},
-                    {:is_bitstring, [], [{:b, [], nil}]}
-                  ]}
-              ]},
-              [
-                do: {:<<>>, [],
-                [
-                  {:"::", [],
-                    [
-                      {{:., [], [Kernel, :to_string]}, [],
-                      [{:a, [], nil}]},
-                      {:binary, [], nil}
-                    ]},
-                  {:"::", [],
-                    [
-                      {{:., [], [Kernel, :to_string]}, [],
-                      [{:b, [], nil}]},
-                      {:binary, [], nil}
-                    ]}
-                ]}
-              ]
-            ]},
-          {:@, [], [{:doc, [], [false]}]},
-          {:@, [],
-            [
-              {:spec, [],
-              [
-                {:when, [],
-                  [
-                    {:"::", [],
-                    [
-                      {:example2, [],
-                        [{:a, [], nil}, {:b, [], nil}]},
-                      {{:a, [], nil}, {:b, [], nil}}
-                    ]},
-                    [a: {:atom, [], nil}, b: {:integer, [], nil}]
-                  ]}
-              ]}
-            ]},
-          {:def, [],
-            [
-              {:example2, [],
-              [
-                {:%{}, [],
-                  [a: {:a, [], nil}, b: {:b, [], nil}]}
-              ]},
-              [
-                do: {:<<>>, [],
-                [
-                  {:"::", [],
-                    [
-                      {{:., [], [Kernel, :to_string]}, [],
-                      [{:a, [], nil}]},
-                      {:binary, [], nil}
-                    ]},
-                  {:"::", [],
-                    [
-                      {{:., [], [Kernel, :to_string]}, [],
-                      [{:b, [], nil}]},
-                      {:binary, [], nil}
-                    ]}
-                ]}
-              ]
-            ]}
-        ]}
-      ]
-    ]}
-    {
-      :defmodule,
-      [],
-      [
-        {:__aliases__, [], [String.to_atom(slug)]},
-        [
-          do: {
-            :__block__,
-            [],
-            Enum.concat([
-              [{:@, [], [{:moduledoc, [], [documentation]}]}],
-              # ,
-              Enum.map(elixir_typeps, &Database.Models.ElixirModuleType.as_ast/1),
-              Enum.map(elixir_opeques, &Database.Models.ElixirModuleType.as_ast/1),
-              Enum.map(elixir_callbacks, &Database.Models.ElixirModuleType.as_ast/1),
-              Enum.map(elixir_macrocallbacks, &Database.Models.ElixirModuleType.as_ast/1),
-              Enum.map(elixir_optional_callbacks, &Database.Models.ElixirModuleType.as_ast/1),
-              Enum.map(elixir_module_attributes, &Database.Models.ElixirModuleType.as_ast/1),
-              Enum.map(elixir_behaviours, &Map.get(&1, "slug")),
-              Enum.map(elixir_directives, &Map.get(&1, "slug")),
-            ])
-          }
-        ]
-      ]}
+  # {:defmodule, [],
+  #   [
+  #     {:__aliases__, [], [String.to_atom(slug)]},
+  #     [
+  #       do: {:__block__, [],
+  #       [
+  #         Enum.concat([
+  #           [{:@, [], [{:moduledoc, [], [documentation]}]}],
+  #           Enum.map(elixir_types, &Database.Models.ElixirModuleType.as_ast/1),
+  #           Enum.map(elixir_typeps, &Database.Models.ElixirModuleType.as_ast/1),
+  #           Enum.map(elixir_opeques, &Database.Models.ElixirModuleType.as_ast/1),
+  #           Enum.map(elixir_callbacks, &Database.Models.ElixirModuleType.as_ast/1),
+  #           Enum.map(elixir_macrocallbacks, &Database.Models.ElixirModuleType.as_ast/1),
+  #           Enum.map(elixir_optional_callbacks, &Database.Models.ElixirModuleAttribute.as_ast/1),
+  #         ]),
+  #         {:@, [],
+  #           [{:doc, [], ["Translates an error message using gettext.\n"]}]},
+  #         {:@, [],
+  #           [
+  #             {:spec, [],
+  #             [
+  #               {:when, [],
+  #                 [
+  #                   {:"::", [],
+  #                   [
+  #                     {:example, [],
+  #                       [
+  #                         {:%{}, [],
+  #                         [
+  #                           # a: {:binary, [], nil},
+  #                           # b: {:|, [], [{...}, ...]}
+  #                         ]}
+  #                       ]},
+  #                     {:binary, [], nil}
+  #                   ]},
+  #                   {:and, [],
+  #                   [
+  #                     {:or, [],
+  #                       [
+  #                         {:is_bitstring, [], [{:b, [], nil}]},
+  #                         {:is_integer, [], [{:b, [], nil}]}
+  #                       ]},
+  #                     {:is_bitstring, [], [{:a, [], nil}]}
+  #                   ]}
+  #                 ]}
+  #             ]}
+  #           ]},
+  #         {:def, [],
+  #           [
+  #             {:when, [],
+  #             [
+  #               {:example, [],
+  #                 [
+  #                   {:%{}, [],
+  #                   [a: {:a, [], nil}, b: {:b, [], nil}]}
+  #                 ]},
+  #               {:and, [],
+  #                 [
+  #                   {:is_bitstring, [], [{:a, [], nil}]},
+  #                   {:is_bitstring, [], [{:b, [], nil}]}
+  #                 ]}
+  #             ]},
+  #             [
+  #               do: {:<<>>, [],
+  #               [
+  #                 {:"::", [],
+  #                   [
+  #                     {{:., [], [Kernel, :to_string]}, [],
+  #                     [{:a, [], nil}]},
+  #                     {:binary, [], nil}
+  #                   ]},
+  #                 {:"::", [],
+  #                   [
+  #                     {{:., [], [Kernel, :to_string]}, [],
+  #                     [{:b, [], nil}]},
+  #                     {:binary, [], nil}
+  #                   ]}
+  #               ]}
+  #             ]
+  #           ]},
+  #         {:@, [], [{:doc, [], [false]}]},
+  #         {:@, [],
+  #           [
+  #             {:spec, [],
+  #             [
+  #               {:when, [],
+  #                 [
+  #                   {:"::", [],
+  #                   [
+  #                     {:example2, [],
+  #                       [{:a, [], nil}, {:b, [], nil}]},
+  #                     {{:a, [], nil}, {:b, [], nil}}
+  #                   ]},
+  #                   [a: {:atom, [], nil}, b: {:integer, [], nil}]
+  #                 ]}
+  #             ]}
+  #           ]},
+  #         {:def, [],
+  #           [
+  #             {:example2, [],
+  #             [
+  #               {:%{}, [],
+  #                 [a: {:a, [], nil}, b: {:b, [], nil}]}
+  #             ]},
+  #             [
+  #               do: {:<<>>, [],
+  #               [
+  #                 {:"::", [],
+  #                   [
+  #                     {{:., [], [Kernel, :to_string]}, [],
+  #                     [{:a, [], nil}]},
+  #                     {:binary, [], nil}
+  #                   ]},
+  #                 {:"::", [],
+  #                   [
+  #                     {{:., [], [Kernel, :to_string]}, [],
+  #                     [{:b, [], nil}]},
+  #                     {:binary, [], nil}
+  #                   ]}
+  #               ]}
+  #             ]
+  #           ]}
+  #       ]}
+  #     ]
+  #   ]}
+  #   {
+  #     :defmodule,
+  #     [],
+  #     [
+  #       {:__aliases__, [], [String.to_atom(slug)]},
+  #       [
+  #         do: {
+  #           :__block__,
+  #           [],
+  #           Enum.concat([
+  #             [{:@, [], [{:moduledoc, [], [documentation]}]}],
+  #             # ,
+  #             Enum.map(elixir_typeps, &Database.Models.ElixirModuleType.as_ast/1),
+  #             Enum.map(elixir_opeques, &Database.Models.ElixirModuleType.as_ast/1),
+  #             Enum.map(elixir_callbacks, &Database.Models.ElixirModuleType.as_ast/1),
+  #             Enum.map(elixir_macrocallbacks, &Database.Models.ElixirModuleType.as_ast/1),
+  #             Enum.map(elixir_optional_callbacks, &Database.Models.ElixirModuleType.as_ast/1),
+  #             Enum.map(elixir_module_attributes, &Database.Models.ElixirModuleType.as_ast/1),
+  #             Enum.map(elixir_behaviours, &Map.get(&1, "slug")),
+  #             Enum.map(elixir_directives, &Map.get(&1, "slug")),
+  #           ])
+  #         }
+  #       ]
+  #     ]}
   end
 
   @spec changeset(map, map) :: Ecto.Changeset.t()

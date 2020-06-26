@@ -8,11 +8,7 @@ import {withKnobs} from "@storybook/addon-knobs";
 import {ApolloProvider} from "@apollo/react-hooks";
 import sdk from "./sdk";
 import store from "./store";
-// import {withTests} from "@storybook/addon-jest"
-// import rematch from "@internal/rematch"
-// import results from "./jest-test-results.json"
 
-// addDecorator(withTests({results}))
 addDecorator(withKnobs);
 addDecorator(withA11y);
 addDecorator((story) => <BrowserRouter>

@@ -12,7 +12,7 @@ import {ApolloProvider} from "@apollo/react-hooks";
 import {RecoilRoot} from "recoil";
 
 
-import {Application} from "@internal/elements";
+import {Application} from "@henosis/elements";
 import sdk from "./sdk";
 import store from "./store";
 

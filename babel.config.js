@@ -23,8 +23,8 @@ module.exports = {
       "module-resolver",
       {
         alias: {
-          "^@internal/(.+)$": "./@internal/\\1",
-          "^@assets/(.+)$": "./assets/\\1",
+          "^@henosis/(.+)$": "./apps/browser/\\1",
+          "^@assets/(.+)$": "./apps/browser/assets/\\1",
         },
       },
     ],

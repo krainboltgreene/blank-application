@@ -13,8 +13,9 @@ const NodemonWebpackPlugin = require("nodemon-webpack-plugin");
 dotenvConfiguration();
 
 const PACKAGE_ASSETS = [];
-const inputDirectory = [__dirname, "..", "..", "browser-server"];
-const outputDirectory = [__dirname, "..", "..", "tmp", "browser"];
+const sharedDirectory = [__dirname, "..", "..", "browser"];
+const inputDirectory = [__dirname, "..", "lib"];
+const outputDirectory = [__dirname, "..", "..", "..", "tmp", "browser"];
 
 module.exports = {
   mode: "development",
@@ -69,7 +70,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "@internal/styles": resolve(...inputDirectory, "@internal/styles"),
+      "@henosis/styles": resolve(...sharedDirectory, "styles"),
       "react-dom": "@hot-loader/react-dom",
     },
   },
@@ -78,7 +79,7 @@ module.exports = {
     new HotModuleReplacementPlugin(),
     new WebpackCommonShake(),
     new CopyWebpackPlugin([{
-      from: resolve(...inputDirectory, "..", "assets"),
+      from: resolve(...sharedDirectory, "assets"),
       to: resolve(...outputDirectory, "assets"),
     }]),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{

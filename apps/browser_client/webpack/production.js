@@ -14,8 +14,9 @@ const {config: dotenvConfiguration} = require("dotenv");
 
 dotenvConfiguration();
 
-const inputDirectory = [__dirname, "..", "..", "browser-client"];
-const outputDirectory = [__dirname, "..", "..", "tmp", "browser"];
+const sharedDirectory = [__dirname, "..", "..", "browser"];
+const inputDirectory = [__dirname, "..", "lib"];
+const outputDirectory = [__dirname, "..", "..", "..", "tmp", "browser"];
 
 module.exports = {
   mode: "development",
@@ -73,7 +74,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "@internal/styles": resolve(...inputDirectory, "@internal/styles"),
+      "@henosis/styles": resolve(...sharedDirectory, "styles"),
       "react-dom": "@hot-loader/react-dom",
     },
   },
@@ -86,7 +87,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       hash: true,
-      template: resolve(...inputDirectory, "..", "templates", "index.html"),
+      template: resolve(...sharedDirectory, "templates", "index.html"),
     }),
     new EnvironmentPlugin([
       "NODE_ENV",

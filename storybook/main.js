@@ -3,7 +3,7 @@
 const {resolve} = require("path");
 
 module.exports = {
-  stories: ["../@internal/**/story.js"],
+  stories: ["../@henosis/**/story.js"],
   addons: [
     "@storybook/addon-a11y/register",
     "@storybook/addon-knobs/register",
@@ -12,14 +12,9 @@ module.exports = {
       options: {
         rule: {
           test: [/story\.js?$/u],
-          include: [resolve(__dirname, "..", "@internal")],
+          include: [resolve(__dirname, "..", "apps", "browser", "lib")],
         },
       },
     },
-    // "@storybook/addon-actions/register",
-    // "@storybook/addon-console",
-    // "@storybook/addon-links/register",
-    // "@storybook/addon-viewport/register",
-    // "@storybook/addon-docs",
   ],
 };
