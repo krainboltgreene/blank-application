@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-npx esw --watch --changed --color --ext .js,.gql jest.config.js babel.config.js webpack/ storybook/ browser-client/ browser-server/ @clumsy_chinchilla/

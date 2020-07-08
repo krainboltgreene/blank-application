@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-postgres -F -D services/postgres/data
