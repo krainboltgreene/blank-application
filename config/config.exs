@@ -1,33 +1,23 @@
-# This file is responsible for configuring your umbrella
-# and **all applications** and their dependencies with the
-# help of Mix.Config.
+# This file is responsible for configuring your application
+# and its dependencies with the aid of the Mix.Config module.
 #
-# Note that all applications in your umbrella share the
-# same configuration and dependencies, which is why they
-# all use the same configuration file. If you want different
-# configurations or dependencies per app, it is best to
-# move said applications out of the umbrella.
+# This configuration file is loaded before any dependency and
+# is restricted to this project.
+
+# General application configuration
 use Mix.Config
 
-# Configure Mix tasks and generators
-config :database,
-  ecto_repos: [Database.Repo]
-
-# Configure Mix tasks and generators
 config :clumsy_chinchilla,
-  ecto_repos: [Database.Repo]
-
-config :clumsy_chinchilla_web,
   ecto_repos: [Database.Repo],
-  generators: [context_app: :clumsy_chinchilla, binary_id: true]
+  generators: [binary_id: true]
 
 # Configures the endpoint
-config :clumsy_chinchilla_web, ClumsyChinchillaWeb.Endpoint,
+config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "5VNIbfli/JkHqzWzyFkeMKZw0RKORlHo62lCIYm0YJWmei7Awkv5yMriLTl9PJI6",
+  secret_key_base: "QBzZwNT6wxgJZdiJ6aJVht82dDvzRFvXXLmK8RlHV888PqL/gzRQX36DlWjRjFWs",
   render_errors: [view: ClumsyChinchillaWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: ClumsyChinchilla.PubSub,
-  live_view: [signing_salt: "ImpUMv5Z"]
+  live_view: [signing_salt: "bbTmf3m/"]
 
 # Configures Elixir's Logger
 config :logger, :console,

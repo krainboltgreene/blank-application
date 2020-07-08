@@ -1,9 +1,9 @@
 use Mix.Config
 
 # Configure your database
-config :database, Database.Repo,
+config :clumsy_chinchilla, Database.Repo,
   username: "postgres",
-  password: "password",
+  password: "postgres",
   database: "clumsy_chinchilla_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
@@ -16,12 +16,11 @@ config :database, Database.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :clumsy_chinchilla_web, ClumsyChinchillaWeb.Endpoint,
+config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false,
-  watchers: []
+  check_origin: false
 
 # ## SSL Support
 #
@@ -48,7 +47,7 @@ config :clumsy_chinchilla_web, ClumsyChinchillaWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :clumsy_chinchilla_web, ClumsyChinchillaWeb.Endpoint,
+config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
@@ -61,9 +60,9 @@ config :clumsy_chinchilla_web, ClumsyChinchillaWeb.Endpoint,
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
-# Initialize plugs at runtime for faster development compilation
-config :phoenix, :plug_init_mode, :runtime
-
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
+
+# Initialize plugs at runtime for faster development compilation
+config :phoenix, :plug_init_mode, :runtime

@@ -1,37 +1,69 @@
-defmodule ClumsyChinchilla.Umbrella.MixProject do
+defmodule ClumsyChinchilla.MixProject do
   use Mix.Project
 
   def project do
     [
-      apps_path: "apps",
+      app: :clumsy_chinchilla,
       version: "1.0.0",
+      elixir: "~> 1.7",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      deps: deps(),
-      apps: [:database, :clumsy_chinchilla, :clumsy_chinchilla_web],
-      aliases: aliases()
+      aliases: aliases(),
+      deps: deps()
     ]
   end
 
-  # Dependencies can be Hex packages:
+  # Configuration for the OTP application.
   #
-  #   {:mydep, "~> 0.3.0"}
+  # Type `mix help compile.app` for more information.
+  def application do
+    [
+      mod: {ClumsyChinchilla.Application, []},
+      extra_applications: [:logger, :runtime_tools, :absinthe_plug]
+    ]
+  end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  # Specifies your project dependencies.
   #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options.
-  #
-  # Dependencies listed here are available only for this project
-  # and cannot be accessed from applications inside the apps/ folder.
+  # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:postgrex, "~> 0.15"},
+      {:phoenix, "~> 1.5"},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_view, "~> 0.13"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_dashboard, "~> 0.2"},
+      {:cors_plug, "~> 2.0"},
+      {:absinthe, "~> 1.5"},
+      {:absinthe_plug, "~> 1.5"},
+      {:absinthe_error_payload, "~> 1.0"},
+      {:absinthe_phoenix, "~> 2.0"},
+      {:dataloader, "~> 1.0"},
+      {:argon2_elixir, "~> 2.1"},
+      {:comeonin, "~> 5.2"},
+      {:ecto_autoslug_field, "~> 2.0"},
+      {:ecto_enum, "~> 1.4"},
+      {:ecto_sql, "~> 3.4"},
+      {:phoenix_ecto, "~> 4.1"},
+      {:envy, "~> 1.1"},
+      {:flippant, "~> 1.0"},
+      {:gettext, "~> 0.18"},
+      {:jason, "~> 1.0"},
+      {:paper_trail, "~> 0.8"},
+      {:floki, "~> 0.26", only: :test},
+      {:plug_cowboy, "~> 2.3"},
+      {:telemetry_metrics, "~> 0.4"},
+      {:telemetry_poller, "~> 0.4"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false},
-      {:envy, "~> 1.1"},
-      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"}
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -41,15 +73,12 @@ defmodule ClumsyChinchilla.Umbrella.MixProject do
   #     $ mix setup
   #
   # See the documentation for `Mix` for more info on aliases.
-  #
-  # Aliases listed here are available only for this project
-  # and cannot be accessed from applications inside the apps/ folder.
   defp aliases do
     [
-      # run `mix setup` in all child apps
-      "ecto.reset": ["cmd --app database mix ecto.reset"],
-      test: ["cmd --app database ecto.create --quiet", "cmd --app database ecto.migrate --quiet", "cmx mix test"],
-      setup: ["cmd mix setup"]
+      setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
 end

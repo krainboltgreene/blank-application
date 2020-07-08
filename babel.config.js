@@ -23,8 +23,8 @@ module.exports = {
       "module-resolver",
       {
         alias: {
-          "^@clumsy_chinchilla/(.+)$": "./apps/browser/\\1",
-          "^@assets/(.+)$": "./apps/browser/assets/\\1",
+          "^@clumsy_chinchilla/(.+)$": "./lib/browser/\\1",
+          "^@assets/(.+)$": "./lib/browser/assets/\\1",
         },
       },
     ],

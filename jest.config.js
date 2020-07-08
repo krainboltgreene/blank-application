@@ -4,8 +4,8 @@ module.exports = {
   setupTestFrameworkScriptFile: ".jest/setup.js",
   collectCoverage: true,
   collectCoverageFrom: [
-    "./apps/browser/lib/**/index.js",
-    "./apps/browser_client/lib/**/index.js",
-    "./apps/browser_server/lib/**/index.js",
+    "./lib/browser/**/index.js",
+    "./lib/browser_client/**/index.js",
+    "./lib/browser_server/**/index.js",
   ],
 };

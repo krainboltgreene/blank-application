@@ -1,3 +1,0 @@
-# ClumsyChinchilla
-
-**TODO: Add description**
