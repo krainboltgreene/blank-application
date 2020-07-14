@@ -12,7 +12,7 @@ module.exports = {
       options: {
         rule: {
           test: [/story\.js?$/u],
-          include: [resolve(__dirname, "..", "apps", "browser", "lib")],
+          include: [resolve(__dirname, "..", "lib", "browser")],
         },
       },
     },
