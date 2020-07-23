@@ -23,4 +23,5 @@ EOSQL
 mix deps.get &&
 npm install &&
 mix compile &&
-mix setup
+mix setup &&
+mix absinthe.schema.json --schema Graphql.Schema
