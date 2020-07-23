@@ -28,7 +28,7 @@ defmodule ClumsyChinchillaWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug CORSPlug, origin: ["http://localhost:9000", "http://localhost:8080"]
+    plug CORSPlug, origin: ["http://localhost:8000", "http://localhost:8080"]
     plug :fetch_session
     plug HenosisWeb.Plugs.GraphqlSessionContext
   end
@@ -39,7 +39,7 @@ defmodule ClumsyChinchillaWeb.Router do
     live "/", PageLive, :index
   end
 
-  scope "/graphql" do
+  scope "/" do
     pipe_through :api
 
     forward "/graphql",
