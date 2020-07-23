@@ -3,11 +3,14 @@
 const {resolve} = require("path");
 const webpackNodeExternals = require("webpack-node-externals");
 const {EnvironmentPlugin} = require("webpack");
+const {DefinePlugin} = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const {HotModuleReplacementPlugin} = require("webpack");
 const DotenvWebpack = require("dotenv-webpack");
 const {config: dotenvConfiguration} = require("dotenv");
 const NodemonWebpackPlugin = require("nodemon-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const autoprefixer = require("autoprefixer");
 
 dotenvConfiguration();
 
@@ -25,8 +28,18 @@ module.exports = {
       {
         test: /\.scss$/u,
         use: [
-          "isomorphic-style-loader",
+          MiniCssExtractPlugin.loader,
           {loader: "css-loader", options: {importLoaders: 1}},
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins () {
+                return [
+                  autoprefixer,
+                ];
+              },
+            },
+          },
           "sass-loader",
         ],
       },
@@ -79,7 +92,13 @@ module.exports = {
     },
   },
   plugins: [
+    new DefinePlugin({
+      RUNTIME_ENV: "\"server\"",
+    }),
     new DotenvWebpack(),
+    new EnvironmentPlugin([
+      "NODE_ENV",
+    ]),
     new HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([{
       from: resolve(...sharedDirectory, "assets"),
@@ -89,9 +108,7 @@ module.exports = {
       from,
       to: resolve(...outputDirectory, "assets", ...to),
     }])),
-    new EnvironmentPlugin([
-      "NODE_ENV",
-    ]),
+    new MiniCssExtractPlugin(),
     new NodemonWebpackPlugin({
       watch: resolve(...outputDirectory),
       script: resolve(...outputDirectory, "server.js"),

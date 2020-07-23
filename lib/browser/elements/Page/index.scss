@@ -1,6 +1,5 @@
-@import "../Application/index.scss";
+@import "@clumsy_chinchilla/styles/index.scss";
 
 .Page {
-  @extend .section;
   display: grid;
 }

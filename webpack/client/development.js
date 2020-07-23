@@ -4,10 +4,13 @@
 const {resolve} = require("path");
 const {HotModuleReplacementPlugin} = require("webpack");
 const {EnvironmentPlugin} = require("webpack");
+const {DefinePlugin} = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const DotenvWebpack = require("dotenv-webpack");
 const {config: dotenvConfiguration} = require("dotenv");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const autoprefixer = require("autoprefixer");
 
 dotenvConfiguration();
 
@@ -24,8 +27,19 @@ module.exports = {
       {
         test: /\.scss$/u,
         use: [
-          "isomorphic-style-loader",
+          "style-loader",
+          MiniCssExtractPlugin.loader,
           {loader: "css-loader", options: {importLoaders: 1}},
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins () {
+                return [
+                  autoprefixer,
+                ];
+              },
+            },
+          },
           "sass-loader",
         ],
       },
@@ -59,12 +73,14 @@ module.exports = {
   ],
   target: "web",
   output: {
+    publicPath: "http://localhost:8080/",
     path: resolve(...outputDirectory),
     filename: "client.js",
   },
   devServer: {
     hot: true,
     writeToDisk: true,
+    headers: {"Access-Control-Allow-Origin": "*"},
   },
   watchOptions: {
     ignored: ["node_modules"],
@@ -76,8 +92,12 @@ module.exports = {
     },
   },
   plugins: [
+    new DefinePlugin({
+      RUNTIME_ENV: "\"client\"",
+    }),
     new DotenvWebpack(),
     new HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin(),
     new WebpackAssetsManifest({
       output: "asset-integrity-manifest.json",
       integrity: false,
