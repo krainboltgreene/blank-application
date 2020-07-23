@@ -20,7 +20,7 @@ defmodule ClumsyChinchilla.MixProject do
   def application do
     [
       mod: {ClumsyChinchilla.Application, []},
-      extra_applications: [:logger, :runtime_tools, :absinthe_plug]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug]
     ]
   end
 
