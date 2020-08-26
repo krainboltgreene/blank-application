@@ -8,7 +8,7 @@ defmodule ClumsyChinchillaWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_clumsy_chinchilla_key",
-    signing_salt: "b8IUBZlG"
+    signing_salt: "bbTmf3m/"
   ]
 
   socket "/socket", ClumsyChinchillaWeb.UserSocket,
