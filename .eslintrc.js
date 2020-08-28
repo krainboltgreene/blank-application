@@ -144,7 +144,7 @@ module.exports = {
     "jest/no-alias-methods": "error",
     "jest/no-commented-out-tests": "error",
     "jest/no-conditional-expect": "error",
-    "jest/no-deprecated-functions": "error",
+    // "jest/no-deprecated-functions": "error",
     "jest/no-disabled-tests": "error",
     "jest/no-duplicate-hooks": "error",
     "jest/no-expect-resolves": "error",
