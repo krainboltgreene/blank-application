@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === "production") {
 application.get(express.static(join(__dirname, "assets"), {fallthrough: true, index: false}));
 application.get("/assets", express.static(join(__dirname, "assets"), {fallthrough: false, index: false}));
 application.get("*", function handleStar (request, response) {
-  const routerContext = {};
+  const routerContext: {url?: string} = {};
   const content = renderToString(
     <StaticRouter location={request.url} context={routerContext}>
       <HelmetProvider>

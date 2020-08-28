@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "../Link";
 
-export default function Exception ({kind, as, metadata}) {
+export default function Exception (properties) {
+  const {kind}: {kind: string} = properties
+  const {as}: {as: string} = properties
+  const {metadata = {}} = properties
+
   console.debug({as, metadata});
 
   if (kind === "overlay") {
@@ -16,5 +20,5 @@ export default function Exception ({kind, as, metadata}) {
     </section>;
   }
 
-  return "Something went wrong";
+  return <p>Something went wrong</p>;
 }

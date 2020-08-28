@@ -6,5 +6,5 @@ export default function Icon (properties) {
   const {name} = properties;
   const {modifiers = []} = properties;
 
-  return <span className={compact([type, name, ...modifiers || []]).join(" ")} />;
+  return <span className={compact<string>([type, name, ...modifiers || []]).join(" ")} />;
 }
