@@ -100,10 +100,12 @@ module.exports = {
       "NODE_ENV",
     ]),
     new HotModuleReplacementPlugin(),
-    new CopyWebpackPlugin([{
-      from: resolve(...sharedDirectory, "assets"),
-      to: resolve(...outputDirectory, "assets"),
-    }]),
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: resolve(...sharedDirectory, "assets"),
+        to: resolve(...outputDirectory, "assets"),
+      }],
+    }),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
       from,
       to: resolve(...outputDirectory, "assets", ...to),
