@@ -560,11 +560,11 @@ module.exports = {
     "wrap-regex": "error",
     "yield-star-spacing": "error",
     "yoda": "error",
-    "graphql/capitalized-type-name": "error",
-    "graphql/named-operations": "error",
-    "graphql/no-deprecated-fields": "error",
-    // "graphql/required-fields": "error", // A strange rule, might be useful in the future
-    "graphql/template-strings": "error",
+    "graphql/capitalized-type-name": ["error", {env: "literal"}],
+    "graphql/named-operations": ["error", {env: "literal"}],
+    "graphql/no-deprecated-fields": ["error", {env: "literal"}],
+    // "graphql/required-fields": ["error", {env: "literal"}], // A strange rule, might be useful in the future
+    "graphql/template-strings": ["error", {env: "literal"}],
     "grouped-accessor-pairs": "error",
     "jest/require-to-throw-message": "error",
     "jest/valid-title": "error",
