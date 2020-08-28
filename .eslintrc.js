@@ -1,3 +1,6 @@
+/* eslint-disable line-comment-position */
+/* eslint-disable no-inline-comments */
+/* eslint-disable import/no-commonjs */
 module.exports = {
   parser: "@babel/eslint-parser",
   plugins: [
@@ -391,7 +394,6 @@ module.exports = {
     "operator-assignment": "error",
     "operator-linebreak": "off", // Doesn't work with pipes
     "padded-blocks": ["error", "never"],
-    "padding-line-between-statements": "error",
     "padding-line-between-statements": ["error", {blankLine: "always", prev: "*", next: "return"}, {blankLine: "never", prev: ["const", "let", "var"], next: ["const", "let", "var"]}, {blankLine: "always", prev: "directive", next: "*"}, {blankLine: "any", prev: "directive", next: "directive"}],
     "prefer-arrow-callback": "off", // functions are fine too
     "prefer-const": "error",
