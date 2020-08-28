@@ -51,3 +51,13 @@ But you don't have to do that, in fact you can pull in whatever you damn well pl
   - Deal with setup
   - Finish setting up the html meta
   - Get a google tag manager id
+  - Hot reloading not noticing change in css
+  - handle cookies for origin server (BLEH)
+  - Tried to create an account, then I saw this in logs:
+
+    ```
+    ** (exit) an exception was raised:
+    ** (Protocol.UndefinedError) protocol Enumerable not implemented for #Ecto.Changeset<action: :insert, changes: %{email: "kurtis9@rainbolt-greene.online", onboarding_state: "converted", password_hash: "$argon2id$v=19$m=131072,t=8,p=4$iIrSevSl6u16hDjy0nQ7UQ$DBWOGrAJYgOIMBEw//ZkAVDW1RXymXpbyDSRvYvLj7k", role_state: "user", unconfirmed_email: "kurtis9@rainbolt-greene.online", username: "kurtis9"}, errors: [email: {"has already been taken", [constraint: :unique, constraint_name: "accounts_email_index"]}], data: #Database.Models.Account<>, valid?: false> of type Ecto.Changeset (a struct). This protocol is implemented for the following type(s): Ecto.Adapters.SQL.Stream, Postgrex.Stream, DBConnection.Stream, DBConnection.PrepareStream, HashSet, Range, Map, Function, List, Stream, Date.Range, HashDict, GenEvent.Stream, MapSet, File.Stream, IO.Stream
+    ```
+      But also the browser encountered a json error
+  - Client side errors don't back correctly
