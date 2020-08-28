@@ -2,9 +2,9 @@ import React from "react";
 import Link from "../Link";
 
 export default function Exception (properties) {
-  const {kind}: {kind: string} = properties
-  const {as}: {as: string} = properties
-  const {metadata = {}} = properties
+  const {kind}: {kind: string} = properties;
+  const {as}: {as: string} = properties;
+  const {metadata = {}} = properties;
 
   console.debug({as, metadata});
 
