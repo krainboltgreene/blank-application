@@ -1,0 +1,12 @@
+{
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "baseUrl": ".", // This must be specified if "paths" is.
+    "paths": {
+      "@clumsy_chinchilla/*": ["lib/browser/*"] // This mapping is relative to "baseUrl"
+    }
+  }
+}

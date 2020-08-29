@@ -59,7 +59,7 @@ module.exports = {
         loader: "graphql-tag/loader",
       },
       {
-        test: /\.js$/u,
+        test: /\.tsx?$/u,
         exclude: /node_modules/u,
         use: {
           loader: "babel-loader",
@@ -68,7 +68,7 @@ module.exports = {
     ],
   },
   entry: [
-    resolve(...inputDirectory),
+    resolve(...inputDirectory, "index.tsx"),
   ],
   target: "node",
   node: {
@@ -86,6 +86,7 @@ module.exports = {
     ignored: ["node_modules"],
   },
   resolve: {
+    extensions: [".tsx", ".ts"],
     alias: {
       "@clumsy_chinchilla/styles": resolve(...sharedDirectory, "styles"),
       "react-dom": "@hot-loader/react-dom",
@@ -100,10 +101,12 @@ module.exports = {
       "NODE_ENV",
     ]),
     new HotModuleReplacementPlugin(),
-    new CopyWebpackPlugin([{
-      from: resolve(...sharedDirectory, "assets"),
-      to: resolve(...outputDirectory, "assets"),
-    }]),
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: resolve(...sharedDirectory, "assets"),
+        to: resolve(...outputDirectory, "assets"),
+      }],
+    }),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
       from,
       to: resolve(...outputDirectory, "assets", ...to),

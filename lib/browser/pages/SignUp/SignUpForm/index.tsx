@@ -8,7 +8,7 @@ export default function SignUpForm () {
   const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation(createAccountMutation);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
-  const submitForm = async (event) => {
+  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await createAccount({variables: {input: {email}}});
   };
@@ -29,7 +29,7 @@ export default function SignUpForm () {
       type="email"
       property="email"
       label="Email"
-      inputAttributes={{readOnly: createAccountLoading, onChange: (event) => setEmail(event.target.value), autoComplete: "email", value: email}}
+      inputAttributes={{readOnly: createAccountLoading, onChange: (event: React.FormEvent<HTMLFormElement>) => setEmail(event.target.value), autoComplete: "email", value: email}}
       value={email}
     />
     <section>

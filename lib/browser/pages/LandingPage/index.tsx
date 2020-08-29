@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import React from "react";
+import {useEffect} from "react";
 import {useQuery} from "@apollo/client";
 import {useRecoilState} from "recoil";
 import {Helmet} from "react-helmet-async";
@@ -11,12 +12,14 @@ import query from "./index.gql";
 import "./index.scss";
 
 export default function LandingPage () {
-  const [currentAccount, setCurrentAccount] = useRecoilState(currentAccountState);
   const {loading, data, error} = useQuery(query);
+  const [currentAccount, setCurrentAccount] = useRecoilState(currentAccountState);
 
-  if (!loading && data) {
-    setCurrentAccount(data);
-  }
+  useEffect(() => {
+    if (!currentAccount && !loading && data) {
+      setCurrentAccount(data.session);
+    }
+  }, [currentAccount, setCurrentAccount, loading, data]);
 
   if (currentAccount && error) {
     return <Exception kind="overlay" as={error} />;
@@ -38,6 +41,9 @@ export default function LandingPage () {
     <ul>
       {currentAccount ? null : <li><Link href="/sign-up">Sign Up</Link></li>}
       {currentAccount ? null : <li><Link href="/login">Login</Link></li>}
+    </ul>
+    <ul>
+      {currentAccount ? <li><Link href="/settings">Settings</Link></li> : null}
     </ul>
   </Page>;
 }

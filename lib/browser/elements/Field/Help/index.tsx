@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 import React from "react";
 
 export default function Help (properties) {

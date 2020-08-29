@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-internal-modules */
 import "core-js/stable";
 import "regenerator-runtime/runtime";

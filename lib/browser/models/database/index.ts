@@ -4,7 +4,7 @@ import pouchDBAdapterMemory from "pouchdb-adapter-memory";
 import {mergeDeepRight} from "@unction/complete";
 import {mapValues} from "@unction/complete";
 import {get} from "@unction/complete";
-import visibility from "visibilityjs";
+import {hidden} from "visibilityjs";
 
 PouchDB.plugin(pouchDBQuickSearch);
 PouchDB.plugin(pouchDBAdapterMemory);
@@ -15,7 +15,6 @@ const DATABASE_CONFIGURATION = {
     active: false,
   },
   local: {
-    // eslint-disable-next-line babel/camelcase
     auto_compaction: true,
   },
   remote: {
@@ -29,7 +28,6 @@ const REPLICATION_CONFIGURATION = {
   live: true,
   retry: true,
   heartbeat: true,
-  // eslint-disable-next-line babel/camelcase
   batch_size: 250,
 };
 
@@ -62,8 +60,10 @@ export default {
         },
       });
     },
-    toggleSearching (currentState) {
-      return mergeDeepRight(currentState)({search: {active: !currentState.active}});
+    toggleSearching (currentState: {active: boolean}) {
+      return mergeDeepRight(currentState)({
+        search: {active: !currentState.active},
+      });
     },
     updateSearch (currentState, payload) {
       return mergeDeepRight(currentState)({search: payload});
@@ -81,16 +81,16 @@ export default {
         },
       });
     },
-    pauseReplication (currentState) {
+    pauseReplication (currentState: {}) {
       return mergeDeepRight(currentState)({replication: {lastPausedAt: new Date(), incoming: []}});
     },
-    resumeReplication (currentState) {
+    resumeReplication (currentState: {}) {
       return mergeDeepRight(currentState)({replication: {lastStartedAt: new Date()}});
     },
-    crashReplication (currentState) {
+    crashReplication (currentState: {}) {
       return currentState;
     },
-    completeReplication (currentState) {
+    completeReplication (currentState: {}) {
       return currentState;
     },
   },
@@ -127,8 +127,8 @@ export default {
         return dispatch.database.storeClient([type, new PouchDB(location, DATABASE_CONFIGURATION[type])]);
       },
       async check (type, {database}) {
-        if (visibility.hidden()) {
-          return undefined;
+        if (hidden()) {
+          return Promise.resolve();
         }
 
         return dispatch.database.updateMetadata([type, await database[type].client.info()]);
@@ -168,7 +168,6 @@ export default {
         const results = await database.local.client.search({
           query,
           fields,
-          // eslint-disable-next-line babel/camelcase
           include_docs: true,
         });
 
