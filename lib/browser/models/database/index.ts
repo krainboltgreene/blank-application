@@ -62,7 +62,7 @@ export default {
     },
     toggleSearching (currentState: {active: boolean}) {
       return mergeDeepRight(currentState)({
-        search: {active: !currentState.active}
+        search: {active: !currentState.active},
       });
     },
     updateSearch (currentState, payload) {
@@ -128,7 +128,7 @@ export default {
       },
       async check (type, {database}) {
         if (hidden()) {
-          return undefined;
+          return Promise.resolve();
         }
 
         return dispatch.database.updateMetadata([type, await database[type].client.info()]);

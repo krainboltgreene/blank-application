@@ -46,7 +46,7 @@ module.exports = {
         loader: "graphql-tag/loader",
       },
       {
-        test: /\.ts$/u,
+        test: /\.tsx?$/u,
         exclude: /node_modules/u,
         use: {
           loader: "babel-loader",
@@ -55,7 +55,7 @@ module.exports = {
     ],
   },
   entry: [
-    resolve(...inputDirectory, "index.ts"),
+    resolve(...inputDirectory, "index.tsx"),
   ],
   target: "node",
   node: {
@@ -73,6 +73,7 @@ module.exports = {
     ignored: ["node_modules"],
   },
   resolve: {
+    extensions: [".tsx", ".ts"],
     alias: {
       "@clumsy_chinchilla/styles": resolve(...sharedDirectory, "styles"),
       "react-dom": "@hot-loader/react-dom",

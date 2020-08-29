@@ -36,7 +36,37 @@ parse(template);
 application.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 application.use(compression());
 application.use(cors());
-application.use(helmet());
+application.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: [
+        "'self'",
+        "'unsafe-eval'", // development only
+      ],
+      scriptSrcElem: [
+        "'unsafe-inline'",
+        "http://localhost:8080", // development only
+        "https://kit.fontawesome.com",
+        "https://www.googletagmanager.com",
+      ],
+      styleSrcElem: [
+        "'unsafe-inline'", // development only
+        "http://localhost:8080", // development only
+        "https://fonts.googleapis.com",
+        "https://kit-free.fontawesome.com",
+      ],
+      connectSrc: [
+        "http://localhost:8080", // development only
+        "http://localhost:4000", // development only
+        "ws://localhost:8080", // development only
+      ],
+      fontSrc: [
+        "https://fonts.gstatic.com",
+        "https://kit-free.fontawesome.com",
+      ],
+    },
+  },
+}));
 if (process.env.NODE_ENV === "production") {
   application.get("*", function handleHotStar (request, response, next) {
     if (developmentHotFiles.some((pattern) => pattern.test(request.path))) {
