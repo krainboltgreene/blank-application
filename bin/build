@@ -2,6 +2,6 @@
 
 bin/webpack-client-build
 bin/webpack-server-build
-# mix compile
-# mix ecto.setup
-# mix absinthe.schema.json --schema Graphql.Schema
+mix compile
+mix ecto.setup
+mix absinthe.schema.json --schema Graphql.Schema
