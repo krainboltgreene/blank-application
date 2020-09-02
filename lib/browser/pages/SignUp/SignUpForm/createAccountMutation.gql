@@ -1,4 +1,4 @@
-mutation CreateAccount($input: NewAccount!) {
+mutation CreateAccountMutation($input: NewAccount!) {
   createAccount(input: $input) {
     id
     email

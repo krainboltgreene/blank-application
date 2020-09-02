@@ -1,0 +1,5 @@
+query fetchSessionQuery {
+  session {
+    id
+  }
+}

@@ -1,15 +1,22 @@
 import React from "react";
 import Link from "../Link";
+import "./index.scss";
 
-export default function Exception (properties) {
-  const {kind}: {kind: string} = properties;
-  const {as}: {as: string} = properties;
+type PropertiesType = {
+  kind: string,
+  as: string,
+  metadata?: {}
+}
+
+export default function Exception (properties: PropertiesType) {
+  const {kind} = properties;
+  const {as} = properties;
   const {metadata = {}} = properties;
 
   console.debug({as, metadata});
 
   if (kind === "overlay") {
-    return <section id="exception" className="overlay">
+    return <section className="Exception overlay">
       <h1>Something went wrong.</h1>
 
       <p>

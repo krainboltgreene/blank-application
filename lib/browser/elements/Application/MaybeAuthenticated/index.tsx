@@ -1,33 +1,38 @@
-import React from "react";
 import {useLazyQuery} from "@apollo/client";
-import {useCookie} from "react-use";
 import {useRecoilState} from "recoil";
-import {isSessionPresent as isSessionPresentState} from "@clumsy_chinchilla/atoms";
-import {currentAccount as currentAccountState} from "@clumsy_chinchilla/atoms";
-import Exception from "../../Exception";
+import {useEffect} from "react";
+import {useMemo} from "react";
 
-import query from "./index.gql";
+import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
+
+import fetchSessionQuery from "./fetchSessionQuery.gql";
 
 export default function MaybeAuthenticated ({children}) {
-  const [fetchCurrentSession, {error, data, loading}] = useLazyQuery(query);
-  const [cookie] = useCookie("_clumsy_chinchilla_key");
-  const [isSessionPresent, setIsSessionPresent] = useRecoilState(isSessionPresentState);
-  const [, setCurrentAccount] = useRecoilState(currentAccountState);
+  const [fetchSession, {error, data, loading}] = useLazyQuery(fetchSessionQuery);
+  const [currentAccount, setCurrentAccount] = useRecoilState<string>(currentAccountAtom);
+  const useIsomorphicEffect = RUNTIME_ENV === "client" ? useEffect : useMemo;
 
-  if (error) {
-    return <Exception kind="overlay" as={error} />;
-  }
+  useIsomorphicEffect(() => {
+    if (!data || !data.session || !data.session.id || loading || currentAccount) {
+      return;
+    }
 
-  if (!isSessionPresent && cookie) {
-    setIsSessionPresent(true);
-  }
+    setCurrentAccount(data.session.id);
+  }, [loading, currentAccount, data, setCurrentAccount]);
 
-  if (isSessionPresent && !loading && !data && !error) {
-    fetchCurrentSession();
-  }
+  useIsomorphicEffect(() => {
+    if (error) {
+      return;
+    }
 
-  if (isSessionPresent && data) {
-    setCurrentAccount(data.id);
+    if (loading || currentAccount) {
+      return;
+    }
+    fetchSession();
+  }, [fetchSession, error, loading, currentAccount]);
+
+  if (error && error.message !== "unauthenticated") {
+    throw error;
   }
 
   return children;

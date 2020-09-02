@@ -1,8 +1,22 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import {mapValues} from "@unction/complete";
+import {ReactChildren} from "react";
 
-export default function Input (properties) {
+type PropertiesType = {
+  id: string,
+  type: string,
+  labelId: string,
+  name: string,
+  options?: Array<any>,
+  value: any,
+  multiple?: boolean,
+  rows?: number,
+  attributes?: {},
+  onChange: (Event) => any
+}
+
+export default function Input (properties: PropertiesType) {
   const {type} = properties;
   const {labelId} = properties;
   const {id} = properties;

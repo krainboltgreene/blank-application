@@ -1,29 +1,14 @@
 /* eslint-disable unicorn/no-null */
 import React from "react";
-import {useEffect} from "react";
-import {useQuery} from "@apollo/client";
 import {useRecoilState} from "recoil";
 import {Helmet} from "react-helmet-async";
-import {currentAccount as currentAccountState} from "@clumsy_chinchilla/atoms";
+import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Page} from "@clumsy_chinchilla/elements";
-import {Exception} from "@clumsy_chinchilla/elements";
 import {Link} from "@clumsy_chinchilla/elements";
-import query from "./index.gql";
 import "./index.scss";
 
 export default function LandingPage () {
-  const {loading, data, error} = useQuery(query);
-  const [currentAccount, setCurrentAccount] = useRecoilState(currentAccountState);
-
-  useEffect(() => {
-    if (!currentAccount && !loading && data) {
-      setCurrentAccount(data.session);
-    }
-  }, [currentAccount, setCurrentAccount, loading, data]);
-
-  if (currentAccount && error) {
-    return <Exception kind="overlay" as={error} />;
-  }
+  const [currentAccount] = useRecoilState<string>(currentAccountAtom);
 
   return <Page id="LandingPage">
     <Helmet>

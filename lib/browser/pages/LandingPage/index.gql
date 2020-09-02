@@ -1,5 +1,0 @@
-query landingPageQuery {
-  session {
-    id
-  }
-}

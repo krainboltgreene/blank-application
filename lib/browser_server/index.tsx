@@ -5,12 +5,11 @@ import "regenerator-runtime/runtime";
 import {join} from "path";
 import {readFileSync} from "fs";
 import React from "react";
-import {Provider as ReduxProvider} from "react-redux";
 import {StaticRouter} from "react-router";
 import {HelmetProvider} from "react-helmet-async";
 import {ApolloProvider} from "@apollo/client";
 import {RecoilRoot} from "recoil";
-import {renderToString} from "react-dom/server";
+import {renderToStringWithData} from "@apollo/client/react/ssr";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
@@ -20,7 +19,6 @@ import {render} from "mustache";
 import helmet from "helmet";
 import {Application} from "@clumsy_chinchilla/elements";
 import logger from "./logger";
-import store from "./store";
 import sdk from "./sdk";
 
 const developmentHotFiles = [
@@ -49,11 +47,17 @@ application.use(helmet({
         "https://kit.fontawesome.com",
         "https://www.googletagmanager.com",
       ],
+      frameSrc: [
+        "https://www.googletagmanager.com",
+      ],
       styleSrcElem: [
-        "'unsafe-inline'", // development only
+        "'unsafe-inline'",
         "http://localhost:8080", // development only
         "https://fonts.googleapis.com",
         "https://kit-free.fontawesome.com",
+      ],
+      styleSrc: [
+        "'unsafe-inline'",
       ],
       connectSrc: [
         "http://localhost:8080", // development only
@@ -78,34 +82,31 @@ if (process.env.NODE_ENV === "production") {
 }
 application.get(express.static(join(__dirname, "assets"), {fallthrough: true, index: false}));
 application.get("/assets", express.static(join(__dirname, "assets"), {fallthrough: false, index: false}));
-application.get("*", function handleStar (request, response) {
+application.get("*", async function handleStar (request, response) {
+  const client = sdk(request);
   const routerContext: {url?: string} = {};
-  const content = renderToString(
+  const content = await renderToStringWithData(
     <StaticRouter location={request.url} context={routerContext}>
       <HelmetProvider>
         <RecoilRoot>
-          <ReduxProvider store={store}>
-            <ApolloProvider client={sdk}>
-              <Application />
-            </ApolloProvider>
-          </ReduxProvider>
+          <ApolloProvider client={client}>
+            <Application />
+          </ApolloProvider>
         </RecoilRoot>
       </HelmetProvider>
     </StaticRouter>
   );
 
-  if (routerContext.url) {
-    return 400;
-  }
-
-  return response.send(render(template, {
+  response.send(render(template, {
     content,
     googleTagManagerId: "",
     supportEmail: "support@clumsy_chinchilla.com",
     metadata: {
       title: "ClumsyChinchilla",
     },
+    initialState: JSON.stringify(client.extract()).replace("<", "\\u003c"),
   }));
+  response.end();
 });
 
 application.listen(

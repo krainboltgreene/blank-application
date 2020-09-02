@@ -1,27 +1,34 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+import React from "react";
+import {useState} from "react";
+import {useEffect} from "react";
+import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
+import {useHistory} from "react-router-dom";
+
+import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
-import createAccountMutation from "./createAccount.gql";
+import createAccountMutation from "./createAccountMutation.gql";
 
 export default function SignUpForm () {
+  const history = useHistory();
+  const [, setCurrentAccount] = useRecoilState<string>(currentAccountAtom);
   const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation(createAccountMutation);
-  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
-  const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await createAccount({variables: {input: {email}}});
+    createAccount({variables: {input: {email}}});
   };
 
   if (createAccountError) {
-    return <section>Error...</section>;
+    throw createAccountError;
   }
 
-  if (createAccountData) {
-    dispatch({type: "resources/write", payload: createAccountData});
-
-    return <section>{JSON.stringify(createAccountData)}</section>;
-  }
+  useEffect(() => {
+    if (createAccountData) {
+      setCurrentAccount(createAccountData.createAccount.id);
+      history.push("/");
+    }
+  }, [createAccountData, setCurrentAccount, history]);
 
   return <form id="signUpForm" onSubmit={submitForm}>
     <Field
