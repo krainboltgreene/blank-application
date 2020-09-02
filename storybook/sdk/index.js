@@ -9,13 +9,13 @@ export default new ApolloClient({
   link: from([
     onError(({graphQLErrors, networkError}) => {
       if (graphQLErrors) {
-        graphQLErrors.forEach(({message, locations, path}) => console.log(
+        graphQLErrors.forEach(({message, locations, path}) => console.error(
           "[GraphQL error]",
           {message, locations, path},
         ));
       }
       if (networkError) {
-        console.log("[Network error]", {networkError});
+        console.error("[Network error]", {networkError});
       }
     }),
     new HttpLink({
