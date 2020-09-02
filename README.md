@@ -22,7 +22,7 @@ Almost all static assets go into `lib/browser/assets/` so that webpack can pick 
 
 ### Where do I put frontend data?
 
-Almost 100% of the time it's going to be `lib/browser/atoms`, though some data currently sits in redux/rematch.
+If it's global data, define a recoil atom in `lib/browser/atoms`, otherwise use local state.
 
 ### Where are the global styles?
 
@@ -52,7 +52,8 @@ But you don't have to do that, in fact you can pull in whatever you damn well pl
   - Finish setting up the html meta
   - Get a google tag manager id
   - Hot reloading not noticing change in css
-  - handle cookies for origin server (BLEH)
+  - Utilize recoil state persistance for hydration
+  - make storybook load recoil
   - Tried to create an account, then I saw this in logs:
 
     ```
