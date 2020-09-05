@@ -104,7 +104,7 @@ application.get("*", async function handleStar (request, response) {
     metadata: {
       title: "ClumsyChinchilla",
     },
-    initialState: JSON.stringify(client.extract()).replace("<", "\\u003c"),
+    graphqlHydration: JSON.stringify(client.extract()).replace("<", "\\u003c"),
   }));
   response.end();
 });
