@@ -39,11 +39,11 @@ application.use(helmet({
     directives: {
       defaultSrc: [
         "'self'",
-        "'unsafe-eval'", // development only
+        "'unsafe-eval'",
       ],
       scriptSrcElem: [
         "'unsafe-inline'",
-        "http://localhost:8080", // development only
+        "http://localhost:8080",
         "https://kit.fontawesome.com",
         "https://www.googletagmanager.com",
       ],
@@ -60,9 +60,9 @@ application.use(helmet({
         "'unsafe-inline'",
       ],
       connectSrc: [
-        "http://localhost:8080", // development only
-        "http://localhost:4000", // development only
-        "ws://localhost:8080", // development only
+        "http://localhost:8080",
+        "http://localhost:4000",
+        "ws://localhost:8080",
       ],
       fontSrc: [
         "https://fonts.gstatic.com",
