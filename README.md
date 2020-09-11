@@ -3,8 +3,8 @@
 This project is actually 5 parts:
 
   1. The resource application: Written in Elixir, run with Phoenix, speaks GraphQL and HTML. All the resources and levers are via GraphQL while some operational tools are in HTML. Talks to the database directly via Ecto. Also handles the background processes that need to happen.
-  2. The browser application: Written in javascript, rendered in React, handling data with Recoil & Redux (via rematch). Makes requests to the resource server via ApolloClient (GraphQL). Has an internal database using PouchDB for handling large datasets.
-  3. The content application: Written in javascript, renders content via React, handling data with Recoil & Redux (via rematch). Makes requests to the resource server via ApolloClient (GraphQL). Just a server-rendering of the browser application.
+  2. The browser application: Written in javascript, rendered in React, handling data with Recoil. Makes requests to the resource server via ApolloClient (GraphQL). Has an internal database using PouchDB for handling large datasets.
+  3. The content application: Written in javascript, renders content via React, handling data with Recoil. Makes requests to the resource server via ApolloClient (GraphQL). Just a server-rendering of the browser application.
   4. PostgreSQL: Where we store long term data.
   5. Redis: Where we store short term ephemeral data.
 

@@ -73,7 +73,6 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10",
     "@hot-loader/react-dom": "^16.13",
-    "@rematch/core": "^1.4",
     "@unction/complete": "^21.1.0",
     "autoprefixer": "^9.8",
     "babel-loader": "^8.1",
