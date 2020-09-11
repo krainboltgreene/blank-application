@@ -52,7 +52,7 @@ application.use(helmet({
       ],
       styleSrcElem: [
         "'unsafe-inline'",
-        "http://localhost:8080", // development only
+        "http://localhost:8080",
         "https://fonts.googleapis.com",
         "https://kit-free.fontawesome.com",
       ],
