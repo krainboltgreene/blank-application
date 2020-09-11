@@ -65,7 +65,7 @@ export default {
         search: {active: !currentState.active},
       });
     },
-    updateSearch (currentState, payload) {
+    updateSearchMetadata (currentState, payload) {
       return mergeDeepRight(currentState)({search: payload});
     },
     startReplication (currentState, job) {
@@ -163,7 +163,7 @@ export default {
       },
       async search ([query, fields], {database}) {
         dispatch.database.toggleSearching();
-        dispatch.database.updateSearch({query});
+        dispatch.database.updateSearchMetadata({query});
 
         const results = await database.local.client.search({
           query,
@@ -172,7 +172,7 @@ export default {
         });
 
         dispatch.database.toggleSearching();
-        dispatch.database.updateSearch({count: results.total_rows});
+        dispatch.database.updateSearchMetadata({count: results.total_rows});
 
         return results;
       },
