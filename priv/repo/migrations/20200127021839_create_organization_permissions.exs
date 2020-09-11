@@ -1,4 +1,4 @@
-defmodule Database.Repo.Migrations.CreateOrganizationAccountPermissions do
+defmodule Database.Repository.Migrations.CreateOrganizationAccountPermissions do
   use Ecto.Migration
 
   def change do

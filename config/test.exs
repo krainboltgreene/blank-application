@@ -5,7 +5,7 @@ use Mix.Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :clumsy_chinchilla, Database.Repo,
+config :clumsy_chinchilla, Database.Repository,
   username: "postgres",
   password: "postgres",
   database: "clumsy_chinchilla_test#{System.get_env("MIX_TEST_PARTITION")}",

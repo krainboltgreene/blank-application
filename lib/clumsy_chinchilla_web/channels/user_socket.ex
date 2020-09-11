@@ -45,6 +45,6 @@ defmodule ClumsyChinchillaWeb.UserSocket do
   def id(socket), do: "user_socket:#{socket.assigns.account_id}"
 
   defp account_from_session(%{"session_id" => id}) do
-    Database.Repo.get(Database.Models.Account, id)
+    Database.Repository.get(Database.Models.Account, id)
   end
 end

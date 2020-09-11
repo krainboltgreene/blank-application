@@ -8,7 +8,7 @@ defmodule ClumsyChinchilla.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Database.Repo,
+      Database.Repository,
       # Start the Telemetry supervisor
       ClumsyChinchillaWeb.Telemetry,
       # Start the PubSub system

@@ -4,7 +4,7 @@ defmodule Graphql.Resolvers.Sessions do
   def create(_parent, %{input: %{email: email, password: password}}, _resolution)
       when is_bitstring(email) and is_bitstring(password) do
     # Find the account by email
-    Database.Repo.get_by(Poutioner.Models.Account, email: email)
+    Database.Repository.get_by(Poutioner.Models.Account, email: email)
     |> case do
       # Determine if the password is correct
       %Database.Models.Account{} = account ->

@@ -1,7 +1,7 @@
 use Mix.Config
 
 # Configure your database
-config :clumsy_chinchilla, Database.Repo,
+config :clumsy_chinchilla, Database.Repository,
   username: "postgres",
   password: "postgres",
   database: "clumsy_chinchilla_dev",

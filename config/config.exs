@@ -8,7 +8,7 @@
 use Mix.Config
 
 config :clumsy_chinchilla,
-  ecto_repos: [Database.Repo],
+  ecto_repos: [Database.Repository],
   generators: [binary_id: true]
 
 # Configures the endpoint
@@ -32,7 +32,7 @@ config :absinthe, schema: Graphql.Schema
 
 # Setup configuration for paper_trail
 config :paper_trail,
-  repo: Database.Repo,
+  repo: Database.Repository,
   item_type: Ecto.UUID,
   originator_type: Ecto.UUID,
   originator: [name: :account, model: Database.Models.Account]

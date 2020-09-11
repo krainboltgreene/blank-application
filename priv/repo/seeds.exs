@@ -5,7 +5,7 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     Database.Repo.insert!(%ClumsyChinchilla.SomeSchema{})
+#     Database.Repository.insert!(%ClumsyChinchilla.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
@@ -16,13 +16,13 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     LittleBlackBook.Database.Repo.insert!(%LittleBlackBook.SomeSchema{})
+#     LittleBlackBook.Database.Repository.insert!(%LittleBlackBook.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
 defmodule Seeds do
-  def create_record(attributes, model, repository \\ LittleBlackBook.Database.Repo) do
+  def create_record(attributes, model, repository \\ LittleBlackBook.Database.Repository) do
     struct(model)
     |> model.changeset(attributes)
     |> repository.insert()

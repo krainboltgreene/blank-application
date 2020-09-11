@@ -1,4 +1,4 @@
-defmodule Database.Repo.Migrations.CreateOrganizations do
+defmodule Database.Repository.Migrations.CreateOrganizations do
   use Ecto.Migration
 
   def change do

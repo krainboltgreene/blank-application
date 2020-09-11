@@ -9,7 +9,7 @@ defmodule HenosisWeb.Plugs.GraphqlSessionContext do
     session_id = Plug.Conn.get_session(connection, :session_id)
 
     account = if session_id do
-        Database.Repo.get(Database.Models.Account, session_id)
+        Database.Repository.get(Database.Models.Account, session_id)
       end
 
     Absinthe.Plug.put_options(

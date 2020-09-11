@@ -18,7 +18,7 @@ defmodule ClumsyChinchilla.DataCase do
 
   using do
     quote do
-      alias Database.Repo
+      alias Database.Repository
 
       import Ecto
       import Ecto.Changeset
@@ -28,10 +28,10 @@ defmodule ClumsyChinchilla.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Database.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Database.Repository)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Database.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Database.Repository, {:shared, self()})
     end
 
     :ok
