@@ -80,8 +80,8 @@ if (process.env.NODE_ENV === "production") {
     return next();
   });
 }
-application.get(express.static(join(__dirname, "assets"), {fallthrough: true, index: false}));
-application.get("/assets", express.static(join(__dirname, "assets"), {fallthrough: false, index: false}));
+application.get("/assets/*", express.static(join(__dirname), {fallthrough: false, index: false}));
+application.get("/favicon.ico", express.static(join(__dirname, "assets"), {fallthrough: false, index: false}));
 application.get("*", async function handleStar (request, response) {
   const client = sdk(request);
   const routerContext: {url?: string} = {};
