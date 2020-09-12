@@ -113,6 +113,7 @@ module.exports = {
     }])),
     new MiniCssExtractPlugin(),
     new NodemonWebpackPlugin({
+      nodeArgs: "--inspect",
       watch: resolve(...outputDirectory),
       script: resolve(...outputDirectory, "server.js"),
       ext: "js,html",
