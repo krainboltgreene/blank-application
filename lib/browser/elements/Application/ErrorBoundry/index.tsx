@@ -1,15 +1,21 @@
 import React from "react";
-import {lifecycle} from "recompose";
+import {PureComponent} from "react";
 import Exception from "../../Exception";
 
-export default lifecycle({
+export default class ErrorBoundry extends PureComponent<{children: React.ReactChildren}, {exception: Error, metadata: {}}> {
   componentDidCatch (exception: Error, metadata: {}) {
     this.setState(() => ({exception, metadata}));
-  },
-})(function ErrorBoundry ({exception, metadata, children}) {
-  if (exception) {
-    return <Exception kind="overlay" as={exception} metadata={metadata} />;
   }
 
-  return children;
-});
+  render () {
+    const {children} = this.props;
+    const {exception} = this.state;
+    const {metadata} = this.state;
+
+    if (exception) {
+      return <Exception kind="overlay" as={exception} metadata={metadata} />;
+    }
+
+    return children;
+  }
+}

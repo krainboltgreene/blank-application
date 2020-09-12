@@ -118,7 +118,6 @@
     "react-use": "^15.3",
     "rebound": "^0.1",
     "recoil": "^0.0",
-    "recompose": "^0.30",
     "reselect": "^4.0",
     "sass": "^1.26",
     "sass-loader": "^10.0",
