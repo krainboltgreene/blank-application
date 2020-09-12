@@ -13,7 +13,7 @@ export default function MaybeAuthenticated ({children}) {
   const useIsomorphicEffect = RUNTIME_ENV === "client" ? useEffect : useMemo;
 
   useIsomorphicEffect(() => {
-    if (!data || !data.session || !data.session.id || loading || currentAccount) {
+    if (!data || !data.session || !data.session.id || currentAccount) {
       return;
     }
 
@@ -28,6 +28,7 @@ export default function MaybeAuthenticated ({children}) {
     if (loading || currentAccount) {
       return;
     }
+
     fetchSession();
   }, [fetchSession, error, loading, currentAccount]);
 
