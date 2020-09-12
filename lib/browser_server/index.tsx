@@ -18,6 +18,7 @@ import {parse} from "mustache";
 import {render} from "mustache";
 import helmet from "helmet";
 import {Application} from "@clumsy_chinchilla/elements";
+import {RecoilStateHydrater} from "@clumsy_chinchilla/elements";
 import logger from "./logger";
 import sdk from "./sdk";
 
@@ -85,17 +86,22 @@ application.get("/favicon.ico", express.static(join(__dirname, "assets"), {fallt
 application.get("*", async function handleStar (request, response) {
   const client = sdk(request);
   const routerContext: {url?: string} = {};
+  const recoilState = new Map();
   const content = await renderToStringWithData(
     <StaticRouter location={request.url} context={routerContext}>
       <HelmetProvider>
         <RecoilRoot>
           <ApolloProvider client={client}>
-            <Application />
+            <RecoilStateHydrater mutableState={recoilState}>
+              <Application />
+            </RecoilStateHydrater>
           </ApolloProvider>
         </RecoilRoot>
       </HelmetProvider>
     </StaticRouter>
   );
+
+  console.log({recoilState});
 
   response.send(render(template, {
     content,
@@ -104,6 +110,7 @@ application.get("*", async function handleStar (request, response) {
     metadata: {
       title: "ClumsyChinchilla",
     },
+    recoilHydration: recoilState,
     graphqlHydration: JSON.stringify(client.extract()).replace("<", "\\u003c"),
   }));
   response.end();
