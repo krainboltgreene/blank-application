@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import React from "react";
-import {useRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 import {Helmet} from "react-helmet-async";
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Page} from "@clumsy_chinchilla/elements";
@@ -8,7 +8,7 @@ import {Link} from "@clumsy_chinchilla/elements";
 import "./index.scss";
 
 export default function LandingPage () {
-  const [currentAccount] = useRecoilState<string>(currentAccountAtom);
+  const currentAccount = useRecoilValue<string>(currentAccountAtom);
 
   return <Page id="LandingPage">
     <Helmet>
