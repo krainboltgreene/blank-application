@@ -1,0 +1,7 @@
+#!/bin/bash
+
+project_id=$(gcloud config get-value core/project)
+bucket="${project_id}-releases"
+
+echo "Copying binary to release location..."
+gsutil cp tmp/affinity_matrix.run gs://${bucket}/latest

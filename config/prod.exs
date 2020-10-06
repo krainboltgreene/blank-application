@@ -50,16 +50,8 @@ config :logger, level: :info
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
-database_url =
-  System.get_env("DATABASE_URL") ||
-    raise """
-    environment variable DATABASE_URL is missing.
-    For example: ecto://USER:PASS@HOST/DATABASE
-    """
-
 config :clumsy_chinchilla, Database.Repository,
-  # ssl: true,
-  url: database_url,
+  database: "affinity_matrix",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   prepare: :unnamed
 
@@ -86,3 +78,5 @@ config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
+
+import_config("prod.secret.exs")

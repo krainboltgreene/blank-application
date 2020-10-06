@@ -10,6 +10,9 @@ config :clumsy_chinchilla, Database.Repository,
   pool_size: 10,
   prepare: :unnamed
 
+config :logger,
+  backends: [:console]
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -66,3 +69,9 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :affinity_matrix, :graphql,
+  uri: "http://localhost:4000/graphql"
+
+config :affinity_matrix, :flow,
+  max_demand: 8

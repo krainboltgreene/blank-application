@@ -1,0 +1,3 @@
+#!/bin/bash
+
+~/bin/cloud-sql-proxy -dir=./tmp/cloudsql -instances=affinity-matrix:us-west1:amxn-slurp-helmet-pasta

@@ -6,6 +6,7 @@
 
 # General application configuration
 use Mix.Config
+import IO
 
 config :clumsy_chinchilla,
   ecto_repos: [Database.Repository],
@@ -19,16 +20,21 @@ config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
   pubsub_server: ClumsyChinchilla.PubSub,
   live_view: [signing_salt: "bbTmf3m/"]
 
-# Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
-
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
 # Tell Absinthe what schema to use
 config :absinthe, schema: Graphql.Schema
+
+config :logger, :console,
+  format: "[$level] #{IO.ANSI.bright()}$message#{IO.ANSI.normal()} $metadata[$level]\n",
+  metadata: :all,
+  color: :enabled
+
+config :logger, :logs,
+  path: "tmp/application.log",
+  metadata: :all,
+  format: "[$date][$time][$node][$level] #{IO.ANSI.bright()}$message#{IO.ANSI.normal()} $metadata\n"
 
 # Setup configuration for paper_trail
 config :paper_trail,
@@ -39,4 +45,4 @@ config :paper_trail,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env()}.exs"
+import_config("#{Mix.env()}.exs")
