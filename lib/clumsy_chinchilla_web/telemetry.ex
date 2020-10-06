@@ -31,11 +31,11 @@ defmodule ClumsyChinchillaWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("clumsy_chinchilla.repo.query.total_time", unit: {:native, :millisecond}),
-      summary("clumsy_chinchilla.repo.query.decode_time", unit: {:native, :millisecond}),
-      summary("clumsy_chinchilla.repo.query.query_time", unit: {:native, :millisecond}),
-      summary("clumsy_chinchilla.repo.query.queue_time", unit: {:native, :millisecond}),
-      summary("clumsy_chinchilla.repo.query.idle_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.total_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.decode_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.query_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.queue_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.idle_time", unit: {:native, :millisecond}),
 
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
