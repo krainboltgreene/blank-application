@@ -16,10 +16,6 @@ defmodule Graphql.Mutations.Account do
     field :password, :string
   end
 
-  input_object :account_identifier do
-    field :id, non_null(:id)
-  end
-
   object :account_mutations do
     @desc "Create a new account"
     field :create_account, :account do
@@ -37,14 +33,14 @@ defmodule Graphql.Mutations.Account do
     end
 
     field :grant_administration_powers, :account do
-      arg(:input, non_null(:account_identifier))
+      arg(:input, non_null(:identity))
 
       resolve(&Graphql.Resolvers.Accounts.grant_administration_powers/3)
     end
 
     @desc "Permanently delete an existing account"
     field :destroy_account, :account do
-      arg(:input, non_null(:account_identifier))
+      arg(:input, non_null(:identity))
 
       resolve(&Graphql.Resolvers.Accounts.destroy/3)
     end

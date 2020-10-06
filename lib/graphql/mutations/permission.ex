@@ -10,10 +10,6 @@ defmodule Graphql.Mutations.Permission do
     field :name, :string
   end
 
-  input_object :permission_identifier do
-    field :id, non_null(:id)
-  end
-
   object :permission_mutations do
     @desc "Create a new permission"
     field :create_permission, :permission do
@@ -30,7 +26,7 @@ defmodule Graphql.Mutations.Permission do
 
     @desc "Permanently delete an existing permission"
     field :destroy_permission, :permission do
-      arg(:input, non_null(:permission_identifier))
+      arg(:input, non_null(:identity))
 
       resolve(&Graphql.Resolvers.Permissions.destroy/3)
     end

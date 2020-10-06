@@ -10,10 +10,6 @@ defmodule Graphql.Mutations.Organization do
     field :name, :string
   end
 
-  input_object :organization_identifier do
-    field :id, non_null(:id)
-  end
-
   object :organization_mutations do
     @desc "Create a new organization"
     field :create_organization, :organization do
@@ -31,7 +27,7 @@ defmodule Graphql.Mutations.Organization do
 
     @desc "Permanently delete an existing organization"
     field :destroy_organization, :organization do
-      arg(:input, non_null(:organization_identifier))
+      arg(:input, non_null(:identity))
 
       resolve(&Graphql.Resolvers.Organizations.destroy/3)
     end

@@ -12,6 +12,10 @@ defmodule Database.Models.Permission do
     timestamps()
   end
 
+  def data() do
+    Dataloader.Ecto.new(Database.Repository)
+  end
+
   @spec changeset(map, map) :: Ecto.Changeset.t()
   @doc false
   def changeset(record, attributes) do

@@ -1,53 +1,9 @@
 defmodule Graphql.Resolvers.Permissions do
-  @spec list(any, any, any) :: {:ok, [%Database.Models.Permission{}]} | {:error, any}
-  def list(_parent, _arguments, _resolution) do
-    {:ok, Database.Repository.all(Database.Models.Permission)}
-  end
+  import Graphql.Resolvers, only: [listable: 2, findable: 2, creatable: 2, updatable: 2, destroyable: 2]
 
-  @spec find(any, %{input: %{id: bitstring}}, any) ::
-          {:ok, %Database.Models.Permission{}} | {:error, any}
-  def find(_parent, %{input: %{id: id}}, _resolution) when not is_nil(id) and is_bitstring(id) do
-    {:ok, Database.Repository.get(Database.Models.Permission, id)}
-  end
-  def find(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
-    {:error, :unauthenticated}
-  end
-
-  @spec create(any, %{input: map}, any) :: {:ok, %Database.Models.Permission{}} | {:error, any}
-  def create(_parent, %{input: input}, _resolution) do
-    %Database.Models.Permission{}
-    |> Database.Models.Permission.changeset(input)
-    |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
-    end
-  end
-  def create(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
-    {:error, :unauthenticated}
-  end
-
-  @spec update(any, %{input: %{:id => bitstring, optional(atom) => any}}, any) ::
-          {:ok, %Database.Models.Permission{}} | {:error, any}
-  def update(_parent, %{input: %{id: id} = input}, _resolution) when is_bitstring(id) do
-    Database.Repository.get!(Database.Models.Permission, id)
-    |> Database.Models.Permission.changeset(input)
-    |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
-    end
-  end
-  def update(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
-    {:error, :unauthenticated}
-  end
-
-  @spec destroy(any, %{input: %{id: bitstring}}, any) ::
-          {:ok, %Database.Models.Permission{}} | {:error, any}
-  def destroy(_parent, %{input: %{id: id}}, _resolution)
-      when not is_nil(id) and is_bitstring(id) do
-    Database.Repository.get(Database.Models.Permission, id)
-    |> Database.Repository.delete()
-  end
-  def destroy(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
-    {:error, :unauthenticated}
-  end
+  listable(Database.Models.Permission, :authenticated)
+  findable(Database.Models.Permission, :authenticated)
+  creatable(Database.Models.Permission, :authenticated)
+  updatable(Database.Models.Permission, :authenticated)
+  destroyable(Database.Models.Permission, :authenticated)
 end

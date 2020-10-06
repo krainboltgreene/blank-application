@@ -1,22 +1,10 @@
 defmodule Graphql.Resolvers.Accounts do
-  @spec list(any, any, %{context: %{current_account: %Database.Models.Account{id: String.t()}}}) :: {:ok, list(%Database.Models.Account{})}
-  def list(_parent, _arguments, %{context: %{current_account: current_account}}) when not is_nil(current_account) do
-    {:ok, Database.Repository.all(Database.Models.Account)}
-  end
+  import Graphql.Resolvers, only: [listable: 2, findable: 2, updatable: 2, destroyable: 2]
 
-  @spec list(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
-  def list(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
-    {:error, :unauthenticated}
-  end
-
-  @spec find(any, %{input: %{id: bitstring}}, any) ::
-          {:ok, %Database.Models.Account{}} | {:error, any}
-  def find(_parent, %{input: %{id: id}}, _resolution) when not is_nil(id) and is_bitstring(id) do
-    {:ok, Database.Repository.get(Database.Models.Account, id)}
-  end
-  def find(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
-    {:error, :unauthenticated}
-  end
+  listable(Database.Models.Account, :authenticated)
+  findable(Database.Models.Account, :authenticated)
+  updatable(Database.Models.Account, :authenticated)
+  destroyable(Database.Models.Account, :authenticated)
 
   @spec create(any, %{input: %{email: bitstring, password: bitstring} | %{email: bitstring}}, any) ::
           {:ok, %Database.Models.Account{}} | {:error, any}
@@ -36,31 +24,6 @@ defmodule Graphql.Resolvers.Accounts do
       %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
-  end
-
-  @spec update(any, %{input: %{:id => bitstring, optional(atom) => any}}, any) ::
-          {:ok, %Database.Models.Account{}} | {:error, any}
-  def update(_parent, %{input: %{id: id} = input}, _resolution) when is_bitstring(id) do
-    Database.Repository.get!(Database.Models.Account, id)
-    |> Database.Models.Account.changeset(input)
-    |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
-    end
-  end
-  def update(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
-    {:error, :unauthenticated}
-  end
-
-  @spec destroy(any, %{input: %{id: bitstring}}, any) ::
-          {:ok, %Database.Models.Account{}} | {:error, any}
-  def destroy(_parent, %{input: %{id: id}}, _resolution)
-      when not is_nil(id) and is_bitstring(id) do
-    Database.Repository.get(Database.Models.Account, id)
-    |> Database.Repository.delete()
-  end
-  def destroy(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
-    {:error, :unauthenticated}
   end
 
   @spec grant_administration_powers(any, %{input: %{id: bitstring}}, any) ::
