@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gcloud compute ssh --project affinity-matrix --zone us-west2-a amxn-slurp-production

@@ -22,6 +22,16 @@ osascript <<EOF
       set latestPane to current session of (current tab)
 
       tell latestPane
+        write text "bin/redis-start"
+      end tell
+
+      tell latestPane
+        select split horizontally with same profile
+      end tell
+
+      set latestPane to current session of (current tab)
+
+      tell latestPane
         write text "bin/phoenix-start"
       end tell
 
