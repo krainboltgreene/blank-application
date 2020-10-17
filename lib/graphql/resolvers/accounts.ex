@@ -1,5 +1,5 @@
 defmodule Graphql.Resolvers.Accounts do
-  import Graphql.Resolvers, only: [listable: 2, findable: 2, updatable: 2, destroyable: 2]
+  import Graphql.Resolvers, only: :macros
 
   listable(Database.Models.Account, :authenticated)
   findable(Database.Models.Account, :authenticated)
