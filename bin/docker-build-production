@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# -t us.gcr.io/affinity-matrix/amxn-slurp-production:latest \
+docker build \
+  -t amxn-slurp-production:latest \
+  --file docker/prod/Dockerfile .
