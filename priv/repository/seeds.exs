@@ -34,47 +34,62 @@ defmodule Seeds do
 
   def assign_membership(account, organization, permission) do
     %{
-      organization_membership: %{
-        account: account,
-        organization: organization
-      } |> create_record(LittleBlackBook.Models.OrganizationMembership),
+      organization_membership:
+        %{
+          account: account,
+          organization: organization
+        }
+        |> create_record(LittleBlackBook.Models.OrganizationMembership),
       permission: permission
-    } |> create_record(LittleBlackBook.Models.OrganizationPermission)
+    }
+    |> create_record(LittleBlackBook.Models.OrganizationPermission)
   end
 end
 
-administrator_permissions = %{
-  name: "Administrator"
-} |> Seeds.create_record(LittleBlackBook.Models.Permission)
+administrator_permissions =
+  %{
+    name: "Administrator"
+  }
+  |> Seeds.create_record(LittleBlackBook.Models.Permission)
 
-dater_permissions = %{
-  name: "Dater"
-} |> Seeds.create_record(LittleBlackBook.Models.Permission)
+dater_permissions =
+  %{
+    name: "Dater"
+  }
+  |> Seeds.create_record(LittleBlackBook.Models.Permission)
 
-users_organization = %{
-  name: "Users"
-} |> Seeds.create_record(LittleBlackBook.Models.Organization)
+users_organization =
+  %{
+    name: "Users"
+  }
+  |> Seeds.create_record(LittleBlackBook.Models.Organization)
 
-krainboltgreene = %{
-  name: "Kurtis Rainbolt-Greene",
-  email: "kurtis@difference-engineers.com",
-  username: "krainboltgreene",
-  password: "password"
-} |> Seeds.create_record(LittleBlackBook.Models.Account)
+krainboltgreene =
+  %{
+    name: "Kurtis Rainbolt-Greene",
+    email: "kurtis@difference-engineers.com",
+    username: "krainboltgreene",
+    password: "password"
+  }
+  |> Seeds.create_record(LittleBlackBook.Models.Account)
 
-emash = %{
-  name: "Emily Ashley",
-  email: "ohemilyashley@gmail.com",
-  username: "emash",
-  password: "password2"
-} |> Seeds.create_record(LittleBlackBook.Models.Account)
+emash =
+  %{
+    name: "Emily Ashley",
+    email: "ohemilyashley@gmail.com",
+    username: "emash",
+    password: "password2"
+  }
+  |> Seeds.create_record(LittleBlackBook.Models.Account)
 
-alabaster = %{
-  name: "Alabaster Wolf",
-  email: "dinguspaz@gmail.com",
-  username: "alabaster",
-  password: "password"
-} |> Seeds.create_record(LittleBlackBook.Models.Account)
+alabaster =
+  %{
+    name: "Alabaster Wolf",
+    email: "dinguspaz@gmail.com",
+    username: "alabaster",
+    password: "password"
+  }
+  |> Seeds.create_record(LittleBlackBook.Models.Account)
 
 krainboltgreene |> Seeds.assign_membership(users_organization, administrator_permissions)
 emash |> Seeds.assign_membership(users_organization, administrator_permissions)

@@ -1,16 +1,16 @@
 defmodule Graphql.Client do
   require Logger
 
-
   @spec request(binary, any) :: {:error, :client_timeout | :unknown | [any]} | {:ok, any}
-  def request(body, variables) when is_bitstring(body) or is_map(body) and is_map(variables) do
+  def request(body, variables) when is_bitstring(body) or (is_map(body) and is_map(variables)) do
     Logger.info("[Client] Making a request to self")
-    started_at = Time.utc_now
-    Application.fetch_env!(:affinity_matrix, :graphql)[:uri]
-    |> Brains.Connection.new
+    started_at = Time.utc_now()
+
+    Application.fetch_env!(:clumsy_chinchilla, :graphql)[:uri]
+    |> Brains.Connection.new()
     |> Brains.query(body, variables: variables)
     |> Brains.Response.decode()
-    |> resolution(name(body), Time.diff(Time.utc_now, started_at, :millisecond))
+    |> resolution(name(body), Time.diff(Time.utc_now(), started_at, :millisecond))
   end
 
   def resolution({:ok, %{body: %{"errors" => errors}}}, name, _) do
@@ -33,11 +33,11 @@ defmodule Graphql.Client do
   end
 
   def resolution({_, response}, name, duration) do
-    Logger.error("[Client] [#{name}] #{response |> Kernel.inspect} (#{duration}ms)")
+    Logger.error("[Client] [#{name}] #{response |> Kernel.inspect()} (#{duration}ms)")
     {:error, :unknown}
   end
 
   defp name(query) do
-    Regex.run(~r/(?:mutation|query) (\w+)/, query) |> List.first
+    Regex.run(~r/(?:mutation|query) (\w+)/, query) |> List.first()
   end
 end

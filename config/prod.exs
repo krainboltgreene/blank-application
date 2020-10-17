@@ -51,7 +51,7 @@ config :logger, level: :info
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
 config :clumsy_chinchilla, Database.Repository,
-  database: "affinity_matrix",
+  database: "clumsy_chinchilla",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   prepare: :unnamed
 

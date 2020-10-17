@@ -5,9 +5,9 @@ defmodule Database.Models.OrganizationMembership do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organization_memberships" do
-    belongs_to :organization, Database.Models.Organization, primary_key: true
-    belongs_to :account, Database.Models.Account, primary_key: true
-    has_many :organization_permissions, Database.Models.OrganizationPermission
+    belongs_to(:organization, Database.Models.Organization, primary_key: true)
+    belongs_to(:account, Database.Models.Account, primary_key: true)
+    has_many(:organization_permissions, Database.Models.OrganizationPermission)
 
     timestamps()
   end

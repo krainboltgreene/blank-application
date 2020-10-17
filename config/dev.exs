@@ -70,8 +70,6 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :affinity_matrix, :graphql,
-  uri: "http://localhost:4000/graphql"
+config :clumsy_chinchilla, :graphql, uri: "http://localhost:4000/graphql"
 
-config :affinity_matrix, :flow,
-  max_demand: 8
+config :clumsy_chinchilla, :flow, max_demand: 8

@@ -33,7 +33,11 @@ defmodule Graphql.Resolvers.Accounts do
     Database.Repository.get!(Database.Models.Account, id)
     |> Database.Models.Account.grant_administrator_powers!()
   end
-  def grant_administration_powers(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+
+  def grant_administration_powers(_parent, _arguments, %{
+        context: %{current_account: current_account}
+      })
+      when is_nil(current_account) do
     {:error, :unauthenticated}
   end
 
@@ -44,7 +48,11 @@ defmodule Graphql.Resolvers.Accounts do
     Database.Repository.get!(Database.Models.Account, id)
     |> Database.Models.Account.revoke_administrator_powers!()
   end
-  def revoke_administration_powers(_parent, _arguments, %{context: %{current_account: current_account}}) when is_nil(current_account) do
+
+  def revoke_administration_powers(_parent, _arguments, %{
+        context: %{current_account: current_account}
+      })
+      when is_nil(current_account) do
     {:error, :unauthenticated}
   end
 end

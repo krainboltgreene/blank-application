@@ -16,7 +16,7 @@ echo "Deploy new release..."
 bin/gcloud-storage-release &&
 
 echo "Creating new GCP Compute Engine instance..."
-gcloud compute instances create amxn-slurp-production \
+gcloud compute instances create application-production \
     --image-family debian-10 \
     --image-project debian-cloud \
     --machine-type g1-small \
@@ -25,4 +25,4 @@ gcloud compute instances create amxn-slurp-production \
     --metadata release-url=gs://${bucket}/latest \
     --zone us-west2-a
 echo ""
-echo "gcloud compute instances get-serial-port-output amxn-slurp-production --zone us-west2-a | grep 'GCEMetadataScripts: startup-script'"
+echo "gcloud compute instances get-serial-port-output application-production --zone us-west2-a | grep 'GCEMetadataScripts: startup-script'"

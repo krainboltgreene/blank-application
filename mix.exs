@@ -79,6 +79,8 @@ defmodule ClumsyChinchilla.MixProject do
       {:phoenix, "~> 1.5"},
       {:plug_cowboy, "~> 2.3"},
       {:postgrex, "~> 0.15"},
+      {:recase, "~> 0.6"},
+      {:redix, "~> 0.11"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"}
     ]

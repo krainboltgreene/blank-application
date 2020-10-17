@@ -8,7 +8,8 @@ defmodule HenosisWeb.Plugs.GraphqlSessionContext do
   def call(%Plug.Conn{method: "POST"} = connection, _) do
     session_id = Plug.Conn.get_session(connection, :session_id)
 
-    account = if session_id do
+    account =
+      if session_id do
         Database.Repository.get(Database.Models.Account, session_id)
       end
 

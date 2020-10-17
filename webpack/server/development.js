@@ -11,6 +11,7 @@ const {config: dotenvConfiguration} = require("dotenv");
 const NodemonWebpackPlugin = require("nodemon-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require("autoprefixer");
+const SizePlugin = require("size-plugin");
 
 dotenvConfiguration();
 
@@ -93,6 +94,7 @@ module.exports = {
     },
   },
   plugins: [
+    new SizePlugin(),
     new DefinePlugin({
       RUNTIME_ENV: "\"server\"",
     }),

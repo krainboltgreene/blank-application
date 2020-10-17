@@ -11,6 +11,7 @@ const DotenvWebpack = require("dotenv-webpack");
 const {config: dotenvConfiguration} = require("dotenv");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require("autoprefixer");
+const SizePlugin = require("size-plugin");
 
 dotenvConfiguration();
 
@@ -93,6 +94,7 @@ module.exports = {
     },
   },
   plugins: [
+    new SizePlugin(),
     new DefinePlugin({
       RUNTIME_ENV: "\"client\"",
     }),

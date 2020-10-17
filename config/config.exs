@@ -34,7 +34,8 @@ config :logger, :console,
 config :logger, :logs,
   path: "tmp/application.log",
   metadata: :all,
-  format: "[$date][$time][$node][$level] #{IO.ANSI.bright()}$message#{IO.ANSI.normal()} $metadata\n"
+  format:
+    "[$date][$time][$node][$level] #{IO.ANSI.bright()}$message#{IO.ANSI.normal()} $metadata\n"
 
 # Setup configuration for paper_trail
 config :paper_trail,

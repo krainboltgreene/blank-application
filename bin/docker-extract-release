@@ -1,7 +1,7 @@
 #!/bin/sh
 
-container_id=$(docker create amxn-slurp-production:latest)
+container_id=$(docker create application-production:latest)
 
-docker cp ${container_id}:/application/_build/prod/rel/affinity_matrix/bin/affinity_matrix.run tmp/affinity_matrix.run
+docker cp ${container_id}:/application/_build/prod/rel/clumsy_chinchilla/bin/clumsy_chinchilla.run tmp/clumsy_chinchilla.run
 
 docker rm ${container_id}
