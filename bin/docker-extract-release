@@ -1,7 +1,0 @@
-#!/bin/sh
-
-container_id=$(docker create amxn-slurp-production:latest)
-
-docker cp ${container_id}:/application/_build/prod/rel/affinity_matrix/bin/affinity_matrix.run tmp/affinity_matrix.run
-
-docker rm ${container_id}
