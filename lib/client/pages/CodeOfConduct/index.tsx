@@ -102,7 +102,7 @@ export default function CodeOfConduct () {
     </h2>
     <section>
       <p>
-        Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the Lacqueristas admin team at <a href="mailto:support@clumsy_chinchilla.com">support@lacqueristas.club</a>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+        Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the Lacqueristas admin team at <a href="mailto:support@clumsy-chinchilla.club">support@lacqueristas.club</a>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
       </p>
 
       <p>
@@ -110,7 +110,7 @@ export default function CodeOfConduct () {
       </p>
 
       <p>
-        This is version 1.0 of the <a href="https://www.clumsy_chinchilla.com">ClumsyChinchilla</a> Code of Conduct. It was prepared by Ellen McGrody for modification and maintenance by the Lacqueristas administration team.
+        This is version 1.0 of the <a href="https://www.clumsy-chinchilla.club">ClumsyChinchilla</a> Code of Conduct. It was prepared by Ellen McGrody for modification and maintenance by the Lacqueristas administration team.
       </p>
 
       <p>

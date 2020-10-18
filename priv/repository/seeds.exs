@@ -67,30 +67,30 @@ users_organization =
 krainboltgreene =
   %{
     name: "Kurtis Rainbolt-Greene",
-    email: "kurtis@difference-engineers.com",
+    email: "kurtis@clumsy-chinchilla.club",
     username: "krainboltgreene",
     password: "password"
   }
   |> Seeds.create_record(LittleBlackBook.Models.Account)
 
-emash =
+dinkums =
   %{
-    name: "Emily Ashley",
-    email: "ohemilyashley@gmail.com",
-    username: "emash",
+    name: "Dinom Fark",
+    email: "dinkums@clumsy-chinchilla.club",
+    username: "dinkums",
     password: "password2"
   }
   |> Seeds.create_record(LittleBlackBook.Models.Account)
 
-alabaster =
+flirk =
   %{
     name: "Alabaster Wolf",
-    email: "dinguspaz@gmail.com",
-    username: "alabaster",
+    email: "flirk@clumsy-chinchilla.club",
+    username: "flirk",
     password: "password"
   }
   |> Seeds.create_record(LittleBlackBook.Models.Account)
 
 krainboltgreene |> Seeds.assign_membership(users_organization, administrator_permissions)
-emash |> Seeds.assign_membership(users_organization, administrator_permissions)
-alabaster |> Seeds.assign_membership(users_organization, dater_permissions)
+dinkums |> Seeds.assign_membership(users_organization, administrator_permissions)
+flirk |> Seeds.assign_membership(users_organization, dater_permissions)

@@ -13,7 +13,7 @@ export function withRelativeHref () {
 
 export function withAbsoluteHref () {
   return <BrowserRouter>
-    <Link href={text("href", "https://www.clumsy_chinchilla.com")}>{text("content", "A Simple Life")}</Link>
+    <Link href={text("href", "https://www.clumsy-chinchilla.club")}>{text("content", "A Simple Life")}</Link>
   </BrowserRouter>;
 }
 
