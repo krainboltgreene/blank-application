@@ -23,5 +23,5 @@ export default new ApolloClient({
       credentials: "include",
     }),
   ]),
-  cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
+  cache: new InMemoryCache(),
 });

@@ -9,13 +9,3 @@ declare module "*.gql" {
 
   export = Schema
 }
-
-declare module ".tsx" {
-  import {NormalizedCacheObject} from "@apollo/client";
-
-  interface Window {
-    __APOLLO_STATE__: NormalizedCacheObject;
-  }
-}
-
-declare const RUNTIME_ENV: string;
