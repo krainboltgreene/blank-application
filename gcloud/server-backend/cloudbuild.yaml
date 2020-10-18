@@ -1,0 +1,39 @@
+---
+images:
+  - "gcr.io/$PROJECT_ID/server-backend:latest"
+  - "gcr.io/$PROJECT_ID/server-backend:$SHORT_SHA"
+timeout: "300s"
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - "docker pull heroku/heroku:18-build || exit 0"
+  - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - "docker pull gcr.io/$PROJECT_ID/server-backend:latest || exit 0"
+  - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - "bin/docker-cloudbuild-server-backend"
+    env:
+      - "SHORT_SHA=$SHORT_SHA"
+      - "PROJECT_ID=$PROJECT_ID"
+    secretEnv:
+      - "RAILS_MASTER_KEY"
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - set
+      - image
+      - deployment/server-backend
+      - server-backend=gcr.io/$PROJECT_ID/server-backend:$SHORT_SHA
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-west1-a"
+      - "CLOUDSDK_CONTAINER_CLUSTER=primary-production"
+secrets:
+  - kmsKeyName: "projects/clumsy_chinchilla/locations/global/keyRings/runtime-secrets/cryptoKeys/RAILS_MASTER_KEY"
+    secretEnv:
+      RAILS_MASTER_KEY: "CiQA3TCZ4OXG0+GoUvDvFsbYffNzsp4efVvc/9TtOorD4R+1wr4SSAB2uyuHZX2WX1EIaDTu16ji5nLSC6Sdxvuy8bhoo0MZa2LAUgekT5emBWxwGaKTqBx1vZ7hjoEuOVBwa9ACc6tCJDWIxZ6M1g=="

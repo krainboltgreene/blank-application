@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gcloud compute ssh --project clumsy-chinchilla --zone us-west2-a application-production

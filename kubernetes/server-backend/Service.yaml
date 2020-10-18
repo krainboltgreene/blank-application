@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-backend
+  labels:
+    group: server-backend
+    role: http-api
+    access: external
+spec:
+  type: ClusterIP
+  selector:
+    group: server-backend
+  ports:
+  - name: server-backend-http
+    port: 80
+    targetPort: 3000
