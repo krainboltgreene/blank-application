@@ -5,9 +5,9 @@ defmodule Database.Models.Permission do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "permissions" do
-    field :name, :string
-    field :slug, Database.Slugs.Name.Type
-    has_many :organization_permissions, Database.Models.OrganizationPermission
+    field(:name, :string)
+    field(:slug, Database.Slugs.Name.Type)
+    has_many(:organization_permissions, Database.Models.OrganizationPermission)
 
     timestamps()
   end

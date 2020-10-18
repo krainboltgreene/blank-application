@@ -6,7 +6,8 @@ defmodule ClumsyChinchillaWeb.Router do
         %Plug.Conn{method: "POST"} = connection,
         %Absinthe.Blueprint{} = blueprint
       ) do
-    Enum.reduce(blueprint.execution.context[:cookies] || [], connection, fn [key, value], accumulation ->
+    Enum.reduce(blueprint.execution.context[:cookies] || [], connection, fn [key, value],
+                                                                            accumulation ->
       if value do
         Plug.Conn.put_session(accumulation, key, value)
       else
@@ -47,11 +48,11 @@ defmodule ClumsyChinchillaWeb.Router do
     pipe_through :graphql
 
     forward "/",
-      Absinthe.Plug,
-      schema: Graphql.Schema,
-      analyze_complexity: true,
-      max_complexity: 200,
-      before_send: {__MODULE__, :absinthe_before_send}
+            Absinthe.Plug,
+            schema: Graphql.Schema,
+            analyze_complexity: true,
+            max_complexity: 200,
+            before_send: {__MODULE__, :absinthe_before_send}
   end
 
   # Other scopes may use custom stacks.

@@ -72,6 +72,7 @@ defmodule ClumsyChinchilla.MixProject do
       {:paper_trail, "~> 0.8"},
       {:phoenix_ecto, "~> 4.1"},
       {:phoenix_html, "~> 2.11"},
+      {:ecto_psql_extras, "~> 0.2"},
       {:phoenix_live_dashboard, "~> 0.2"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.13"},
@@ -79,6 +80,8 @@ defmodule ClumsyChinchilla.MixProject do
       {:phoenix, "~> 1.5"},
       {:plug_cowboy, "~> 2.3"},
       {:postgrex, "~> 0.15"},
+      {:recase, "~> 0.6"},
+      {:redix, "~> 0.11"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"}
     ]
@@ -92,7 +95,7 @@ defmodule ClumsyChinchilla.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
+      setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]

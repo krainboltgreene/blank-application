@@ -16,16 +16,16 @@ defmodule Database.Models.Account do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "accounts" do
-    field :email, :string
-    field :unconfirmed_email, :string
-    field :username, :string
-    field :name, :string
-    field :onboarding_state, :string, default: "converted"
-    field :role_state, :string, default: "user"
-    field :password, :string, virtual: true
-    field :password_hash, :string
-    has_many :organization_memberships, Database.Models.OrganizationMembership
-    has_many :organizations, through: [:organization_memberships, :organization]
+    field(:email, :string)
+    field(:unconfirmed_email, :string)
+    field(:username, :string)
+    field(:name, :string)
+    field(:onboarding_state, :string, default: "converted")
+    field(:role_state, :string, default: "user")
+    field(:password, :string, virtual: true)
+    field(:password_hash, :string)
+    has_many(:organization_memberships, Database.Models.OrganizationMembership)
+    has_many(:organizations, through: [:organization_memberships, :organization])
 
     timestamps()
   end

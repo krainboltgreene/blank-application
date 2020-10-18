@@ -21,3 +21,4 @@
 /clumsy_chinchilla-*.tar
 /schema.json
 /npm-debug.log
+config/prod.secret.exs

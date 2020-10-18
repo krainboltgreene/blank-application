@@ -5,10 +5,10 @@ defmodule Database.Models.Organization do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organizations" do
-    field :name, :string
-    field :slug, Database.Slugs.Name.Type
-    has_many :organization_memberships, Database.Models.OrganizationMembership
-    has_many :accounts, through: [:organization_memberships, :account]
+    field(:name, :string)
+    field(:slug, Database.Slugs.Name.Type)
+    has_many(:organization_memberships, Database.Models.OrganizationMembership)
+    has_many(:accounts, through: [:organization_memberships, :account])
 
     timestamps()
   end

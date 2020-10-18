@@ -1,16 +1,18 @@
 defmodule Utilities do
   require Logger
 
-  @spec couple_with(list(value) | value, pairing) :: list({value, pairing}) | {value, pairing} when pairing: map, value: map
+  @spec couple_with(list(value) | value, pairing) :: list({value, pairing}) | {value, pairing}
+        when pairing: map, value: map
   def couple_with(listing, pairing) when is_list(listing) and is_map(pairing) do
     listing
     |> Enum.map(fn value -> {value, pairing} end)
   end
+
   def couple_with(value, pairing) when is_map(pairing) do
     {value, pairing}
   end
 
-  @spec as_table_name(String.t) :: String.t
+  @spec as_table_name(String.t()) :: String.t()
   def as_table_name(string) when is_binary(string) do
     String.downcase(string)
     |> String.replace(~r/\s/, "_")
@@ -51,7 +53,7 @@ defmodule Utilities do
     end)
   end
 
-  @spec flow_logger(Flow.t(), String.t) :: Flow.t()
+  @spec flow_logger(Flow.t(), String.t()) :: Flow.t()
   def flow_logger(flow, message) when is_bitstring(message) do
     flow
     |> Flow.map(fn value ->
@@ -78,7 +80,7 @@ defmodule Utilities do
     end)
   end
 
-  @spec enum_logger(Enum.t(), String.t) :: Enum.t()
+  @spec enum_logger(Enum.t(), String.t()) :: Enum.t()
   def enum_logger(enumerable, message) when is_bitstring(message) do
     enumerable
     |> Enum.map(fn value ->
@@ -96,25 +98,27 @@ defmodule Utilities do
     end)
   end
 
-  @spec cache_fetch(String.t, (() -> value), integer | nil) ::
+  @spec cache_fetch(String.t(), (() -> value), integer | nil) ::
           {:commit, value}
           | {:error,
              atom
              | %{
                  :__exception__ => any,
                  :__struct__ => Redix.ConnectionError | Redix.Error,
-                 optional(:message) => String.t,
+                 optional(:message) => String.t(),
                  optional(:reason) => atom
                }}
           | {:ok,
              nil
-             | String.t
-             | [nil | String.t | [any] | integer | Redix.Error.t()]
+             | String.t()
+             | [nil | String.t() | [any] | integer | Redix.Error.t()]
              | integer
-             | Redix.Error.t()} when value: any
+             | Redix.Error.t()}
+        when value: any
   def cache_fetch(key, hypothetical, expiration \\ nil)
       when is_bitstring(key) and is_function(hypothetical, 0) do
     Logger.debug("[Cache] Fetching from cache", key: key, expiration: expiration)
+
     cache_read(key)
     |> case do
       {:ok, nil} -> cache_write(key, hypothetical.(), expiration)
@@ -142,24 +146,25 @@ defmodule Utilities do
     Redix.command(:redix, ["GET", key])
   end
 
-  @spec cache_write(String.t, any, nil | integer) ::
+  @spec cache_write(String.t(), any, nil | integer) ::
           {:commit, any}
           | {:error,
              atom
              | %{
                  :__exception__ => any,
                  :__struct__ => Redix.ConnectionError | Redix.Error,
-                 optional(:message) => String.t,
+                 optional(:message) => String.t(),
                  optional(:reason) => atom
                }}
           | {:ok,
              nil
-             | String.t
-             | [nil | String.t | [any] | integer | Redix.Error.t()]
+             | String.t()
+             | [nil | String.t() | [any] | integer | Redix.Error.t()]
              | integer
              | Redix.Error.t()}
   def cache_write(key, value, nil) when is_bitstring(key) do
     Logger.debug("Writing to cache", key: key)
+
     Redix.command(:redix, ["SET", key, value])
     |> case do
       {:ok, "OK"} -> {:commit, value}
@@ -169,6 +174,7 @@ defmodule Utilities do
 
   def cache_write(key, value, expiration) when is_bitstring(key) and is_integer(expiration) do
     Logger.debug("[Cache] Writing to cache", key: key, expiration: expiration)
+
     Redix.command(:redix, ["SET", key, value, "PX", expiration])
     |> case do
       {:ok, "OK"} -> {:commit, value}
@@ -182,13 +188,13 @@ defmodule Utilities do
            | %{
                :__exception__ => any,
                :__struct__ => Redix.ConnectionError | Redix.Error,
-               optional(:message) => String.t,
+               optional(:message) => String.t(),
                optional(:reason) => atom
              }}
           | {:ok,
              nil
-             | String.t
-             | [nil | String.t | [any] | integer | Redix.Error.t()]
+             | String.t()
+             | [nil | String.t() | [any] | integer | Redix.Error.t()]
              | integer
              | Redix.Error.t()}
   def cache_erase(key) when is_bitstring(key) do

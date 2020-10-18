@@ -51,11 +51,15 @@ defmodule Graphql.Schema do
     Map.put(
       context,
       :loader,
-      Enum.reduce([
-        Database.Models.Account,
-        Database.Models.Organization,
-        Database.Models.Permission
-      ], Dataloader.new, fn (model, loader) -> Dataloader.add_source(loader, model, model.data()) end)
+      Enum.reduce(
+        [
+          Database.Models.Account,
+          Database.Models.Organization,
+          Database.Models.Permission
+        ],
+        Dataloader.new(),
+        fn model, loader -> Dataloader.add_source(loader, model, model.data()) end
+      )
     )
   end
 

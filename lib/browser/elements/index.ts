@@ -5,4 +5,3 @@ export {default as Icon} from "./Icon";
 export {default as Link} from "./Link";
 export {default as Loading} from "./Loading";
 export {default as Page} from "./Page";
-export {default as RecoilStateHydrater} from "./RecoilStateHydrater";

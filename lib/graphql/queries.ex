@@ -1,8 +1,8 @@
 defmodule Graphql.Queries do
   defmacro listable(name, resolver) do
     quote do
-      @desc unquote("Get all #{name |> Inflex.pluralize}")
-      field unquote(name |> Inflex.pluralize |> String.to_atom), list_of(unquote(name)) do
+      @desc unquote("Get all #{name |> Inflex.pluralize()}")
+      field unquote(name |> Inflex.pluralize() |> String.to_atom()), list_of(unquote(name)) do
         arg(:input, :list_parameters)
 
         resolve(&unquote(resolver).list/3)
