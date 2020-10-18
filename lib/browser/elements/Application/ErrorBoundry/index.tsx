@@ -9,6 +9,11 @@ export default class ErrorBoundry extends PureComponent<{children: React.ReactCh
 
   render () {
     const {children} = this.props;
+
+    if (!this.state) {
+      return children;
+    }
+
     const {exception} = this.state;
     const {metadata} = this.state;
 
