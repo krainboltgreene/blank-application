@@ -105,7 +105,7 @@ module.exports = {
     new HotModuleReplacementPlugin(),
     new CopyWebpackPlugin({
       patterns: [{
-        from: resolve(...sharedDirectory, "assets"),
+        from: resolve(...rootDirectory, "assets"),
         to: resolve(...outputDirectory, "assets"),
       }],
     }),

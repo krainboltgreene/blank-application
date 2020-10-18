@@ -18,7 +18,7 @@ This project is actually 5 parts:
 
 ### Where do I put static assets?
 
-Almost all static assets go into `lib/browser/assets/` so that webpack can pick it up and ship it to the CDN. If you need a static asset from outside of this directory (say from a package) list it as part of `PACKAGE_ASSETS`.
+Almost all static assets go into `assets/` so that webpack can pick it up and ship it to the CDN. If you need a static asset from outside of this directory (say from a package) list it as part of `PACKAGE_ASSETS`.
 
 ### Where do I put frontend data?
 
