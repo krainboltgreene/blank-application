@@ -17,7 +17,6 @@ module.exports = {
   ],
   env: {
     es6: true,
-    node: true,
     browser: true,
   },
   settings: {
@@ -32,9 +31,6 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-  },
-  globals: {
-    RUNTIME_ENV: true,
   },
   reportUnusedDisableDirectives: true,
   rules: {

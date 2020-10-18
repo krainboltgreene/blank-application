@@ -2,8 +2,8 @@ import React from "react";
 import {useRecoilState} from "recoil";
 import {useHistory} from "react-router-dom";
 
-import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
-import {warningMessages as warningMessagesAtom} from "@clumsy_chinchilla/atoms";
+import {currentAccount as currentAccountAtom} from "lib/client/atoms";
+import {warningMessages as warningMessagesAtom} from "lib/client/atoms";
 import {Page} from "@clumsy_chinchilla/elements";
 import SignUpForm from "./SignUpForm";
 

@@ -5,7 +5,7 @@ import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
+import {currentAccount as currentAccountAtom} from "lib/client/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import createAccountMutation from "./createAccountMutation.gql";
 

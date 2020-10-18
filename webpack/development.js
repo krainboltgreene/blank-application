@@ -16,9 +16,9 @@ const SizePlugin = require("size-plugin");
 dotenvConfiguration();
 
 const rootDirectory = [__dirname, "..", ".."];
-const sharedDirectory = [...rootDirectory, "lib", "browser"];
-const inputDirectory = [...rootDirectory, "lib", "browser_client"];
-const outputDirectory = [...rootDirectory, "tmp", "browser"];
+const sharedDirectory = [...rootDirectory, "assets"];
+const inputDirectory = [...rootDirectory, "lib", "client"];
+const outputDirectory = [...rootDirectory, "tmp", "browser-client"];
 
 module.exports = {
   mode: "development",
@@ -50,7 +50,7 @@ module.exports = {
         use: {
           loader: "file-loader",
           options: {
-            name: "client-[name].[hash].[ext]",
+            name: "[name].[hash].[ext]",
           },
         },
       },
@@ -76,7 +76,7 @@ module.exports = {
   output: {
     publicPath: "http://localhost:8080/",
     path: resolve(...outputDirectory),
-    filename: "client.js",
+    filename: "browser-client.js",
   },
   devServer: {
     hot: true,
@@ -95,9 +95,6 @@ module.exports = {
   },
   plugins: [
     new SizePlugin(),
-    new DefinePlugin({
-      RUNTIME_ENV: "\"client\"",
-    }),
     new DotenvWebpack(),
     new HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin(),

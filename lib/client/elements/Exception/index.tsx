@@ -4,7 +4,7 @@ import "./index.scss";
 
 type PropertiesType = {
   kind: string,
-  as: string,
+  as: string | Error,
   metadata?: {}
 }
 

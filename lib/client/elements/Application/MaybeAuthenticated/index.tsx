@@ -3,7 +3,7 @@ import {useRecoilState} from "recoil";
 import {useEffect} from "react";
 import {useMemo} from "react";
 
-import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
+import {currentAccount as currentAccountAtom} from "lib/client/atoms";
 
 import fetchSessionQuery from "./fetchSessionQuery.gql";
 
