@@ -4,21 +4,19 @@
 const {resolve} = require("path");
 const {HotModuleReplacementPlugin} = require("webpack");
 const {EnvironmentPlugin} = require("webpack");
-const {DefinePlugin} = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const DotenvWebpack = require("dotenv-webpack");
-const {config: dotenvConfiguration} = require("dotenv");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require("autoprefixer");
 const SizePlugin = require("size-plugin");
-
-dotenvConfiguration();
-
-const rootDirectory = [__dirname, "..", ".."];
-const sharedDirectory = [...rootDirectory, "assets"];
-const inputDirectory = [...rootDirectory, "lib", "client"];
-const outputDirectory = [...rootDirectory, "tmp", "browser-client"];
+// Helpful constants
+const ROOT_DIRECTORY = [__dirname, ".."];
+const ASSETS_DIRECTORY = [...ROOT_DIRECTORY, "assets"];
+const CLIENT_DIRECTORY = [...ROOT_DIRECTORY, "lib", "client"];
+const OUTPUT_DIRECTORY = [...ROOT_DIRECTORY, "tmp", "browser-client"];
+const PACKAGE_ASSETS = [];
 
 module.exports = {
   mode: "development",
@@ -70,12 +68,12 @@ module.exports = {
   },
   entry: [
     "react-hot-loader/patch",
-    resolve(...inputDirectory, "index.tsx"),
+    resolve(...CLIENT_DIRECTORY, "index.tsx"),
   ],
   target: "web",
   output: {
     publicPath: "http://localhost:8080/",
-    path: resolve(...outputDirectory),
+    path: resolve(...OUTPUT_DIRECTORY),
     filename: "browser-client.js",
   },
   devServer: {
@@ -87,16 +85,29 @@ module.exports = {
     ignored: ["node_modules"],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".wasm", ".mjs", ".js", ".json"],
+    extensions: [".tsx", ".ts", ".js", ".json"],
     alias: {
-      "@clumsy_chinchilla/styles": resolve(...sharedDirectory, "styles"),
+      "@clumsy_chinchilla/styles": resolve(...CLIENT_DIRECTORY, "styles"),
       "react-dom": "@hot-loader/react-dom",
     },
   },
   plugins: [
-    new SizePlugin(),
+    new EnvironmentPlugin([
+      "NODE_ENV",
+    ]),
     new DotenvWebpack(),
+    new SizePlugin(),
     new HotModuleReplacementPlugin(),
+    ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
+      from,
+      to: resolve(...OUTPUT_DIRECTORY, "assets", ...to),
+    }])),
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: resolve(...ASSETS_DIRECTORY),
+        to: resolve(...OUTPUT_DIRECTORY, "assets"),
+      }],
+    }),
     new MiniCssExtractPlugin(),
     new WebpackAssetsManifest({
       output: "asset-integrity-manifest.json",
@@ -104,10 +115,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       hash: true,
-      template: resolve(...sharedDirectory, "templates", "index.html"),
+      template: resolve(...CLIENT_DIRECTORY, "templates", "index.html"),
     }),
-    new EnvironmentPlugin([
-      "NODE_ENV",
-    ]),
   ],
 };

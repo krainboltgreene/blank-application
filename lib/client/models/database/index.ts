@@ -1,13 +1,8 @@
 import PouchDB from "pouchdb";
-import pouchDBQuickSearch from "pouchdb-quick-search";
-import pouchDBAdapterMemory from "pouchdb-adapter-memory";
 import {mergeDeepRight} from "@unction/complete";
 import {mapValues} from "@unction/complete";
 import {get} from "@unction/complete";
 import {hidden} from "visibilityjs";
-
-PouchDB.plugin(pouchDBQuickSearch);
-PouchDB.plugin(pouchDBAdapterMemory);
 
 const INFO_INTERVAL = 15000;
 const DATABASE_CONFIGURATION = {
