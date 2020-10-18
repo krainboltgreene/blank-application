@@ -16,7 +16,7 @@
     -->
 
   <!-- Set the document's title -->
-  <title>{{metadata.title}}</title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
 
   <!--
       Allows control over where resources are loaded from.
@@ -26,16 +26,16 @@
   <!-- TODO: <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
 
   <!-- Set the base URL for all relative URLs within the document -->
-  <!-- <base href="{{metadata.baseURL}}"> -->
+  <base href="<%= htmlWebpackPlugin.options.base %>">
 
   <!-- Name of web application (only should be used if the website is used as an app) -->
-  <meta name="application-name" content="{{metadata.title}}">
+  <meta name="application-name" content="<%= htmlWebpackPlugin.options.meta.applicationName %>">
 
   <!-- Theme Color for Chrome, Firefox OS and Opera -->
-  <meta name="theme-color" content="{{metadata.themeColor}}">
+  <meta name="theme-color" content="<%= htmlWebpackPlugin.options.meta.themeColor %>">
 
   <!-- Short description of the document (limit to 150 characters). This content *may* be used as a part of search engine results. -->
-  <meta name="description" content="{{metadata.description}}">
+  <meta name="description" content="<%= htmlWebpackPlugin.options.meta.description %>">
 
   <!-- Generic Search Engines -->
   <!-- DYNAMIC <meta name="robots" content="index,follow"> -->
@@ -49,20 +49,20 @@
   <meta name="google" content="translate">
 
   <!-- Google Search Console -->
-  <meta name="google-site-verification" content="{{metadata.googleSiteVerification}}">
+  <meta name="google-site-verification" content="<%= htmlWebpackPlugin.options.meta.googleSiteVerification %>">
   <!-- Yandex Webmasters -->
-  <meta name="yandex-verification" content="{{metadata.yandexVerification}}">
+  <meta name="yandex-verification" content="<%= htmlWebpackPlugin.options.meta.yandexVerification %>">
   <!-- Bing Webmaster Center -->
-  <meta name="msvalidate.01" content="{{metadata.bingWebmasterVerification}}">
+  <meta name="msvalidate.01" content="<%= htmlWebpackPlugin.options.meta.bingWebmasterVerification %>">
   <!-- Alexa Console -->
-  <meta name="alexaVerifyID" content="{{metadata.alexaConsoleVerification}}">
+  <meta name="alexaVerifyID" content="<%= htmlWebpackPlugin.options.meta.alexaConsoleVerification %>">
   <!-- Pinterest Console-->
-  <meta name="p:domain_verify" content="{{metadata.pinterestConsoleVerification}}">
+  <meta name="p:domain_verify" content="<%= htmlWebpackPlugin.options.meta.pinterestConsoleVerification %>">
   <!-- Norton Safe Web -->
-  <meta name="norton-safeweb-site-verification" content="{{metadata.nortonSafewebVerification}}">
+  <meta name="norton-safeweb-site-verification" content="<%= htmlWebpackPlugin.options.meta.nortonSafewebVerification %>">
 
   <!-- Short description of your document's subject -->
-  <!-- DYNAMIC <meta name="subject" content="{{metadata.shortDescription}}"> -->
+  <!-- DYNAMIC <meta name="subject" content="<%= htmlWebpackPlugin.options.meta.shortDescription %>"> -->
 
   <!-- Identify the software used to build the document (i.e. - WordPress, Dreamweaver) -->
   <meta name="generator" content="program">
@@ -98,13 +98,13 @@
   <!-- DYNAMIC <link rel="amphtml" href="https://www.clumsy-chinchilla.club/path/to/amp-version.html"> -->
 
   <!-- Links to a JSON file that specifies "installation" credentials for the web applications -->
-  <link rel="manifest" href="{{metadata.baseURL}}/assets/manifest.json">
+  <link rel="manifest" href="/assets/manifest.json">
 
   <!-- Links to information about the author(s) of the document -->
-  <link rel="author" href="{{metadata.baseURL}}/assets/humans.txt">
+  <link rel="author" href="/assets/humans.txt">
 
   <!-- Refers to a copyright statement that applies to the link's context -->
-  <link rel="license" href="{{metadata.baseURL}}/assets/copyright.html">
+  <link rel="license" href="/assets/copyright.html">
 
   <!-- Gives a reference to a location in your document that may be in another language -->
   <!-- TODO: <link rel="alternate" href="https://es.www.clumsy-chinchilla.club/" hreflang="es"> -->
@@ -185,7 +185,7 @@
   <!-- TODO: <link rel="apple-touch-startup-image" href="/path/to/launch.png"> -->
 
   <!-- Launch Icon Title -->
-  <meta name="apple-mobile-web-app-title" content="{{metadata.title}}">
+  <meta name="apple-mobile-web-app-title" content="<%= htmlWebpackPlugin.options.meta.title %>">
 
   <!-- Enable standalone (full-screen) mode -->
   <!-- TODO: <meta name="apple-mobile-web-app-capable" content="yes"> -->
@@ -257,14 +257,13 @@
   <!-- TODO: <meta property="al:web:url" content="https://applinks.org/documentation"> -->
   <script src="https://kit.fontawesome.com/2fbfa382cc.js" crossorigin="anonymous"></script>
   <script>
-    (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', '{{googleTagManagerId}}');
+    (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', '<%= htmlWebpackPlugin.options.meta.googleTagManagerId %>');
   </script>
 </head>
 
 <body id="application">
-  {{{content}}}
   <noscript>
-    <iframe title=" google tag manager" src="https://www.googletagmanager.com/ns.html?id={{googleTagManagerId}}"
+    <iframe title=" google tag manager" src="https://www.googletagmanager.com/ns.html?id=<%= htmlWebpackPlugin.options.meta.googleTagManagerId %>"
       height="0" width="0" style="display: none; visibility: none;"></iframe>
   </noscript>
 
@@ -289,7 +288,7 @@
     <p>
       I&apos;m a big fan of the open web and accessability and I try very hard to
       make this a home for <strong>anyone</strong> interested. You are not
-      invisible to this team. <a href="mailto:{{supportEmail}}">Let me know you want
+      invisible to this team. <a href="mailto:<%= htmlWebpackPlugin.options.meta.supportEmail %>">Let me know you want
       a non-javascript version of this site</a>. I would love to hear from you on this issue and our email is open to
       anyone wanting to talk about it.
     </p>
