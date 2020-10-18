@@ -1,3 +1,0 @@
-#!/bin/bash
-
-~/bin/cloud-sql-proxy -dir=./tmp/cloudsql -instances=clumsy-chinchilla:us-west1:amxn-slurp-helmet-pasta
