@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import PouchDB from "pouchdb";
 import pouchDBQuickSearch from "pouchdb-quick-search";
 import pouchDBAdapterMemory from "pouchdb-adapter-memory";
-import {localDatabase as localDatabaseAtom} from "lib/client/atoms";
+import {localDatabase as localDatabaseAtom} from "@clumsy_chinchilla/atoms";
 
 PouchDB.plugin(pouchDBQuickSearch);
 PouchDB.plugin(pouchDBAdapterMemory);
