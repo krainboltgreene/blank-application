@@ -133,6 +133,6 @@
     "webpack-cli": "^3.3",
     "webpack-common-shake": "^2.1",
     "webpack-node-externals": "^2.5",
-    "webpack-subresource-integrity": "^1.4"
+    "webpack-subresource-integrity": "^1.5"
   }
 }
