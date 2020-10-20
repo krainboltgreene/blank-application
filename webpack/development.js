@@ -73,7 +73,7 @@ module.exports = {
     ignored: ["node_modules"],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".json"],
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
     alias: {
       "@clumsy_chinchilla/styles": resolve(...CLIENT_DIRECTORY, "styles"),
       "react-dom": "@hot-loader/react-dom",
