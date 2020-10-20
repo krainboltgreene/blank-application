@@ -2,7 +2,6 @@
 import React from "react";
 import "./index.scss";
 
-
 export default function Feedback (properties) {
   const {isValid} = properties;
   const {children} = properties;
