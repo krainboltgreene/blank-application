@@ -67,7 +67,6 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    writeToDisk: true,
     headers: {"Access-Control-Allow-Origin": "*"},
   },
   watchOptions: {
