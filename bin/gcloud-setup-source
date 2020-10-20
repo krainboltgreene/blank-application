@@ -1,8 +1,0 @@
-#!/bin/bash
-
-gcloud source repos create mvp &&
-git config --global credential.'https://source.developers.google.com'.helper gcloud.sh &&
-git remote add cloud https://source.developers.google.com/p/difference-engineers/r/clumsy_chinchilla &&
-git remote set-url origin git@github.com:difference-engineers/clumsy_chinchilla.git &&
-git push origin core &&
-git push cloud core

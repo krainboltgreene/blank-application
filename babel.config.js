@@ -8,7 +8,10 @@ module.exports = {
   ].filter((preset) => preset),
   plugins: [
     "babel-plugin-graphql-tag",
-    ["module-resolver", {extensions: [".tsx", ".ts", ".js"], alias: {"^@clumsy_chinchilla/(.+)$": "./lib/browser/\\1", "^@assets/(.+)$": "./lib/browser/assets/\\1"}}],
+    ["module-resolver", {extensions: [".tsx", ".ts", ".js"], alias: {
+      "^@clumsy_chinchilla/(.+)$": "./lib/client/\\1",
+      "^@assets/(.+)$": "./assets/\\1",
+    }}],
     process.env.NODE_ENV === "production" ? undefined : "react-hot-loader/babel",
     process.env.NODE_ENV === "production" ? undefined : "annotate-console-log",
   ].filter((preset) => preset),

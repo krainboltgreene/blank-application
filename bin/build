@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-bin/webpack-client-build
-bin/webpack-server-build
+bin/webpack-build
 mix compile
 mix ecto.setup
 mix absinthe.schema.json --schema Graphql.Schema

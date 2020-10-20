@@ -1,9 +1,0 @@
-#!/bin/bash
-
-bin/gcloud-setup-project &&
-bin/gcloud-setup-local &&
-bin/gcloud-setup-secrets &&
-bin/gcloud-setup-source &&
-bin/gcloud-setup-build &&
-bin/gcloud-setup-cluster &&
-bin/gcloud-setup-policy-binding

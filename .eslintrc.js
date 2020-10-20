@@ -33,9 +33,6 @@ module.exports = {
       jsx: true,
     },
   },
-  globals: {
-    RUNTIME_ENV: true,
-  },
   reportUnusedDisableDirectives: true,
   rules: {
     "@babel/new-cap": "error",
