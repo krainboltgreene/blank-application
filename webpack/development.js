@@ -9,7 +9,6 @@ const WebpackAssetsManifest = require("webpack-assets-manifest");
 const DotenvWebpack = require("dotenv-webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const autoprefixer = require("autoprefixer");
 const SizePlugin = require("size-plugin");
 // Helpful constants
 const ROOT_DIRECTORY = [__dirname, ".."];
@@ -26,19 +25,9 @@ module.exports = {
       {
         test: /\.scss$/u,
         use: [
+          // Move to production MiniCssExtractPlugin.loader,
           "style-loader",
-          MiniCssExtractPlugin.loader,
           {loader: "css-loader", options: {importLoaders: 1}},
-          {
-            loader: "postcss-loader",
-            options: {
-              plugins () {
-                return [
-                  autoprefixer,
-                ];
-              },
-            },
-          },
           "sass-loader",
         ],
       },
@@ -108,7 +97,7 @@ module.exports = {
         to: resolve(...OUTPUT_DIRECTORY, "assets"),
       }],
     }),
-    new MiniCssExtractPlugin(),
+    // new MiniCssExtractPlugin(),
     new WebpackAssetsManifest({
       output: "asset-integrity-manifest.json",
       integrity: false,
