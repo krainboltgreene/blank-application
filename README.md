@@ -43,12 +43,11 @@ But you don't have to do that, in fact you can pull in whatever you damn well pl
 
 ## Todo
 
-  - Deal with assets/
   - https://www.npmjs.com/package/apollo-v3-absinthe-upload-link
   - https://www.npmjs.com/package/@absinthe/absinthe-socket
   - Setup docker for both applications
   - Setup kubernetes for both applications
-  - Deal with setup
+  - Finish releases setup
   - Finish setting up the html meta
   - Get a google tag manager id
   - Hot reloading not noticing change in css
