@@ -1,4 +1,4 @@
 @charset "utf-8";
-
-@import "@clumsy_chinchilla/styles/variables.scss";
-@import "@clumsy_chinchilla/styles/external.scss";
+@use "@clumsy_chinchilla/styles/variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap');
+@import "~bootstrap/scss/bootstrap";
