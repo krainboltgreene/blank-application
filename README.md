@@ -22,11 +22,11 @@ Almost all static assets go into `assets/` so that webpack can pick it up and sh
 
 ### Where do I put frontend data?
 
-If it's global data, define a recoil atom in `lib/browser/atoms`, otherwise use local state.
+If it's global data, define a recoil atom in `lib/client/atoms`, otherwise use local state.
 
 ### Where are the global styles?
 
-Well first *shared* styles sit in `lib/browser/styles` and there are no (by default) *global* styles. Instead you have to opt-in to a collection of shared resources by doing this in your scss:
+Well first *shared* styles sit in `lib/client/styles` and there are no (by default) *global* styles. Instead you have to opt-in to a collection of shared resources by doing this in your scss:
 
 ``` scss
 @import "@clumsy_chinchilla/styles/index.scss";
@@ -43,12 +43,11 @@ But you don't have to do that, in fact you can pull in whatever you damn well pl
 
 ## Todo
 
-  - Deal with assets/
   - https://www.npmjs.com/package/apollo-v3-absinthe-upload-link
   - https://www.npmjs.com/package/@absinthe/absinthe-socket
   - Setup docker for both applications
   - Setup kubernetes for both applications
-  - Deal with setup
+  - Finish releases setup
   - Finish setting up the html meta
   - Get a google tag manager id
   - Hot reloading not noticing change in css

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-npx webpack-cli --watch --config webpack/server/development.js

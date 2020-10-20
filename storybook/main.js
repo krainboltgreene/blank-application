@@ -3,7 +3,7 @@
 const {resolve} = require("path");
 
 module.exports = {
-  stories: ["../lib/browser/**/story.ts"],
+  stories: ["../lib/client/**/story.ts"],
   addons: [
     "@storybook/addon-a11y/register",
     "@storybook/addon-knobs/register",
@@ -12,7 +12,7 @@ module.exports = {
       options: {
         rule: {
           test: [/story\.ts?$/u],
-          include: [resolve(__dirname, "..", "lib", "browser")],
+          include: [resolve(__dirname, "..", "lib", "client")],
         },
       },
     },
