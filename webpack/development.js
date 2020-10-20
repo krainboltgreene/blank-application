@@ -115,6 +115,23 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       hash: true,
+      title: "Clumsy Chinchilla",
+      base: "http://localhost:8080/",
+      templateParameters: {
+        metadata: {
+          applicationName: "applicationName",
+          themeColor: "themeColor",
+          description: "description",
+          googleSiteVerification: "googleSiteVerification",
+          yandexVerification: "yandexVerification",
+          bingWebmasterVerification: "bingWebmasterVerification",
+          alexaConsoleVerification: "alexaConsoleVerification",
+          pinterestConsoleVerification: "pinterestConsoleVerification",
+          nortonSafewebVerification: "nortonSafewebVerification",
+          googleTagManagerId: "googleTagManagerId",
+          supportEmail: "supportEmail",
+        },
+      },
       template: resolve(...CLIENT_DIRECTORY, "templates", "index.html"),
     }),
   ],
