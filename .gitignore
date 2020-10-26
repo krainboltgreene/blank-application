@@ -22,3 +22,6 @@
 /schema.json
 /npm-debug.log
 config/prod.secret.exs
+
+# Master key should never be in version control
+priv/secrets/master.key

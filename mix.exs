@@ -60,6 +60,7 @@ defmodule ClumsyChinchilla.MixProject do
       {:ecto_enum, "~> 1.4"},
       {:ecto_psql_extras, "~> 0.2"},
       {:ecto_sql, "~> 3.4"},
+      {:encrypted_secrets, "~> 0.2.0"},
       {:envy, "~> 1.1"},
       {:exvcr, "~> 0.11", only: :test},
       {:flippant, "~> 1.0"},
