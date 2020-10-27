@@ -22,7 +22,7 @@ Almost all static assets go into `assets/` so that webpack can pick it up and sh
 
 ### Where do I put frontend data?
 
-If it's global data, define a recoil atom in `lib/client/atoms`, otherwise use local state.
+If it's global data, define a recoil atom in `lib/client/atoms/`, otherwise use local state.
 
 ### Where are the global styles?
 
@@ -34,12 +34,9 @@ Well first *shared* styles sit in `lib/client/styles` and there are no (by defau
 // Your styles here
 ```
 
-But you don't have to do that, in fact you can pull in whatever you damn well please:
+### How do I add a new web page?
 
-``` scss
-@import "@clumsy_chinchilla/styles/variables.scss";
-
-```
+Step one is to create the component in `lib/client/pages/` and then export it in `lib/client/pages/index.ts`. Remember that our component folders are named after the component and the file is `index.tsx` if it has react or `index.ts` if it doesn't (so `<LoginPage>` would be `lib/client/pages/Login/index.tsx`). Finally place it in the `lib/client/elements/Application/Router/index.tsx` file.
 
 ## Todo
 
