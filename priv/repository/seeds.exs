@@ -1,6 +1,6 @@
 # Script for populating the database. You can run it as:
 #
-#     mix run priv/repo/seeds.exs
+#     mix run priv/repository/seeds.exs
 #
 # Inside the script, you can read and write to any of your
 # repositories directly:
@@ -11,18 +11,18 @@
 # and so on) as they will fail if something goes wrong.
 # Script for populating the database. You can run it as:
 #
-#     mix run priv/repo/seeds.exs
+#     mix run priv/repository/seeds.exs
 #
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     LittleBlackBook.Database.Repository.insert!(%LittleBlackBook.SomeSchema{})
+#     Database.Repository.insert!(%Database.Model.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
 defmodule Seeds do
-  def create_record(attributes, model, repository \\ LittleBlackBook.Database.Repository) do
+  def create_record(attributes, model, repository \\ Database.Repository) do
     struct(model)
     |> model.changeset(attributes)
     |> repository.insert()
@@ -39,10 +39,10 @@ defmodule Seeds do
           account: account,
           organization: organization
         }
-        |> create_record(LittleBlackBook.Models.OrganizationMembership),
+        |> create_record(Database.Models.OrganizationMembership),
       permission: permission
     }
-    |> create_record(LittleBlackBook.Models.OrganizationPermission)
+    |> create_record(Database.Models.OrganizationPermission)
   end
 end
 
@@ -50,19 +50,19 @@ administrator_permissions =
   %{
     name: "Administrator"
   }
-  |> Seeds.create_record(LittleBlackBook.Models.Permission)
+  |> Seeds.create_record(Database.Models.Permission)
 
 dater_permissions =
   %{
     name: "Dater"
   }
-  |> Seeds.create_record(LittleBlackBook.Models.Permission)
+  |> Seeds.create_record(Database.Models.Permission)
 
 users_organization =
   %{
     name: "Users"
   }
-  |> Seeds.create_record(LittleBlackBook.Models.Organization)
+  |> Seeds.create_record(Database.Models.Organization)
 
 krainboltgreene =
   %{
@@ -71,7 +71,7 @@ krainboltgreene =
     username: "krainboltgreene",
     password: "password"
   }
-  |> Seeds.create_record(LittleBlackBook.Models.Account)
+  |> Seeds.create_record(Database.Models.Account)
 
 dinkums =
   %{
@@ -80,7 +80,7 @@ dinkums =
     username: "dinkums",
     password: "password2"
   }
-  |> Seeds.create_record(LittleBlackBook.Models.Account)
+  |> Seeds.create_record(Database.Models.Account)
 
 flirk =
   %{
@@ -89,7 +89,7 @@ flirk =
     username: "flirk",
     password: "password"
   }
-  |> Seeds.create_record(LittleBlackBook.Models.Account)
+  |> Seeds.create_record(Database.Models.Account)
 
 krainboltgreene |> Seeds.assign_membership(users_organization, administrator_permissions)
 dinkums |> Seeds.assign_membership(users_organization, administrator_permissions)
