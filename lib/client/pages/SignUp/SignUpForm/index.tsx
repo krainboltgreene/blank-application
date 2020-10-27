@@ -13,10 +13,10 @@ export default function SignUpForm () {
   const history = useHistory();
   const [, setCurrentAccount] = useRecoilState<string>(currentAccountAtom);
   const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation(createAccountMutation);
-  const [email, setEmail] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
   const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    createAccount({variables: {input: {email}}});
+    createAccount({variables: {input: {emailAddress}}});
   };
 
   if (createAccountError) {
@@ -34,10 +34,10 @@ export default function SignUpForm () {
     <Field
       scope="signUpForm"
       type="email"
-      property="email"
-      label="Email"
-      inputAttributes={{readOnly: createAccountLoading, onChange: (event: React.FormEvent<HTMLFormElement>) => setEmail(event.target.value), autoComplete: "email", value: email}}
-      value={email}
+      property="emailAddress"
+      label="Email Address"
+      inputAttributes={{readOnly: createAccountLoading, onChange: (event: React.FormEvent<HTMLFormElement>) => setEmailAddress(event.target.value), autoComplete: "email", value: emailAddress}}
+      value={emailAddress}
     />
     <section>
       <button disabled={createAccountLoading} className="btn btn-primary" type="submit">Sign Up</button>

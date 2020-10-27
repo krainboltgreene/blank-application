@@ -3,7 +3,7 @@ defmodule Graphql.Mutations.Account do
 
   input_object :new_account do
     field :username, :string
-    field :email, non_null(:string)
+    field :email_address, non_null(:string)
     field :password, :string
     field :name, :string
   end
@@ -11,7 +11,7 @@ defmodule Graphql.Mutations.Account do
   input_object :account_changeset do
     field :id, non_null(:id)
     field :username, :string
-    field :email, :string
+    field :email_address, :string
     field :name, :string
     field :password, :string
   end

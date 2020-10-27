@@ -6,11 +6,11 @@ defmodule Graphql.Resolvers.Accounts do
   updatable(Database.Models.Account, :authenticated)
   destroyable(Database.Models.Account, :authenticated)
 
-  @spec create(any, %{input: %{email: bitstring, password: bitstring} | %{email: bitstring}}, any) ::
+  @spec create(any, %{input: %{email_address: bitstring, password: bitstring} | %{email_address: bitstring}}, any) ::
           {:ok, %Database.Models.Account{}} | {:error, any}
-  def create(_parent, %{input: %{email: email} = input}, _resolution) do
+  def create(_parent, %{input: %{email_address: email_address} = input}, _resolution) do
     default_attributes = %{
-      username: List.first(String.split(email, "@")),
+      username: List.first(String.split(email_address, "@")),
       password:
         input[:password] ||
           :crypto.strong_rand_bytes(24) |> Base.encode32(case: :upper) |> binary_part(0, 24)

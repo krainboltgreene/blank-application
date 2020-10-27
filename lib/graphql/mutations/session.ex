@@ -2,7 +2,7 @@ defmodule Graphql.Mutations.Session do
   use Absinthe.Schema.Notation
 
   input_object :new_session do
-    field :email, non_null(:string)
+    field :email_address, non_null(:string)
     field :password, non_null(:string)
   end
 

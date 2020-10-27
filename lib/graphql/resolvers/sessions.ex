@@ -12,24 +12,25 @@ defmodule Graphql.Resolvers.Sessions do
     {:error, :unauthenticated}
   end
 
-  @spec create(any, %{input: %{email: String.t(), password: String.t()}}, any) ::
+  @spec create(any, %{input: %{email_address: String.t(), password: String.t()}}, any) ::
           {:ok, %{id: String.t()}} | {:error, String.t()}
-  def create(_parent, %{input: %{email: email, password: password}}, _resolution)
-      when is_bitstring(email) and is_bitstring(password) do
-    # Find the account by email
-    Database.Repository.get_by(Poutioner.Models.Account, email: email)
+  def create(_parent, %{input: %{email_address: email_address, password: password}}, _resolution)
+      when is_bitstring(email_address) and is_bitstring(password) do
+    # Find the account by email_address
+    Database.Models.Account
+    |> Database.Repository.get_by(email_address: email_address)
     |> case do
       # Determine if the password is correct
       %Database.Models.Account{} = account ->
         {Argon2.verify_pass(password, account.password_hash), account}
 
       nil ->
-        {:error, "Login credentials were invalid or the account doesn't exist"}
+        {:error, :incorrect_credentials}
     end
     |> case do
       # Only pass down the account id
       {true, %Database.Models.Account{id: id}} -> {:ok, %{id: id}}
-      {false, _} -> {:error, "Login credentials were invalid or the account doesn't exist"}
+      {false, _} -> {:error, :incorrect_credentials}
       {:error, message} -> {:error, message}
     end
   end

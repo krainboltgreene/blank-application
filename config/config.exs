@@ -20,6 +20,10 @@ config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
   pubsub_server: ClumsyChinchilla.PubSub,
   live_view: [signing_salt: "bbTmf3m/"]
 
+# config/config.exs
+config :clumsy_chinchilla, Mailer,
+  adapter: Bamboo.LocalAdapter
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 

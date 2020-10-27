@@ -29,7 +29,7 @@ defmodule ClumsyChinchilla.MixProject do
   def application do
     [
       mod: {ClumsyChinchilla.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug, :bamboo]
     ]
   end
 
@@ -46,6 +46,8 @@ defmodule ClumsyChinchilla.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe, "~> 1.5"},
       {:argon2_elixir, "~> 2.1"},
+      {:bamboo_smtp, "~> 3.0"},
+      {:bamboo, "~> 1.6"},
       {:brains, "~> 0.1"},
       {:castore, "~> 0.1"},
       {:comeonin, "~> 5.2"},

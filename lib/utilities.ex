@@ -201,4 +201,8 @@ defmodule Utilities do
     Logger.debug("[Cache] Erasing from cache", key: key)
     Redix.command(:redix, ["DEL", key])
   end
+
+  def generate_secret do
+    :crypto.strong_rand_bytes(64) |> Base.encode64 |> binary_part(0, 64)
+  end
 end
