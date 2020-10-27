@@ -5,14 +5,14 @@ import ErrorBoundary from "./ErrorBoundary";
 import MaybeAuthenticated from "./MaybeAuthenticated";
 import WithCookies from "./WithCookies";
 import WithLocalDatabase from "./WithLocalDatabase";
-import Routing from "./Routing";
+import Router from "./Router";
 
 export default hot(function Application () {
   return <ErrorBoundary>
     <MaybeAuthenticated>
       <WithCookies>
         <WithLocalDatabase>
-          <Routing />
+          <Router />
         </WithLocalDatabase>
       </WithCookies>
     </MaybeAuthenticated>

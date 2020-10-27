@@ -10,7 +10,7 @@ import {DataPolicy} from "@clumsy_chinchilla/pages";
 import {SignUp} from "@clumsy_chinchilla/pages";
 import {PageNotFound} from "@clumsy_chinchilla/pages";
 
-export default function Routing () {
+export default function Router () {
   return <Switch>
     <Route path="/code-of-conduct" component={CodeOfConduct} />
     <Route path="/data-policy" component={DataPolicy} />
