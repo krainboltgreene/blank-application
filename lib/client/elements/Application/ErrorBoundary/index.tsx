@@ -2,7 +2,7 @@ import React from "react";
 import {PureComponent} from "react";
 import Exception from "../../Exception";
 
-export default class ErrorBoundry extends PureComponent<{children: React.ReactChildren}, {exception: Error, metadata: {}}> {
+export default class ErrorBoundary extends PureComponent<{children: React.ReactNode}, {exception: Error, metadata: {}}> {
   componentDidCatch (exception: Error, metadata: {}) {
     this.setState(() => ({exception, metadata}));
   }
