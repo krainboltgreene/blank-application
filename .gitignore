@@ -20,8 +20,7 @@
 /erl_crash.dump
 /clumsy_chinchilla-*.tar
 /schema.json
+/schema.graphql
 /npm-debug.log
-config/prod.secret.exs
-
-# Master key should never be in version control
-priv/secrets/master.key
+/config/prod.secret.exs
+/priv/secrets/master.key
