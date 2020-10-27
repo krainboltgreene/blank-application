@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const DotenvWebpack = require("dotenv-webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const SizePlugin = require("size-plugin");
 // Helpful constants
 const ROOT_DIRECTORY = [__dirname, ".."];
