@@ -117,7 +117,7 @@ module.exports = {
           pinterestConsoleVerification: "pinterestConsoleVerification",
           nortonSafewebVerification: "nortonSafewebVerification",
           googleTagManagerId: "googleTagManagerId",
-          supportEmail: "supportEmail",
+          supportEmailAddress: "supportEmailAddress",
         },
       },
       template: resolve(...CLIENT_DIRECTORY, "templates", "index.html"),

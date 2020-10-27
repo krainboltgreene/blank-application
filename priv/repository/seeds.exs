@@ -67,7 +67,7 @@ users_organization =
 krainboltgreene =
   %{
     name: "Kurtis Rainbolt-Greene",
-    email: "kurtis@clumsy-chinchilla.club",
+    email_address: "kurtis@clumsy-chinchilla.club",
     username: "krainboltgreene",
     password: "password"
   }
@@ -76,7 +76,7 @@ krainboltgreene =
 dinkums =
   %{
     name: "Dinom Fark",
-    email: "dinkums@clumsy-chinchilla.club",
+    email_address: "dinkums@clumsy-chinchilla.club",
     username: "dinkums",
     password: "password2"
   }
@@ -85,7 +85,7 @@ dinkums =
 flirk =
   %{
     name: "Alabaster Wolf",
-    email: "flirk@clumsy-chinchilla.club",
+    email_address: "flirk@clumsy-chinchilla.club",
     username: "flirk",
     password: "password"
   }
