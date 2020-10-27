@@ -220,7 +220,7 @@ module.exports = {
     "jsx-quotes": "error",
     "key-spacing": "error",
     "keyword-spacing": "error",
-    "line-comment-position": "error",
+    "line-comment-position": "off", // I'm ok with comments after the fact
     "linebreak-style": ["error", "unix"],
     "lines-around-comment": "error",
     "lines-between-class-members": "error",
@@ -287,7 +287,7 @@ module.exports = {
     "no-implicit-globals": "error",
     "no-implied-eval": "error",
     "no-import-assign": "error",
-    "no-inline-comments": "error",
+    "no-inline-comments": "off", // I'm OK with this
     "no-inner-declarations": "error",
     "no-invalid-regexp": "error",
     "no-invalid-this": "error",
@@ -299,7 +299,7 @@ module.exports = {
     "no-lonely-if": "error",
     "no-loop-func": "error",
     "no-loss-of-precision": "error",
-    "no-magic-numbers": "off", // Just not worth the hassel
+    "no-magic-numbers": "off", // Just not worth the hassle
     "no-misleading-character-class": "error",
     "no-mixed-operators": "error",
     "no-mixed-requires": "error",
@@ -378,7 +378,7 @@ module.exports = {
     "no-useless-return": "error",
     "no-var": "error",
     "no-void": "error",
-    "no-warning-comments": "error",
+    "no-warning-comments": "off", // I use these a lot
     "no-whitespace-before-property": "error",
     "no-with": "error",
     "nonblock-statement-body-position": "error",
