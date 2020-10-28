@@ -1,10 +1,10 @@
 /* eslint-disable unicorn/no-null */
-import {ReactChildren} from "react";
+import {ReactNode} from "react";
 import "./index.scss";
 
 type PropertiesType = {
   id: string,
-  children: ReactChildren
+  children: ReactNode
 }
 
 export default function Help (properties: PropertiesType) {

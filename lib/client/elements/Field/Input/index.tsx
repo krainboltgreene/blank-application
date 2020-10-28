@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {mapValues} from "@unction/complete";
-import {ReactChildren} from "react";
 
 type PropertiesType = {
   id: string,
