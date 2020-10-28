@@ -1,12 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
+import {ReactNode} from "react";
 
 type PropertiesType = {
   id: string,
   type: string,
   htmlFor: string,
   attributes?: {},
-  children: ReactChildren
+  children: ReactNode
 }
 
 export default function Label (properties: PropertiesType) {
