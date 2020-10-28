@@ -6,7 +6,6 @@ const {HotModuleReplacementPlugin} = require("webpack");
 const {EnvironmentPlugin} = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
-const DotenvWebpack = require("dotenv-webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const SizePlugin = require("size-plugin");
@@ -84,7 +83,6 @@ module.exports = {
     new EnvironmentPlugin([
       "NODE_ENV",
     ]),
-    new DotenvWebpack(),
     new SizePlugin(),
     new HotModuleReplacementPlugin(),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
