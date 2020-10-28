@@ -1,5 +1,4 @@
 /* eslint-disable func-style */
-import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import {text} from "@storybook/addon-knobs";
 import Link from ".";

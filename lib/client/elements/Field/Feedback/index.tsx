@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/no-null */
-import React from "react";
 import "./index.scss";
 
 export default function Feedback (properties) {

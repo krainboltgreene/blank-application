@@ -1,4 +1,3 @@
-import React from "react";
 import {Helmet} from "react-helmet-async";
 
 import {Page} from "@clumsy_chinchilla/elements";

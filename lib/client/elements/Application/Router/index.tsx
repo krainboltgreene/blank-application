@@ -1,4 +1,3 @@
-import React from "react";
 import {Route, Switch} from "react-router";
 import {OurTechnology} from "@clumsy_chinchilla/pages";
 import {PrivacyPolicy} from "@clumsy_chinchilla/pages";

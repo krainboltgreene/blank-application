@@ -1,5 +1,4 @@
 /* eslint-disable import/no-internal-modules */
-import React from "react";
 import {hot} from "react-hot-loader/root";
 import ErrorBoundary from "./ErrorBoundary";
 import MaybeAuthenticated from "./MaybeAuthenticated";

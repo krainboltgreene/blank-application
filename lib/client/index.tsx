@@ -1,7 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import React from "react";
 import {render} from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import {HelmetProvider} from "react-helmet-async";

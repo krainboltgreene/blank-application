@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/no-null */
-import React from "react";
 import {useRecoilValue} from "recoil";
 import {Helmet} from "react-helmet-async";
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";

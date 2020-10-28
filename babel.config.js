@@ -2,7 +2,7 @@
 module.exports = {
   presets: [
     ["@babel/preset-env", {useBuiltIns: "entry", corejs: "3.6", targets: "> 0.25%, not dead"}],
-    ["@babel/preset-react", {development: process.env.NODE_ENV !== "production"}],
+    ["@babel/preset-react", {runtime: "automatic", development: process.env.NODE_ENV !== "production"}],
     ["@babel/preset-typescript", {isTSX: true, allExtensions: true}],
     process.env.NODE_ENV === "production" ? "minify" : undefined,
   ].filter((preset) => preset),

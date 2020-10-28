@@ -1,4 +1,3 @@
-import React from "react";
 import Help from "./Help";
 import Label from "./Label";
 import Input from "./Input";

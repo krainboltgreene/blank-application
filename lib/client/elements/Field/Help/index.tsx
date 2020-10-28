@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/no-null */
-import React from "react";
 import {ReactChildren} from "react";
 import "./index.scss";
 

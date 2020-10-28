@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from "react";
 import {mapValues} from "@unction/complete";
 import {ReactChildren} from "react";
 
