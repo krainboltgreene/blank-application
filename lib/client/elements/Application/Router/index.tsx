@@ -9,6 +9,7 @@ import {LandingPage} from "@clumsy_chinchilla/pages";
 import {DataPolicy} from "@clumsy_chinchilla/pages";
 import {SignUp} from "@clumsy_chinchilla/pages";
 import {PageNotFound} from "@clumsy_chinchilla/pages";
+import {Login} from "@clumsy_chinchilla/pages";
 
 export default function Router () {
   return <Switch>
@@ -19,6 +20,7 @@ export default function Router () {
     <Route path="/terms-of-service" component={TermsOfService} />
     <Route path="/this-is-us" component={ThisIsUs} />
     <Route path="/sign-up" component={SignUp} />
+    <Route path="/login" component={Login} />
     <Route exact path="/" component={LandingPage} />
     <Route component={PageNotFound} />
   </Switch>;
