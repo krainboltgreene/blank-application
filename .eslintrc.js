@@ -395,7 +395,7 @@ module.exports = {
     "prefer-const": "error",
     "prefer-destructuring": "error",
     "prefer-exponentiation-operator": "error",
-    "prefer-math-trunc": "error",
+    "unicorn/prefer-math-trunc": "error",
     "prefer-named-capture-group": "error",
     "prefer-numeric-literals": "error",
     "prefer-object-spread": "error",
