@@ -2,7 +2,7 @@ import React from "react";
 
 import {Page} from "@clumsy_chinchilla/elements";
 
-export default function ThisIsUs () {
+export default function ThisIsUs (): JSX.Element {
   return <Page subtitle="This Is Us" kind="article">
     <section>
       <h2>

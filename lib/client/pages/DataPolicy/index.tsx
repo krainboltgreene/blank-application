@@ -2,7 +2,7 @@ import React from "react";
 
 import {Page} from "@clumsy_chinchilla/elements";
 
-export default function DataPolicy () {
+export default function DataPolicy (): JSX.Element {
   return <Page subtitle="Data Policy" kind="article">
     <section>
       <h2>

@@ -2,7 +2,7 @@ import React from "react";
 
 import {Page} from "@clumsy_chinchilla/elements";
 
-export default function CodeOfConduct () {
+export default function CodeOfConduct (): JSX.Element {
   return <Page subtitle="Code Of Conduct" kind="article">
     <section>
       <h2>

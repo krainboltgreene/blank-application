@@ -2,7 +2,7 @@ import React from "react";
 
 import {Page} from "@clumsy_chinchilla/elements";
 
-export default function TermsOfService () {
+export default function TermsOfService (): JSX.Element {
   return <Page subtitle="Terms Of Service" kind="article">
     <section>
       <h2>

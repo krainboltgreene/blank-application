@@ -11,21 +11,19 @@ interface PropertiesType {
   label: string;
   type: string;
   property: string;
-  value: string | number | ReadonlyArray<string> | undefined;
   help?: string;
-  isValid?: boolean | null;
+  isValid: boolean | null;
   hasValidated: boolean;
   feedback?: ReactNode;
   labelAttributes?: LabelHTMLAttributes<HTMLLabelElement>;
   inputAttributes: Readonly<InputHTMLAttributes<HTMLInputElement>>;
 }
 
-export default function Field (properties: Readonly<PropertiesType>): JSX.Element {
+export default function CheckboxField (properties: Readonly<PropertiesType>): JSX.Element {
   const {scope} = properties;
   const {label} = properties;
   const {type} = properties;
   const {property} = properties;
-  const {value} = properties;
   const {help} = properties;
   const {isValid = null} = properties;
   const {hasValidated = false} = properties;
@@ -37,10 +35,10 @@ export default function Field (properties: Readonly<PropertiesType>): JSX.Elemen
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section className="form-group">
-    <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
-    <input id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} value={value} {...inputAttributes} />
-    <FieldHelp id={helpId}>{help}</FieldHelp>
+  return <section className="form-group form-check">
+    <input id={inputId} className="form-check-input" name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} {...inputAttributes} />
+    <label id={labelId} htmlFor={inputId} className="form-check-label" {...labelAttributes}>{label}</label>;
+    <FieldHelp id={inputId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;
 }

@@ -1,6 +1,6 @@
 @import "@clumsy_chinchilla/styles/index.scss";
 
-.Feedback {
+.FieldFeedback {
   @extend .form-text;
   @extend .text-muted;
   &[data-state="invalid"] {

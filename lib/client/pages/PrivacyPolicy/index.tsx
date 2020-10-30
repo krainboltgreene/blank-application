@@ -2,7 +2,7 @@ import React from "react";
 
 import {Page} from "@clumsy_chinchilla/elements";
 
-export default function PrivacyPolicy () {
+export default function PrivacyPolicy (): JSX.Element {
   return <Page subtitle="Privacy Policy" kind="article">
     <section>
       <h2>

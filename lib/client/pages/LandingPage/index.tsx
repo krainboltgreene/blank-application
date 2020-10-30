@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 import React from "react";
 import {useRecoilValue} from "recoil";
 import {Helmet} from "react-helmet-async";
@@ -7,8 +6,8 @@ import {Page} from "@clumsy_chinchilla/elements";
 import {Link} from "@clumsy_chinchilla/elements";
 import "./index.scss";
 
-export default function LandingPage () {
-  const currentAccount = useRecoilValue<string>(currentAccountAtom);
+export default function LandingPage (): JSX.Element {
+  const currentAccount = useRecoilValue<string | null>(currentAccountAtom);
 
   return <Page id="LandingPage">
     <Helmet>
@@ -24,11 +23,11 @@ export default function LandingPage () {
       deserunt magna aliqua eiusmod excepteur.
     </p>
     <ul>
-      {currentAccount ? null : <li><Link href="/sign-up">Sign Up</Link></li>}
-      {currentAccount ? null : <li><Link href="/login">Login</Link></li>}
+      {currentAccount === null ? null : <li><Link href="/sign-up">Sign Up</Link></li>}
+      {currentAccount === null ? null : <li><Link href="/login">Login</Link></li>}
     </ul>
     <ul>
-      {currentAccount ? <li><Link href="/settings">Settings</Link></li> : null}
+      {currentAccount === null ? null : <li><Link href="/settings">Settings</Link></li>}
     </ul>
   </Page>;
 }

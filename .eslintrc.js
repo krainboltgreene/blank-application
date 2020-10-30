@@ -1,10 +1,8 @@
-/* eslint-disable line-comment-position */
-/* eslint-disable no-inline-comments */
 /* eslint-disable import/no-commonjs */
 module.exports = {
-  parser: "@babel/eslint-parser",
+  parser: "@typescript-eslint/parser",
   plugins: [
-    "@babel",
+    "@typescript-eslint",
     "filenames",
     "import",
     "jest",
@@ -29,17 +27,124 @@ module.exports = {
     },
   },
   parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ["./tsconfig.json"],
     ecmaFeatures: {
       jsx: true,
     },
   },
   reportUnusedDisableDirectives: true,
   rules: {
-    "@babel/new-cap": "error",
-    "@babel/no-invalid-this": "error",
-    "@babel/no-unused-expressions": "error",
-    "@babel/object-curly-spacing": "error",
-    "@babel/semi": ["error", "always"],
+    "@typescript-eslint/adjacent-overload-signatures": "error",
+    "@typescript-eslint/array-type": ["error", {"default": "generic", readonly: "generic"}],
+    "@typescript-eslint/await-thenable": "error",
+    "@typescript-eslint/ban-ts-comment": "error",
+    "@typescript-eslint/ban-tslint-comment": "error",
+    "@typescript-eslint/ban-types": "error",
+    "@typescript-eslint/brace-style": "error",
+    "@typescript-eslint/class-literal-property-style": "error",
+    "@typescript-eslint/comma-dangle": ["error", "always-multiline"],
+    "@typescript-eslint/comma-spacing": "error",
+    "@typescript-eslint/consistent-indexed-object-style": "error",
+    "@typescript-eslint/consistent-type-assertions": "error",
+    "@typescript-eslint/consistent-type-definitions": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/default-param-last": "error",
+    "@typescript-eslint/dot-notation": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/explicit-member-accessibility": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "error",
+    "@typescript-eslint/func-call-spacing": "error",
+    "@typescript-eslint/indent": ["error", 2, {SwitchCase: 1}],
+    "@typescript-eslint/init-declarations": "error",
+    "@typescript-eslint/keyword-spacing": "error",
+    "@typescript-eslint/lines-between-class-members": "error",
+    "@typescript-eslint/member-delimiter-style": "error",
+    "@typescript-eslint/member-ordering": "error",
+    "@typescript-eslint/method-signature-style": "error",
+    "@typescript-eslint/naming-convention": "off", // way too overloaded
+    "@typescript-eslint/no-array-constructor": "error",
+    "@typescript-eslint/no-base-to-string": "error",
+    "@typescript-eslint/no-confusing-non-null-assertion": "error",
+    "@typescript-eslint/no-dupe-class-members": "error",
+    "@typescript-eslint/no-duplicate-imports": "off", // doesn't understand my style
+    "@typescript-eslint/no-dynamic-delete": "error",
+    "@typescript-eslint/no-empty-function": "error",
+    "@typescript-eslint/no-empty-interface": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-extra-non-null-assertion": "error",
+    "@typescript-eslint/no-extra-parens": "error",
+    "@typescript-eslint/no-extra-semi": "error",
+    "@typescript-eslint/no-extraneous-class": "error",
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/no-for-in-array": "error",
+    "@typescript-eslint/no-implicit-any-catch": "error",
+    "@typescript-eslint/no-implied-eval": "error",
+    "@typescript-eslint/no-inferrable-types": "error",
+    "@typescript-eslint/no-invalid-this": "error",
+    "@typescript-eslint/no-invalid-void-type": "error",
+    "@typescript-eslint/no-loop-func": "error",
+    "@typescript-eslint/no-loss-of-precision": "error",
+    "@typescript-eslint/no-magic-numbers": "error",
+    "@typescript-eslint/no-misused-new": "error",
+    "@typescript-eslint/no-misused-promises": "error",
+    "@typescript-eslint/no-namespace": "error",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/no-parameter-properties": "error",
+    "@typescript-eslint/no-redeclare": "error",
+    "@typescript-eslint/no-require-imports": "off", // Don't need this
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-this-alias": "error",
+    "@typescript-eslint/no-throw-literal": "error",
+    "@typescript-eslint/no-type-alias": "error",
+    "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
+    "@typescript-eslint/no-unnecessary-condition": "error",
+    "@typescript-eslint/no-unnecessary-qualifier": "error",
+    "@typescript-eslint/no-unnecessary-type-arguments": "error",
+    "@typescript-eslint/no-unnecessary-type-assertion": "error",
+    "@typescript-eslint/no-unnecessary-type-constraint": "error",
+    "@typescript-eslint/no-unsafe-assignment": "error",
+    "@typescript-eslint/no-unsafe-call": "error",
+    "@typescript-eslint/no-unsafe-member-access": "error",
+    "@typescript-eslint/no-unsafe-return": "error",
+    "@typescript-eslint/no-unused-expressions": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-use-before-define": "error",
+    "@typescript-eslint/no-useless-constructor": "error",
+    "@typescript-eslint/no-var-requires": "off", // what?
+    "@typescript-eslint/prefer-as-const": "error",
+    "@typescript-eslint/prefer-enum-initializers": "error",
+    "@typescript-eslint/prefer-for-of": "error",
+    "@typescript-eslint/prefer-function-type": "error",
+    "@typescript-eslint/prefer-includes": "error",
+    "@typescript-eslint/prefer-literal-enum-member": "error",
+    "@typescript-eslint/prefer-namespace-keyword": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "@typescript-eslint/prefer-optional-chain": "error",
+    "@typescript-eslint/prefer-readonly-parameter-types": ["error", {ignoreInferredTypes: true}],
+    "@typescript-eslint/prefer-readonly": "error",
+    "@typescript-eslint/prefer-reduce-type-parameter": "error",
+    "@typescript-eslint/prefer-regexp-exec": "error",
+    "@typescript-eslint/prefer-string-starts-ends-with": "error",
+    "@typescript-eslint/prefer-ts-expect-error": "error",
+    "@typescript-eslint/promise-function-async": "error",
+    "@typescript-eslint/quotes": "error",
+    "@typescript-eslint/require-array-sort-compare": "error",
+    "@typescript-eslint/require-await": "error",
+    "@typescript-eslint/restrict-plus-operands": "error",
+    "@typescript-eslint/restrict-template-expressions": "error",
+    "@typescript-eslint/return-await": "error",
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/space-before-function-paren": "error",
+    "@typescript-eslint/space-infix-ops": "error",
+    "@typescript-eslint/strict-boolean-expressions": "error",
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
+    "@typescript-eslint/triple-slash-reference": "error",
+    "@typescript-eslint/type-annotation-spacing": "error",
+    "@typescript-eslint/typedef": "error",
+    "@typescript-eslint/unbound-method": "error",
+    "@typescript-eslint/unified-signatures": "error",
     "accessor-pairs": "error",
     "array-bracket-newline": "off",
     "array-bracket-spacing": "error",
@@ -52,7 +157,7 @@ module.exports = {
     "block-spacing": "error",
     "brace-style": "error",
     "callback-return": "error",
-    "camelcase": "off", // handled by babel
+    "camelcase": "off", // handled by typescript/eslint-plugin
     "capitalized-comments": "off", // What a stupid rule
     "class-methods-use-this": "error",
     "comma-dangle": ["error", "always-multiline"],
@@ -145,6 +250,7 @@ module.exports = {
     "jest/no-commented-out-tests": "error",
     "jest/no-conditional-expect": "error",
     "jest/no-disabled-tests": "error",
+    "jest/no-done-callback": "error",
     "jest/no-duplicate-hooks": "error",
     "jest/no-expect-resolves": "error",
     "jest/no-export": "error",
@@ -159,7 +265,6 @@ module.exports = {
     "jest/no-mocks-import": "error",
     "jest/no-restricted-matchers": "error",
     "jest/no-standalone-expect": "error",
-    "jest/no-done-callback": "error",
     "jest/no-test-prefixes": "error",
     "jest/no-test-return-statement": "error",
     "jest/no-truthy-falsy": "error",
@@ -234,7 +339,7 @@ module.exports = {
     "max-statements": "off", // Still not terribly useful
     "multiline-comment-style": ["error", "separate-lines"],
     "multiline-ternary": ["error", "never"],
-    "new-cap": "off", // Already handled
+    "new-cap": "off", // handled by typescript/eslint-plugin
     "new-parens": "error",
     "newline-per-chained-call": "error",
     "no-alert": "error",
@@ -263,7 +368,7 @@ module.exports = {
     "no-dupe-else-if": "error",
     "no-dupe-keys": "error",
     "no-duplicate-case": "error",
-    "no-duplicate-imports": "off", // This rule doesn't understand my style
+    "no-duplicate-imports": "off", // handled by typescript/eslint-plugin
     "no-else-return": "error",
     "no-empty-character-class": "error",
     "no-empty-function": "error",
@@ -352,8 +457,8 @@ module.exports = {
     "no-throw-literal": "error",
     "no-trailing-spaces": "error",
     "no-undef-init": "error",
-    "no-undef": "error",
-    "no-undefined": "off", // We're OK with null not existing, in favor of undefined
+    "no-undef": "off", // handled by typescript/eslint-plugin
+    "no-undefined": "error",
     "no-underscore-dangle": "error",
     "no-unexpected-multiline": "error",
     "no-unmodified-loop-condition": "error",
@@ -365,7 +470,7 @@ module.exports = {
     "no-unused-expressions": "error",
     "no-unused-labels": "error",
     "no-unused-vars": "error",
-    "no-use-before-define": "error",
+    "no-use-before-define": "off", // handled by typescript/eslint-plugin
     "no-useless-backreference": "error",
     "no-useless-call": "error",
     "no-useless-catch": "error",
@@ -395,7 +500,6 @@ module.exports = {
     "prefer-const": "error",
     "prefer-destructuring": "error",
     "prefer-exponentiation-operator": "error",
-    "unicorn/prefer-math-trunc": "error",
     "prefer-named-capture-group": "error",
     "prefer-numeric-literals": "error",
     "prefer-object-spread": "error",
@@ -408,15 +512,15 @@ module.exports = {
     "promise/avoid-new": "error",
     "promise/catch-or-return": "error",
     "promise/no-callback-in-promise": "error",
-    "promise/no-native": "off", // We have babel
+    "promise/no-native": "off", // handled by typescript/eslint-plugin
     "promise/no-nesting": "error",
     "promise/no-new-statics": "error",
     "promise/no-promise-in-callback": "error",
     "promise/no-return-in-finally": "error",
     "promise/no-return-wrap": "error",
     "promise/param-names": "error",
-    "promise/prefer-await-to-callbacks": "off", // Not convinced of await/async
-    "promise/prefer-await-to-then": "off", // Not convinced of await/async
+    "promise/prefer-await-to-callbacks": "error",
+    "promise/prefer-await-to-then": "error",
     "promise/valid-params": "error",
     "quote-props": ["error", "consistent-as-needed", {keywords: true}],
     "quotes": "error",
@@ -425,14 +529,14 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react/boolean-prop-naming": "error",
     "react/button-has-type": "error",
-    "react/default-props-match-prop-types": "error", // We don't use prop types
+    "react/default-props-match-prop-types": "error",
     "react/destructuring-assignment": "error",
     "react/display-name": "error",
     "react/forbid-component-props": "error",
     "react/forbid-dom-props": "error",
     "react/forbid-elements": "error",
-    "react/forbid-foreign-prop-types": "error", // We don't use prop types
-    "react/forbid-prop-types": "error", // We don't use prop types
+    "react/forbid-foreign-prop-types": "error",
+    "react/forbid-prop-types": "error",
     "react/function-component-definition": "error",
     "react/jsx-boolean-value": "error",
     "react/jsx-child-element-spacing": "error",
@@ -442,7 +546,7 @@ module.exports = {
     "react/jsx-curly-newline": "error",
     "react/jsx-curly-spacing": "error",
     "react/jsx-equals-spacing": "error",
-    "react/jsx-filename-extension": "off", // We just use .js
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
     "react/jsx-first-prop-new-line": "off", // This is just busy work
     "react/jsx-fragments": "error",
     "react/jsx-handler-names": "error",
@@ -491,17 +595,17 @@ module.exports = {
     "react/no-unescaped-entities": "warn",
     "react/no-unknown-property": "error",
     "react/no-unsafe": "error",
-    "react/no-unused-prop-types": "off", // Doesn't understand recompose
+    "react/no-unused-prop-types": "error",
     "react/no-unused-state": "error",
     "react/no-will-update-set-state": "error",
-    "react/prefer-es6-class": "off", // We use recompose
+    "react/prefer-es6-class": "off", // We use functions
     "react/prefer-read-only-props": "error",
     "react/prefer-stateless-function": "error",
-    "react/prop-types": "off", // Doesn't understand recompose
+    "react/prop-types": "off", // We use functions
     "react/react-in-jsx-scope": "error",
-    "react/require-default-props": "off", // Doesn't work with recompose
-    "react/require-optimization": "error", // We use recompose
-    "react/require-render-return": "error", // We use recompose
+    "react/require-default-props": "off", // We use functions
+    "react/require-optimization": "off", // We use functions
+    "react/require-render-return": "off", // We use functions
     "react/self-closing-comp": "error",
     "react/sort-comp": "off", // This is just busy work
     "react/sort-prop-types": "off", // This is just busy work
@@ -516,7 +620,7 @@ module.exports = {
     "rest-spread-spacing": "error",
     "semi-spacing": "error",
     "semi-style": "error",
-    "semi": "off", // handled by babel/semi
+    "semi": "off", // handled by typescript/eslint-plugin
     "sort-imports": "off", // Not worth the hassle
     "sort-keys": "off",
     "sort-vars": "off", // I don't like making busy work for myself
@@ -553,7 +657,7 @@ module.exports = {
     "unicorn/no-keyword-prefix": "error",
     "unicorn/no-nested-ternary": "error",
     "unicorn/no-new-buffer": "error",
-    "unicorn/no-null": "error",
+    "unicorn/no-null": "off", // what the fuck
     "unicorn/no-object-as-default-parameter": "error",
     "unicorn/no-process-exit": "error",
     "unicorn/no-reduce": "error",
@@ -563,6 +667,7 @@ module.exports = {
     "unicorn/no-useless-undefined": "error",
     "unicorn/no-zero-fractions": "error",
     "unicorn/number-literal-case": "error",
+    "unicorn/numeric-separators-style": "error",
     "unicorn/prefer-add-event-listener": "error",
     "unicorn/prefer-array-find": "error",
     "unicorn/prefer-dataset": "error",
@@ -570,6 +675,7 @@ module.exports = {
     "unicorn/prefer-exponentiation-operator": "error",
     "unicorn/prefer-flat-map": "error",
     "unicorn/prefer-includes": "error",
+    "unicorn/prefer-math-trunc": "error",
     "unicorn/prefer-modern-dom-apis": "error",
     "unicorn/prefer-negative-index": "error",
     "unicorn/prefer-node-append": "error",
@@ -591,7 +697,6 @@ module.exports = {
     "unicorn/regex-shorthand": "error",
     "unicorn/string-content": "error",
     "unicorn/throw-new-error": "error",
-    "unicorn/numeric-separators-style": "error",
     "use-isnan": "error",
     "valid-typeof": "error",
     "vars-on-top": "error",

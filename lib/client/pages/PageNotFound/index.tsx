@@ -3,7 +3,7 @@ import {Helmet} from "react-helmet-async";
 
 import {Page} from "@clumsy_chinchilla/elements";
 
-export default function PageNotFound () {
+export default function PageNotFound (): JSX.Element {
   return <Page kind="article">
     <Helmet>
       <title>Page Not Found</title>

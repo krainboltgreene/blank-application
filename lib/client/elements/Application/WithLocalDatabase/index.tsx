@@ -1,3 +1,4 @@
+import type {ReactNode} from "react";
 import {useRecoilState} from "recoil";
 import {useEffect} from "react";
 
@@ -8,9 +9,13 @@ const LOCAL_DATABASE_CONFIGURATION = {
   auto_compaction: true,
 };
 
-export default function WithLocalDatabase (properties) {
+interface PropertiesType {
+  children: ReactNode;
+}
+
+export default function WithLocalDatabase (properties: Readonly<PropertiesType>): ReactNode {
   const {children} = properties;
-  const [localDatabase, setLocalDatabase] = useRecoilState(localDatabaseAtom);
+  const [localDatabase, setLocalDatabase] = useRecoilState<PouchDB.Database | null>(localDatabaseAtom);
 
   useEffect(() => {
     if (!localDatabase) {

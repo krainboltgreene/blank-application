@@ -2,29 +2,31 @@
 import React from "react";
 import type {ReactNode} from "react";
 import type {LabelHTMLAttributes} from "react";
-import type {InputHTMLAttributes} from "react";
+import type {SelectHTMLAttributes} from "react";
+import {mapValues} from "@unction/complete";
 import FieldHelp from "../FieldHelp";
 import FieldFeedback from "../FieldFeedback";
 
-interface PropertiesType {
+interface PropertiesType<V> {
   scope: string;
   label: string;
   type: string;
   property: string;
-  value: string | number | ReadonlyArray<string> | undefined;
+  options: Readonly<Record<string, V>>;
+  value: V;
   help?: string;
-  isValid?: boolean | null;
+  isValid: boolean | null;
   hasValidated: boolean;
   feedback?: ReactNode;
   labelAttributes?: LabelHTMLAttributes<HTMLLabelElement>;
-  inputAttributes: Readonly<InputHTMLAttributes<HTMLInputElement>>;
+  inputAttributes: Readonly<SelectHTMLAttributes<HTMLSelectElement>>;
 }
 
-export default function Field (properties: Readonly<PropertiesType>): JSX.Element {
+export default function SelectField<V> (properties: Readonly<PropertiesType<V>>): JSX.Element {
   const {scope} = properties;
   const {label} = properties;
-  const {type} = properties;
   const {property} = properties;
+  const {options} = properties;
   const {value} = properties;
   const {help} = properties;
   const {isValid = null} = properties;
@@ -37,9 +39,16 @@ export default function Field (properties: Readonly<PropertiesType>): JSX.Elemen
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section className="form-group">
+  // TODO: Handle select change
+  return <section className="form-group form-check">
+    <select id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes}>
+      {
+        mapValues(
+          ({key, option}: Readonly<{key: string; option: string | number | ReadonlyArray<string>}>) => <option value={option} selected={value === key}>{key}</option>
+        )(options)
+      }
+    </select>
     <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
-    <input id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} value={value} {...inputAttributes} />
     <FieldHelp id={helpId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;
