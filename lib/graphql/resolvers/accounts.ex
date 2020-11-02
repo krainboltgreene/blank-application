@@ -9,22 +9,11 @@ defmodule Graphql.Resolvers.Accounts do
 
   @spec create(any, %{input: %{email_address: String.t, password: String.t} | %{email_address: String.t}}, any) ::
           {:ok, %Database.Models.Account{}} | {:error, any}
-  def create(_parent, %{input: %{email_address: email_address} = input}, _resolution) do
-    default_attributes = %{
-      username: List.first(String.split(email_address, "@")),
-      password:
-        input[:password] ||
-          :crypto.strong_rand_bytes(24) |> Base.encode32(case: :upper) |> binary_part(0, 24)
-    }
-
-    attributes = Map.merge(default_attributes, input)
-
-    %Database.Models.Account{}
-    |> Database.Models.Account.changeset(attributes)
-    |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
-    end
+  def create(_parent, %{input: %{email_address: email_address, password: password} = input}, _resolution) when is_bitstring(email_address) and is_bitstring(password) do
+    Database.Models.Account.create(input)
+  end
+  def create(_parent, %{input: %{email_address: email_address} = input}, _resolution) when is_bitstring(email_address) do
+    Database.Models.Account.create(input)
   end
 
   @spec grant_administration_powers(any, %{input: %{id: String.t}}, any) ::

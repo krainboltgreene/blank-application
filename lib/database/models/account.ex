@@ -41,6 +41,23 @@ defmodule Database.Models.Account do
   def unconfirmed?(%{unconfirmed_email_address: _}), do: true
   def unconfirmed?(_), do: false
 
+  @spec create(%{:email_address => String.t, password: String.t}) :: {:ok, Database.Models.Account} | {:error, Ecto.Changeset.t() | Database.Models.Account}
+  def create(%{email_address: email_address, password: password} = attributes) when is_bitstring(email_address) and is_bitstring(password) do
+    default_attributes = %{
+      username: List.first(String.split(email_address, "@"))
+    }
+
+    %Database.Models.Account{}
+    |> Database.Models.Account.changeset(Map.merge(default_attributes, attributes))
+    |> case do
+      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
+      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
+    end
+  end
+  def create(%{email_address: email_address} = attributes) when is_bitstring(email_address) do
+    create(Map.merge(attributes, %{password: default_password()}))
+  end
+
   @doc false
   @spec changeset(map, map) :: Ecto.Changeset.t()
   def changeset(record, attributes) do
@@ -99,4 +116,6 @@ defmodule Database.Models.Account do
 
   # If maybe have email_address and given no email_address then return changeset
   defp replace_email_address_with_unconfirmed_email_address(%Ecto.Changeset{} = changeset, _), do: changeset
+
+  defp default_password(), do: :crypto.strong_rand_bytes(24) |> Base.encode32(case: :upper) |> binary_part(0, 24)
 end
