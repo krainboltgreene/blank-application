@@ -1,4 +1,5 @@
 defmodule Database.Models.Account do
+  @moduledoc false
   use Ecto.Schema
   import Estate, only: [state_machines: 1]
   import Ecto.Changeset
@@ -31,6 +32,7 @@ defmodule Database.Models.Account do
     timestamps()
   end
 
+  @spec data :: Dataloader.Ecto.t()
   def data() do
     Dataloader.Ecto.new(Database.Repository)
   end

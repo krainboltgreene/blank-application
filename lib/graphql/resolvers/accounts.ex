@@ -1,4 +1,5 @@
 defmodule Graphql.Resolvers.Accounts do
+  @moduledoc false
   import Graphql.Resolvers, only: :macros
 
   listable(Database.Models.Account, :authenticated)
@@ -6,7 +7,7 @@ defmodule Graphql.Resolvers.Accounts do
   updatable(Database.Models.Account, :authenticated)
   destroyable(Database.Models.Account, :authenticated)
 
-  @spec create(any, %{input: %{email_address: bitstring, password: bitstring} | %{email_address: bitstring}}, any) ::
+  @spec create(any, %{input: %{email_address: String.t, password: String.t} | %{email_address: String.t}}, any) ::
           {:ok, %Database.Models.Account{}} | {:error, any}
   def create(_parent, %{input: %{email_address: email_address} = input}, _resolution) do
     default_attributes = %{
@@ -26,11 +27,12 @@ defmodule Graphql.Resolvers.Accounts do
     end
   end
 
-  @spec grant_administration_powers(any, %{input: %{id: bitstring}}, any) ::
+  @spec grant_administration_powers(any, %{input: %{id: String.t}}, any) ::
           {:ok, %Database.Models.Account{}} | {:error, any}
   def grant_administration_powers(_parent, %{input: %{id: id}}, _resolution)
       when is_bitstring(id) do
-    Database.Repository.get!(Database.Models.Account, id)
+    Database.Models.Account
+    |> Database.Repository.get!(id)
     |> Database.Models.Account.grant_administrator_powers!()
   end
 
@@ -41,11 +43,12 @@ defmodule Graphql.Resolvers.Accounts do
     {:error, :unauthenticated}
   end
 
-  @spec revoke_administration_powers(any, %{input: %{id: bitstring}}, any) ::
+  @spec revoke_administration_powers(any, %{input: %{id: String.t}}, any) ::
           {:ok, %Database.Models.Account{}} | {:error, any}
   def revoke_administration_powers(_parent, %{input: %{id: id}}, _resolution)
       when is_bitstring(id) do
-    Database.Repository.get!(Database.Models.Account, id)
+    Database.Models.Account
+    |> Database.Repository.get!(id)
     |> Database.Models.Account.revoke_administrator_powers!()
   end
 

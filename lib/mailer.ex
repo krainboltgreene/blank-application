@@ -1,6 +1,6 @@
 defmodule Mailer do
   @moduledoc """
-  Contains all the core email logic
+  Contains all the core email logic.
   """
   import Bamboo.Email
   use Bamboo.Phoenix, view: ClumsyChinchilla.EmailView
@@ -16,7 +16,7 @@ defmodule Mailer do
     |> render(:account_onboarding_email)
   end
 
-  defp new_application_email() do
+  def new_application_email() do
     new_email()
     |> from(@default_from_email_address)
     |> put_layout({ClumsyChinchillaWeb.LayoutView, :email})

@@ -1,4 +1,5 @@
 defmodule Database.Models.OrganizationMembership do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
 

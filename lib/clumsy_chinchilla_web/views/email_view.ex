@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.MailerView do
+defmodule ClumsyChinchillaWeb.EmailView do
   use ClumsyChinchillaWeb, :view
 end
