@@ -1,0 +1,3 @@
+<p>
+  Thanks for signing up, <%= link "please click here to confirm your account and pick a password", to: "/account_confirmation?token=#{assigns[:confirmation_secret]}" %>.
+</p>

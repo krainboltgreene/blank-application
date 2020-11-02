@@ -1,0 +1,3 @@
+Thanks for signing up, please use the link below to confirm your account and pick a password:
+
+http://localhost:8080/account_confirmation?token=<%= assigns[:confirmation_secret] %>
