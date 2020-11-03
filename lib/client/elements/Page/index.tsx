@@ -1,17 +1,51 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
+import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
 import "./index.scss";
 
 interface PropertiesType {
+  as: string;
+  subtitle?: string;
+  description?: string;
+  kind?: "article" | "section";
   children: ReactNode;
-  id?: string;
 }
 
 export default function Page (properties: Readonly<PropertiesType>): JSX.Element {
-  const {children, ...remainingProperties} = properties;
+  const {as} = properties;
+  const {subtitle = ""} = properties;
+  const {description = ""} = properties;
+  const {kind} = properties;
+  const {children} = properties;
 
-  return <main className="Page" {...remainingProperties}>
-    {children}
-  </main>;
+  switch (kind) {
+    case "article": {
+      return <main className={`Page ${as}`}>
+        <Helmet>
+          <title>ClumsyChinchilla | {subtitle}</title>
+          <meta name="description" content={description} />
+        </Helmet>
+        <section>{children}</section>
+      </main>;
+    }
+    case "section": {
+      return <main className={`Page ${as}`}>
+        <Helmet>
+          <title>ClumsyChinchilla | {subtitle}</title>
+          <meta name="description" content={description} />
+        </Helmet>
+        <section>{children}</section>
+      </main>;
+    }
+    default: {
+      return <main className={`Page ${as}`}>
+        <Helmet>
+          <title>ClumsyChinchilla | {subtitle}</title>
+          <meta name="description" content={description} />
+        </Helmet>
+        {children}
+      </main>;
+    }
+  }
 }

@@ -19,7 +19,7 @@ export default function SignUp (): JSX.Element {
     history.push("/");
   }
 
-  return <Page id="sign-up">
+  return <Page as="SignUp">
     <SignUpForm />
   </Page>;
 }

@@ -3,15 +3,13 @@ import React from "react";
 import {Page} from "@clumsy_chinchilla/elements";
 
 export default function PrivacyPolicy (): JSX.Element {
-  return <Page subtitle="Privacy Policy" kind="article">
-    <section>
-      <h2>
-        Empty
-      </h2>
+  return <Page as="PrivacyPolicy" kind="article" subtitle="Privacy Policy">
+    <h2>
+      Empty
+    </h2>
 
-      <p>
-        To be filled
-      </p>
-    </section>
+    <p>
+      To be filled
+    </p>
   </Page>;
 }

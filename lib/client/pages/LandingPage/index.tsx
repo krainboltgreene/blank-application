@@ -1,6 +1,5 @@
 import React from "react";
 import {useRecoilValue} from "recoil";
-import {Helmet} from "react-helmet-async";
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Page} from "@clumsy_chinchilla/elements";
 import {Link} from "@clumsy_chinchilla/elements";
@@ -9,11 +8,7 @@ import "./index.scss";
 export default function LandingPage (): JSX.Element {
   const currentAccount = useRecoilValue<string | null>(currentAccountAtom);
 
-  return <Page id="LandingPage">
-    <Helmet>
-      <title>ClumsyChinchilla</title>
-      <meta name="description" content="A description" />
-    </Helmet>
+  return <Page as="LandingPage">
     <h1>Clumsy Chinchilla</h1>
     <p>
       Cupidatat aliquip exercitation sunt mollit amet laborum tempor. Duis
