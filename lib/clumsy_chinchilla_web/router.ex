@@ -42,6 +42,8 @@ defmodule ClumsyChinchillaWeb.Router do
   scope "/" do
     pipe_through :browser
 
+    get "/", ClumsyChinchillaWeb.PageController, :index
+
     get "/:path", ClumsyChinchillaWeb.RemoteController, :browser_remote
 
     # live "/", PageLive, :index
