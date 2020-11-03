@@ -54,7 +54,7 @@ defmodule Database.Models.Account do
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
     |> Utilities.tap(fn
-      {:ok, account} -> Mailer.Accounts.onboarding_email(account)
+      {:ok, account} -> Mailer.Accounts.onboarding_email(account) |> Mailer.deliver_now()
       rejection -> rejection
     end)
   end
