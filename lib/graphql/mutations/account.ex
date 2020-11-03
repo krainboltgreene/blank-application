@@ -17,6 +17,10 @@ defmodule Graphql.Mutations.Account do
     field :password, :string
   end
 
+  input_object :account_confirmation do
+    field :confirmation_secret, non_null(:string)
+  end
+
   object :account_mutations do
     @desc "Create a new account"
     field :create_account, :account do
@@ -31,6 +35,13 @@ defmodule Graphql.Mutations.Account do
       arg(:input, non_null(:account_changeset))
 
       resolve(&Graphql.Resolvers.Accounts.update/3)
+    end
+
+    @desc "Confirm an existing account"
+    field :confirm_account, :account do
+      arg(:input, non_null(:account_confirmation))
+
+      resolve(&Graphql.Resolvers.Accounts.confirm/3)
     end
 
     field :grant_administration_powers, :account do

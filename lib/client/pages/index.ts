@@ -8,3 +8,4 @@ export {default as TermsOfService} from "./TermsOfService";
 export {default as ThisIsUs} from "./ThisIsUs";
 export {default as SignUp} from "./SignUp";
 export {default as Login} from "./Login";
+export {default as AccountConfirmation} from "./AccountConfirmation";

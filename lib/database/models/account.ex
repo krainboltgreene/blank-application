@@ -62,6 +62,19 @@ defmodule Database.Models.Account do
     create(Map.merge(attributes, %{password: default_password()}))
   end
 
+  @spec confirm!(%{unconfirmed_email_address: nil | String.t}) :: {:ok, %Database.Models.Account{}} | {:error, Ecto.Changeset.t() | %Database.Models.Account{}}
+  def confirm!(%{unconfirmed_email_address: nil} = account) do
+    {:ok, account}
+  end
+  def confirm!(%{unconfirmed_email_address: unconfirmed_email_address} = account) when is_bitstring(unconfirmed_email_address) do
+    account
+    |> changeset(%{unconfirmed_email_address: nil})
+    |> case do
+      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
+      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
+    end
+  end
+
   @doc false
   @spec changeset(map, map) :: Ecto.Changeset.t()
   def changeset(record, attributes) do

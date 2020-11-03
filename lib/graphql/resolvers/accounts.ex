@@ -15,6 +15,16 @@ defmodule Graphql.Resolvers.Accounts do
     Database.Models.Account.create(input)
   end
 
+  @spec confirm(any, %{input: %{confirmation_secret: String.t}}, any) :: {:ok, Database.Models.Account.t()} | {:error, Database.Models.Account.t() | Ecto.Changeset.t()}
+  def confirm(_parent, %{input: %{confirmation_secret: confirmation_secret}}, _resolution) when is_bitstring(confirmation_secret) do
+    Database.Models.Account
+    |> Database.Repository.get_by(confirmation_secret: confirmation_secret)
+    |> case do
+      nil -> {:error, :not_found}
+      account -> Database.Models.Account.confirm!(account)
+    end
+  end
+
   @spec grant_administration_powers(any, %{input: %{id: String.t}}, any) ::
   {:ok, Database.Models.Account.t()} | {:error, Database.Models.Account.t() | Ecto.Changeset.t()}
   def grant_administration_powers(_parent, %{input: %{id: id}}, _resolution)
