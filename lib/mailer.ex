@@ -9,11 +9,27 @@ defmodule Mailer do
   @default_from_email_address "no-reply@clumsy-chinchilla.club"
   @default_replyto_email_address "no-reply@clumsy-chinchilla.club"
 
+  def new_application_email() do
+    new_email()
+    |> from(@default_from_email_address)
+    |> put_layout({Mailer.LayoutView, :root})
+    |> put_header("Reply-To", @default_replyto_email_address)
+  end
+
   def browser_remote_url(component, parameters) when is_bitstring(component) do
     ClumsyChinchillaWeb.Endpoint.url()
     |> URI.parse()
     |> Map.merge(Application.fetch_env!(:clumsy_chinchilla, :remotes)[:browser_remote])
     |> ClumsyChinchillaWeb.Router.Helpers.remote_url(:browser_remote, component, parameters)
+  end
+
+  def router do
+    quote do
+      use Phoenix.Router
+
+      import Plug.Conn
+      import Phoenix.Controller
+    end
   end
 
   def view do
@@ -31,13 +47,6 @@ defmodule Mailer do
     end
   end
 
-  def new_application_email() do
-    new_email()
-    |> from(@default_from_email_address)
-    |> put_layout({Mailer.LayoutView, :root})
-    |> put_header("Reply-To", @default_replyto_email_address)
-  end
-
   defp view_helpers do
     quote do
       # Use all HTML functionality (forms, tags, etc)
@@ -47,16 +56,6 @@ defmodule Mailer do
       import Phoenix.View
 
       import Mailer.Gettext
-      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
-    end
-  end
-
-  def router do
-    quote do
-      use Phoenix.Router
-
-      import Plug.Conn
-      import Phoenix.Controller
     end
   end
 
