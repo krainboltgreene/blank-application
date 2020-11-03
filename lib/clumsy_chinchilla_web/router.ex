@@ -44,8 +44,6 @@ defmodule ClumsyChinchillaWeb.Router do
 
     get "/", ClumsyChinchillaWeb.PageController, :index
 
-    get "/:path", ClumsyChinchillaWeb.RemoteController, :browser_remote
-
     # live "/", PageLive, :index
     if Mix.env == :dev do
       # If using Phoenix
@@ -60,6 +58,8 @@ defmodule ClumsyChinchillaWeb.Router do
       # as long as you are also using SSL (which you should anyway).
       live_dashboard "/dashboard", metrics: ClumsyChinchillaWeb.Telemetry
     end
+
+    get "/:path", ClumsyChinchillaWeb.RemoteController, :browser_remote
   end
 
   scope "/graphql" do
