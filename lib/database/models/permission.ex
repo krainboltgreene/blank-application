@@ -13,6 +13,7 @@ defmodule Database.Models.Permission do
     timestamps()
   end
 
+  @spec data :: Dataloader.Ecto.t()
   def data() do
     Dataloader.Ecto.new(Database.Repository)
   end

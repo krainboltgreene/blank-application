@@ -1,4 +1,5 @@
 defmodule Graphql.Mutations.Account do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   input_object :new_account do

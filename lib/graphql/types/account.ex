@@ -1,4 +1,5 @@
 defmodule Graphql.Types.Account do
+  @moduledoc false
   use Absinthe.Schema.Notation
   import Absinthe.Resolution.Helpers
 

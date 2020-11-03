@@ -41,7 +41,7 @@ defmodule Database.Models.Account do
   def unconfirmed?(%{unconfirmed_email_address: _}), do: true
   def unconfirmed?(_), do: false
 
-  @spec create(%{:email_address => String.t, password: String.t}) :: {:ok, Database.Models.Account} | {:error, Ecto.Changeset.t() | Database.Models.Account}
+  @spec create(%{:email_address => String.t, password: String.t}) :: {:ok, %Database.Models.Account{}} | {:error, Ecto.Changeset.t() | %Database.Models.Account{}}
   def create(%{email_address: email_address, password: password} = attributes) when is_bitstring(email_address) and is_bitstring(password) do
     default_attributes = %{
       username: List.first(String.split(email_address, "@"))
