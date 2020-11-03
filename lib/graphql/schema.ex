@@ -48,19 +48,20 @@ defmodule Graphql.Schema do
   end
 
   def context(context) do
-    Map.put(
-      context,
-      :loader,
-      Enum.reduce(
+    context
+    |> Map.merge(%{
+      loader: Enum.reduce(
         [
           Database.Models.Account,
           Database.Models.Organization,
+          Database.Models.OrganizationMembership,
+          Database.Models.OrganizationPermission,
           Database.Models.Permission
         ],
         Dataloader.new(),
         fn model, loader -> Dataloader.add_source(loader, model, model.data()) end
       )
-    )
+    })
   end
 
   def plugins do

@@ -35,4 +35,9 @@ defmodule Database.Models.OrganizationPermission do
     |> put_assoc(:organization_membership, attributes.organization_membership)
     |> put_assoc(:permission, attributes.permission)
   end
+
+  @spec data :: Dataloader.Ecto.t()
+  def data() do
+    Dataloader.Ecto.new(Database.Repository)
+  end
 end
