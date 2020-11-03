@@ -42,7 +42,7 @@ defmodule ClumsyChinchillaWeb.Router do
   scope "/" do
     pipe_through :browser
 
-    get "/", RemoteController, host: "localhost:8080"
+    get "/:path", ClumsyChinchillaWeb.RemoteController, :browser_remote
 
     # live "/", PageLive, :index
     if Mix.env == :dev do

@@ -78,3 +78,11 @@ config :clumsy_chinchilla, :flow, max_demand: 8
 config :clumsy_chinchilla, Mailer,
   adapter: Bamboo.LocalAdapter,
   open_email_in_browser_url: "http://localhost:4000/sent_emails"
+
+config :clumsy_chinchilla, :remotes, %{
+  browser_remote: %URI{
+    scheme: "http",
+    host: "localhost",
+    port: 8080
+  }
+}
