@@ -121,5 +121,5 @@ defmodule Database.Models.Account do
   # If maybe have email_address and given no email_address then return changeset
   defp replace_email_address_with_unconfirmed_email_address(%Ecto.Changeset{} = changeset, _), do: changeset
 
-  defp default_password(), do: :crypto.strong_rand_bytes(24) |> Base.encode32(case: :upper) |> binary_part(0, 24)
+  defp default_password(), do: Utilities.generate_secret
 end
