@@ -1,3 +1,3 @@
 Thanks for signing up, please use the link below to confirm your account and pick a password:
 
-<%= Mailer.browser_remote_url("account_confirmation", token: assigns[:confirmation_secret]) %>
+<%= Mailer.browser_remote_url("account-confirmation", token: assigns[:confirmation_secret]) %>
