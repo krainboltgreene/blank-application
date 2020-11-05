@@ -19,7 +19,7 @@ export default function LandingPage (): JSX.Element {
     </p>
     <ul>
       {currentAccount === null ? <li><Link href="/sign-up">Sign Up</Link></li> : null}
-      {currentAccount === null ? null : <li><Link href="/login">Login</Link></li>}
+      {currentAccount === null ? <li><Link href="/login">Login</Link></li> : null}
     </ul>
     <ul>
       {currentAccount === null ? null : <li><Link href="/settings">Settings</Link></li>}
