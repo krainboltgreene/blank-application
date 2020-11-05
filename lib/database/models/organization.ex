@@ -20,7 +20,6 @@ defmodule Database.Models.Organization do
   }
 
   @spec changeset(map, map) :: Ecto.Changeset.t()
-  @doc false
   def changeset(record, attributes) do
     record
     |> cast(attributes, [:name])

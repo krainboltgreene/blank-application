@@ -1,4 +1,5 @@
 defmodule Graphql.Schema do
+  @moduledoc false
   use Absinthe.Schema
 
   import_types(Graphql.Inputs)
