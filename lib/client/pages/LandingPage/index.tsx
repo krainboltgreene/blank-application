@@ -18,7 +18,7 @@ export default function LandingPage (): JSX.Element {
       deserunt magna aliqua eiusmod excepteur.
     </p>
     <ul>
-      {currentAccount === null ? null : <li><Link href="/sign-up">Sign Up</Link></li>}
+      {currentAccount === null ? <li><Link href="/sign-up">Sign Up</Link></li> : null}
       {currentAccount === null ? null : <li><Link href="/login">Login</Link></li>}
     </ul>
     <ul>
