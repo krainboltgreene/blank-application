@@ -96,7 +96,7 @@ defmodule Graphql.Resolvers do
       end
       @spec list(any, %{optional(:input) => %{limit: integer}}, %{
               context: %{current_account: %Database.Models.Account{id: String.t()}}
-            }) :: {:ok, list(%unquote(model){})}
+            }) :: {:ok, list(unquote(model).t())}
       def list(_parent, %{input: %{limit: limit}}, %{context: %{current_account: current_account}})
           when is_integer(limit) and limit > 0 and limit < 100 do
         {:ok, unquote(model) |> Ecto.Query.limit(^limit) |> Database.Repository.all()}
@@ -111,7 +111,6 @@ defmodule Graphql.Resolvers do
           {:__block__, [], [{:@, [...], [...]} | {:def, [...], [...]}, ...]}
   defmacro findable(model, :authenticated) do
     quote do
-
       @spec find(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
       def find(_parent, _arguments, %{context: %{current_account: nil}}) do
         {:error, :unauthenticated}

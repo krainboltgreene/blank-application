@@ -15,17 +15,6 @@ defmodule Database.Models.OrganizationPermission do
     timestamps()
   end
 
-  @spec changeset(
-          {map, map} | %{:__struct__ => atom | %{__changeset__: map}, optional(atom) => any},
-          :invalid
-          | %{
-              :organization_membership => any,
-              :permission => any,
-              optional(:__struct__) => none,
-              optional(atom | binary) => any
-            }
-        ) :: Ecto.Changeset.t()
-  @doc false
   @type t :: %__MODULE__{
     organization_membership_id: Ecto.UUID.t(),
     organization_membership: Database.Models.OrganizationMembership.t(),
@@ -33,6 +22,7 @@ defmodule Database.Models.OrganizationPermission do
     permission: Database.Models.Permission.t(),
   }
 
+  @spec changeset(map, map) :: Ecto.Changeset.t()
   def changeset(record, attributes) do
     record
     |> cast(attributes, [])

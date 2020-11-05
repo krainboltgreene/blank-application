@@ -13,17 +13,6 @@ defmodule Database.Models.OrganizationMembership do
     timestamps()
   end
 
-  @spec changeset(
-          {map, map} | %{:__struct__ => atom | %{__changeset__: map}, optional(atom) => any},
-          :invalid
-          | %{
-              :account => any,
-              :organization => any,
-              optional(:__struct__) => none,
-              optional(atom | binary) => any
-            }
-        ) :: Ecto.Changeset.t()
-  @doc false
   @type t :: %__MODULE__{
     organization_id: Ecto.UUID.t(),
     organization: Database.Models.Organization.t(),
@@ -31,6 +20,7 @@ defmodule Database.Models.OrganizationMembership do
     account: Database.Models.Account.t(),
   }
 
+  @spec changeset(map, map) :: Ecto.Changeset.t()
   def changeset(record, attributes) do
     record
     |> cast(attributes, [])

@@ -32,8 +32,6 @@ defmodule Database.Models.Account do
     timestamps()
   end
 
-  @spec unconfirmed?(map() | any()) :: true | false
-  def unconfirmed?(%{unconfirmed_email_address: _}), do: true
   @type t :: %__MODULE__{
     email_address: String.t(),
     unconfirmed_email_address: String.t() | nil,
@@ -46,16 +44,16 @@ defmodule Database.Models.Account do
     password_hash: String.t() | nil
   }
 
+  @spec unconfirmed?(Database.Models.Account.t()) :: true | false
+  def unconfirmed?(%{unconfirmed_email_address: nil}), do: true
   def unconfirmed?(_), do: false
 
-  @spec create(%{:email_address => String.t, password: String.t}) :: {:ok, %Database.Models.Account{}} | {:error, Ecto.Changeset.t() | %Database.Models.Account{}}
+  @spec create(%{email_address: String.t(), password: String.t()}) :: {:ok, Database.Models.Account.t()} | {:error, Ecto.Changeset.t(Database.Models.Account.t()) | Database.Models.Account.t()}
   def create(%{email_address: email_address, password: password} = attributes) when is_bitstring(email_address) and is_bitstring(password) do
-    default_attributes = %{
+    Database.Models.Account.__struct__(%{
       username: List.first(String.split(email_address, "@"))
-    }
-
-    %Database.Models.Account{}
-    |> Database.Models.Account.changeset(Map.merge(default_attributes, attributes))
+    })
+    |> changeset(attributes)
     |> case do
       %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
@@ -69,24 +67,23 @@ defmodule Database.Models.Account do
     create(Map.merge(attributes, %{password: default_password()}))
   end
 
-  @spec confirm!(%{unconfirmed_email_address: nil | String.t}) :: {:ok, %Database.Models.Account{}} | {:error, Ecto.Changeset.t() | %Database.Models.Account{}}
-  def confirm!(%{unconfirmed_email_address: nil} = account) do
+  @spec confirm!(%Database.Models.Account{unconfirmed_email_address: String.t() | nil}, String.t()) :: {:ok, Database.Models.Account.t()} | {:error, Ecto.Changeset.t(Database.Models.Account.t()) | Database.Models.Account.t()}
+  def confirm!(%Database.Models.Account{unconfirmed_email_address: nil} = account, _) do
     {:ok, account}
   end
-  def confirm!(%{unconfirmed_email_address: unconfirmed_email_address} = account) when is_bitstring(unconfirmed_email_address) do
+  def confirm!(%Database.Models.Account{unconfirmed_email_address: unconfirmed_email_address} = account, password) when is_bitstring(unconfirmed_email_address) and is_bitstring(password) do
     account
-    |> changeset(%{unconfirmed_email_address: nil})
+    |> changeset(%{unconfirmed_email_address: nil, password: password})
     |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
+      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.update(changeset)
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
   end
 
-  @doc false
-  @spec changeset(map, map) :: Ecto.Changeset.t()
+  @spec changeset(Database.Models.Account.t(), map) :: Ecto.Changeset.t(Database.Models.Account.t())
   def changeset(record, attributes) do
     record
-    |> change()
+    |> Ecto.Changeset.change()
     |> set_password_hash_if_changing_password(attributes)
     |> generate_unconfirmed_token_if_new_record()
     |> replace_email_address_with_unconfirmed_email_address(attributes)
@@ -96,50 +93,46 @@ defmodule Database.Models.Account do
     |> unique_constraint(:username)
   end
 
-  defp set_password_hash_if_changing_password(%Ecto.Changeset{} = changeset, %{password: password}) do
-    changeset |> Ecto.Changeset.change(Argon2.add_hash(password))
+  defp set_password_hash_if_changing_password(account, %{password: password}) when is_bitstring(password) do
+    account |> Ecto.Changeset.change(Argon2.add_hash(password))
   end
-
-  defp set_password_hash_if_changing_password(%Ecto.Changeset{} = changeset, _), do: changeset
+  defp set_password_hash_if_changing_password(account, _), do: account
 
   defp generate_unconfirmed_token_if_new_record(
-    %Ecto.Changeset{data: %Database.Models.Account{id: id}} = changeset
-  ) when is_nil(id) do
-    changeset |> Ecto.Changeset.change(%{confirmation_secret: Utilities.generate_secret})
+    %Ecto.Changeset{data: %Database.Models.Account{id: nil} = account}
+  ) do
+    account |> Ecto.Changeset.change(%{confirmation_secret: Utilities.generate_secret})
   end
-  defp generate_unconfirmed_token_if_new_record(changeset) do
-    changeset
-  end
+  defp generate_unconfirmed_token_if_new_record(changeset), do: changeset
 
   # If have email address, given email address, and not the same then remove given email address and update unconfirmed
   # If have email address, given email address, and the same then remove given email address and return changeset
   defp replace_email_address_with_unconfirmed_email_address(
-         %Ecto.Changeset{changes: %Database.Models.Account{email_address: recorded_email_address}} = changeset,
+          %Ecto.Changeset{data: %Database.Models.Account{email_address: recorded_email_address} = account},
          %{email_address: unconfirmed_email_address} = attributes
        )
        when is_bitstring(recorded_email_address) and is_bitstring(unconfirmed_email_address) do
     Map.delete(attributes, :email_address)
 
     if unconfirmed_email_address != recorded_email_address do
-      changeset |> Ecto.Changeset.change(%{unconfirmed_email_address: unconfirmed_email_address})
+      account |> Ecto.Changeset.change(%{unconfirmed_email_address: unconfirmed_email_address})
     else
-      changeset
+      account
     end
   end
 
   # If have no email address, and given email, remove given email address and update confirmed
   defp replace_email_address_with_unconfirmed_email_address(
-         %Ecto.Changeset{data: %Database.Models.Account{email_address: nil}} = changeset,
+    %Ecto.Changeset{data: %Database.Models.Account{email_address: nil} = account},
          %{email_address: unconfirmed_email_address} = attributes
        )
        when is_bitstring(unconfirmed_email_address) do
     Map.delete(attributes, :email_address)
 
-    changeset |> Ecto.Changeset.change(%{unconfirmed_email_address: unconfirmed_email_address})
+    account |> Ecto.Changeset.change(%{unconfirmed_email_address: unconfirmed_email_address})
   end
-
   # If maybe have email_address and given no email_address then return changeset
-  defp replace_email_address_with_unconfirmed_email_address(%Ecto.Changeset{} = changeset, _), do: changeset
+  defp replace_email_address_with_unconfirmed_email_address(account, _), do: account
 
   defp default_password(), do: Utilities.generate_secret
 end
