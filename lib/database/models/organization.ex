@@ -14,10 +14,6 @@ defmodule Database.Models.Organization do
     timestamps()
   end
 
-  @spec data :: Dataloader.Ecto.t()
-  def data() do
-    Dataloader.Ecto.new(Database.Repository)
-  end
 
   @spec changeset(map, map) :: Ecto.Changeset.t()
   @doc false

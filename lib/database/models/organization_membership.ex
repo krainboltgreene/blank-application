@@ -33,9 +33,4 @@ defmodule Database.Models.OrganizationMembership do
     |> put_assoc(:account, attributes.account)
     |> put_assoc(:organization, attributes.organization)
   end
-
-  @spec data :: Dataloader.Ecto.t()
-  def data() do
-    Dataloader.Ecto.new(Database.Repository)
-  end
 end

@@ -48,6 +48,7 @@ defmodule Graphql.Schema do
   end
 
   def context(context) do
+    repository = Dataloader.Ecto.new(Database.Repository)
     context
     |> Map.merge(%{
       loader: Enum.reduce(
@@ -59,7 +60,7 @@ defmodule Graphql.Schema do
           Database.Models.Permission
         ],
         Dataloader.new(),
-        fn model, loader -> Dataloader.add_source(loader, model, model.data()) end
+        fn model, loader -> Dataloader.add_source(loader, model, repository) end
       )
     })
   end

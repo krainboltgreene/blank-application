@@ -32,11 +32,6 @@ defmodule Database.Models.Account do
     timestamps()
   end
 
-  @spec data :: Dataloader.Ecto.t()
-  def data() do
-    Dataloader.Ecto.new(Database.Repository)
-  end
-
   @spec unconfirmed?(map() | any()) :: true | false
   def unconfirmed?(%{unconfirmed_email_address: _}), do: true
   def unconfirmed?(_), do: false
