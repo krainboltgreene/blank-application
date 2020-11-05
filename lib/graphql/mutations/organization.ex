@@ -1,4 +1,6 @@
 defmodule Graphql.Mutations.Organization do
+  @moduledoc false
+  import Graphql.Resolvers, only: :macros
   use Absinthe.Schema.Notation
 
   input_object :new_organization do
@@ -15,21 +17,27 @@ defmodule Graphql.Mutations.Organization do
     field :create_organization, :organization do
       arg(:input, non_null(:new_organization))
 
-      resolve(&Graphql.Resolvers.Organizations.create/3)
+      resolve(&create/3)
     end
 
     @desc "Update an existing organization"
     field :update_organization, :organization do
       arg(:input, non_null(:organization_changeset))
 
-      resolve(&Graphql.Resolvers.Organizations.update/3)
+      resolve(&update/3)
     end
 
     @desc "Permanently delete an existing organization"
     field :destroy_organization, :organization do
       arg(:input, non_null(:identity))
 
-      resolve(&Graphql.Resolvers.Organizations.destroy/3)
+      resolve(&destroy/3)
     end
   end
+
+  listable(Database.Models.Organization, :authenticated)
+  findable(Database.Models.Organization, :authenticated)
+  creatable(Database.Models.Organization, :authenticated)
+  updatable(Database.Models.Organization, :authenticated)
+  destroyable(Database.Models.Organization, :authenticated)
 end

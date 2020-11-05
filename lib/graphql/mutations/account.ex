@@ -1,5 +1,6 @@
 defmodule Graphql.Mutations.Account do
   @moduledoc false
+  import Graphql.Resolvers, only: :macros
   use Absinthe.Schema.Notation
 
   input_object :new_account do
@@ -19,6 +20,7 @@ defmodule Graphql.Mutations.Account do
 
   input_object :account_confirmation do
     field :confirmation_secret, non_null(:string)
+    field :password, non_null(:string)
   end
 
   object :account_mutations do
@@ -26,7 +28,7 @@ defmodule Graphql.Mutations.Account do
     field :create_account, :account do
       arg(:input, non_null(:new_account))
 
-      resolve(&Graphql.Resolvers.Accounts.create/3)
+      resolve(&create/3)
       middleware(&Graphql.Middlewares.Sessions.update_session_id/2)
     end
 
@@ -34,27 +36,85 @@ defmodule Graphql.Mutations.Account do
     field :update_account, :account do
       arg(:input, non_null(:account_changeset))
 
-      resolve(&Graphql.Resolvers.Accounts.update/3)
+      resolve(&update/3)
     end
 
     @desc "Confirm an existing account"
     field :confirm_account, :account do
       arg(:input, non_null(:account_confirmation))
 
-      resolve(&Graphql.Resolvers.Accounts.confirm/3)
+      resolve(&confirm/3)
+      middleware(&Graphql.Middlewares.Sessions.update_session_id/2)
     end
 
     field :grant_administration_powers, :account do
       arg(:input, non_null(:identity))
 
-      resolve(&Graphql.Resolvers.Accounts.grant_administration_powers/3)
+      resolve(&grant_administration_powers/3)
     end
 
     @desc "Permanently delete an existing account"
     field :destroy_account, :account do
       arg(:input, non_null(:identity))
 
-      resolve(&Graphql.Resolvers.Accounts.destroy/3)
+      resolve(&destroy/3)
     end
+  end
+
+  listable(Database.Models.Account, :authenticated)
+  findable(Database.Models.Account, :authenticated)
+  updatable(Database.Models.Account, :authenticated)
+  destroyable(Database.Models.Account, :authenticated)
+
+  @spec create(any, %{input: %{email_address: String.t, password: String.t()} | %{email_address: String.t()}}, any) :: {:ok, Database.Models.Account.t()} | {:error, Database.Models.Account.t() | Ecto.Changeset.t()}
+  def create(_parent, %{input: %{email_address: email_address, password: password} = input}, _resolution) when is_bitstring(email_address) and is_bitstring(password) do
+    Database.Models.Account.create(input)
+  end
+  def create(_parent, %{input: %{email_address: email_address} = input}, _resolution) when is_bitstring(email_address) do
+    Database.Models.Account.create(input)
+  end
+
+  @spec confirm(any, %{input: %{confirmation_secret: String.t, password: String.t}}, any) :: {:ok, Database.Models.Account.t()} | {:error, Database.Models.Account.t() | Ecto.Changeset.t(Database.Models.Account.t()) | atom}
+  def confirm(_parent, %{input: %{confirmation_secret: confirmation_secret, password: password}}, _resolution) when is_bitstring(confirmation_secret) and is_bitstring(password) do
+    Database.Models.Account
+    |> Database.Repository.get_by(confirmation_secret: confirmation_secret)
+    |> case do
+      nil -> {:error, :not_found}
+      account -> Database.Models.Account.confirm!(account, password)
+    end
+  end
+
+  @spec grant_administration_powers(any, %{input: %{id: String.t}}, any) ::
+  {:ok, Database.Models.Account.t()} | {:error, Database.Models.Account.t() | Ecto.Changeset.t()}
+  def grant_administration_powers(_parent, %{input: %{id: id}}, _resolution)
+      when is_bitstring(id) do
+    Database.Models.Account
+    |> Database.Repository.get(id)
+    |> case do
+      nil -> {:error, :not_found}
+      account -> Database.Models.Account.grant_administrator_powers!(account)
+    end
+  end
+  def grant_administration_powers(_parent, _arguments, %{
+        context: %{current_account: nil}
+      }) do
+    {:error, :unauthenticated}
+  end
+
+  @spec revoke_administration_powers(any, %{input: %{id: String.t}}, any) ::
+  {:ok, Database.Models.Account.t()} | {:error, Database.Models.Account.t() | Ecto.Changeset.t()}
+  def revoke_administration_powers(_parent, %{input: %{id: id}}, _resolution)
+      when is_bitstring(id) do
+    Database.Models.Account
+    |> Database.Repository.get(id)
+    |> case do
+      nil -> {:error, :not_found}
+      account -> Database.Models.Account.revoke_administrator_powers!(account)
+    end
+  end
+  def revoke_administration_powers(_parent, _arguments, %{
+        context: %{current_account: nil}
+      }) do
+    {:error, :unauthenticated}
   end
 end
