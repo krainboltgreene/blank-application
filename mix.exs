@@ -85,7 +85,8 @@ defmodule ClumsyChinchilla.MixProject do
       {:postgrex, "~> 0.15"},
       {:recase, "~> 0.6"},
       {:redix, "~> 0.11"},
-      {:telemetry_metrics, "~> 0.4"},
+      {:plug_telemetry_server_timing, "~> 0.1"},
+      {:telemetry_metrics, "~> 0.5"},
       {:telemetry_poller, "~> 0.4"}
     ]
   end
