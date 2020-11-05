@@ -34,6 +34,18 @@ defmodule Database.Models.Account do
 
   @spec unconfirmed?(map() | any()) :: true | false
   def unconfirmed?(%{unconfirmed_email_address: _}), do: true
+  @type t :: %__MODULE__{
+    email_address: String.t(),
+    unconfirmed_email_address: String.t() | nil,
+    confirmation_secret: String.t(),
+    username: String.t(),
+    name: String.t() | nil,
+    onboarding_state: String.t(),
+    role_state: String.t(),
+    password: String.t() | nil,
+    password_hash: String.t() | nil
+  }
+
   def unconfirmed?(_), do: false
 
   @spec create(%{:email_address => String.t, password: String.t}) :: {:ok, %Database.Models.Account{}} | {:error, Ecto.Changeset.t() | %Database.Models.Account{}}

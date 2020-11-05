@@ -26,6 +26,13 @@ defmodule Database.Models.OrganizationPermission do
             }
         ) :: Ecto.Changeset.t()
   @doc false
+  @type t :: %__MODULE__{
+    organization_membership_id: Ecto.UUID.t(),
+    organization_membership: Database.Models.OrganizationMembership.t(),
+    permission_id: Ecto.UUID.t(),
+    permission: Database.Models.Permission.t(),
+  }
+
   def changeset(record, attributes) do
     record
     |> cast(attributes, [])

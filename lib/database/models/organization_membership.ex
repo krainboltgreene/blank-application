@@ -24,6 +24,13 @@ defmodule Database.Models.OrganizationMembership do
             }
         ) :: Ecto.Changeset.t()
   @doc false
+  @type t :: %__MODULE__{
+    organization_id: Ecto.UUID.t(),
+    organization: Database.Models.Organization.t(),
+    account_id: Ecto.UUID.t(),
+    account: Database.Models.Account.t(),
+  }
+
   def changeset(record, attributes) do
     record
     |> cast(attributes, [])

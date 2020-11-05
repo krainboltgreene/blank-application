@@ -14,6 +14,10 @@ defmodule Database.Models.Organization do
     timestamps()
   end
 
+  @type t :: %__MODULE__{
+    name: String.t(),
+    slug: String.t()
+  }
 
   @spec changeset(map, map) :: Ecto.Changeset.t()
   @doc false
