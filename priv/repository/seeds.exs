@@ -22,14 +22,11 @@
 # and so on) as they will fail if something goes wrong.
 
 defmodule Seeds do
-  def create_record(attributes, model, repository \\ Database.Repository) do
+  @moduledoc false
+  def create_record(attributes, model) do
     struct(model)
     |> model.changeset(attributes)
-    |> repository.insert()
-    |> case do
-      {:ok, record} -> record
-      {:error, _} = exception -> exception
-    end
+    |> Database.Repository.insert!()
   end
 
   def assign_membership(account, organization, permission) do
@@ -73,24 +70,14 @@ krainboltgreene =
   }
   |> Seeds.create_record(Database.Models.Account)
 
-dinkums =
-  %{
-    name: "Dinom Fark",
-    email_address: "dinkums@clumsy-chinchilla.club",
-    username: "dinkums",
-    password: "password2"
-  }
-  |> Seeds.create_record(Database.Models.Account)
-
-flirk =
+alabaster =
   %{
     name: "Alabaster Wolf",
-    email_address: "flirk@clumsy-chinchilla.club",
-    username: "flirk",
+    email_address: "alabaster@clumsy-chinchilla.club",
+    username: "alabaster",
     password: "password"
   }
   |> Seeds.create_record(Database.Models.Account)
 
 krainboltgreene |> Seeds.assign_membership(users_organization, administrator_permissions)
-dinkums |> Seeds.assign_membership(users_organization, administrator_permissions)
-flirk |> Seeds.assign_membership(users_organization, dater_permissions)
+alabaster |> Seeds.assign_membership(users_organization, dater_permissions)

@@ -7,6 +7,8 @@ defmodule Graphql.Schema do
 
   import_types(Graphql.Types.Account)
   import_types(Graphql.Types.Organization)
+  import_types(Graphql.Types.OrganizationMembership)
+  import_types(Graphql.Types.OrganizationPermission)
   import_types(Graphql.Types.Permission)
   import_types(Graphql.Types.Session)
 
