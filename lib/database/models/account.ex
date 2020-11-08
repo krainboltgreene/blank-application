@@ -58,11 +58,11 @@ defmodule Database.Models.Account do
       %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
-    |> Utilities.tap(fn
-      {:ok, account} ->
-        Mailer.Accounts.onboarding_email(account) |> Mailer.deliver_now()
-        Database.Models.Organization.join(account, "users")
-      rejection -> rejection
+    |> Utilities.ok_tap(fn
+      account -> Database.Models.Organization.join(account, "users")
+    end)
+    |> Utilities.ok_tap(fn
+      account -> Mailer.Accounts.onboarding_email(account) |> Mailer.deliver_now()
     end)
   end
   def create(%{email_address: email_address} = attributes) when is_bitstring(email_address) do

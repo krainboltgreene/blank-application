@@ -20,6 +20,13 @@ defmodule Utilities do
     |> Inflex.singularize()
   end
 
+  @spec ok_tap({:ok | any, value}, (value -> any())) :: value when value: any
+  def ok_tap({:ok, value}, function) when is_function(function) do
+    function.(value)
+    {:ok, value}
+  end
+  def ok_tap(touple, _), do: touple
+
   @spec tap(value, (value -> any())) :: value when value: any
   def tap(value, function) when is_function(function) do
     function.(value)
