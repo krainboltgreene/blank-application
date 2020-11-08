@@ -32,11 +32,10 @@ defmodule Graphql.Mutations.Session do
     |> Database.Repository.get_by(email_address: email_address)
     |> case do
       # Determine if the password is correct
-      %Database.Models.Account{} = account ->
-        {Argon2.verify_pass(password, account.password_hash), account}
-
       nil ->
         {:error, :incorrect_credentials}
+      account ->
+        {Argon2.verify_pass(password, account.password_hash), account}
     end
     |> case do
       # Only pass down the account id
