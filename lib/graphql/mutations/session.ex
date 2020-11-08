@@ -18,7 +18,7 @@ defmodule Graphql.Mutations.Session do
 
     @desc "Permanently delete an existing session"
     field :destroy_session, :session do
-      resolve(&create/3)
+      resolve(&destroy/3)
       middleware(&Graphql.Middlewares.Sessions.update_session_id/2)
     end
   end
@@ -46,15 +46,8 @@ defmodule Graphql.Mutations.Session do
     end
   end
 
-  @spec destroy(any, any, %{context: %{current_account: %{id: String.t()}}}) ::
-          {:ok, %{id: String.t()}}
-  def destroy(_parent, _arguments, %{context: %{current_account: %{id: id}}})
-      when not is_nil(id) do
-    {:ok, %{id: id}}
-  end
-
-  def destroy(_parent, _arguments, %{context: %{current_account: current_account}})
-      when is_nil(current_account) do
-    {:error, :unauthenticated}
+  @spec destroy(any, any, any) :: {:ok, %{id: nil}}
+  def destroy(_parent, _arguments, _resolution) do
+    {:ok, %{id: nil}}
   end
 end

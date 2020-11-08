@@ -1,6 +1,7 @@
 import React from "react";
 import type {ReactNode} from "react";
 import {Route, Switch} from "react-router";
+import {Logout} from "@clumsy_chinchilla/pages";
 import {OurTechnology} from "@clumsy_chinchilla/pages";
 import {PrivacyPolicy} from "@clumsy_chinchilla/pages";
 import {TermsOfService} from "@clumsy_chinchilla/pages";
@@ -17,6 +18,7 @@ export default function Router (): ReactNode {
   return <Switch>
     <Route path="/code-of-conduct" component={CodeOfConduct} />
     <Route path="/data-policy" component={DataPolicy} />
+    <Route path="/logout" component={Logout} />
     <Route path="/our-technology" component={OurTechnology} />
     <Route path="/privacy-policy" component={PrivacyPolicy} />
     <Route path="/terms-of-service" component={TermsOfService} />

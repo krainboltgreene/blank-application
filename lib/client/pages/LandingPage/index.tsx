@@ -23,6 +23,7 @@ export default function LandingPage (): JSX.Element {
     </ul>
     <ul>
       {currentAccount === null ? null : <li><Link href="/settings">Settings</Link></li>}
+      {currentAccount === null ? null : <li><Link href="/logout">Logout</Link></li>}
     </ul>
   </Page>;
 }
