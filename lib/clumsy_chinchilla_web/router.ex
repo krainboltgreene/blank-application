@@ -2,23 +2,6 @@ defmodule ClumsyChinchillaWeb.Router do
   use ClumsyChinchillaWeb, :router
   import Phoenix.LiveDashboard.Router
 
-  @spec absinthe_before_send(map, map) :: map
-  def absinthe_before_send(
-        %Plug.Conn{method: "POST"} = connection,
-        %Absinthe.Blueprint{} = blueprint
-      ) do
-    Enum.reduce(blueprint.execution.context[:cookies] || [], connection, fn [key, value],
-                                                                            accumulation ->
-      if value do
-        Plug.Conn.put_session(accumulation, key, value)
-      else
-        Plug.Conn.delete_session(accumulation, key)
-      end
-    end)
-  end
-
-  def absinthe_before_send(connection, _), do: connection
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -71,6 +54,6 @@ defmodule ClumsyChinchillaWeb.Router do
             schema: Graphql.Schema,
             analyze_complexity: true,
             max_complexity: 200,
-            before_send: {__MODULE__, :absinthe_before_send}
+            before_send: {Graphql.Middlewares.Sessions, :absinthe_before_send}
   end
 end
