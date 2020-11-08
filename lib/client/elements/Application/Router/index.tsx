@@ -13,6 +13,7 @@ import {SignUp} from "@clumsy_chinchilla/pages";
 import {PageNotFound} from "@clumsy_chinchilla/pages";
 import {Login} from "@clumsy_chinchilla/pages";
 import {AccountConfirmation} from "@clumsy_chinchilla/pages";
+import {Settings} from "@clumsy_chinchilla/pages";
 
 export default function Router (): ReactNode {
   return <Switch>
@@ -21,6 +22,7 @@ export default function Router (): ReactNode {
     <Route path="/logout" component={Logout} />
     <Route path="/our-technology" component={OurTechnology} />
     <Route path="/privacy-policy" component={PrivacyPolicy} />
+    <Route path="/settings" component={Settings} />
     <Route path="/terms-of-service" component={TermsOfService} />
     <Route path="/this-is-us" component={ThisIsUs} />
     <Route path="/sign-up" component={SignUp} />
