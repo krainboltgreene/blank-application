@@ -3,7 +3,7 @@ import Icon from "../Icon";
 import "./index.scss";
 
 interface PropertiesType {
-  kind: string;
+  kind: "overlay" | string;
 }
 
 export default function Loading (properties: Readonly<PropertiesType>): JSX.Element {
@@ -15,5 +15,5 @@ export default function Loading (properties: Readonly<PropertiesType>): JSX.Elem
     </section>;
   }
 
-  return <p>Something went wrong.</p>;
+  return <p>Something is loading.</p>;
 }

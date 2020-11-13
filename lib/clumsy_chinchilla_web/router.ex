@@ -28,7 +28,7 @@ defmodule ClumsyChinchillaWeb.Router do
     get "/", ClumsyChinchillaWeb.PageController, :index
 
     # live "/", PageLive, :index
-    if Mix.env == :dev do
+    if Mix.env != :prod do
       # If using Phoenix
       forward "/sent_emails", Bamboo.SentEmailViewerPlug
 
