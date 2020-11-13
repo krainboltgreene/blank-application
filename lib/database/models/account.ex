@@ -26,6 +26,7 @@ defmodule Database.Models.Account do
     field(:role_state, :string, default: "user")
     field(:password, :string, virtual: true)
     field(:password_hash, :string)
+    embeds_one(:settings, Database.Models.Settings)
     has_many(:organization_memberships, Database.Models.OrganizationMembership)
     has_many(:organizations, through: [:organization_memberships, :organization])
 
@@ -41,7 +42,9 @@ defmodule Database.Models.Account do
     onboarding_state: String.t(),
     role_state: String.t(),
     password: String.t() | nil,
-    password_hash: String.t() | nil
+    password_hash: String.t() | nil,
+    settings: Database.Models.Settings.t() | nil,
+    organizations: list(Database.Models.Organization.t() | nil) | nil
   }
 
   @spec unconfirmed?(Database.Models.Account.t()) :: true | false
@@ -90,6 +93,7 @@ defmodule Database.Models.Account do
     |> generate_confirmation_secret_if_new_record()
     |> replace_email_address_with_unconfirmed_email_address(attributes)
     |> cast(attributes, [:email_address, :username, :name, :password_hash, :confirmation_secret, :unconfirmed_email_address])
+    |> cast_embed(:settings, with: &Database.Models.Settings.changeset/2)
     |> validate_required([:email_address])
     |> unique_constraint(:email_address)
     |> unique_constraint(:username)

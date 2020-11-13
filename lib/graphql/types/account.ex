@@ -15,5 +15,7 @@ defmodule Graphql.Types.Account do
       resolve: dataloader(Database.Models.OrganizationMembership)
     field :organizations, list_of(:organization),
       resolve: dataloader(Database.Models.Organization)
+    field :settings, non_null(:settings),
+      resolve: dataloader(Database.Models.Settings)
   end
 end
