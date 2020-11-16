@@ -12,20 +12,22 @@ const REMAINING_PROP_NAMES = [
 ];
 
 interface PropertiesType {
+  id?: string;
   children: ReactNode;
   href: string;
 }
 
 export default function Link (properties: Readonly<PropertiesType>): JSX.Element {
+  const {id} = properties;
   const {children} = properties;
   const {href} = properties;
   const remainingProperties = withoutKeys(REMAINING_PROP_NAMES)(properties);
 
   if (startsWith("https")(href) || startsWith("http")(href)) {
-    return <a data-element="Link" href={href} {...remainingProperties}>
+    return <a id={id} data-element="Link" href={href} {...remainingProperties}>
       {children}
     </a>;
   }
 
-  return <ReactRouterLink to={href} {...remainingProperties}>{children}</ReactRouterLink>;
+  return <ReactRouterLink id={id} to={href} {...remainingProperties}>{children}</ReactRouterLink>;
 }
