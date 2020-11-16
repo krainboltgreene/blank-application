@@ -1,5 +1,4 @@
 import React from "react";
-import type {ReactNode} from "react";
 import {Route, Switch} from "react-router";
 import {AccountConfirmation} from "@clumsy_chinchilla/pages";
 import {CodeOfConduct} from "@clumsy_chinchilla/pages";
@@ -15,7 +14,7 @@ import {TermsOfService} from "@clumsy_chinchilla/pages";
 import {ThisIsUs} from "@clumsy_chinchilla/pages";
 import {Settings} from "@clumsy_chinchilla/pages";
 
-export default function Router (): ReactNode {
+export default function Router (): JSX.Element {
   return <Switch>
     <Route path="/account-confirmation" component={AccountConfirmation} />
     <Route path="/code-of-conduct" component={CodeOfConduct} />

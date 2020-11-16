@@ -1,4 +1,3 @@
-import type {ReactNode} from "react";
 import {useCookie} from "react-use";
 import {useRecoilState} from "recoil";
 import {useEffect} from "react";
@@ -7,11 +6,11 @@ import {cookie as cookieAtom} from "@clumsy_chinchilla/atoms";
 
 const COOKIES_KEY = "_clumsy_chinchilla_key";
 
-interface PropertiesType {
-  children: ReactNode;
+interface PropertiesType<C> {
+  children: C;
 }
 
-export default function WithCookies (properties: Readonly<PropertiesType>): ReactNode {
+export default function WithCookies<C> (properties: Readonly<PropertiesType<C>>): C {
   const {children} = properties;
   const [browserCookie] = useCookie(COOKIES_KEY);
   const [cookie, setCookie] = useRecoilState<string | null>(cookieAtom);

@@ -1,4 +1,3 @@
-import type {ReactNode} from "react";
 import {useLazyQuery} from "@apollo/client";
 import {useRecoilState} from "recoil";
 import {useEffect} from "react";
@@ -13,11 +12,11 @@ interface SessionQueryType {
   };
 }
 
-interface PropertiesType {
-  children: ReactNode;
+interface PropertiesType<C> {
+  children: C;
 }
 
-export default function MaybeAuthenticated (properties: Readonly<PropertiesType>): ReactNode {
+export default function MaybeAuthenticated<C> (properties: Readonly<PropertiesType<C>>): C {
   const {children} = properties;
   const [fetchSession, {error, data, loading}] = useLazyQuery<SessionQueryType>(fetchSessionQuery);
   const [currentAccount, setCurrentAccount] = useRecoilState<string | null>(currentAccountAtom);
