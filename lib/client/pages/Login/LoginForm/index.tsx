@@ -1,7 +1,7 @@
 import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
-import {useRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
@@ -17,7 +17,7 @@ interface CreateSessionMutationType {
 
 export default function LoginForm (): JSX.Element {
   const history = useHistory();
-  const [, setCurrentAccount] = useRecoilState<string | null>(currentAccountAtom);
+  const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
   const [createSession, {loading: createSessionLoading, error: createSessionError, data: createSessionData}] = useMutation<CreateSessionMutationType>(createSessionMutation);
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");

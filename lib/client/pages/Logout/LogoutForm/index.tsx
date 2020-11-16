@@ -1,6 +1,6 @@
 import React from "react";
 import {useEffect} from "react";
-import {useRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
@@ -15,7 +15,7 @@ interface DestroySessionMutationType {
 
 export default function LogoutForm (): JSX.Element {
   const history = useHistory();
-  const [, setCurrentAccount] = useRecoilState<string | null>(currentAccountAtom);
+  const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
   const [destroySession, {loading: destroySessionLoading, data: destroySessionData}] = useMutation<DestroySessionMutationType>(destroySessionMutation);
 
   useEffect(() => {

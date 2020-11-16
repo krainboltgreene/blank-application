@@ -1,7 +1,7 @@
 import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
-import {useRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
@@ -21,7 +21,7 @@ interface PropertiesType {
 
 export default function AccountConfirmationForm (properties: Readonly<PropertiesType>): JSX.Element {
   const history = useHistory();
-  const [, setCurrentAccount] = useRecoilState<string | null>(currentAccountAtom);
+  const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
   const [confirmAccount, {loading: confirmAccountLoading, error: confirmAccountError, data: confirmAccountData}] = useMutation<confirmAccountMutationType>(confirmAccountMutation);
   const {confirmationSecret} = properties;
   const [password, setPassword] = useState("");

@@ -1,7 +1,7 @@
 import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
-import {useRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
 import {useHistory} from "react-router-dom";
@@ -24,7 +24,7 @@ interface SettingsType {
 
 export default function SettingsForm (): JSX.Element {
   const history = useHistory();
-  const [, setCurrentAccount] = useRecoilState<string | null>(currentAccountAtom);
+  const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
   const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<SettingsType>(fetchSettingsQuery);
   const [updateSettings, {loading: updateSettingsLoading, error: updateSettingsError, data: updateSettingsData}] = useMutation<UpdateSettingsMutation>(updateSettingsMutation);
   const {lightMode: savedLightMode} = fetchSettingsData ?? {};
