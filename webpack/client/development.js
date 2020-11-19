@@ -12,12 +12,13 @@ const WebpackAssetsManifest = require("webpack-assets-manifest");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const SizePlugin = require("size-plugin");
-// Helpful constants
-const ROOT_DIRECTORY = [__dirname, ".."];
-const ASSETS_DIRECTORY = [...ROOT_DIRECTORY, "assets"];
-const CLIENT_DIRECTORY = [...ROOT_DIRECTORY, "lib", "client"];
-const OUTPUT_DIRECTORY = [...ROOT_DIRECTORY, "tmp", "browser-client"];
-const PACKAGE_ASSETS = [];
+
+dotenvConfiguration();
+
+const rootDirectory = [__dirname, "..", ".."];
+const sharedDirectory = [...rootDirectory, "lib", "browser"];
+const inputDirectory = [...rootDirectory, "lib", "browser_client"];
+const outputDirectory = [...rootDirectory, "tmp", "browser"];
 
 module.exports = {
   mode: "development",
@@ -27,9 +28,19 @@ module.exports = {
       {
         test: /\.scss$/u,
         use: [
-          // Move to production MiniCssExtractPlugin.loader,
           "style-loader",
+          MiniCssExtractPlugin.loader,
           {loader: "css-loader", options: {importLoaders: 1}},
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins () {
+                return [
+                  autoprefixer,
+                ];
+              },
+            },
+          },
           "sass-loader",
         ],
       },
@@ -39,7 +50,7 @@ module.exports = {
         use: {
           loader: "file-loader",
           options: {
-            name: "[name].[contenthash].[ext]",
+            name: "client-[name].[contenthash].[ext]",
           },
         },
       },
@@ -69,6 +80,7 @@ module.exports = {
   },
   devServer: {
     hot: true,
+    writeToDisk: true,
     historyApiFallback: true,
     headers: {"Access-Control-Allow-Origin": "*"},
   },
@@ -76,7 +88,7 @@ module.exports = {
     ignored: ["node_modules"],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".jsx"],
+    extensions: [".tsx", ".ts", ".wasm", ".mjs", ".js", ".json"],
     alias: {
       "@clumsy_chinchilla/styles": path.resolve(...CLIENT_DIRECTORY, "styles"),
       "react-dom": "@hot-loader/react-dom",
@@ -98,7 +110,9 @@ module.exports = {
         to: path.resolve(...OUTPUT_DIRECTORY, "assets"),
       }],
     }),
-    // new MiniCssExtractPlugin(),
+    new DotenvWebpack(),
+    new HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin(),
     new WebpackAssetsManifest({
       output: "asset-integrity-manifest.json",
       integrity: false,
@@ -124,5 +138,8 @@ module.exports = {
       },
       template: path.resolve(...CLIENT_DIRECTORY, "templates", "index.html"),
     }),
+    new EnvironmentPlugin([
+      "NODE_ENV",
+    ]),
   ],
 };
