@@ -35,7 +35,9 @@ defmodule Estate do
             end
 
             @desc "An action to change the state, if the transition matches, but doesn't save"
-            def unquote(event_name)(%{unquote(column_name) => unquote(Atom.to_string(from))} = record) do
+            def unquote(event_name)(
+                  %{unquote(column_name) => unquote(Atom.to_string(from))} = record
+                ) do
               record
               |> Ecto.Changeset.change()
               |> unquote(:"before_#{event_name}_from_#{from}")()
@@ -47,7 +49,9 @@ defmodule Estate do
             end
 
             @desc "An action to change the state, if the transition matches, but does save"
-            def unquote(:"#{event_name}!")(%{:id => id, unquote(column_name) => unquote(Atom.to_string(from))} = record)
+            def unquote(:"#{event_name}!")(
+                  %{:id => id, unquote(column_name) => unquote(Atom.to_string(from))} = record
+                )
                 when not is_nil(id) do
               Database.Repository.transaction(fn ->
                 record

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-docker build \
-  --cache-from gcr.io/$PROJECT_ID/server-backend:latest \
-  --tag gcr.io/$PROJECT_ID/server-backend:latest \
-  --tag gcr.io/$PROJECT_ID/server-backend:$SHORT_SHA \
-  --file ./docker/production/server-backend/Dockerfile
-  .

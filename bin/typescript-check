@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+npx eslint --color --ext .tsx,.js,.gql jest.config.js babel.config.js webpack/ storybook/ lib/client/

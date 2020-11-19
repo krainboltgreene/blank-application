@@ -1,0 +1,3 @@
+#!/bin/bash
+
+initdb --username=postgres --pwprompt postgres/data

@@ -1,17 +1,14 @@
 defmodule Graphql.Queries.Organization do
+  @moduledoc false
   use Absinthe.Schema.Notation
+  import Graphql.Queries, only: :macros
+  import Graphql.Resolvers, only: :macros
 
   object :organization_queries do
-    @desc "Get all organizations"
-    field :organizations, list_of(:organization) do
-      resolve(&Graphql.Resolvers.Organizations.list/3)
-    end
-
-    @desc "Get an organization by id"
-    field :organization, :organization do
-      arg(:id, non_null(:id))
-
-      resolve(&Graphql.Resolvers.Organizations.find/3)
-    end
+    listable_field(:organization)
+    findable_field(:organization)
   end
+
+  listable(Database.Models.Organization, :authenticated)
+  findable(Database.Models.Organization, :authenticated)
 end

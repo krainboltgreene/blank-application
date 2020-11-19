@@ -1,0 +1,6 @@
+mutation UpdateSettingsMutation($input: Settings!) {
+  updateSettings(input: $input) {
+    id
+    lightMode
+  }
+}

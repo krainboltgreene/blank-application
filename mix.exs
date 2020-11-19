@@ -1,4 +1,5 @@
 defmodule ClumsyChinchilla.MixProject do
+  @moduledoc false
   use Mix.Project
 
   def project do
@@ -7,7 +8,7 @@ defmodule ClumsyChinchilla.MixProject do
       version: "1.0.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:graphql_schema_json, :graphql_schema_sdl],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -29,7 +30,7 @@ defmodule ClumsyChinchilla.MixProject do
   def application do
     [
       mod: {ClumsyChinchilla.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug, :bamboo]
     ]
   end
 
@@ -42,24 +43,36 @@ defmodule ClumsyChinchilla.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:absinthe_error_payload, "~> 1.0"},
       {:absinthe_phoenix, "~> 2.0"},
       {:absinthe_plug, "~> 1.5"},
       {:absinthe, "~> 1.5"},
       {:argon2_elixir, "~> 2.1"},
+      {:bamboo_smtp, "~> 3.0"},
+      {:bamboo, "~> 1.6"},
+      {:brains, "~> 0.1"},
+      {:castore, "~> 0.1"},
       {:comeonin, "~> 5.2"},
       {:cors_plug, "~> 2.0"},
+      {:coverex, "~> 1.5", only: :dev, runtime: false},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:crudry, "~> 2.3"},
       {:dataloader, "~> 1.0"},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false},
+      {:distillery, "~> 2.1"},
       {:ecto_autoslug_field, "~> 2.0"},
       {:ecto_enum, "~> 1.4"},
+      {:ecto_psql_extras, "~> 0.2"},
       {:ecto_sql, "~> 3.4"},
+      {:encrypted_secrets, "~> 0.2.0"},
       {:envy, "~> 1.1"},
-      {:flippant, "~> 1.0"},
+      {:exvcr, "~> 0.11", only: :test},
+      {:flippant, "~> 2.0"},
       {:floki, "~> 0.26", only: :test},
+      {:flow, "~> 1.0"},
+      {:gen_stage, "~> 1.0", override: true},
       {:gettext, "~> 0.18"},
-      {:jason, "~> 1.0"},
+      {:inflex, "~> 2.0"},
+      {:jason, "~> 1.2"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:paper_trail, "~> 0.8"},
       {:phoenix_ecto, "~> 4.1"},
@@ -71,7 +84,10 @@ defmodule ClumsyChinchilla.MixProject do
       {:phoenix, "~> 1.5"},
       {:plug_cowboy, "~> 2.3"},
       {:postgrex, "~> 0.15"},
-      {:telemetry_metrics, "~> 0.4"},
+      {:recase, "~> 0.6"},
+      {:redix, "~> 1.0"},
+      {:plug_telemetry_server_timing, "~> 0.1"},
+      {:telemetry_metrics, "~> 0.5"},
       {:telemetry_poller, "~> 0.4"}
     ]
   end
@@ -84,8 +100,8 @@ defmodule ClumsyChinchilla.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      setup: ["deps.get", "ecto.setup"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repository/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]

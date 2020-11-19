@@ -10,7 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
-  url: [host: "example.com", port: 80],
+  url: [host: "www.clumsy-chinchilla.club", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -23,7 +23,7 @@ config :logger, level: :info
 #
 #     config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
 #       ...
-#       url: [host: "example.com", port: 443],
+#       url: [host: "www.clumsy-chinchilla.club", port: 443],
 #       https: [
 #         port: 443,
 #         cipher_suite: :strong,
@@ -50,16 +50,8 @@ config :logger, level: :info
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
-database_url =
-  System.get_env("DATABASE_URL") ||
-    raise """
-    environment variable DATABASE_URL is missing.
-    For example: ecto://USER:PASS@HOST/DATABASE
-    """
-
 config :clumsy_chinchilla, Database.Repository,
-  # ssl: true,
-  url: database_url,
+  database: "clumsy_chinchilla",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   prepare: :unnamed
 
@@ -86,3 +78,5 @@ config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
+
+import_config("prod.secret.exs")

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+project_id=$(gcloud config get-value core/project)
+bucket="${project_id}-releases"
+
+echo "Creating Storage bucket for releases..."
+gsutil mb gs://${bucket}
+
+echo "Building docker image..."
+bin/docker-build-production &&
+
+echo "Extracting release..."
+bin/docker-extract-release &&
+
+echo "Deploy new release..."
+bin/gcloud-storage-release &&
+
+echo "Creating new GCP Compute Engine instance..."
+gcloud compute instances create application-production \
+    --image-family debian-10 \
+    --image-project debian-cloud \
+    --machine-type g1-small \
+    --scopes "userinfo-email,cloud-platform" \
+    --metadata-from-file startup-script=bin/gcloud-instance-boot \
+    --metadata release-url=gs://${bucket}/latest \
+    --zone us-west2-a
+echo ""
+echo "gcloud compute instances get-serial-port-output application-production --zone us-west2-a | grep 'GCEMetadataScripts: startup-script'"

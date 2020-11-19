@@ -1,4 +1,5 @@
 defmodule ClumsyChinchillaWeb.Telemetry do
+  @moduledoc false
   use Supervisor
   import Telemetry.Metrics
 
@@ -29,13 +30,24 @@ defmodule ClumsyChinchillaWeb.Telemetry do
         tags: [:route],
         unit: {:native, :millisecond}
       ),
+      summary("phoenix.live_view.mount.stop.duration",
+        unit: {:native, :millisecond},
+        tags: [:view, :connected?],
+        tag_values: &live_view_metric_tag_values/1
+      ),
 
       # Database Metrics
-      summary("clumsy_chinchilla.repo.query.total_time", unit: {:native, :millisecond}),
-      summary("clumsy_chinchilla.repo.query.decode_time", unit: {:native, :millisecond}),
-      summary("clumsy_chinchilla.repo.query.query_time", unit: {:native, :millisecond}),
-      summary("clumsy_chinchilla.repo.query.queue_time", unit: {:native, :millisecond}),
-      summary("clumsy_chinchilla.repo.query.idle_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.total_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.decode_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.query_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.queue_time", unit: {:native, :millisecond}),
+      summary("database.repository.query.idle_time", unit: {:native, :millisecond}),
+
+      # Absinthe Metrics
+      summary("absinthe.execute.operation.stop.duration", unit: {:native, :millisecond}),
+      summary("absinthe.subscription.publish.stop.duration", unit: {:native, :millisecond}),
+      summary("absinthe.resolve.field.stop.duration", unit: {:native, :millisecond}),
+      summary("absinthe.middleware.batch.stop.duration", unit: {:native, :millisecond}),
 
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
@@ -51,5 +63,11 @@ defmodule ClumsyChinchillaWeb.Telemetry do
       # This function must call :telemetry.execute/3 and a metric must be added above.
       # {ClumsyChinchillaWeb, :count_users, []}
     ]
+  end
+
+  defp live_view_metric_tag_values(metadata) do
+    metadata
+    |> Map.put(:view, metadata.socket.view)
+    |> Map.put(:connected?, metadata.socket.connected?)
   end
 end

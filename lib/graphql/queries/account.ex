@@ -1,17 +1,14 @@
 defmodule Graphql.Queries.Account do
+  @moduledoc false
   use Absinthe.Schema.Notation
+  import Graphql.Queries, only: :macros
+  import Graphql.Resolvers, only: :macros
 
   object :account_queries do
-    @desc "Get all accounts"
-    field :accounts, list_of(:account) do
-      resolve(&Graphql.Resolvers.Accounts.list/3)
-    end
-
-    @desc "Get an account by id"
-    field :account, :account do
-      arg(:id, non_null(:id))
-
-      resolve(&Graphql.Resolvers.Accounts.find/3)
-    end
+    listable_field(:account)
+    findable_field(:account)
   end
+
+  listable(Database.Models.Account, :authenticated)
+  findable(Database.Models.Account, :authenticated)
 end
