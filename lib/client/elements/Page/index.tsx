@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
@@ -6,14 +5,16 @@ import "./index.css";
 
 interface PropertiesType {
   as: string;
+  styling?: string;
   subtitle?: string;
   description?: string;
-  kind?: "article" | "section";
+  kind?: "article";
   children: ReactNode;
 }
 
 export default function Page (properties: Readonly<PropertiesType>): JSX.Element {
   const {as} = properties;
+  const {styling = ""} = properties;
   const {subtitle = ""} = properties;
   const {description = ""} = properties;
   const {kind} = properties;
@@ -21,25 +22,16 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
 
   switch (kind) {
     case "article": {
-      return <main className={`Page ${as}`}>
+      return <article className={[page, styling].join(" ")} data-component={as}>
         <Helmet>
           <title>ClumsyChinchilla | {subtitle}</title>
           <meta name="description" content={description} />
         </Helmet>
-        <section>{children}</section>
-      </main>;
-    }
-    case "section": {
-      return <main className={`Page ${as}`}>
-        <Helmet>
-          <title>ClumsyChinchilla | {subtitle}</title>
-          <meta name="description" content={description} />
-        </Helmet>
-        <section>{children}</section>
-      </main>;
+        {children}
+      </article>;
     }
     default: {
-      return <main className={`Page ${as}`}>
+      return <main className={[page, styling].join(" ")} data-component={as}>
         <Helmet>
           <title>ClumsyChinchilla | {subtitle}</title>
           <meta name="description" content={description} />
