@@ -2,7 +2,7 @@
 import React from "react";
 import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
-import "./index.scss";
+import "./index.css";
 
 interface PropertiesType {
   as: string;

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable import/no-commonjs */
 /* eslint-disable import/no-nodejs-modules */
 
@@ -22,12 +25,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/u,
+        test: /\.css$/u,
         use: [
           // Move to production MiniCssExtractPlugin.loader,
           "style-loader",
-          {loader: "css-loader", options: {importLoaders: 1}},
-          "sass-loader",
+          {loader: "css-loader", options: {modules: true, importLoaders: 1}},
+          "postcss-loader",
         ],
       },
       {

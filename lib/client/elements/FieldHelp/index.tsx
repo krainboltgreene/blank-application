@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import React from "react";
 import type {ReactNode} from "react";
-import "./index.scss";
+import "./index.css";
 
 interface PropertiesType {
   id: string;

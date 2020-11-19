@@ -1,6 +1,6 @@
 import React from "react";
 import Icon from "../Icon";
-import "./index.scss";
+import "./index.css";
 
 interface PropertiesType {
   kind: "overlay" | string;

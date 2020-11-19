@@ -3,7 +3,7 @@ import {useRecoilValue} from "recoil";
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Page} from "@clumsy_chinchilla/elements";
 import {Link} from "@clumsy_chinchilla/elements";
-import "./index.scss";
+import "./index.css";
 
 export default function LandingPage (): JSX.Element {
   const currentAccount = useRecoilValue<string | null>(currentAccountAtom);

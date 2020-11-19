@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "../Link";
-import "./index.scss";
+import "./index.css";
 
 interface PropertiesType {
   kind: string;
