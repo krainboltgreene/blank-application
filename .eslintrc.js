@@ -34,6 +34,9 @@ module.exports = {
       jsx: true,
     },
   },
+  globals: {
+    RUNTIME_ENV: true,
+  },
   reportUnusedDisableDirectives: true,
   rules: {
     "@typescript-eslint/adjacent-overload-signatures": "error",

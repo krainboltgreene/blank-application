@@ -16,7 +16,7 @@
     -->
 
   <!-- Set the document's title -->
-  <title><%= htmlWebpackPlugin.options.title %></title>
+  <title>{{metadata.title}}</title>
 
   <!--
       Allows control over where resources are loaded from.
@@ -26,16 +26,16 @@
   <!-- TODO: <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
 
   <!-- Set the base URL for all relative URLs within the document -->
-  <base href="<%= htmlWebpackPlugin.options.base %>">
+  <!-- <base href="{{metadata.baseURL}}"> -->
 
   <!-- Name of web application (only should be used if the website is used as an app) -->
-  <meta name="application-name" content="<%= metadata.applicationName %>">
+  <meta name="application-name" content="{{metadata.title}}">
 
   <!-- Theme Color for Chrome, Firefox OS and Opera -->
-  <meta name="theme-color" content="<%= metadata.themeColor %>">
+  <meta name="theme-color" content="{{metadata.themeColor}}">
 
   <!-- Short description of the document (limit to 150 characters). This content *may* be used as a part of search engine results. -->
-  <meta name="description" content="<%= metadata.description %>">
+  <meta name="description" content="{{metadata.description}}">
 
   <!-- Generic Search Engines -->
   <!-- DYNAMIC <meta name="robots" content="index,follow"> -->
@@ -49,20 +49,20 @@
   <meta name="google" content="translate">
 
   <!-- Google Search Console -->
-  <meta name="google-site-verification" content="<%= metadata.googleSiteVerification %>">
+  <meta name="google-site-verification" content="{{metadata.googleSiteVerification}}">
   <!-- Yandex Webmasters -->
-  <meta name="yandex-verification" content="<%= metadata.yandexVerification %>">
+  <meta name="yandex-verification" content="{{metadata.yandexVerification}}">
   <!-- Bing Webmaster Center -->
-  <meta name="msvalidate.01" content="<%= metadata.bingWebmasterVerification %>">
+  <meta name="msvalidate.01" content="{{metadata.bingWebmasterVerification}}">
   <!-- Alexa Console -->
-  <meta name="alexaVerifyID" content="<%= metadata.alexaConsoleVerification %>">
+  <meta name="alexaVerifyID" content="{{metadata.alexaConsoleVerification}}">
   <!-- Pinterest Console-->
-  <meta name="p:domain_verify" content="<%= metadata.pinterestConsoleVerification %>">
+  <meta name="p:domain_verify" content="{{metadata.pinterestConsoleVerification}}">
   <!-- Norton Safe Web -->
-  <meta name="norton-safeweb-site-verification" content="<%= metadata.nortonSafewebVerification %>">
+  <meta name="norton-safeweb-site-verification" content="{{metadata.nortonSafewebVerification}}">
 
   <!-- Short description of your document's subject -->
-  <!-- DYNAMIC <meta name="subject" content="<%= metadata.shortDescription %>"> -->
+  <!-- DYNAMIC <meta name="subject" content="{{metadata.shortDescription}}"> -->
 
   <!-- Identify the software used to build the document (i.e. - WordPress, Dreamweaver) -->
   <meta name="generator" content="program">
@@ -92,44 +92,44 @@
   <!-- DYNAMIC <meta name="geo.placename" content="city/town"> -->
 
   <!-- Helps prevent duplicate content issues -->
-  <!-- DYNAMIC <link rel="canonical" href="https://www.clumsy-chinchilla.club/article/?page=2"> -->
+  <!-- DYNAMIC <link rel="canonical" href="https://clumsy_chinchilla.com/article/?page=2"> -->
 
   <!-- Links to an AMP HTML version of the current document -->
-  <!-- DYNAMIC <link rel="amphtml" href="https://www.clumsy-chinchilla.club/path/to/amp-version.html"> -->
+  <!-- DYNAMIC <link rel="amphtml" href="https://clumsy_chinchilla.com/path/to/amp-version.html"> -->
 
   <!-- Links to a JSON file that specifies "installation" credentials for the web applications -->
-  <link rel="manifest" href="/assets/manifest.json">
+  <link rel="manifest" href="{{metadata.baseURL}}/assets/manifest.json">
 
   <!-- Links to information about the author(s) of the document -->
-  <link rel="author" href="/assets/humans.txt">
+  <link rel="author" href="{{metadata.baseURL}}/assets/humans.txt">
 
   <!-- Refers to a copyright statement that applies to the link's context -->
-  <link rel="license" href="/assets/copyright.html">
+  <link rel="license" href="{{metadata.baseURL}}/assets/copyright.html">
 
   <!-- Gives a reference to a location in your document that may be in another language -->
-  <!-- TODO: <link rel="alternate" href="https://es.www.clumsy-chinchilla.club/" hreflang="es"> -->
+  <!-- TODO: <link rel="alternate" href="https://es.clumsy_chinchilla.com/" hreflang="es"> -->
 
   <!-- Provides a self reference - useful when the document has multiple possible references -->
-  <!-- DYNAMIC <link rel="self" type="application/atom+xml" href="https://www.clumsy-chinchilla.club/atom.xml"> -->
+  <!-- DYNAMIC <link rel="self" type="application/atom+xml" href="https://clumsy_chinchilla.com/atom.xml"> -->
 
   <!-- The first, last, previous, and next documents in a series of documents, respectively -->
-  <!-- DYNAMIC <link rel="first" href="https://www.clumsy-chinchilla.club/article/"> -->
-  <!-- DYNAMIC <link rel="last" href="https://www.clumsy-chinchilla.club/article/?page=42"> -->
-  <!-- DYNAMIC <link rel="prev" href="https://www.clumsy-chinchilla.club/article/?page=1"> -->
-  <!-- DYNAMIC <link rel="next" href="https://www.clumsy-chinchilla.club/article/?page=3"> -->
+  <!-- DYNAMIC <link rel="first" href="https://clumsy_chinchilla.com/article/"> -->
+  <!-- DYNAMIC <link rel="last" href="https://clumsy_chinchilla.com/article/?page=42"> -->
+  <!-- DYNAMIC <link rel="prev" href="https://clumsy_chinchilla.com/article/?page=1"> -->
+  <!-- DYNAMIC <link rel="next" href="https://clumsy_chinchilla.com/article/?page=3"> -->
 
   <!-- Open Search -->
   <!-- DYNAMIC <link rel="search" href="/open-search.xml" type="application/opensearchdescription+xml" title="Search Title"> -->
 
   <!-- Feeds -->
   <!-- DYNAMIC <link rel="alternate" href="https://feeds.feedburner.com/clumsy_chinchilla" type="application/rss+xml" title="RSS"> -->
-  <!-- DYNAMIC <link rel="alternate" href="https://www.clumsy-chinchilla.club/feed.atom" type="application/atom+xml" title="Atom 0.3"> -->
+  <!-- DYNAMIC <link rel="alternate" href="https://clumsy_chinchilla.com/feed.atom" type="application/atom+xml" title="Atom 0.3"> -->
 
   <!-- Prefetching, preloading, prebrowsing (More info: https://css-tricks.com/prefetching-preloading-prebrowsing/) -->
-  <!-- TODO: <link rel="dns-prefetch" href="//www.clumsy-chinchilla.club/"> -->
-  <!-- TODO: <link rel="preconnect" href="https://www.www.clumsy-chinchilla.club/"> -->
-  <!-- TODO: <link rel="prefetch" href="https://www.www.clumsy-chinchilla.club/"> -->
-  <!-- TODO: <link rel="prerender" href="https://www.clumsy-chinchilla.club/"> -->
+  <!-- TODO: <link rel="dns-prefetch" href="//clumsy_chinchilla.com/"> -->
+  <!-- TODO: <link rel="preconnect" href="https://www.clumsy_chinchilla.com/"> -->
+  <!-- TODO: <link rel="prefetch" href="https://www.clumsy_chinchilla.com/"> -->
+  <!-- TODO: <link rel="prerender" href="https://clumsy_chinchilla.com/"> -->
   <!-- TODO: <link rel="preload" href="image.png" as="image"> -->
 
   <!-- For IE 10 and below: Place favicon.ico in the root directory - no tag necessary -->
@@ -145,10 +145,10 @@
 
   <!-- Facebook Open Graph -->
   <!-- DYNAMIC: <meta property="fb:app_id" content="123456789"> -->
-  <!-- DYNAMIC: <meta property="og:url" content="https://www.clumsy-chinchilla.club/page.html"> -->
+  <!-- DYNAMIC: <meta property="og:url" content="https://clumsy_chinchilla.com/page.html"> -->
   <!-- DYNAMIC: <meta property="og:type" content="website"> -->
   <!-- DYNAMIC: <meta property="og:title" content="Content Title"> -->
-  <!-- DYNAMIC: <meta property="og:image" content="https://www.clumsy-chinchilla.club/image.jpg"> -->
+  <!-- DYNAMIC: <meta property="og:image" content="https://clumsy_chinchilla.com/image.jpg"> -->
   <!-- DYNAMIC: <meta property="og:image:alt" content="A description of what is in the image (not a caption)"> -->
   <!-- DYNAMIC: <meta property="og:description" content="Description Here"> -->
   <!-- DYNAMIC: <meta property="og:site_name" content="Site Name"> -->
@@ -159,10 +159,10 @@
   <!-- DYNAMIC: <meta name="twitter:card" content="summary"> -->
   <!-- DYNAMIC: <meta name="twitter:site" content="@site_account"> -->
   <!-- DYNAMIC: <meta name="twitter:creator" content="@individual_account"> -->
-  <!-- DYNAMIC: <meta name="twitter:url" content="https://www.clumsy-chinchilla.club/page.html"> -->
+  <!-- DYNAMIC: <meta name="twitter:url" content="https://clumsy_chinchilla.com/page.html"> -->
   <!-- DYNAMIC: <meta name="twitter:title" content="Content Title"> -->
   <!-- DYNAMIC: <meta name="twitter:description" content="Content description less than 200 characters"> -->
-  <!-- DYNAMIC: <meta name="twitter:image" content="https://www.clumsy-chinchilla.club/image.jpg"> -->
+  <!-- DYNAMIC: <meta name="twitter:image" content="https://clumsy_chinchilla.com/image.jpg"> -->
   <!-- DYNAMIC: <meta name="twitter:image:alt" content="A text description of the image conveying the essential nature of an image to users who are visually impaired. Maximum 420 characters."> -->
 
   <!-- Disallow Twitter from using your site's info for personalization purposes -->
@@ -172,8 +172,8 @@
   <!-- TODO: <meta name="pinterest" content="nopin" description="Sorry, you can't save from my website!"> -->
 
   <!-- OEmbed -->
-  <!-- DYNAMIC: <link rel="alternate" type="application/json+oembed" href="https://www.clumsy-chinchilla.club/services/oembed?url=http%3A%2F%2Fwww.clumsy-chinchilla.club%2Ffoo%2F&amp;format=json" title="oEmbed Profile: JSON"> -->
-  <!-- DYNAMIC: <link rel="alternate" type="text/xml+oembed" href="https://www.clumsy-chinchilla.club/services/oembed?url=http%3A%2F%2Fwww.clumsy-chinchilla.club%2Ffoo%2F&amp;format=xml" title="oEmbed Profile: XML"> -->
+  <!-- DYNAMIC: <link rel="alternate" type="application/json+oembed" href="https://clumsy_chinchilla.com/services/oembed?url=http%3A%2F%2Fclumsy_chinchilla.com%2Ffoo%2F&amp;format=json" title="oEmbed Profile: JSON"> -->
+  <!-- DYNAMIC: <link rel="alternate" type="text/xml+oembed" href="https://clumsy_chinchilla.com/services/oembed?url=http%3A%2F%2Fclumsy_chinchilla.com%2Ffoo%2F&amp;format=xml" title="oEmbed Profile: XML"> -->
 
   <!-- Smart App Banner -->
   <!-- TODO: <meta name="apple-itunes-app" content="app-id=APP_ID,affiliate-data=AFFILIATE_ID,app-argument=SOME_TEXT"> -->
@@ -185,7 +185,7 @@
   <!-- TODO: <link rel="apple-touch-startup-image" href="/path/to/launch.png"> -->
 
   <!-- Launch Icon Title -->
-  <meta name="apple-mobile-web-app-title" content="<%= metadata.title %>">
+  <meta name="apple-mobile-web-app-title" content="{{metadata.title}}">
 
   <!-- Enable standalone (full-screen) mode -->
   <!-- TODO: <meta name="apple-mobile-web-app-capable" content="yes"> -->
@@ -262,8 +262,9 @@
 </head>
 
 <body id="application">
+  {{{content}}}
   <noscript>
-    <iframe title=" google tag manager" src="https://www.googletagmanager.com/ns.html?id=<%= metadata.googleTagManagerId %>"
+    <iframe title=" google tag manager" src="https://www.googletagmanager.com/ns.html?id={{googleTagManagerId}}"
       height="0" width="0" style="display: none; visibility: none;"></iframe>
   </noscript>
 
@@ -293,6 +294,9 @@
       anyone wanting to talk about it.
     </p>
   </noscript>
+  <script>
+    window.__APOLLO_STATE__ = {{{graphqlHydration}}};
+  </script>
 </body>
 
 </html>

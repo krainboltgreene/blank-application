@@ -3,7 +3,7 @@
 const path = require("path");
 
 module.exports = {
-  stories: ["../lib/client/**/story.ts"],
+  stories: ["../lib/browser/**/story.ts"],
   addons: [
     "@storybook/addon-a11y/register",
     "@storybook/addon-knobs/register",

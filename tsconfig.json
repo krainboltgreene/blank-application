@@ -9,7 +9,7 @@
     "strictNullChecks": true,
     "baseUrl": ".", // This must be specified if "paths" is.
     "paths": {
-      "@clumsy_chinchilla/*": ["lib/client/*"] // This mapping is relative to "baseUrl"
+      "@clumsy_chinchilla/*": ["lib/browser/*"] // This mapping is relative to "baseUrl"
     }
   }
 }
