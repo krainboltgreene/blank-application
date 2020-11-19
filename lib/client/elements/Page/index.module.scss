@@ -1,6 +1,6 @@
 @import "@clumsy_chinchilla/styles/index.scss";
 
-.Page {
+:local(.page) {
   @extend .container;
   display: grid;
 }

@@ -26,7 +26,7 @@ module.exports = {
         use: [
           // Move to production MiniCssExtractPlugin.loader,
           "style-loader",
-          {loader: "css-loader", options: {importLoaders: 1}},
+          {loader: "css-loader", options: {modules: true, importLoaders: 1}},
           "sass-loader",
         ],
       },

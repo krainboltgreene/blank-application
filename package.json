@@ -55,6 +55,7 @@
     "regenerator-runtime": "^0.13",
     "size-plugin": "^2.0.1",
     "typescript": "^4.0.5",
+    "typescript-plugin-css-modules": "^2.8.0",
     "webpack-dev-server": "^3.11"
   },
   "dependencies": {
