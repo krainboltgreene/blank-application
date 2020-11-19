@@ -2,16 +2,14 @@ import React from "react";
 
 import {Page} from "@clumsy_chinchilla/elements";
 
-export default function ThisIsUs () {
-  return <Page subtitle="This Is Us" kind="article">
-    <section>
-      <h2>
-        Empty
-      </h2>
+export default function ThisIsUs (): JSX.Element {
+  return <Page as="ThisIsUs" kind="article" subtitle="This Is Us">
+    <h2>
+      Empty
+    </h2>
 
-      <p>
-        To be filled
-      </p>
-    </section>
+    <p>
+      To be filled
+    </p>
   </Page>;
 }

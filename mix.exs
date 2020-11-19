@@ -1,4 +1,5 @@
 defmodule ClumsyChinchilla.MixProject do
+  @moduledoc false
   use Mix.Project
 
   def project do
@@ -7,7 +8,7 @@ defmodule ClumsyChinchilla.MixProject do
       version: "1.0.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:graphql_schema_json, :graphql_schema_sdl],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -65,7 +66,7 @@ defmodule ClumsyChinchilla.MixProject do
       {:encrypted_secrets, "~> 0.2.0"},
       {:envy, "~> 1.1"},
       {:exvcr, "~> 0.11", only: :test},
-      {:flippant, "~> 1.0"},
+      {:flippant, "~> 2.0"},
       {:floki, "~> 0.26", only: :test},
       {:flow, "~> 1.0"},
       {:gen_stage, "~> 1.0", override: true},
@@ -84,8 +85,9 @@ defmodule ClumsyChinchilla.MixProject do
       {:plug_cowboy, "~> 2.3"},
       {:postgrex, "~> 0.15"},
       {:recase, "~> 0.6"},
-      {:redix, "~> 0.11"},
-      {:telemetry_metrics, "~> 0.4"},
+      {:redix, "~> 1.0"},
+      {:plug_telemetry_server_timing, "~> 0.1"},
+      {:telemetry_metrics, "~> 0.5"},
       {:telemetry_poller, "~> 0.4"}
     ]
   end

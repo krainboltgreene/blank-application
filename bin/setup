@@ -21,6 +21,4 @@ psql -v ON_ERROR_STOP=1 --host "localhost" --username "postgres" --dbname "templ
   COMMIT;
 EOSQL
 npm install &&
-mix do deps.get, compile, setup &&
-mix absinthe.schema.json --schema Graphql.Schema &&
-mix absinthe.schema.sdl --schema Graphql.Schema
+mix do deps.get, compile, setup, absinthe.schema.json --schema Graphql.Schema, absinthe.schema.sdl --schema Graphql.Schema

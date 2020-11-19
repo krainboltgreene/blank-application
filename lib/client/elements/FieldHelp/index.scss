@@ -1,0 +1,6 @@
+@import "@clumsy_chinchilla/styles/index.scss";
+
+.FieldHelp {
+  @extend .form-text;
+  @extend .text-muted;
+}

@@ -1,22 +1,6 @@
 defmodule ClumsyChinchillaWeb.Router do
   use ClumsyChinchillaWeb, :router
-
-  @spec absinthe_before_send(map, map) :: map
-  def absinthe_before_send(
-        %Plug.Conn{method: "POST"} = connection,
-        %Absinthe.Blueprint{} = blueprint
-      ) do
-    Enum.reduce(blueprint.execution.context[:cookies] || [], connection, fn [key, value],
-                                                                            accumulation ->
-      if value do
-        Plug.Conn.put_session(accumulation, key, value)
-      else
-        Plug.Conn.delete_session(accumulation, key)
-      end
-    end)
-  end
-
-  def absinthe_before_send(connection, _), do: connection
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -37,10 +21,28 @@ defmodule ClumsyChinchillaWeb.Router do
     plug HenosisWeb.Plugs.GraphqlSessionContext
   end
 
-  scope "/", ClumsyChinchillaWeb do
+  # Other scopes may use custom stacks.
+  scope "/" do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    get "/", ClumsyChinchillaWeb.PageController, :index
+
+    # live "/", PageLive, :index
+    if Mix.env != :prod do
+      # If using Phoenix
+      forward "/sent_emails", Bamboo.SentEmailViewerPlug
+
+      # Enables LiveDashboard only for development
+      #
+      # If you want to use the LiveDashboard in production, you should put
+      # it behind authentication and allow only admins to access it.
+      # If your application does not have an admins-only section yet,
+      # you can use Plug.BasicAuth to set up some basic authentication
+      # as long as you are also using SSL (which you should anyway).
+      live_dashboard "/dashboard", metrics: ClumsyChinchillaWeb.Telemetry
+    end
+
+    get "/:path", ClumsyChinchillaWeb.RemoteController, :browser_remote
   end
 
   scope "/graphql" do
@@ -52,27 +54,6 @@ defmodule ClumsyChinchillaWeb.Router do
             schema: Graphql.Schema,
             analyze_complexity: true,
             max_complexity: 200,
-            before_send: {__MODULE__, :absinthe_before_send}
-  end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", ClumsyChinchillaWeb do
-  #   pipe_through :api
-  # end
-
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
-  if Mix.env() in [:dev, :test] do
-    import Phoenix.LiveDashboard.Router
-
-    scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: ClumsyChinchillaWeb.Telemetry
-    end
+            before_send: {Graphql.Middlewares.Sessions, :absinthe_before_send}
   end
 end

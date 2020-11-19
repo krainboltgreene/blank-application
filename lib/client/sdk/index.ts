@@ -3,15 +3,20 @@ import {ApolloClient} from "@apollo/client";
 import {InMemoryCache} from "@apollo/client";
 import {HttpLink} from "@apollo/client";
 import {onError} from "@apollo/client/link/error";
+import type {ErrorResponse} from "@apollo/client/link/error";
+import type {GraphQLError} from "graphql";
 import {from} from "@apollo/client";
 
 export default new ApolloClient({
   link: from([
-    onError(({graphQLErrors, networkError}) => {
+    onError((errors: Readonly<ErrorResponse>) => {
+      const {graphQLErrors} = errors;
+      const {networkError} = errors;
+
       if (graphQLErrors) {
-        graphQLErrors.forEach(({message, locations, path}) => console.error(
+        graphQLErrors.forEach((error: Readonly<GraphQLError>) => console.error(
           "[GraphQL error]",
-          {message, locations, path},
+          error,
         ));
       }
       if (networkError) {
