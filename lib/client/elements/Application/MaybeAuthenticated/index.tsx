@@ -6,12 +6,23 @@ import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 
 import fetchSessionQuery from "./fetchSessionQuery.gql";
 
-export default function MaybeAuthenticated ({children}) {
-  const [fetchSession, {error, data, loading}] = useLazyQuery(fetchSessionQuery);
-  const [currentAccount, setCurrentAccount] = useRecoilState<string>(currentAccountAtom);
+interface SessionQueryType {
+  session: {
+    id: string;
+  };
+}
+
+interface PropertiesType<C> {
+  children: C;
+}
+
+export default function MaybeAuthenticated<C> (properties: Readonly<PropertiesType<C>>): C {
+  const {children} = properties;
+  const [fetchSession, {error, data, loading}] = useLazyQuery<SessionQueryType>(fetchSessionQuery);
+  const [currentAccount, setCurrentAccount] = useRecoilState<string | null>(currentAccountAtom);
 
   useEffect(() => {
-    if (!data || !data.session || !data.session.id || currentAccount) {
+    if (!data || !data.session.id || Boolean(currentAccount)) {
       return;
     }
 
@@ -23,7 +34,7 @@ export default function MaybeAuthenticated ({children}) {
       return;
     }
 
-    if (loading || currentAccount) {
+    if (loading || Boolean(currentAccount)) {
       return;
     }
 

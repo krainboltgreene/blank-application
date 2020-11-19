@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useEffect} from "react";
-import {useRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
@@ -8,15 +8,17 @@ import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import createAccountMutation from "./createAccountMutation.gql";
 
-export default function SignUpForm () {
-  const history = useHistory();
-  const [, setCurrentAccount] = useRecoilState<string>(currentAccountAtom);
-  const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation(createAccountMutation);
-  const [emailAddress, setEmailAddress] = useState("");
-  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    createAccount({variables: {input: {emailAddress}}});
+interface CreateAccountMutationType {
+  createAccount: {
+    id: string;
   };
+}
+
+export default function SignUpForm (): JSX.Element {
+  const history = useHistory();
+  const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
+  const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation<CreateAccountMutationType>(createAccountMutation);
+  const [emailAddress, setEmailAddress] = useState("");
 
   if (createAccountError) {
     throw createAccountError;
@@ -29,13 +31,17 @@ export default function SignUpForm () {
     }
   }, [createAccountData, setCurrentAccount, history]);
 
-  return <form id="signUpForm" onSubmit={submitForm}>
+  return <form id="signUpForm" onSubmit={async (event): Promise<void> => {
+    event.preventDefault();
+    await createAccount({variables: {input: {emailAddress}}});
+  }}>
     <Field
       scope="signUpForm"
       type="email"
       property="emailAddress"
       label="Email Address"
-      inputAttributes={{readOnly: createAccountLoading, onChange: (event: React.FormEvent<HTMLFormElement>) => setEmailAddress(event.target.value), autoComplete: "email", value: emailAddress}}
+      hasValidated={false}
+      inputAttributes={{readOnly: createAccountLoading, onChange: (event): void => setEmailAddress(event.target.value), autoComplete: "email", value: emailAddress}}
       value={emailAddress}
     />
     <section>

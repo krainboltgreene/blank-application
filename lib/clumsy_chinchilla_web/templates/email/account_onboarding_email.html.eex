@@ -1,3 +1,0 @@
-<p>
-  Thanks for signing up, <%= link "please click here to confirm your account and pick a password", to: "localhost:8080/account_confirmation?token=#{}" %>.
-</p>

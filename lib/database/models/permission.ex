@@ -1,4 +1,5 @@
 defmodule Database.Models.Permission do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -12,9 +13,10 @@ defmodule Database.Models.Permission do
     timestamps()
   end
 
-  def data() do
-    Dataloader.Ecto.new(Database.Repository)
-  end
+  @type t :: %__MODULE__{
+    name: String.t(),
+    slug: String.t()
+  }
 
   @spec changeset(map, map) :: Ecto.Changeset.t()
   @doc false

@@ -20,6 +20,13 @@ defmodule Utilities do
     |> Inflex.singularize()
   end
 
+  @spec ok_tap({:ok | any, value}, (value -> any())) :: value when value: any
+  def ok_tap({:ok, value}, function) when is_function(function) do
+    function.(value)
+    {:ok, value}
+  end
+  def ok_tap(touple, _), do: touple
+
   @spec tap(value, (value -> any())) :: value when value: any
   def tap(value, function) when is_function(function) do
     function.(value)
@@ -202,7 +209,6 @@ defmodule Utilities do
     Redix.command(:redix, ["DEL", key])
   end
 
-  def generate_secret do
-    :crypto.strong_rand_bytes(64) |> Base.encode64 |> binary_part(0, 64)
-  end
+  @spec generate_secret :: String.t
+  def generate_secret, do: :crypto.strong_rand_bytes(64) |> Base.url_encode64(case: :upper) |> binary_part(0, 64)
 end

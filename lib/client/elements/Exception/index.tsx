@@ -1,13 +1,13 @@
 import Link from "../Link";
 import "./index.scss";
 
-type PropertiesType = {
-  kind: string,
-  as: string | Error,
-  metadata?: {}
+interface PropertiesType {
+  kind: string;
+  as: string | Error;
+  metadata?: Readonly<Record<string, unknown>>;
 }
 
-export default function Exception (properties: PropertiesType) {
+export default function Exception (properties: Readonly<PropertiesType>): JSX.Element {
   const {kind} = properties;
   const {as} = properties;
   const {metadata = {}} = properties;

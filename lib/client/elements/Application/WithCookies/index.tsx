@@ -6,12 +6,17 @@ import {cookie as cookieAtom} from "@clumsy_chinchilla/atoms";
 
 const COOKIES_KEY = "_clumsy_chinchilla_key";
 
-export default function WithCookies ({children}) {
+interface PropertiesType<C> {
+  children: C;
+}
+
+export default function WithCookies<C> (properties: Readonly<PropertiesType<C>>): C {
+  const {children} = properties;
   const [browserCookie] = useCookie(COOKIES_KEY);
-  const [cookie, setCookie] = useRecoilState<string>(cookieAtom);
+  const [cookie, setCookie] = useRecoilState<string | null>(cookieAtom);
 
   useEffect(() => {
-    if (browserCookie && !cookie) {
+    if (Boolean(browserCookie) && cookie === null) {
       setCookie(cookie);
     }
   }, [browserCookie, cookie, setCookie]);

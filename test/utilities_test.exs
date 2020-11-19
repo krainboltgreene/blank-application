@@ -1,4 +1,5 @@
 defmodule UtilitiesTest do
+  @moduledoc false
   use ExUnit.Case
   doctest Utilities
 

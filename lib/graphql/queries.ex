@@ -1,22 +1,23 @@
 defmodule Graphql.Queries do
-  defmacro listable(name, resolver) do
+  @moduledoc false
+  defmacro listable_field(name) do
     quote do
       @desc unquote("Get all #{name |> Inflex.pluralize()}")
       field unquote(name |> Inflex.pluralize() |> String.to_atom()), list_of(unquote(name)) do
         arg(:input, :list_parameters)
 
-        resolve(&unquote(resolver).list/3)
+        resolve(&__MODULE__.list/3)
       end
     end
   end
 
-  defmacro findable(name, resolver) do
+  defmacro findable_field(name) do
     quote do
       @desc unquote("Get an #{name} by id")
       field unquote(name), unquote(name) do
         arg(:input, non_null(:identity))
 
-        resolve(&unquote(resolver).find/3)
+        resolve(&__MODULE__.find/3)
       end
     end
   end

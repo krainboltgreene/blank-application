@@ -1,37 +1,45 @@
-import Help from "./Help";
-import Label from "./Label";
-import Input from "./Input";
-import Feedback from "./Feedback";
+/* eslint-disable react/jsx-props-no-spreading */
+import type {ReactNode} from "react";
+import type {LabelHTMLAttributes} from "react";
+import type {InputHTMLAttributes} from "react";
+import FieldHelp from "../FieldHelp";
+import FieldFeedback from "../FieldFeedback";
 
-export default function Field (properties) {
+interface PropertiesType {
+  scope: string;
+  label: string;
+  type: string;
+  property: string;
+  value: string | number | ReadonlyArray<string> | undefined;
+  help?: string;
+  isValid?: boolean | null;
+  hasValidated: boolean;
+  feedback?: ReactNode;
+  labelAttributes?: LabelHTMLAttributes<HTMLLabelElement>;
+  inputAttributes: Readonly<InputHTMLAttributes<HTMLInputElement>>;
+}
+
+export default function Field (properties: Readonly<PropertiesType>): JSX.Element {
   const {scope} = properties;
   const {label} = properties;
-  const {value} = properties;
-  const {onChange} = properties;
   const {type} = properties;
   const {property} = properties;
+  const {value} = properties;
   const {help} = properties;
-  const {isValid} = properties;
+  const {isValid = null} = properties;
+  const {hasValidated = false} = properties;
   const {feedback} = properties;
   const {labelAttributes} = properties;
   const {inputAttributes} = properties;
   const inputId = `${scope}-${property}`;
   const name = `${scope}[${property}]`;
   const labelId = `${inputId}-label`;
-
-  if (type === "checkbox" || type === "radio") {
-    return <section className="form-group form-check">
-      <Input id={inputId} name={name} labelId={inputId} type={type} value={value} onChange={onChange} attributes={inputAttributes} />
-      <Label id={labelId} type={type} htmlFor={inputId} attributes={labelAttributes}>{label}</Label>
-      <Help id={inputId}>{help}</Help>
-      <Feedback isValid={isValid}>{feedback}</Feedback>
-    </section>;
-  }
+  const helpId = `${inputId}-help`;
 
   return <section className="form-group">
-    <Label id={labelId} type={type} htmlFor={inputId} attributes={labelAttributes}>{label}</Label>
-    <Input id={inputId} name={name} labelId={inputId} type={type} value={value} onChange={onChange} attributes={inputAttributes} />
-    <Help id={inputId}>{help}</Help>
-    <Feedback isValid={isValid}>{feedback}</Feedback>
+    <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
+    <input id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} value={value} {...inputAttributes} />
+    <FieldHelp id={helpId}>{help}</FieldHelp>
+    <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;
 }

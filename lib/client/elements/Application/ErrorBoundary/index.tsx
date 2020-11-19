@@ -1,25 +1,29 @@
-import {PureComponent} from "react";
+import type {ErrorInfo} from "react";
+import {Component} from "react";
 import Exception from "../../Exception";
 
-export default class ErrorBoundary extends PureComponent<{children: React.ReactNode}, {exception: Error, metadata: {}}> {
-  componentDidCatch (exception: Error, metadata: {}) {
-    this.setState(() => ({exception, metadata}));
+interface PropertiesType<C> {
+  children: C;
+}
+
+export default class ErrorBoundary<C> extends Component<Readonly<PropertiesType<C>>, {exception?: Error | string; metadata?: Record<string, unknown>}> {
+  private constructor (properties) {
+    super(properties);
+    this.state = {};
   }
 
-  render () {
-    const {children} = this.props;
+  public componentDidCatch (exception: Readonly<Error>, errorInfo: Readonly<ErrorInfo>): void {
+    this.setState(() => ({exception, metadata: errorInfo}));
+  }
 
-    if (!this.state) {
+  public render (): C | JSX.Element {
+    const {children} = this.props;
+    const {exception} = this.state;
+    if (typeof exception === "undefined") {
       return children;
     }
-
-    const {exception} = this.state;
     const {metadata} = this.state;
 
-    if (exception) {
-      return <Exception kind="overlay" as={exception} metadata={metadata} />;
-    }
-
-    return children;
+    return <Exception kind="overlay" as={exception} metadata={metadata} />;
   }
 }

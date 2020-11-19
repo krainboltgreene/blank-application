@@ -1,9 +1,14 @@
 defmodule Graphql.Queries.Permission do
+  @moduledoc false
   use Absinthe.Schema.Notation
+  import Graphql.Queries, only: :macros
+  import Graphql.Resolvers, only: :macros
 
   object :permission_queries do
-    import Graphql.Queries, only: :macros
-    listable(:permission, Graphql.Resolvers.Permissions)
-    findable(:permission, Graphql.Resolvers.Permissions)
+    listable_field(:permission)
+    findable_field(:permission)
   end
+
+  listable(Database.Models.Permission, :authenticated)
+  findable(Database.Models.Permission, :authenticated)
 end

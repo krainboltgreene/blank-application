@@ -20,6 +20,21 @@ defmodule ClumsyChinchilla.Application do
       # {ClumsyChinchilla.Worker, arg}
     ]
 
+    Plug.Telemetry.ServerTiming.install([
+      {[:phoenix, :endpoint, :stop], :duration},
+      {[:phoenix, :router_dispatch, :stop], :duration},
+      {[:phoenix, :live_view, :mount], :duration},
+      {[:database, :repository, :query], :total_time},
+      {[:database, :repository, :query], :decode_time},
+      {[:database, :repository, :query], :query_time},
+      {[:database, :repository, :query], :queue_time},
+      {[:database, :repository, :query], :idle_time},
+      {[:absinthe, :execute, :operation, :stop], :duration},
+      {[:absinthe, :subscription, :publish, :stop], :duration},
+      {[:absinthe, :resolve, :field, :stop], :duration},
+      {[:absinthe, :middleware, :batch, :stop], :duration},
+    ])
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ClumsyChinchilla.Supervisor]

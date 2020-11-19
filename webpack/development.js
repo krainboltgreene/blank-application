@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable import/no-commonjs */
 /* eslint-disable import/no-nodejs-modules */
 
-const {resolve} = require("path");
+const path = require("path");
 const {HotModuleReplacementPlugin} = require("webpack");
 const {EnvironmentPlugin} = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -56,12 +59,12 @@ module.exports = {
   },
   entry: [
     "react-hot-loader/patch",
-    resolve(...CLIENT_DIRECTORY, "index.tsx"),
+    path.resolve(...CLIENT_DIRECTORY, "index.tsx"),
   ],
   target: "web",
   output: {
     publicPath: "http://localhost:8080/",
-    path: resolve(...OUTPUT_DIRECTORY),
+    path: path.resolve(...OUTPUT_DIRECTORY),
     filename: "browser-client.js",
   },
   devServer: {
@@ -75,7 +78,7 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".jsx"],
     alias: {
-      "@clumsy_chinchilla/styles": resolve(...CLIENT_DIRECTORY, "styles"),
+      "@clumsy_chinchilla/styles": path.resolve(...CLIENT_DIRECTORY, "styles"),
       "react-dom": "@hot-loader/react-dom",
     },
   },
@@ -87,12 +90,12 @@ module.exports = {
     new HotModuleReplacementPlugin(),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
       from,
-      to: resolve(...OUTPUT_DIRECTORY, "assets", ...to),
+      to: path.resolve(...OUTPUT_DIRECTORY, "assets", ...to),
     }])),
     new CopyWebpackPlugin({
       patterns: [{
-        from: resolve(...ASSETS_DIRECTORY),
-        to: resolve(...OUTPUT_DIRECTORY, "assets"),
+        from: path.resolve(...ASSETS_DIRECTORY),
+        to: path.resolve(...OUTPUT_DIRECTORY, "assets"),
       }],
     }),
     // new MiniCssExtractPlugin(),
@@ -119,7 +122,7 @@ module.exports = {
           supportEmailAddress: "supportEmailAddress",
         },
       },
-      template: resolve(...CLIENT_DIRECTORY, "templates", "index.html"),
+      template: path.resolve(...CLIENT_DIRECTORY, "templates", "index.html"),
     }),
   ],
 };

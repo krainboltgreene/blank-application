@@ -1,6 +1,6 @@
 /* eslint-disable import/no-commonjs */
 /* eslint-disable import/no-nodejs-modules */
-const {resolve} = require("path");
+const path = require("path");
 
 module.exports = {
   stories: ["../lib/client/**/story.ts"],
@@ -12,7 +12,7 @@ module.exports = {
       options: {
         rule: {
           test: [/story\.ts?$/u],
-          include: [resolve(__dirname, "..", "lib", "client")],
+          include: [path.resolve(__dirname, "..", "lib", "client")],
         },
       },
     },

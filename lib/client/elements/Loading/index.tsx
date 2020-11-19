@@ -1,7 +1,11 @@
 import Icon from "../Icon";
 import "./index.scss";
 
-export default function Loading (properties) {
+interface PropertiesType {
+  kind: "overlay" | string;
+}
+
+export default function Loading (properties: Readonly<PropertiesType>): JSX.Element {
   const {kind} = properties;
 
   if (kind === "overlay") {
@@ -10,5 +14,5 @@ export default function Loading (properties) {
     </section>;
   }
 
-  return "Something went wrong";
+  return <p>Something is loading.</p>;
 }
