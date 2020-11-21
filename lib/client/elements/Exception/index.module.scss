@@ -1,6 +1,6 @@
 @import "@clumsy_chinchilla/styles/index.scss";
 
-.Exception.overlay {
+:local(.overlay) {
   display: flex;
   justify-content: center;
   align-items: center;
