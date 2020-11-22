@@ -1,7 +1,7 @@
 /* eslint-disable init-declarations */
 
 declare module "*.gql" {
-  import {DocumentNode} from "graphql";
+  import type {DocumentNode} from "graphql";
 
   const Schema: DocumentNode;
 
