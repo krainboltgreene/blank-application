@@ -11,6 +11,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ExtractCssChunksWebpackPlugin = require("extract-css-chunks-webpack-plugin");
 const SizePlugin = require("size-plugin");
 // Helpful constants
 const ROOT_DIRECTORY = [__dirname, ".."];
@@ -24,6 +25,14 @@ module.exports = {
   devtool: "inline-source-map",
   module: {
     rules: [
+      {
+        test: /\.global\.postcss$/u,
+        use: [
+          {loader: ExtractCssChunksWebpackPlugin.loader, options: {hmr: true}},
+          {loader: "css-loader", options: {importLoaders: 1}},
+          "postcss-loader",
+        ],
+      },
       {
         test: /\.module\.postcss$/u,
         use: [
@@ -99,6 +108,7 @@ module.exports = {
       }],
     }),
     // new MiniCssExtractPlugin(),
+    new ExtractCssChunksWebpackPlugin(),
     new WebpackAssetsManifest({
       output: "asset-integrity-manifest.json",
       integrity: false,
