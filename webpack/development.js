@@ -25,7 +25,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/u,
+        test: /\.module\.postcss$/u,
         use: [
           // Move to production MiniCssExtractPlugin.loader,
           "style-loader",
