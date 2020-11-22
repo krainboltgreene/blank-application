@@ -9,6 +9,7 @@ import {ApolloProvider} from "@apollo/client";
 import {RecoilRoot} from "recoil";
 
 import {Application} from "@clumsy_chinchilla/elements";
+import "@clumsy_chinchilla/styles/index.global.postcss";
 import sdk from "./sdk";
 
 render(

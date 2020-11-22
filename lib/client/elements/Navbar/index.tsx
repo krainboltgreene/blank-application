@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "../Link";
-import "./index.css";
+import {style} from "./style.module.postcss";
 
 export default function Navbar (): JSX.Element {
-  return <nav className="Navbar">
+  return <nav className={style}>
     <Link id="NavbarBrandLink" href="/">Navbar</Link>
   </nav>;
 }

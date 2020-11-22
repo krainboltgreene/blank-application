@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "../Link";
-import "./index.css";
+import {overlay} from "./style.module.postcss";
 
 interface PropertiesType {
   kind: string;
@@ -16,7 +16,7 @@ export default function Exception (properties: Readonly<PropertiesType>): JSX.El
   console.debug({as, metadata});
 
   if (kind === "overlay") {
-    return <section className="Exception overlay">
+    return <section className={overlay}>
       <h1>Something went wrong.</h1>
 
       <p>
