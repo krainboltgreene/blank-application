@@ -85,6 +85,7 @@
     "polished": "^4.0.3",
     "postcss": "^8.1.7",
     "postcss-loader": "^4.0.4",
+    "postcss-preset-env": "^6.7.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet-async": "^1.0.7",
