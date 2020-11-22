@@ -7,5 +7,5 @@ declare module "*.gql" {
 
   const Schema: DocumentNode;
 
-  export = Schema
+  export = Schema;
 }
