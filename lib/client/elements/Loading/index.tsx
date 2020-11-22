@@ -10,7 +10,7 @@ export default function Loading (properties: Readonly<PropertiesType>): JSX.Elem
   const {kind} = properties;
 
   if (kind === "overlay") {
-    return <section id="loading" className="overlay">
+    return <section className="overlay">
       <Icon name="fa-circle-notch" modifiers={["fa-spin fa-10x"]} />
     </section>;
   }
