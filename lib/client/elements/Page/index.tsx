@@ -24,8 +24,8 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
     case "article": {
       return <article className={[page, styling].join(" ")} data-component={as}>
         <Helmet>
-          <title>ClumsyChinchilla | {subtitle}</title>
-          <meta name="description" content={description} />
+          {subtitle ? <title>ClumsyChinchilla | {subtitle}</title> : null}
+          {description ? <meta name="description" content={description} /> : null}
         </Helmet>
         {children}
       </article>;
@@ -33,8 +33,8 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
     default: {
       return <main className={[page, styling].join(" ")} data-component={as}>
         <Helmet>
-          <title>ClumsyChinchilla | {subtitle}</title>
-          <meta name="description" content={description} />
+          {subtitle ? <title>ClumsyChinchilla | {subtitle}</title> : null}
+          {description ? <meta name="description" content={description} /> : null}
         </Helmet>
         {children}
       </main>;
