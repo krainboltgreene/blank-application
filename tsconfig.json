@@ -7,7 +7,17 @@
     "jsx": "react",
     "esModuleInterop": true,
     "strictNullChecks": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {"customMatcher": "\\.module\\.postcss$"},
+        "postCssOptions": {
+          "useConfig": true,
+        }
+      }
+    ],
     "baseUrl": ".", // This must be specified if "paths" is.
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "paths": {
       "@clumsy_chinchilla/*": ["lib/client/*"] // This mapping is relative to "baseUrl"
     }
