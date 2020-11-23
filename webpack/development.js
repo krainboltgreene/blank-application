@@ -30,11 +30,11 @@ module.exports = {
         use: [
           {loader: ExtractCssChunksWebpackPlugin.loader, options: {hmr: true}},
           {loader: "css-loader", options: {importLoaders: 1}},
-          "postcss-loader",
+          "sass-loader",
         ],
       },
       {
-        test: /\.scss$/u,
+        test: /\.module\.scss$/u,
         use: [
           // Move to production MiniCssExtractPlugin.loader,
           "style-loader",

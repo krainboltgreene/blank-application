@@ -311,5 +311,5 @@ $theme-colors: (
   "primary": $indigo
 );
 $enable-rounded: false;
+@use "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap');
-@import "~bootstrap/scss/bootstrap";

@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import React from "react";
 import type {ReactNode} from "react";
-import "./index.scss";
+import {styling} from "./index.module.scss";
 
 interface PropertiesType {
   isValid: boolean | null;
@@ -28,7 +28,7 @@ export default function FieldFeedback (properties: Readonly<PropertiesType>): JS
 
   const type = isValid ? "valid" : "invalid";
 
-  return <p data-state={type} className="FieldFeedback">
+  return <p data-state={type} className={styling}>
     {children}
   </p>;
 }
