@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "../Link";
-import {styling} from "./index.module.scss";
+import {styling} from "./style.module.postcss";
 
 export default function Navbar (): JSX.Element {
   return <nav className={styling}>

@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import React from "react";
 import type {ReactNode} from "react";
-import {styling} from "./index.module.scss";
+import {styling} from "./style.module.postcss";
 
 interface PropertiesType {
   isValid: boolean | null;

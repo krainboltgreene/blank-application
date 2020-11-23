@@ -7,3 +7,8 @@ declare module "*.gql" {
 
   export = Schema;
 }
+
+declare module "*.module.postcss" {
+  const classes: Record<string, string>;
+  export default classes;
+}

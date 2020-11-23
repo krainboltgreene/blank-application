@@ -10,8 +10,6 @@ const {EnvironmentPlugin} = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ExtractCssChunksWebpackPlugin = require("extract-css-chunks-webpack-plugin");
 const SizePlugin = require("size-plugin");
 // Helpful constants
 const ROOT_DIRECTORY = [__dirname, ".."];
@@ -26,20 +24,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.global\.scss$/u,
-        use: [
-          {loader: ExtractCssChunksWebpackPlugin.loader, options: {hmr: true}},
-          {loader: "css-loader", options: {importLoaders: 1}},
-          "sass-loader",
-        ],
-      },
-      {
-        test: /\.module\.scss$/u,
+        test: /\.module\.postcss$/u,
         use: [
           // Move to production MiniCssExtractPlugin.loader,
           "style-loader",
           {loader: "css-loader", options: {modules: true, importLoaders: 1}},
-          "sass-loader",
+          "postcss-loader",
         ],
       },
       {
@@ -107,8 +97,6 @@ module.exports = {
         to: path.resolve(...OUTPUT_DIRECTORY, "assets"),
       }],
     }),
-    // new MiniCssExtractPlugin(),
-    new ExtractCssChunksWebpackPlugin(),
     new WebpackAssetsManifest({
       output: "asset-integrity-manifest.json",
       integrity: false,
