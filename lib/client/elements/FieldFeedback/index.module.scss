@@ -1,0 +1,12 @@
+@use "@clumsy_chinchilla/styles/index.global.scss";
+
+:local(.styling) {
+  @extend .form-text;
+  @extend .text-muted;
+  &[data-state="invalid"] {
+    @extend .invalid-feedback;
+  }
+  &[data-state="valid"] {
+    @extend .valid-feedback;
+  }
+}
