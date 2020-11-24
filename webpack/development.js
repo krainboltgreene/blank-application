@@ -48,7 +48,7 @@ module.exports = {
         loader: "graphql-tag/loader",
       },
       {
-        test: /\.tsx?$/u,
+        test: /\.(?:ts|js)x?$/u,
         exclude: /node_modules/u,
         use: {
           loader: "babel-loader",
