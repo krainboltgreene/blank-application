@@ -1,7 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import React from "react";
 import type {ReactNode} from "react";
-import {styling} from "./style.module.postcss";
 
 interface PropertiesType {
   isValid: boolean | null;
@@ -28,7 +27,7 @@ export default function FieldFeedback (properties: Readonly<PropertiesType>): JS
 
   const type = isValid ? "valid" : "invalid";
 
-  return <p data-state={type} className={styling}>
+  return <p data-state={type}>
     {children}
   </p>;
 }

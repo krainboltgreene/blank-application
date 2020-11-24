@@ -1,6 +1,5 @@
 import React from "react";
 import type {ReactNode} from "react";
-import {styling} from "./style.module.postcss";
 
 interface PropertiesType {
   id: string;
@@ -15,5 +14,5 @@ export default function FieldHelp (properties: Readonly<PropertiesType>): JSX.El
     return null;
   }
 
-  return <small id={id} className={styling}>{children}</small>;
+  return <small id={id}>{children}</small>;
 }

@@ -24,15 +24,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.module\.postcss$/u,
-        use: [
-          // Move to production MiniCssExtractPlugin.loader,
-          "style-loader",
-          {loader: "css-loader", options: {modules: true, importLoaders: 1}},
-          "postcss-loader",
-        ],
-      },
-      {
         test: /\.(?:png|jpe?g|gif|xml|txt|json)$/u,
         exclude: /node_modules/u,
         use: {
@@ -77,7 +68,6 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".jsx"],
     alias: {
-      "@clumsy_chinchilla/styles": path.resolve(...CLIENT_DIRECTORY, "styles"),
       "react-dom": "@hot-loader/react-dom",
     },
   },

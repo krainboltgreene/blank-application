@@ -1,7 +1,6 @@
 import React from "react";
 import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
-import {page} from "./style.module.postcss";
 
 interface PropertiesType {
   as: string;
@@ -22,7 +21,7 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
 
   switch (kind) {
     case "article": {
-      return <article className={[page, styling].join(" ")} data-component={as}>
+      return <article className={styling} data-component={as}>
         <Helmet>
           {subtitle ? <title>ClumsyChinchilla | {subtitle}</title> : null}
           {description ? <meta name="description" content={description} /> : null}
@@ -31,7 +30,7 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
       </article>;
     }
     default: {
-      return <main className={[page, styling].join(" ")} data-component={as}>
+      return <main className={styling} data-component={as}>
         <Helmet>
           {subtitle ? <title>ClumsyChinchilla | {subtitle}</title> : null}
           {description ? <meta name="description" content={description} /> : null}
