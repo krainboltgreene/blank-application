@@ -13,7 +13,6 @@ module.exports = {
     "react",
     "security",
     "unicorn",
-    "@emotion",
   ],
   env: {
     es6: true,
