@@ -8,6 +8,8 @@ interface PropertiesType {
   children: ReactNode | null;
 }
 
+const styling = {};
+
 export default function FieldFeedback (properties: Readonly<PropertiesType>): JSX.Element | null {
   const {hasValidated} = properties;
   const {isValid} = properties;
@@ -27,7 +29,7 @@ export default function FieldFeedback (properties: Readonly<PropertiesType>): JS
 
   const type = isValid ? "valid" : "invalid";
 
-  return <p data-state={type}>
+  return <p data-state={type} css={styling}>
     {children}
   </p>;
 }

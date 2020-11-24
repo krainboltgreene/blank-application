@@ -2,6 +2,11 @@ import React from "react";
 import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
 
+const page = {
+  color: "green",
+  display: "grid",
+};
+
 interface PropertiesType {
   as: string;
   styling?: string;
@@ -21,7 +26,7 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
 
   switch (kind) {
     case "article": {
-      return <article className={styling} data-component={as}>
+      return <article css={[page, styling]} data-component={as}>
         <Helmet>
           {subtitle ? <title>ClumsyChinchilla | {subtitle}</title> : null}
           {description ? <meta name="description" content={description} /> : null}
@@ -30,11 +35,12 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
       </article>;
     }
     default: {
-      return <main className={styling} data-component={as}>
+      return <main css={[page, styling]} data-component={as}>
         <Helmet>
           {subtitle ? <title>ClumsyChinchilla | {subtitle}</title> : null}
           {description ? <meta name="description" content={description} /> : null}
         </Helmet>
+        2
         {children}
       </main>;
     }
