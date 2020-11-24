@@ -1,4 +1,7 @@
+/* eslint-disable spaced-comment */
 /* eslint-disable init-declarations */
+
+/// <reference types="@emotion/react/types/css-prop" />
 
 declare module "*.gql" {
   import type {DocumentNode} from "graphql";
@@ -6,9 +9,4 @@ declare module "*.gql" {
   const Schema: DocumentNode;
 
   export = Schema;
-}
-
-declare module "*.module.postcss" {
-  const classes: Record<string, string>;
-  export default classes;
 }
