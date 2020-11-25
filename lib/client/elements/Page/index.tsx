@@ -3,7 +3,6 @@ import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
 
 const page = {
-  color: "green",
   display: "grid",
 };
 
@@ -40,7 +39,6 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
           {subtitle ? <title>ClumsyChinchilla | {subtitle}</title> : null}
           {description ? <meta name="description" content={description} /> : null}
         </Helmet>
-        2
         {children}
       </main>;
     }
