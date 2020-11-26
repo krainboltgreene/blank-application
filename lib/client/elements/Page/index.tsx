@@ -3,7 +3,6 @@ import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
 
 const page = {
-  color: "green",
   display: "grid",
 };
 
