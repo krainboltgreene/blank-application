@@ -1,18 +1,12 @@
 import React from "react";
 import Link from "../Link";
+import {overlay} from "./style.module.postcss";
 
 interface PropertiesType {
   kind: string;
   as: string | Error;
   metadata?: Readonly<Record<string, unknown>>;
 }
-
-const overlay = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: "100vh",
-};
 
 export default function Exception (properties: Readonly<PropertiesType>): JSX.Element {
   const {kind} = properties;
@@ -22,7 +16,7 @@ export default function Exception (properties: Readonly<PropertiesType>): JSX.El
   console.debug({as, metadata});
 
   if (kind === "overlay") {
-    return <section css={overlay}>
+    return <section className={overlay}>
       <h1>Something went wrong.</h1>
 
       <p>
