@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable import/no-commonjs */
 /* eslint-disable import/no-nodejs-modules */
 
 const path = require("path");
-const {HotModuleReplacementPlugin} = require("webpack");
 const {EnvironmentPlugin} = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const SizePlugin = require("size-plugin");
 // Helpful constants
 const ROOT_DIRECTORY = [__dirname, ".."];
@@ -21,15 +22,6 @@ module.exports = {
   devtool: "inline-source-map",
   module: {
     rules: [
-      {
-        test: /\.scss$/u,
-        use: [
-          // Move to production MiniCssExtractPlugin.loader,
-          "style-loader",
-          {loader: "css-loader", options: {importLoaders: 1}},
-          "sass-loader",
-        ],
-      },
       {
         test: /\.(?:png|jpe?g|gif|xml|txt|json)$/u,
         exclude: /node_modules/u,
@@ -46,7 +38,7 @@ module.exports = {
         loader: "graphql-tag/loader",
       },
       {
-        test: /\.tsx?$/u,
+        test: /\.(?:ts|js)x?$/u,
         exclude: /node_modules/u,
         use: {
           loader: "babel-loader",
@@ -75,7 +67,6 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".jsx"],
     alias: {
-      "@clumsy_chinchilla/styles": path.resolve(...CLIENT_DIRECTORY, "styles"),
       "react-dom": "@hot-loader/react-dom",
     },
   },
@@ -84,7 +75,6 @@ module.exports = {
       "NODE_ENV",
     ]),
     new SizePlugin(),
-    new HotModuleReplacementPlugin(),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
       from,
       to: path.resolve(...OUTPUT_DIRECTORY, "assets", ...to),
@@ -95,7 +85,6 @@ module.exports = {
         to: path.resolve(...OUTPUT_DIRECTORY, "assets"),
       }],
     }),
-    // new MiniCssExtractPlugin(),
     new WebpackAssetsManifest({
       output: "asset-integrity-manifest.json",
       integrity: false,

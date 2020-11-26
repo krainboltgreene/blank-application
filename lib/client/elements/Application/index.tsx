@@ -1,13 +1,12 @@
 /* eslint-disable import/no-internal-modules */
 import React from "react";
-import {hot} from "react-hot-loader/root";
 import ErrorBoundary from "./ErrorBoundary";
 import MaybeAuthenticated from "./MaybeAuthenticated";
 import WithCookies from "./WithCookies";
 import WithLocalDatabase from "./WithLocalDatabase";
 import Router from "./Router";
 
-export default hot(function Application () {
+export default function Application (): JSX.Element {
   return <ErrorBoundary>
     <MaybeAuthenticated>
       <WithCookies>
@@ -17,4 +16,4 @@ export default hot(function Application () {
       </WithCookies>
     </MaybeAuthenticated>
   </ErrorBoundary>;
-});
+}
