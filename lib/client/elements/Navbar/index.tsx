@@ -1,9 +1,10 @@
 import React from "react";
 import Link from "../Link";
-import "./index.scss";
+
+const styling = {};
 
 export default function Navbar (): JSX.Element {
-  return <nav className="Navbar">
-    <Link id="NavbarBrandLink" href="/">Navbar</Link>
+  return <nav css={styling}>
+    <Link href="/">Navbar</Link>
   </nav>;
 }
