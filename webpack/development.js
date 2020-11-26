@@ -5,6 +5,7 @@
 /* eslint-disable import/no-nodejs-modules */
 
 const path = require("path");
+const {HotModuleReplacementPlugin} = require("webpack");
 const {EnvironmentPlugin} = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
@@ -85,6 +86,7 @@ module.exports = {
       "NODE_ENV",
     ]),
     new SizePlugin(),
+    new HotModuleReplacementPlugin(),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
       from,
       to: path.resolve(...OUTPUT_DIRECTORY, "assets", ...to),
