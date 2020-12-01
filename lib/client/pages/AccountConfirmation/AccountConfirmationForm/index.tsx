@@ -47,8 +47,14 @@ export default function AccountConfirmationForm (properties: Readonly<Properties
       property="password"
       label="Password"
       hasValidated={false}
-      inputAttributes={{readOnly: confirmAccountLoading, onChange: (event): void => setPassword(event.target.value), autoComplete: "newPassword", value: password}}
-      value={password}
+      inputAttributes={{
+        readOnly: confirmAccountLoading,
+        onChange: (event): void => {
+          setPassword(event.target.value);
+        },
+        autoComplete: "newPassword",
+        value: password,
+      }}
     />
     <section>
       <button disabled={confirmAccountLoading} className="btn btn-primary" type="submit">Confirm Account</button>

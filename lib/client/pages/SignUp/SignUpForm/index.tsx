@@ -42,8 +42,14 @@ export default function SignUpForm (): JSX.Element {
       property="emailAddress"
       label="Email Address"
       hasValidated={false}
-      inputAttributes={{readOnly: createAccountLoading, onChange: (event): void => setEmailAddress(event.target.value), autoComplete: "email", value: emailAddress}}
-      value={emailAddress}
+      inputAttributes={{
+        readOnly: createAccountLoading,
+        onChange: (event): void => {
+          setEmailAddress(event.target.value);
+        },
+        autoComplete: "email",
+        value: emailAddress,
+      }}
     />
     <section>
       <button disabled={createAccountLoading} className="btn btn-primary" type="submit">Sign Up</button>
