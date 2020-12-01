@@ -37,6 +37,12 @@ module.exports = {
   },
   reportUnusedDisableDirectives: true,
   rules: {
+    "@emotion/import-from-emotion": "error",
+    "@emotion/jsx-import": "off", // We use the babel plugin
+    "@emotion/no-vanilla": "error",
+    "@emotion/pkg-renaming": "error",
+    "@emotion/styled-import": "error",
+    "@emotion/syntax-preference": "error",
     "@typescript-eslint/adjacent-overload-signatures": "error",
     "@typescript-eslint/array-type": ["error", {"default": "generic", readonly: "generic"}],
     "@typescript-eslint/await-thenable": "error",
@@ -68,6 +74,7 @@ module.exports = {
     "@typescript-eslint/no-array-constructor": "error",
     "@typescript-eslint/no-base-to-string": "error",
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
+    "@typescript-eslint/no-confusing-void-expression": "error",
     "@typescript-eslint/no-dupe-class-members": "error",
     "@typescript-eslint/no-duplicate-imports": "off", // doesn't understand my style
     "@typescript-eslint/no-dynamic-delete": "error",
@@ -422,6 +429,7 @@ module.exports = {
     "no-new-symbol": "error",
     "no-new-wrappers": "error",
     "no-new": "error",
+    "no-nonoctal-decimal-escape": "error",
     "no-obj-calls": "error",
     "no-octal-escape": "error",
     "no-octal": "error",
@@ -620,6 +628,7 @@ module.exports = {
     "require-unicode-regexp": "error",
     "require-yield": "error",
     "rest-spread-spacing": "error",
+    "security/detect-buffer-noassert": "error",
     "security/detect-child-process": "error",
     "security/detect-disable-mustache-escape": "error",
     "security/detect-eval-with-expression": "error",
