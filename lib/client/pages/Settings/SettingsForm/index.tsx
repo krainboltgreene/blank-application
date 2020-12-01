@@ -27,7 +27,7 @@ export default function SettingsForm (): JSX.Element {
   const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
   const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<SettingsType>(fetchSettingsQuery);
   const [updateSettings, {loading: updateSettingsLoading, error: updateSettingsError, data: updateSettingsData}] = useMutation<UpdateSettingsMutation>(updateSettingsMutation);
-  const {lightMode: savedLightMode} = fetchSettingsData ?? {};
+  const {lightMode: savedLightMode = true} = fetchSettingsData ?? {savedLightMode: true};
   const [lightMode, setLightMode] = useState(savedLightMode);
 
   useEffect(() => {
