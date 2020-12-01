@@ -7,11 +7,10 @@ import FieldHelp from "../FieldHelp";
 import FieldFeedback from "../FieldFeedback";
 
 interface PropertiesType {
+  type: string;
   scope: string;
   label: string;
-  type: string;
   property: string;
-  value: string | number | ReadonlyArray<string> | undefined;
   help?: string;
   isValid?: boolean | null;
   hasValidated: boolean;
@@ -25,7 +24,6 @@ export default function Field (properties: Readonly<PropertiesType>): JSX.Elemen
   const {label} = properties;
   const {type} = properties;
   const {property} = properties;
-  const {value} = properties;
   const {help} = properties;
   const {isValid = null} = properties;
   const {hasValidated = false} = properties;
@@ -39,7 +37,7 @@ export default function Field (properties: Readonly<PropertiesType>): JSX.Elemen
 
   return <section>
     <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
-    <input id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} value={value} {...inputAttributes} />
+    <input id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} {...inputAttributes} />
     <FieldHelp id={helpId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;
