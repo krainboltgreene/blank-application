@@ -1,7 +1,7 @@
 /* eslint-disable import/no-commonjs */
 module.exports = {
   presets: [
-    ["@babel/preset-env", {useBuiltIns: "entry", corejs: "3.6", targets: "> 0.25%, not dead"}],
+    ["@babel/preset-env", {useBuiltIns: "entry", corejs: 3, targets: "> 0.25%, not dead"}],
     ["@babel/preset-typescript", {isTSX: true, allExtensions: true}],
     ["@babel/preset-react", {development: process.env.NODE_ENV !== "production"}],
     process.env.NODE_ENV === "production" ? "minify" : undefined,
