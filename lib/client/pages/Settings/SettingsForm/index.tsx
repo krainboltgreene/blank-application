@@ -7,7 +7,7 @@ import {useQuery} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
-import {Field} from "@clumsy_chinchilla/elements";
+import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateSettingsMutation from "./updateSettingsMutation.gql";
 import fetchSettingsQuery from "./fetchSettingsQuery.gql";
@@ -53,14 +53,19 @@ export default function SettingsForm (): JSX.Element {
     event.preventDefault();
     await updateSettings({variables: {input: {lightMode}}});
   }}>
-    <Field
+    <CheckboxField
       scope="SettingsForm"
-      type="password"
       property="lightMode"
       label="Light Mode"
       hasValidated={false}
-      inputAttributes={{readOnly: updateSettingsLoading, onChange: (): void => setLightMode(!lightMode), autoComplete: "currentPassword", value: password}}
-      value={lightMode}
+      inputAttributes={{
+        readOnly: updateSettingsLoading,
+        onChange: (): void => {
+          setLightMode(!lightMode);
+        },
+        autoComplete: "currentPassword",
+        checked: lightMode,
+      }}
     />
     <section>
       <button disabled={updateSettingsLoading} className="btn btn-primary" type="submit">Login</button>
