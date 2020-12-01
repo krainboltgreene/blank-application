@@ -37,7 +37,7 @@ export default function Field (properties: Readonly<PropertiesType>): JSX.Elemen
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section className="form-group">
+  return <section>
     <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
     <input id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} value={value} {...inputAttributes} />
     <FieldHelp id={helpId}>{help}</FieldHelp>
