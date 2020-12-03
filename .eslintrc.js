@@ -457,7 +457,7 @@ module.exports = {
     "no-sequences": "error",
     "no-setter-return": "error",
     "no-shadow-restricted-names": "error",
-    "no-shadow": "error",
+    "no-shadow": "off", // handled by typescript/eslint-plugin
     "no-sparse-arrays": "error",
     "no-sync": "error",
     "no-tabs": "error",
@@ -479,7 +479,7 @@ module.exports = {
     "no-unsafe-negation": "error",
     "no-unused-expressions": "error",
     "no-unused-labels": "error",
-    "no-unused-vars": "error",
+    "no-unused-vars": "off", // handled by typescript/eslint-plugin
     "no-use-before-define": "off", // handled by typescript/eslint-plugin
     "no-useless-backreference": "error",
     "no-useless-call": "error",
@@ -683,7 +683,7 @@ module.exports = {
     "unicorn/no-null": "off", // what the fuck
     "unicorn/no-object-as-default-parameter": "error",
     "unicorn/no-process-exit": "error",
-    "unicorn/no-reduce": "error",
+    "unicorn/no-reduce": "off", // this is fucking stupid
     "unicorn/no-unreadable-array-destructuring": "error",
     "unicorn/no-unsafe-regex": "error",
     "unicorn/no-unused-properties": "error",
