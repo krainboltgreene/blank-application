@@ -1,4 +1,4 @@
-defmodule ClumsyChinchillaWeb.ConnCase do
+defmodule Web.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule ClumsyChinchillaWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use ClumsyChinchillaWeb.ConnCase, async: true`, although
+  by setting `use Web.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -22,12 +22,12 @@ defmodule ClumsyChinchillaWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import ClumsyChinchillaWeb.ConnCase
+      import Web.ConnCase
 
-      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
+      alias Web.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint ClumsyChinchillaWeb.Endpoint
+      @endpoint Web.Endpoint
     end
   end
 

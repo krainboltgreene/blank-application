@@ -1,4 +1,4 @@
-defmodule ClumsyChinchillaWeb.Endpoint do
+defmodule Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :clumsy_chinchilla
   use Absinthe.Phoenix.Endpoint
 
@@ -11,7 +11,7 @@ defmodule ClumsyChinchillaWeb.Endpoint do
     signing_salt: "bbTmf3m/"
   ]
 
-  socket "/socket", ClumsyChinchillaWeb.UserSocket,
+  socket "/socket", Web.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -52,5 +52,5 @@ defmodule ClumsyChinchillaWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug ClumsyChinchillaWeb.Router
+  plug Web.Router
 end

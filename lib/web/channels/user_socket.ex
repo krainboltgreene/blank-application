@@ -1,11 +1,11 @@
-defmodule ClumsyChinchillaWeb.UserSocket do
+defmodule Web.UserSocket do
   use Phoenix.Socket
 
   use Absinthe.Phoenix.Socket,
     schema: Graphql.Schema
 
   ## Channels
-  # channel "room:*", ClumsyChinchillaWeb.RoomChannel
+  # channel "room:*", Web.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -38,7 +38,7 @@ defmodule ClumsyChinchillaWeb.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     ClumsyChinchillaWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
+  #     Web.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   @spec id(%{optional(any) => any, assigns: %{optional(any) => any, account_id: binary}}) ::

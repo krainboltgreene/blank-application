@@ -17,10 +17,10 @@ defmodule Mailer do
   end
 
   def browser_remote_url(component, parameters) when is_bitstring(component) do
-    ClumsyChinchillaWeb.Endpoint.url()
+    Web.Endpoint.url()
     |> URI.parse()
     |> Map.merge(Application.fetch_env!(:clumsy_chinchilla, :remotes)[:browser_remote])
-    |> ClumsyChinchillaWeb.Router.Helpers.remote_url(:browser_remote, component, parameters)
+    |> Web.Router.Helpers.remote_url(:browser_remote, component, parameters)
   end
 
   def router do

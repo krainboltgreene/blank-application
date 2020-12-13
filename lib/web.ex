@@ -1,12 +1,12 @@
-defmodule ClumsyChinchillaWeb do
+defmodule Web do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use ClumsyChinchillaWeb, :controller
-      use ClumsyChinchillaWeb, :view
+      use Web, :controller
+      use Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule ClumsyChinchillaWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: ClumsyChinchillaWeb
+      use Phoenix.Controller, namespace: Web
 
       import Plug.Conn
-      import ClumsyChinchillaWeb.Gettext
-      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
+      import Web.Gettext
+      alias Web.Router.Helpers, as: Routes
     end
   end
 
@@ -31,7 +31,7 @@ defmodule ClumsyChinchillaWeb do
     quote do
       use Phoenix.View,
         root: "lib/clumsy_chinchilla_web/templates",
-        namespace: ClumsyChinchillaWeb
+        namespace: Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +45,7 @@ defmodule ClumsyChinchillaWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {ClumsyChinchillaWeb.LayoutView, "live.html"}
+        layout: {Web.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -72,7 +72,7 @@ defmodule ClumsyChinchillaWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import ClumsyChinchillaWeb.Gettext
+      import Web.Gettext
     end
   end
 
@@ -87,9 +87,9 @@ defmodule ClumsyChinchillaWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import ClumsyChinchillaWeb.ErrorHelpers
-      import ClumsyChinchillaWeb.Gettext
-      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
+      import Web.ErrorHelpers
+      import Web.Gettext
+      alias Web.Router.Helpers, as: Routes
     end
   end
 

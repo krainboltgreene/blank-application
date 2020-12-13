@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.RemoteView do
-  use ClumsyChinchillaWeb, :view
+defmodule Web.RemoteView do
+  use Web, :view
 end

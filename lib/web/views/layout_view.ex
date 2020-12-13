@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.LayoutView do
-  use ClumsyChinchillaWeb, :view
+defmodule Web.LayoutView do
+  use Web, :view
 end

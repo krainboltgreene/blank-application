@@ -89,7 +89,7 @@ export default function CodeOfConduct (): JSX.Element {
       Enforcement
     </h2>
     <p>
-      Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the ClumsyChinchilla admin team at <a href="mailto:support@clumsy-chinchilla.club">support@ClumsyChinchilla.club</a>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+      Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the ClumsyChinchilla admin team at <a href="mailto:support@clumsy-chinchilla.club">support@clumsy-chinchilla.club</a>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
     </p>
 
     <p>

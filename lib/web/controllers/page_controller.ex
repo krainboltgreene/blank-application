@@ -1,5 +1,5 @@
-defmodule ClumsyChinchillaWeb.PageController do
-  use ClumsyChinchillaWeb, :controller
+defmodule Web.PageController do
+  use Web, :controller
 
   @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
   def index(conn, _params) do

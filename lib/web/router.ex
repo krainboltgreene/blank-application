@@ -1,12 +1,12 @@
-defmodule ClumsyChinchillaWeb.Router do
-  use ClumsyChinchillaWeb, :router
+defmodule Web.Router do
+  use Web, :router
   import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {ClumsyChinchillaWeb.LayoutView, :root}
+    plug :put_root_layout, {Web.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -25,7 +25,7 @@ defmodule ClumsyChinchillaWeb.Router do
   scope "/" do
     pipe_through :browser
 
-    get "/", ClumsyChinchillaWeb.PageController, :index
+    get "/", Web.PageController, :index
 
     # live "/", PageLive, :index
     if Mix.env != :prod do
@@ -39,10 +39,10 @@ defmodule ClumsyChinchillaWeb.Router do
       # If your application does not have an admins-only section yet,
       # you can use Plug.BasicAuth to set up some basic authentication
       # as long as you are also using SSL (which you should anyway).
-      live_dashboard "/dashboard", metrics: ClumsyChinchillaWeb.Telemetry
+      live_dashboard "/dashboard", metrics: Web.Telemetry
     end
 
-    get "/:path", ClumsyChinchillaWeb.RemoteController, :browser_remote
+    get "/:path", Web.RemoteController, :browser_remote
   end
 
   scope "/graphql" do

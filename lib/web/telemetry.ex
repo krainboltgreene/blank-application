@@ -1,4 +1,4 @@
-defmodule ClumsyChinchillaWeb.Telemetry do
+defmodule Web.Telemetry do
   @moduledoc false
   use Supervisor
   import Telemetry.Metrics
@@ -61,7 +61,7 @@ defmodule ClumsyChinchillaWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {ClumsyChinchillaWeb, :count_users, []}
+      # {Web, :count_users, []}
     ]
   end
 

@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.MixProject do
+defmodule Core.MixProject do
   @moduledoc false
   use Mix.Project
 
@@ -29,7 +29,7 @@ defmodule ClumsyChinchilla.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {ClumsyChinchilla.Application, []},
+      mod: {Core.Application, []},
       extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug, :bamboo]
     ]
   end
