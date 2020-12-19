@@ -49,10 +49,15 @@ export default function SettingsForm (): JSX.Element {
     return <Loading kind="block" />;
   }
 
-  return <form id="SettingsForm" onSubmit={async (event): Promise<void> => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    await updateSettings({variables: {input: {lightMode}}});
-  }}>
+    await updateSettings({variables: {input: {id, lightMode}}});
+  };
+  const onChangeLightMode = (): void => {
+    setLightMode(!lightMode);
+  };
+
+  return <form id="SettingsForm" onSubmit={onSubmit}>
     <CheckboxField
       scope="SettingsForm"
       property="lightMode"
@@ -60,9 +65,7 @@ export default function SettingsForm (): JSX.Element {
       hasValidated={false}
       inputAttributes={{
         readOnly: updateSettingsLoading,
-        onChange: (): void => {
-          setLightMode(!lightMode);
-        },
+        onChange: onChangeLightMode,
         autoComplete: "currentPassword",
         checked: lightMode,
       }}
