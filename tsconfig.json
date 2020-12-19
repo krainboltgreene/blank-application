@@ -5,6 +5,7 @@
   "include": [
     "d.ts",
     "lib/client/",
+    "node_modules/bdd-lazy-var/index.d.ts"
   ],
   "compilerOptions": {
     "noEmit": true,
