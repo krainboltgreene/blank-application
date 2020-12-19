@@ -93,7 +93,7 @@ defmodule Database.Models.Account do
     |> generate_confirmation_secret_if_new_record()
     |> replace_email_address_with_unconfirmed_email_address(attributes)
     |> cast(attributes, [:email_address, :username, :name, :password_hash, :confirmation_secret, :unconfirmed_email_address])
-    |> cast_embed(:settings, with: &Database.Models.Settings.changeset/2)
+    |> cast_embed(:settings)
     |> validate_required([:email_address])
     |> unique_constraint(:email_address)
     |> unique_constraint(:username)
