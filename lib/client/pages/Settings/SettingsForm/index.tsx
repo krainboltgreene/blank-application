@@ -68,7 +68,9 @@ export default function SettingsForm (): JSX.Element {
       }}
     />
     <section>
-      <button disabled={updateSettingsLoading} className="btn btn-primary" type="submit">Login</button>
+      <button disabled={updateSettingsLoading} className="btn btn-primary" type="submit">
+        Save Settings
+      </button>
     </section>
   </form>;
 }
