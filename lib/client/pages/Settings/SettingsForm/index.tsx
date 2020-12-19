@@ -1,12 +1,12 @@
 import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
-import {useSetRecoilState} from "recoil";
+import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
-import {useHistory} from "react-router-dom";
+import {dig} from "@unction/complete";
 
-import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
+import {settings as settingsAtom} from "@clumsy_chinchilla/atoms";
 import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateSettingsMutation from "./updateSettingsMutation.gql";
@@ -15,33 +15,52 @@ import fetchSettingsQuery from "./fetchSettingsQuery.gql";
 interface UpdateSettingsMutation {
   updateSettings: {
     id: string;
+    lightMode: boolean;
+  };
+}
+interface FetchSettingsQuery {
+  session: {
+    id: string;
+    account: {
+      id: string;
+      settings: {
+        id: string;
+        lightMode: boolean;
+      };
+    };
   };
 }
 
 interface SettingsType {
+  id: string;
   lightMode: boolean;
 }
 
 export default function SettingsForm (): JSX.Element {
-  const history = useHistory();
-  const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
-  const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<SettingsType>(fetchSettingsQuery);
+  const [settings, setSettings] = useRecoilState<SettingsType | null>(settingsAtom);
+  const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<FetchSettingsQuery>(fetchSettingsQuery);
   const [updateSettings, {loading: updateSettingsLoading, error: updateSettingsError, data: updateSettingsData}] = useMutation<UpdateSettingsMutation>(updateSettingsMutation);
-  const {lightMode: savedLightMode = true} = fetchSettingsData ?? {savedLightMode: true};
+  const {lightMode: savedLightMode = true} = dig<string, FetchSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
+  const {id} = dig<string, FetchSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
   const [lightMode, setLightMode] = useState(savedLightMode);
 
   useEffect(() => {
     if (updateSettingsData) {
-      setCurrentAccount(updateSettingsData.updateSettings.id);
-      history.push("/"); // TODO: This should be back instead
+      setSettings(updateSettingsData.updateSettings);
     }
-  }, [updateSettingsData, setCurrentAccount, history]);
+  }, [updateSettingsData, setSettings, fetchSettingsData]);
+  useEffect(() => {
+    if (fetchSettingsData) {
+      setSettings(fetchSettingsData.session.account.settings);
+    }
+  }, [fetchSettingsData, setSettings]);
 
   if (fetchSettingsError) {
     throw fetchSettingsError;
   }
 
   if (updateSettingsError && updateSettingsError.message !== "incorrect_credentials") {
+    // TODO: Actually handle real errors
     throw updateSettingsError;
   }
 
@@ -51,6 +70,9 @@ export default function SettingsForm (): JSX.Element {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
+    console.log({settings});
+    console.log({fetchSettingsData});
+    console.log({id});
     await updateSettings({variables: {input: {id, lightMode}}});
   };
   const onChangeLightMode = (): void => {
