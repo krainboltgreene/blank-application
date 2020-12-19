@@ -1,4 +1,4 @@
-# ClumsyChinchilla
+# Clumsy Chinchilla
 
 This project is actually 5 parts:
 
