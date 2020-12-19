@@ -54,7 +54,8 @@ defmodule Database.Models.Account do
   @spec create(%{email_address: String.t(), password: String.t()}) :: {:ok, Database.Models.Account.t()} | {:error, Ecto.Changeset.t(Database.Models.Account.t()) | Database.Models.Account.t()}
   def create(%{email_address: email_address, password: password} = attributes) when is_bitstring(email_address) and is_bitstring(password) do
     Database.Models.Account.__struct__(%{
-      username: List.first(String.split(email_address, "@"))
+      username: List.first(String.split(email_address, "@")),
+      settings: %{}
     })
     |> changeset(attributes)
     |> case do
