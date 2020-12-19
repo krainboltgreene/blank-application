@@ -36,7 +36,6 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
     }
     default: {
       return <main css={[page, styling]} data-component={as}>
-        2
         {titleChange}
         {children}
       </main>;
