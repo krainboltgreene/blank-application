@@ -2,6 +2,10 @@
   "exclude": [
     "node_modules"
   ],
+  "include": [
+    "d.ts",
+    "lib/client/",
+  ],
   "compilerOptions": {
     "noEmit": true,
     "jsx": "react",
