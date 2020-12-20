@@ -4,9 +4,6 @@ import type {ReactNode} from "react";
 import type {LabelHTMLAttributes} from "react";
 import type {InputHTMLAttributes} from "react";
 
-import {formCheck} from "@clumsy_chinchilla/styles";
-import {formCheckInput} from "@clumsy_chinchilla/styles";
-import {formCheckLabel} from "@clumsy_chinchilla/styles";
 import FieldHelp from "../FieldHelp";
 import FieldFeedback from "../FieldFeedback";
 
@@ -39,9 +36,9 @@ export default function RadioField (properties: Readonly<PropertiesType>): JSX.E
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section css={formCheck}>
-    <input id={inputId} css={formCheckInput} name={name} aria-labelledby={labelId} aria-describedby={helpId} type="radio" {...inputAttributes} />
-    <label id={labelId} htmlFor={inputId} css={formCheckLabel} {...labelAttributes}>{label}</label>;
+  return <section>
+    <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type="radio" {...inputAttributes} />
+    <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>;
     <FieldHelp id={inputId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;
