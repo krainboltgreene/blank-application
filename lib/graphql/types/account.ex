@@ -16,5 +16,8 @@ defmodule Graphql.Types.Account do
     field :organizations, list_of(:organization),
       resolve: dataloader(Database.Models.Organization)
     field :settings, non_null(:settings)
+    field :critiques, list_of(non_null(:critique)), resolve: dataloader(Database.Models.Critique)
+    field :reviews, list_of(non_null(:review)), resolve: dataloader(Database.Models.Review)
+    field :recipes, list_of(non_null(:recipe)), resolve: dataloader(Database.Models.Recipe)
   end
 end

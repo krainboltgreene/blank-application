@@ -44,6 +44,10 @@ config :paper_trail,
   originator_type: Ecto.UUID,
   originator: [name: :account, model: Database.Models.Account]
 
+
+config :google_maps,
+  api_key: "YOUR API KEY HERE"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config("#{Mix.env()}.exs")

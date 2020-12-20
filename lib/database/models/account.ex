@@ -29,6 +29,9 @@ defmodule Database.Models.Account do
     embeds_one(:settings, Database.Models.Settings)
     has_many(:organization_memberships, Database.Models.OrganizationMembership)
     has_many(:organizations, through: [:organization_memberships, :organization])
+    has_many :reviews, Database.Models.Review, foreign_key: :author_account_id
+    has_many :recipes, Database.Models.Recipe, foreign_key: :author_account_id
+    has_many :critiques, Database.Models.Critique, foreign_key: :author_account_id
 
     timestamps()
   end
