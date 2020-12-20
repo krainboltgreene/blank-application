@@ -32,6 +32,7 @@ defmodule Graphql.Mutations.Settings do
       %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.update(changeset)
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
+    # TODO: Make embedded a lot easier
     |> case do
       {status, record} -> {status, record |> Map.get(:settings)}
     end
