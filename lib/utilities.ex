@@ -51,26 +51,16 @@ defmodule Utilities do
     [value | list]
   end
 
-  @spec flow_logger(Flow.t()) :: Flow.t()
-  def flow_logger(flow) do
-    flow
-    |> Flow.map(fn value ->
-      Logger.info(Kernel.inspect(value))
+  @spec aside_log(list | Flow.t(), bitstring | (any -> any)) :: list | Flow.t()
+  def aside_log(list, function) when is_list(list) and is_function(function, 1) do
+    list
+    |> Enum.map(fn value ->
+      Logger.info(function.(value))
       value
     end)
   end
 
-  @spec flow_logger(Flow.t(), String.t()) :: Flow.t()
-  def flow_logger(flow, message) when is_bitstring(message) do
-    flow
-    |> Flow.map(fn value ->
-      Logger.info(message)
-      value
-    end)
-  end
-
-  @spec flow_logger(Flow.t(), (any -> any)) :: Flow.t()
-  def flow_logger(flow, function) when is_function(function, 1) do
+  def aside_log(flow, function) when is_function(function, 1) do
     flow
     |> Flow.map(fn value ->
       Logger.info(function.(value))
@@ -78,29 +68,34 @@ defmodule Utilities do
     end)
   end
 
-  @spec enum_logger(Enum.t()) :: Enum.t()
-  def enum_logger(enumerable) do
-    enumerable
-    |> Enum.map(fn value ->
-      Logger.info(Kernel.inspect(value))
-      value
-    end)
-  end
-
-  @spec enum_logger(Enum.t(), String.t()) :: Enum.t()
-  def enum_logger(enumerable, message) when is_bitstring(message) do
-    enumerable
+  def aside_log(list, message) when is_list(list) and is_bitstring(message) do
+    list
     |> Enum.map(fn value ->
       Logger.info(message)
       value
     end)
   end
 
-  @spec enum_logger(Enum.t(), (any -> any)) :: Enum.t()
-  def enum_logger(enumerable, function) when is_function(function, 1) do
-    enumerable
+  def aside_log(flow, message) when is_bitstring(message) do
+    flow
+    |> Flow.map(fn value ->
+      Logger.info(message)
+      value
+    end)
+  end
+
+  def aside_log(list) when is_list(list) do
+    list
     |> Enum.map(fn value ->
-      Logger.info(function.(value))
+      Logger.info(Kernel.inspect(value))
+      value
+    end)
+  end
+
+  def aside_log(flow) do
+    flow
+    |> Flow.map(fn value ->
+      Logger.info(Kernel.inspect(value))
       value
     end)
   end
