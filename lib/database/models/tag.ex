@@ -7,6 +7,7 @@ defmodule Database.Models.Tag do
   schema "tags" do
     field :name, :string
     field :slug, Database.Slugs.Name.Type
+    # many_to_many :menu_items, Database.Models.MenuItem, join_through: Database.Models.MenuItemTag
 
     timestamps()
   end

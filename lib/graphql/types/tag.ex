@@ -4,6 +4,7 @@ defmodule Graphql.Types.Tag do
 
 
   enum :taggable_types do
+    # value :establishment, description: "Referencing the establishment data type"
   end
 
   union :taggable do
@@ -11,6 +12,7 @@ defmodule Graphql.Types.Tag do
 
     types [:establishment, :menu_item, :recipe, :review]
     resolve_type fn
+      # %Database.Models.Establishment{}, _ -> :establishment
     end
   end
 
@@ -21,5 +23,6 @@ defmodule Graphql.Types.Tag do
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
     field :taggables, list_of(non_null(:taggable))
+    # field :establishments, list_of(non_null(:establishment)), resolve: dataloader(Database.Models.Establishment)
   end
 end
