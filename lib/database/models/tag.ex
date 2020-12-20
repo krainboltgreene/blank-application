@@ -11,10 +11,15 @@ defmodule Database.Models.Tag do
     timestamps()
   end
 
+  @type t :: %__MODULE__{
+    name: String.t,
+    slug: String.t,
+  }
+
   @doc false
-  #@spec changeset (Database.Models.Account.t(), map) :: Ecto.Changeset.t(Database.Models.Account.t())
+  @spec changeset(Database.Models.Tag.t(), map) :: Ecto.Changeset.t(Database.Models.Tag.t())
   def changeset(record, attributes) do
-    tag
+    record
       |> cast(attributes, [:name])
       |> validate_required([:name])
       |> Database.Slugs.Name.maybe_generate_slug
