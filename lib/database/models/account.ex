@@ -7,10 +7,6 @@ defmodule Database.Models.Account do
   state_machines(
     onboarding_state: [
       complete: [converted: "completed"]
-    ],
-    role_state: [
-      grant_administrator_powers: [user: "administrator"],
-      revoke_administrator_powers: [administrator: "user"]
     ]
   )
 
@@ -23,7 +19,6 @@ defmodule Database.Models.Account do
     field(:username, :string)
     field(:name, :string)
     field(:onboarding_state, :string, default: "converted")
-    field(:role_state, :string, default: "user")
     field(:password, :string, virtual: true)
     field(:password_hash, :string)
     embeds_one(:settings, Database.Models.Settings)
@@ -43,7 +38,6 @@ defmodule Database.Models.Account do
     username: String.t(),
     name: String.t() | nil,
     onboarding_state: String.t(),
-    role_state: String.t(),
     password: String.t() | nil,
     password_hash: String.t() | nil,
     settings: Database.Models.Settings.t() | nil,
