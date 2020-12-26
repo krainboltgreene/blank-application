@@ -11,18 +11,23 @@ defmodule Database.Models.ElixirFunctionSpec do
     field :guards, :string, default: ""
   end
 
-  @spec as_ast(%{elixir_function: %{slug: bitstring}, guards: bitstring, inputs: bitstring, return: bitstring}) ::
+  @spec as_ast(%{
+          elixir_function: %{slug: bitstring},
+          guards: bitstring,
+          inputs: bitstring,
+          return: bitstring
+        }) ::
           {:@, [], [{:spec, [], [...]}, ...]}
-  def as_ast(%{elixir_function: %{slug: elixir_function_slug}, inputs: inputs, return: return, guards: guards})
-  when
-    is_bitstring(elixir_function_slug)
-    and
-    is_bitstring(inputs)
-    and
-    is_bitstring(return)
-    and
-    is_bitstring(guards)
-  do
+  def as_ast(%{
+        elixir_function: %{slug: elixir_function_slug},
+        inputs: inputs,
+        return: return,
+        guards: guards
+      })
+      when is_bitstring(elixir_function_slug) and
+             is_bitstring(inputs) and
+             is_bitstring(return) and
+             is_bitstring(guards) do
     {
       :@,
       [],
@@ -31,7 +36,11 @@ defmodule Database.Models.ElixirFunctionSpec do
           :spec,
           [],
           [
-            {:"::", [], [{String.to_atom(elixir_function_slug), [], [inputs |> to_quote]}, return |> to_quote]}
+            {:"::", [],
+             [
+               {String.to_atom(elixir_function_slug), [], [inputs |> to_quote]},
+               return |> to_quote
+             ]}
           ]
         }
       ]

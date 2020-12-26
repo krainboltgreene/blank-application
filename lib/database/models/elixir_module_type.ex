@@ -11,13 +11,9 @@ defmodule Database.Models.ElixirModuleType do
   end
 
   def as_ast(%{name: name, left: left, right: right})
-  when
-    is_bitstring(name)
-    and
-    is_bitstring(left)
-    and
-    is_bitstring(right)
-  do
-    {:@, [], [ {:type, [], [{:"::", [], [left |> to_quote, [right |> to_quote]]}]}]}
+      when is_bitstring(name) and
+             is_bitstring(left) and
+             is_bitstring(right) do
+    {:@, [], [{:type, [], [{:"::", [], [left |> to_quote, [right |> to_quote]]}]}]}
   end
 end

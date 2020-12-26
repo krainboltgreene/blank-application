@@ -24,56 +24,45 @@ defmodule Database.Models.ElixirFunction do
   end
 
   @spec as_ast(%{
-    body: String.t(),
-    declaration: String.t(),
-    documentation: String.t(),
-    elixir_module: %Database.Models.ElixirModule{slug: String.t()},
-    elixir_specs: [%Database.Models.ElixirFunctionSpec{inputs: String.t(), return: String.t()}],
-    guards: String.t(),
-    inputs: String.t(),
-    name: String.t(),
-    slug: String.t(),
-    hash: String.t()
-  }) :: {:defmodule, [], [[{any, any}, ...] | {:__aliases__, [], [...]}, ...]}
-  def as_ast(
-    %{
-      declaration: declaration,
-      documentation: documentation,
-      elixir_specs: elixir_specs,
-      guards: guards,
-      inputs: inputs,
-      name: name,
-      body: body,
-      elixir_module: %{
-        slug: elixir_module_slug,
-        documentation: elixir_module_documentation,
-      },
-      slug: slug,
-      hash: hash,
-    })
-  when
-    is_bitstring(declaration)
-    and
-    is_bitstring(documentation)
-    and
-    is_list(elixir_specs)
-    and
-    is_bitstring(guards)
-    and
-    is_bitstring(inputs)
-    and
-    is_bitstring(name)
-    and
-    is_bitstring(body)
-    and
-    is_bitstring(elixir_module_slug)
-    and
-    is_bitstring(elixir_module_documentation)
-    and
-    is_bitstring(slug)
-    and
-    is_bitstring(hash)
-  do
+          body: String.t(),
+          declaration: String.t(),
+          documentation: String.t(),
+          elixir_module: %Database.Models.ElixirModule{slug: String.t()},
+          elixir_specs: [
+            %Database.Models.ElixirFunctionSpec{inputs: String.t(), return: String.t()}
+          ],
+          guards: String.t(),
+          inputs: String.t(),
+          name: String.t(),
+          slug: String.t(),
+          hash: String.t()
+        }) :: {:defmodule, [], [[{any, any}, ...] | {:__aliases__, [], [...]}, ...]}
+  def as_ast(%{
+        declaration: declaration,
+        documentation: documentation,
+        elixir_specs: elixir_specs,
+        guards: guards,
+        inputs: inputs,
+        name: name,
+        body: body,
+        elixir_module: %{
+          slug: elixir_module_slug,
+          documentation: elixir_module_documentation
+        },
+        slug: slug,
+        hash: hash
+      })
+      when is_bitstring(declaration) and
+             is_bitstring(documentation) and
+             is_list(elixir_specs) and
+             is_bitstring(guards) and
+             is_bitstring(inputs) and
+             is_bitstring(name) and
+             is_bitstring(body) and
+             is_bitstring(elixir_module_slug) and
+             is_bitstring(elixir_module_documentation) and
+             is_bitstring(slug) and
+             is_bitstring(hash) do
     {
       :defmodule,
       [],
@@ -90,10 +79,15 @@ defmodule Database.Models.ElixirFunction do
             ])
           }
         ]
-      ]}
+      ]
+    }
   end
 
-  @spec as_source(%{optional(any) => any, data: %{optional(any) => any, ast: binary}}) :: %{optional(any) => any, ast: binary, source: binary}
+  @spec as_source(%{optional(any) => any, data: %{optional(any) => any, ast: binary}}) :: %{
+          optional(any) => any,
+          ast: binary,
+          source: binary
+        }
   defp as_source(%{data: %{ast: ast}} = record) when is_bitstring(ast) do
     Map.merge(record, %{data: %{source: Macro.to_string(ast)}})
   end

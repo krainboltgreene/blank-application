@@ -15,6 +15,7 @@ defmodule Henosis.Repo.Migrations.CreateElixirFunctions do
       add :body, :text, null: false
       add :ast, :text, null: false
       add :source, :text, null: false
+
       add :elixir_module_id, references(:elixir_modules, on_delete: :nothing, type: :binary_id),
         null: false
 

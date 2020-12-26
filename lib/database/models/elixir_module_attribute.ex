@@ -10,11 +10,8 @@ defmodule Database.Models.ElixirModuleAttribute do
   end
 
   def as_ast(%{name: name, value: value})
-  when
-    is_bitstring(name)
-    and
-    is_bitstring(value)
-  do
+      when is_bitstring(name) and
+             is_bitstring(value) do
     {
       :@,
       [],
