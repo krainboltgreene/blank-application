@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.MixProject do
+defmodule Core.MixProject do
   @moduledoc false
   use Mix.Project
 
@@ -8,7 +8,8 @@ defmodule ClumsyChinchilla.MixProject do
       version: "1.0.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:graphql_schema_json, :graphql_schema_sdl],
+      compilers:
+        [:phoenix, :gettext] ++ Mix.compilers() ++ [:graphql_schema_json, :graphql_schema_sdl],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -29,7 +30,7 @@ defmodule ClumsyChinchilla.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {ClumsyChinchilla.Application, []},
+      mod: {Core.Application, []},
       extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug, :bamboo]
     ]
   end

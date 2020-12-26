@@ -40,7 +40,7 @@ export default function SelectField<V> (properties: Readonly<PropertiesType<V>>)
   const helpId = `${inputId}-help`;
 
   // TODO: Handle select change
-  return <section className="form-group form-check">
+  return <section className="form-check">
     <select id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes}>
       {
         mapValues(

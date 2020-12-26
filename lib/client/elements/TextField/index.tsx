@@ -11,7 +11,6 @@ interface PropertiesType {
   label: string;
   type: string;
   property: string;
-  value: string | number | ReadonlyArray<string> | undefined;
   help?: string;
   isValid: boolean | null;
   hasValidated: boolean;
@@ -24,7 +23,6 @@ export default function TextField (properties: Readonly<PropertiesType>): JSX.El
   const {scope} = properties;
   const {label} = properties;
   const {property} = properties;
-  const {value} = properties;
   const {help} = properties;
   const {isValid = null} = properties;
   const {hasValidated = false} = properties;
@@ -36,9 +34,9 @@ export default function TextField (properties: Readonly<PropertiesType>): JSX.El
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section className="form-group">
+  return <section>
     <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
-    <textarea id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} value={value} {...inputAttributes} />
+    <textarea id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes} />
     <FieldHelp id={helpId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;

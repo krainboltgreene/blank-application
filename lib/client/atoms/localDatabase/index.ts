@@ -1,6 +1,6 @@
 import {atom} from "recoil";
 
-export default atom({
+export default atom<PouchDB.Database | null>({
   "key": "localDatabase",
   "default": null,
   "dangerouslyAllowMutability": true,

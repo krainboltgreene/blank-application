@@ -1,5 +1,10 @@
-/* eslint-disable import/no-commonjs */
 module.exports = {
+  exclude: [
+    "*.config.js",
+    ".eslintrc.js",
+    "d.ts",
+    "webpack/"
+  ],
   parser: "@typescript-eslint/parser",
   plugins: [
     "@typescript-eslint",
@@ -37,6 +42,12 @@ module.exports = {
   },
   reportUnusedDisableDirectives: true,
   rules: {
+    "@emotion/import-from-emotion": "error",
+    "@emotion/jsx-import": "off", // We use the babel plugin
+    "@emotion/no-vanilla": "error",
+    "@emotion/pkg-renaming": "error",
+    "@emotion/styled-import": "error",
+    "@emotion/syntax-preference": "error",
     "@typescript-eslint/adjacent-overload-signatures": "error",
     "@typescript-eslint/array-type": ["error", {"default": "generic", readonly: "generic"}],
     "@typescript-eslint/await-thenable": "error",
@@ -68,6 +79,7 @@ module.exports = {
     "@typescript-eslint/no-array-constructor": "error",
     "@typescript-eslint/no-base-to-string": "error",
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
+    "@typescript-eslint/no-confusing-void-expression": "error",
     "@typescript-eslint/no-dupe-class-members": "error",
     "@typescript-eslint/no-duplicate-imports": "off", // doesn't understand my style
     "@typescript-eslint/no-dynamic-delete": "error",
@@ -422,6 +434,7 @@ module.exports = {
     "no-new-symbol": "error",
     "no-new-wrappers": "error",
     "no-new": "error",
+    "no-nonoctal-decimal-escape": "error",
     "no-obj-calls": "error",
     "no-octal-escape": "error",
     "no-octal": "error",
@@ -449,7 +462,7 @@ module.exports = {
     "no-sequences": "error",
     "no-setter-return": "error",
     "no-shadow-restricted-names": "error",
-    "no-shadow": "error",
+    "no-shadow": "off", // handled by typescript/eslint-plugin
     "no-sparse-arrays": "error",
     "no-sync": "error",
     "no-tabs": "error",
@@ -471,7 +484,7 @@ module.exports = {
     "no-unsafe-negation": "error",
     "no-unused-expressions": "error",
     "no-unused-labels": "error",
-    "no-unused-vars": "error",
+    "no-unused-vars": "off", // handled by typescript/eslint-plugin
     "no-use-before-define": "off", // handled by typescript/eslint-plugin
     "no-useless-backreference": "error",
     "no-useless-call": "error",
@@ -620,6 +633,7 @@ module.exports = {
     "require-unicode-regexp": "error",
     "require-yield": "error",
     "rest-spread-spacing": "error",
+    "security/detect-buffer-noassert": "error",
     "security/detect-child-process": "error",
     "security/detect-disable-mustache-escape": "error",
     "security/detect-eval-with-expression": "error",
@@ -674,7 +688,7 @@ module.exports = {
     "unicorn/no-null": "off", // what the fuck
     "unicorn/no-object-as-default-parameter": "error",
     "unicorn/no-process-exit": "error",
-    "unicorn/no-reduce": "error",
+    "unicorn/no-reduce": "off", // this is fucking stupid
     "unicorn/no-unreadable-array-destructuring": "error",
     "unicorn/no-unsafe-regex": "error",
     "unicorn/no-unused-properties": "error",

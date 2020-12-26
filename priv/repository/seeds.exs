@@ -5,7 +5,7 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     Database.Repository.insert!(%ClumsyChinchilla.SomeSchema{})
+#     Database.Repository.insert!(%Database.Model.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
@@ -49,9 +49,9 @@ administrator_permissions =
   }
   |> Seeds.create_record(Database.Models.Permission)
 
-dater_permissions =
+user_permissions =
   %{
-    name: "Dater"
+    name: "User"
   }
   |> Seeds.create_record(Database.Models.Permission)
 
@@ -80,4 +80,4 @@ alabaster =
   |> Seeds.create_record(Database.Models.Account)
 
 krainboltgreene |> Seeds.assign_membership(users_organization, administrator_permissions)
-alabaster |> Seeds.assign_membership(users_organization, dater_permissions)
+alabaster |> Seeds.assign_membership(users_organization, user_permissions)

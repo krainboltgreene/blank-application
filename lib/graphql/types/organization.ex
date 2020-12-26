@@ -10,10 +10,11 @@ defmodule Graphql.Types.Organization do
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
 
-    field :accounts, list_of(non_null(:account)),
-      resolve: dataloader(Database.Models.Account)
+    field :accounts, list_of(non_null(:account)), resolve: dataloader(Database.Models.Account)
+
     field :organization_permissions, list_of(non_null(:organization_permission)),
       resolve: dataloader(Database.Models.OrganizationPermission)
+
     field :permissions, list_of(non_null(:permission)),
       resolve: dataloader(Database.Models.Permission)
   end

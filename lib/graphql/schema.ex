@@ -23,6 +23,7 @@ defmodule Graphql.Schema do
   import_types(Graphql.Mutations.Organization)
   import_types(Graphql.Mutations.Permission)
   import_types(Graphql.Mutations.Session)
+  import_types(Graphql.Mutations.Settings)
 
   import_types(Graphql.Subscriptions.Account)
   import_types(Graphql.Subscriptions.Permission)
@@ -41,6 +42,7 @@ defmodule Graphql.Schema do
     import_fields(:job_mutations)
     import_fields(:organization_mutations)
     import_fields(:permission_mutations)
+    import_fields(:settings_mutations)
     import_fields(:session_mutations)
   end
 
@@ -53,19 +55,22 @@ defmodule Graphql.Schema do
 
   def context(context) do
     repository = Dataloader.Ecto.new(Database.Repository)
+
     context
     |> Map.merge(%{
-      loader: Enum.reduce(
-        [
-          Database.Models.Account,
-          Database.Models.Organization,
-          Database.Models.OrganizationMembership,
-          Database.Models.OrganizationPermission,
-          Database.Models.Permission
-        ],
-        Dataloader.new(),
-        fn model, loader -> Dataloader.add_source(loader, model, repository) end
-      )
+      loader:
+        Enum.reduce(
+          [
+            Database.Models.Account,
+            Database.Models.Organization,
+            Database.Models.OrganizationMembership,
+            Database.Models.OrganizationPermission,
+            Database.Models.Permission,
+            Database.Models.Settings
+          ],
+          Dataloader.new(),
+          fn model, loader -> Dataloader.add_source(loader, model, repository) end
+        )
     })
   end
 

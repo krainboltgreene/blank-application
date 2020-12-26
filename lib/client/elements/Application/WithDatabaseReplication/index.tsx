@@ -49,13 +49,13 @@
 
 //   return dispatch.database.updateMetadata([type, await database[type].client.info()]);
 
-const INFO_INTERVAL = 15_000;
-const REPLICATION_CONFIGURATION = {
-  live: true,
-  retry: true,
-  heartbeat: true,
-  batch_size: 250,
-};
+// const INFO_INTERVAL = 15_000;
+// const REPLICATION_CONFIGURATION = {
+//   live: true,
+//   retry: true,
+//   heartbeat: true,
+//   batch_size: 250,
+// };
 
 interface PropertiesType<C> {
   children: C;

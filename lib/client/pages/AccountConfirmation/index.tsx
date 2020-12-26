@@ -9,6 +9,7 @@ export default function AccountConfirmation (): JSX.Element {
   const searchParameters = new URLSearchParams(search);
   const token = searchParameters.get("token");
 
+  // TODO: Figure out how to solve this problem
   if (token === null) {
     return <p>Something went wrong.</p>;
   }

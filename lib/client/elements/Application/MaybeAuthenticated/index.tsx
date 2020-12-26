@@ -1,8 +1,10 @@
 import {useLazyQuery} from "@apollo/client";
 import {useRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {useEffect} from "react";
 
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
+import {loadingCurrentAccount as loadingCurrentAccountAtom} from "@clumsy_chinchilla/atoms";
 
 import fetchSessionQuery from "./fetchSessionQuery.gql";
 
@@ -20,6 +22,11 @@ export default function MaybeAuthenticated<C> (properties: Readonly<PropertiesTy
   const {children} = properties;
   const [fetchSession, {error, data, loading}] = useLazyQuery<SessionQueryType>(fetchSessionQuery);
   const [currentAccount, setCurrentAccount] = useRecoilState<string | null>(currentAccountAtom);
+  const setLoadingCurrentAccount = useSetRecoilState<true | false>(loadingCurrentAccountAtom);
+
+  useEffect(() => {
+    setLoadingCurrentAccount(loading);
+  }, [loading, setLoadingCurrentAccount]);
 
   useEffect(() => {
     if (!data || !data.session.id || Boolean(currentAccount)) {

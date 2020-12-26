@@ -9,7 +9,6 @@ defmodule Database.Repository.Migrations.CreateAccounts do
       add :username, :citext
       add :name, :text
       add :onboarding_state, :citext, null: false
-      add :role_state, :citext, null: false
       add :confirmation_secret, :text
       add :password_hash, :string
 
@@ -18,6 +17,5 @@ defmodule Database.Repository.Migrations.CreateAccounts do
 
     create unique_index(:accounts, [:email_address])
     create index(:accounts, :onboarding_state)
-    create index(:accounts, :role_state)
   end
 end

@@ -1,5 +1,6 @@
 import React from "react";
 import {useRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 import {useHistory} from "react-router-dom";
 
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
@@ -10,7 +11,7 @@ import LoginForm from "./LoginForm";
 
 export default function Login (): JSX.Element {
   const history = useHistory();
-  const [currentAccount] = useRecoilState<string | null>(currentAccountAtom);
+  const currentAccount = useRecoilValue<string | null>(currentAccountAtom);
   const [warningMessages, setWarningMessage] = useRecoilState<Array<string>>(warningMessagesAtom);
 
   if (currentAccount !== null) {

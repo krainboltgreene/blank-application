@@ -1,7 +1,10 @@
 query FetchSettingsQuery {
   session {
+    id
     account {
+      id
       settings {
+        id
         lightMode
       }
     }

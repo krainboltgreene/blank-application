@@ -43,8 +43,14 @@ export default function LoginForm (): JSX.Element {
       property="emailAddress"
       label="Email Address"
       hasValidated={false}
-      inputAttributes={{readOnly: createSessionLoading, onChange: (event): void => setEmailAddress(event.target.value), autoComplete: "email", value: emailAddress}}
-      value={emailAddress}
+      inputAttributes={{
+        readOnly: createSessionLoading,
+        onChange: (event): void => {
+          setEmailAddress(event.target.value);
+        },
+        autoComplete: "email",
+        value: emailAddress,
+      }}
     />
     <Field
       scope="loginForm"
@@ -52,8 +58,14 @@ export default function LoginForm (): JSX.Element {
       property="password"
       label="Password"
       hasValidated={false}
-      inputAttributes={{readOnly: createSessionLoading, onChange: (event): void => setPassword(event.target.value), autoComplete: "currentPassword", value: password}}
-      value={password}
+      inputAttributes={{
+        readOnly: createSessionLoading,
+        onChange: (event): void => {
+          setPassword(event.target.value);
+        },
+        autoComplete: "currentPassword",
+        value: password,
+      }}
     />
     <section>
       <button disabled={createSessionLoading} className="btn btn-primary" type="submit">Login</button>
