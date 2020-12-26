@@ -15,9 +15,10 @@ defmodule Graphql.Middlewares.Sessions do
         %Absinthe.Blueprint{execution: %{context: %{cookies: cookies}}}
       ) do
     Enum.reduce(cookies || [], connection, fn
-      ([key, nil], accumulation) -> Plug.Conn.delete_session(accumulation, key)
-      ([key, value], accumulation) -> Plug.Conn.put_session(accumulation, key, value)
+      [key, nil], accumulation -> Plug.Conn.delete_session(accumulation, key)
+      [key, value], accumulation -> Plug.Conn.put_session(accumulation, key, value)
     end)
   end
+
   def absinthe_before_send(connection, _), do: connection
 end

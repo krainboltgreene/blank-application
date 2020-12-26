@@ -1,5 +1,10 @@
-/* eslint-disable import/no-commonjs */
 module.exports = {
+  exclude: [
+    "*.config.js",
+    ".eslintrc.js",
+    "d.ts",
+    "webpack/"
+  ],
   parser: "@typescript-eslint/parser",
   plugins: [
     "@typescript-eslint",

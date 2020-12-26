@@ -11,21 +11,21 @@ export default function CallToAction (): JSX.Element {
   const loadingCurrentAccount = useRecoilValue<boolean>(loadingCurrentAccountAtom);
 
   if (loadingCurrentAccount) {
-    return <ul>
-      <li><Link href="/sign-up">Sign Up</Link></li>
-      <li><Link href="/login">Login</Link></li>
-    </ul>;
+    return <section id="call-to-action">
+      <Link href="/sign-up">Sign Up</Link>
+      <Link href="/login">Login</Link>
+    </section>;
   }
 
   if (currentAccount === null) {
-    return <ul>
-      <li><Loading kind="word" /></li>
-      <li><Loading kind="word" /></li>
-    </ul>;
+    return <section id="call-to-action">
+      <Loading kind="word" />
+      <Loading kind="word" />
+    </section>;
   }
 
-  return <ul>
-    <li><Link href="/settings">Settings</Link></li>
-    <li><Link href="/logout">Logout</Link></li>
-  </ul>;
+  return <section id="call-to-action">
+    <Link href="/settings">Settings</Link>
+    <Link href="/logout">Logout</Link>
+  </section>;
 }

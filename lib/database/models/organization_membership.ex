@@ -14,10 +14,16 @@ defmodule Database.Models.OrganizationMembership do
     timestamps()
   end
 
-  @type t :: %__MODULE__{
-  }
+  @type t :: %__MODULE__{}
 
-  @spec create(%{organization: Database.Models.OrganizationMembership.t(), account: Database.Models.Permission.t()}) :: {:ok, Database.Models.OrganizationMembership.t()} | {:error, Database.Models.OrganizationMembership.t() | Ecto.Changeset.t(Database.Models.OrganizationMembership.t())}
+  @spec create(%{
+          organization: Database.Models.OrganizationMembership.t(),
+          account: Database.Models.Permission.t()
+        }) ::
+          {:ok, Database.Models.OrganizationMembership.t()}
+          | {:error,
+             Database.Models.OrganizationMembership.t()
+             | Ecto.Changeset.t(Database.Models.OrganizationMembership.t())}
   def create(attributes) do
     Database.Models.OrganizationMembership.__struct__()
     |> changeset(attributes)
@@ -27,7 +33,8 @@ defmodule Database.Models.OrganizationMembership do
     end
   end
 
-  @spec changeset(Database.Models.OrganizationMembership.t(), map) :: Ecto.Changeset.t(Database.Models.OrganizationMembership.t())
+  @spec changeset(Database.Models.OrganizationMembership.t(), map) ::
+          Ecto.Changeset.t(Database.Models.OrganizationMembership.t())
   def changeset(record, attributes) do
     record
     |> cast(attributes, [])

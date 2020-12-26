@@ -32,7 +32,7 @@ defmodule Core.Application do
       {[:absinthe, :execute, :operation, :stop], :duration},
       {[:absinthe, :subscription, :publish, :stop], :duration},
       {[:absinthe, :resolve, :field, :stop], :duration},
-      {[:absinthe, :middleware, :batch, :stop], :duration},
+      {[:absinthe, :middleware, :batch, :stop], :duration}
     ])
 
     # See https://hexdocs.pm/elixir/Supervisor.html

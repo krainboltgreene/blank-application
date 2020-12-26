@@ -18,13 +18,15 @@ defmodule Graphql.Mutations.Settings do
   end
 
   @spec update(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
-  def update(_parent, _arguments, %{context: %{current_account: nil}}), do: {:error, :unauthenticated}
+  def update(_parent, _arguments, %{context: %{current_account: nil}}),
+    do: {:error, :unauthenticated}
+
   @spec update(
           any,
           %{input: %{light_mode: boolean}},
-          %{context: %{current_account: Database.Models.Account.t}}
+          %{context: %{current_account: Database.Models.Account.t()}}
         ) ::
-        {:ok, Database.Models.Settings.t} | {:error, Ecto.Changeset.t}
+          {:ok, Database.Models.Settings.t()} | {:error, Ecto.Changeset.t()}
   def update(_parent, %{input: input}, %{context: %{current_account: current_account}}) do
     current_account
     |> Database.Models.Account.changeset(%{settings: input})

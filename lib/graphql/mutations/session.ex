@@ -34,6 +34,7 @@ defmodule Graphql.Mutations.Session do
       # Determine if the password is correct
       nil ->
         {:error, :incorrect_credentials}
+
       account ->
         {Argon2.verify_pass(password, account.password_hash), account}
     end

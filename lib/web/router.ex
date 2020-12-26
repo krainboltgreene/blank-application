@@ -13,7 +13,14 @@ defmodule Web.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug CORSPlug, origin: ["http://localhost:8000", "http://localhost:8080"]
+    # TODO: Replace with application config
+    plug CORSPlug,
+      origin: [
+        "http://localhost:8000",
+        "http://localhost:8080",
+        "https://studio.apollographql.com"
+      ]
+
     plug :fetch_session
   end
 
@@ -25,10 +32,10 @@ defmodule Web.Router do
   scope "/" do
     pipe_through :browser
 
-    get "/", Web.PageController, :index
+    # get "/", Web.PageController, :index
 
     # live "/", PageLive, :index
-    if Mix.env != :prod do
+    if Mix.env() != :prod do
       # If using Phoenix
       forward "/sent_emails", Bamboo.SentEmailViewerPlug
 

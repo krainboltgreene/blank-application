@@ -7,10 +7,11 @@ defmodule Database.Models.Settings do
   end
 
   @type t :: %__MODULE__{
-    light_mode: boolean
-  }
+          light_mode: boolean
+        }
 
-  @spec changeset(Database.Models.Settings.t(), map) :: Ecto.Changeset.t(Database.Models.Settings.t())
+  @spec changeset(Database.Models.Settings.t(), map) ::
+          Ecto.Changeset.t(Database.Models.Settings.t())
   def changeset(record, attributes) do
     record
     |> Ecto.Changeset.cast(attributes, [:light_mode])

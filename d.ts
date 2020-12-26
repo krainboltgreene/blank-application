@@ -10,3 +10,8 @@ declare module "*.gql" {
 
   export = Schema;
 }
+declare module "*.png|jpeg|jpg|webp|gif|json|txt|svg|xml" {
+  const value: string;
+
+  export = value;
+}
