@@ -6,14 +6,14 @@ defmodule Graphql.Resolvers do
           {:__block__, [], [{:@, [...], [...]} | {:def, [...], [...]}, ...]}
   defmacro creatable(model, :authenticated) do
     quote do
-      @spec create(any, any, %{context: %{:current_account => nil}}) :: {:error, :unauthenticated}
-      def create(_parent, _arguments, %{context: %{current_account: nil}}) do
-        {:error, :unauthenticated}
-      end
+      @spec create(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
+      def create(_parent, _arguments, %{context: %{current_account: nil}}),
+        do: {:error, :unauthenticated}
+
       @spec create(any, %{input: map}, %{
-              context: %{:current_account => %Database.Models.Account{id: String.t()}}
+              context: %{current_account: Database.Models.Account.t()}
             }) ::
-              {:ok, unquote(model).t} | {:error, Ecto.Changeset.t}
+              {:ok, unquote(model).t} | {:error, Ecto.Changeset.t()}
       def create(_parent, %{input: input}, _resolution) do
         %unquote(model){}
         |> unquote(model).changeset(input)
@@ -29,19 +29,22 @@ defmodule Graphql.Resolvers do
           {:__block__, [], [{:@, [...], [...]} | {:def, [...], [...]}, ...]}
   defmacro updatable(model, :authenticated) do
     quote do
-      @spec update(any, any, %{context: %{:current_account => nil}}) :: {:error, :unauthenticated}
-      def update(_parent, _arguments, %{context: %{current_account: nil}}) do
-        {:error, :unauthenticated}
-      end
+      @spec update(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
+      def update(_parent, _arguments, %{context: %{current_account: nil}}),
+        do: {:error, :unauthenticated}
+
+      @spec update(any, %{input: %{id: nil}}, %{
+              context: %{current_account: Database.Models.Account.t()}
+            }) :: {:error, :unauthenticated}
+      def update(_parent, %{input: %{id: nil}}, _resolver), do: {:error, :not_found}
+
       @spec update(
               any,
-              %{input: %{:id => String.t()}},
-              %{context: %{:current_account => %Database.Models.Account{id: String.t()}}}
+              %{input: %{id: String.t()}},
+              %{context: %{current_account: Database.Models.Account.t()}}
             ) ::
-            {:ok, unquote(model).t} | {:error, Ecto.Changeset.t | atom}
-      def update(_parent, %{input: %{id: id} = input}, %{
-            context: %{current_account: current_account}
-          })
+              {:ok, unquote(model).t} | {:error, Ecto.Changeset.t() | atom}
+      def update(_parent, %{input: %{id: id} = input}, _resolution)
           when is_bitstring(id) do
         unquote(model)
         |> Database.Repository.get(id)
@@ -60,16 +63,22 @@ defmodule Graphql.Resolvers do
 
   defmacro destroyable(model, :authenticated) do
     quote do
-      @spec destroy(any, any, %{context: %{:current_account => nil}}) ::
+      @spec destroy(any, any, %{context: %{current_account: nil}}) ::
               {:error, :unauthenticated}
-      def destroy(_parent, _arguments, %{context: %{current_account: nil}}) do
-        {:error, :unauthenticated}
-      end
-      @spec destroy(any, %{input: %{id: String.t()}}, %{
-              context: %{:current_account => %Database.Models.Account{id: String.t()}}
+      def destroy(_parent, _arguments, %{context: %{current_account: nil}}),
+        do: {:error, :unauthenticated}
+
+      @spec destroy(any, %{input: %{id: nil}}, %{
+              context: %{current_account: Database.Models.Account.t()}
             }) ::
-              {:ok, :no_content} | {:error, Ecto.Changeset.t | atom}
-      def destroy(_parent, %{input: %{id: id}}, %{context: %{current_account: current_account}})
+              {:error, :not_found}
+      def destroy(_parent, %{input: %{id: nil}}, _resolution), do: {:error, :not_found}
+
+      @spec destroy(any, %{input: %{id: String.t()}}, %{
+              context: %{current_account: Database.Models.Account.t()}
+            }) ::
+              {:ok, :no_content} | {:error, Ecto.Changeset.t() | atom}
+      def destroy(_parent, %{input: %{id: id}}, _resolution)
           when is_bitstring(id) do
         unquote(model)
         |> Database.Repository.get(id)
@@ -91,17 +100,18 @@ defmodule Graphql.Resolvers do
       @default_limit 10
 
       @spec list(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
-      def list(_parent, _arguments, %{context: %{current_account: nil}}) do
-        {:error, :unauthenticated}
-      end
+      def list(_parent, _arguments, %{context: %{current_account: nil}}),
+        do: {:error, :unauthenticated}
+
       @spec list(any, %{optional(:input) => %{limit: integer}}, %{
-              context: %{current_account: %Database.Models.Account{id: String.t()}}
+              context: %{current_account: Database.Models.Account.t()}
             }) :: {:ok, list(unquote(model).t())}
-      def list(_parent, %{input: %{limit: limit}}, %{context: %{current_account: current_account}})
+      def list(_parent, %{input: %{limit: limit}}, _resolution)
           when is_integer(limit) and limit > 0 and limit < 100 do
         {:ok, unquote(model) |> Ecto.Query.limit(^limit) |> Database.Repository.all()}
       end
-      def list(_parent, _arguments, %{context: %{current_account: current_account}}) do
+
+      def list(_parent, _arguments, _resolution) do
         {:ok, unquote(model) |> Ecto.Query.limit(@default_limit) |> Database.Repository.all()}
       end
     end
@@ -115,12 +125,23 @@ defmodule Graphql.Resolvers do
       def find(_parent, _arguments, %{context: %{current_account: nil}}) do
         {:error, :unauthenticated}
       end
+
+      @spec find(any, %{input: %{id: nil}}, %{
+              context: %{current_account: Database.Models.Account.t()}
+            }) :: {:error, :not_found}
+      def find(_parent, %{input: %{id: nil}}, _resolution), do: {:error, :not_found}
+
       @spec find(any, %{input: %{id: String.t()}}, %{
-              context: %{current_account: %Database.Models.Account{id: String.t()}}
-            }) :: {:ok, %unquote(model){} | nil}
+              context: %{current_account: Database.Models.Account.t()}
+            }) :: {:ok, unquote(model).t()} | {:error, :not_found}
       def find(_parent, %{input: %{id: id}}, _resolution)
-          when not is_nil(id) and is_bitstring(id) do
-        {:ok, unquote(model) |> Database.Repository.get(id)}
+          when is_bitstring(id) do
+        unquote(model)
+        |> Database.Repository.get(id)
+        |> case do
+          nil -> {:error, :not_found}
+          account -> {:ok, account}
+        end
       end
     end
   end

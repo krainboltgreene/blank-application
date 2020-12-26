@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable import/no-commonjs */
-/* eslint-disable import/no-nodejs-modules */
-
 const path = require("path");
 const {EnvironmentPlugin} = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -23,7 +17,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(?:png|jpe?g|gif|xml|txt|json)$/u,
+        test: /\.(?:png|webp|jpe?g|gif|xml|txt|json)$/u,
         exclude: /node_modules/u,
         use: {
           loader: "file-loader",
@@ -31,6 +25,19 @@ module.exports = {
             name: "[name].[contenthash].[ext]",
           },
         },
+      },
+      {
+        test: /\.(?:png|webp|jpe?g)$/u,
+        exclude: /node_modules/u,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[contenthash].[ext]",
+            },
+          },
+          "webp-loader"
+        ],
       },
       {
         test: /\.gql$/u,

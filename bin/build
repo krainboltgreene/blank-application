@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
+mix do ecto.migrate, ecto.dump, docs
+bin/apollo-build
 bin/webpack-build
-mix compile
-mix ecto.setup
-mix absinthe.schema.json --schema Graphql.Schema

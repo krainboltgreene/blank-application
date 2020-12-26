@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-npx tsc --pretty
-npx eslint --ext .tsx,.ts,.js,.gql jest.config.js babel.config.js webpack/ storybook/ lib/client/ assets/
-# mix dialyzer
+bin/typescript-check
+bin/eslint-check
+mix credo

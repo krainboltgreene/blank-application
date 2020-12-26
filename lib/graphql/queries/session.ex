@@ -9,11 +9,11 @@ defmodule Graphql.Queries.Session do
     end
   end
 
-  @spec find(any, any, %{context: %{current_account: %{id: String.t()}}}) ::
+  @spec find(any, any, %{context: %{current_account: Database.Models.Account.t()}}) ::
           {:ok, %{id: String.t()}}
-  def find(_parent, _arguments, %{context: %{current_account: %{id: id}}})
+  def find(_parent, _arguments, %{context: %{current_account: %{id: id} = current_account}})
       when not is_nil(id) do
-    {:ok, %{id: id}}
+    {:ok, %{id: id, account: current_account}}
   end
 
   @spec find(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}

@@ -6,6 +6,7 @@ defmodule Mix.Tasks.Compile.GraphqlSchemaJson do
     Mix.Task.run("absinthe.schema.json", ["--schema=Graphql.Schema"])
     |> case do
       true -> :ok
+      :noop -> :ok
       exception -> {:error, exception}
     end
   end
