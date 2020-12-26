@@ -7,8 +7,8 @@ defmodule Graphql.Types.OrganizationPermission do
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
 
-    field :permission, non_null(:permission),
-      resolve: dataloader(Database.Models.Permission)
+    field :permission, non_null(:permission), resolve: dataloader(Database.Models.Permission)
+
     field :organization, non_null(:organization),
       resolve: dataloader(Database.Models.Organization)
   end

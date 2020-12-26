@@ -25,6 +25,7 @@ defmodule Utilities do
     function.(value)
     {:ok, value}
   end
+
   def ok_tap(touple, _), do: touple
 
   @spec tap(value, (value -> any())) :: value when value: any
@@ -204,6 +205,7 @@ defmodule Utilities do
     Redix.command(:redix, ["DEL", key])
   end
 
-  @spec generate_secret :: String.t
-  def generate_secret, do: :crypto.strong_rand_bytes(64) |> Base.url_encode64(case: :upper) |> binary_part(0, 64)
+  @spec generate_secret :: String.t()
+  def generate_secret,
+    do: :crypto.strong_rand_bytes(64) |> Base.url_encode64(case: :upper) |> binary_part(0, 64)
 end

@@ -7,11 +7,13 @@ defmodule Graphql.Resolvers do
   defmacro creatable(model, :authenticated) do
     quote do
       @spec create(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
-      def create(_parent, _arguments, %{context: %{current_account: nil}}), do: {:error, :unauthenticated}
+      def create(_parent, _arguments, %{context: %{current_account: nil}}),
+        do: {:error, :unauthenticated}
+
       @spec create(any, %{input: map}, %{
-              context: %{current_account: Database.Models.Account.t}
+              context: %{current_account: Database.Models.Account.t()}
             }) ::
-              {:ok, unquote(model).t} | {:error, Ecto.Changeset.t}
+              {:ok, unquote(model).t} | {:error, Ecto.Changeset.t()}
       def create(_parent, %{input: input}, _resolution) do
         %unquote(model){}
         |> unquote(model).changeset(input)
@@ -28,15 +30,20 @@ defmodule Graphql.Resolvers do
   defmacro updatable(model, :authenticated) do
     quote do
       @spec update(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
-      def update(_parent, _arguments, %{context: %{current_account: nil}}), do: {:error, :unauthenticated}
-      @spec update(any, %{input: %{id: nil}}, %{context: %{current_account: Database.Models.Account.t()}}) :: {:error, :unauthenticated}
+      def update(_parent, _arguments, %{context: %{current_account: nil}}),
+        do: {:error, :unauthenticated}
+
+      @spec update(any, %{input: %{id: nil}}, %{
+              context: %{current_account: Database.Models.Account.t()}
+            }) :: {:error, :unauthenticated}
       def update(_parent, %{input: %{id: nil}}, _resolver), do: {:error, :not_found}
+
       @spec update(
               any,
               %{input: %{id: String.t()}},
               %{context: %{current_account: Database.Models.Account.t()}}
             ) ::
-            {:ok, unquote(model).t} | {:error, Ecto.Changeset.t | atom}
+              {:ok, unquote(model).t} | {:error, Ecto.Changeset.t() | atom}
       def update(_parent, %{input: %{id: id} = input}, _resolution)
           when is_bitstring(id) do
         unquote(model)
@@ -58,14 +65,19 @@ defmodule Graphql.Resolvers do
     quote do
       @spec destroy(any, any, %{context: %{current_account: nil}}) ::
               {:error, :unauthenticated}
-      def destroy(_parent, _arguments, %{context: %{current_account: nil}}), do: {:error, :unauthenticated}
-      @spec destroy(any, %{input: %{id: nil}}, %{context: %{current_account: Database.Models.Account.t()}}) ::
-        {:error, :not_found}
+      def destroy(_parent, _arguments, %{context: %{current_account: nil}}),
+        do: {:error, :unauthenticated}
+
+      @spec destroy(any, %{input: %{id: nil}}, %{
+              context: %{current_account: Database.Models.Account.t()}
+            }) ::
+              {:error, :not_found}
       def destroy(_parent, %{input: %{id: nil}}, _resolution), do: {:error, :not_found}
+
       @spec destroy(any, %{input: %{id: String.t()}}, %{
               context: %{current_account: Database.Models.Account.t()}
             }) ::
-              {:ok, :no_content} | {:error, Ecto.Changeset.t | atom}
+              {:ok, :no_content} | {:error, Ecto.Changeset.t() | atom}
       def destroy(_parent, %{input: %{id: id}}, _resolution)
           when is_bitstring(id) do
         unquote(model)
@@ -88,7 +100,9 @@ defmodule Graphql.Resolvers do
       @default_limit 10
 
       @spec list(any, any, %{context: %{current_account: nil}}) :: {:error, :unauthenticated}
-      def list(_parent, _arguments, %{context: %{current_account: nil}}), do: {:error, :unauthenticated}
+      def list(_parent, _arguments, %{context: %{current_account: nil}}),
+        do: {:error, :unauthenticated}
+
       @spec list(any, %{optional(:input) => %{limit: integer}}, %{
               context: %{current_account: Database.Models.Account.t()}
             }) :: {:ok, list(unquote(model).t())}
@@ -96,6 +110,7 @@ defmodule Graphql.Resolvers do
           when is_integer(limit) and limit > 0 and limit < 100 do
         {:ok, unquote(model) |> Ecto.Query.limit(^limit) |> Database.Repository.all()}
       end
+
       def list(_parent, _arguments, _resolution) do
         {:ok, unquote(model) |> Ecto.Query.limit(@default_limit) |> Database.Repository.all()}
       end
@@ -110,12 +125,14 @@ defmodule Graphql.Resolvers do
       def find(_parent, _arguments, %{context: %{current_account: nil}}) do
         {:error, :unauthenticated}
       end
+
       @spec find(any, %{input: %{id: nil}}, %{
-              context: %{current_account: Database.Models.Account.t}
+              context: %{current_account: Database.Models.Account.t()}
             }) :: {:error, :not_found}
       def find(_parent, %{input: %{id: nil}}, _resolution), do: {:error, :not_found}
+
       @spec find(any, %{input: %{id: String.t()}}, %{
-              context: %{current_account: Database.Models.Account.t}
+              context: %{current_account: Database.Models.Account.t()}
             }) :: {:ok, unquote(model).t()} | {:error, :not_found}
       def find(_parent, %{input: %{id: id}}, _resolution)
           when is_bitstring(id) do

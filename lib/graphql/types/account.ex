@@ -13,8 +13,10 @@ defmodule Graphql.Types.Account do
 
     field :organization_memberships, list_of(non_null(:organization_membership)),
       resolve: dataloader(Database.Models.OrganizationMembership)
+
     field :organizations, list_of(:organization),
       resolve: dataloader(Database.Models.Organization)
+
     field :settings, non_null(:settings)
   end
 end

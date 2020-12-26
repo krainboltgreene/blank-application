@@ -20,5 +20,6 @@ psql -v ON_ERROR_STOP=1 --host "localhost" --username "postgres" --dbname "templ
     CREATE EXTENSION IF NOT EXISTS "tablefunc";
   COMMIT;
 EOSQL
+mix do deps.get, setup, dialyzer.build &&
 npm install &&
-mix do deps.get, compile, setup, absinthe.schema.json --schema Graphql.Schema, absinthe.schema.sdl --schema Graphql.Schema
+bin/build
