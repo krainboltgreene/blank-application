@@ -47,12 +47,6 @@ defmodule Graphql.Mutations.Account do
       middleware(&Graphql.Middlewares.Sessions.update_session_id/2)
     end
 
-    field :grant_administration_powers, :account do
-      arg(:input, non_null(:identity))
-
-      resolve(&grant_administration_powers/3)
-    end
-
     @desc "Permanently delete an existing account"
     field :destroy_account, :account do
       arg(:input, non_null(:identity))
@@ -106,43 +100,5 @@ defmodule Graphql.Mutations.Account do
       nil -> {:error, :not_found}
       account -> Database.Models.Account.confirm!(account, password)
     end
-  end
-
-  @spec grant_administration_powers(any, %{input: %{id: String.t()}}, any) ::
-          {:ok, Database.Models.Account.t()}
-          | {:error, Database.Models.Account.t() | Ecto.Changeset.t()}
-  def grant_administration_powers(_parent, %{input: %{id: id}}, _resolution)
-      when is_bitstring(id) do
-    Database.Models.Account
-    |> Database.Repository.get(id)
-    |> case do
-      nil -> {:error, :not_found}
-      account -> Database.Models.Account.grant_administrator_powers!(account)
-    end
-  end
-
-  def grant_administration_powers(_parent, _arguments, %{
-        context: %{current_account: nil}
-      }) do
-    {:error, :unauthenticated}
-  end
-
-  @spec revoke_administration_powers(any, %{input: %{id: String.t()}}, any) ::
-          {:ok, Database.Models.Account.t()}
-          | {:error, Database.Models.Account.t() | Ecto.Changeset.t()}
-  def revoke_administration_powers(_parent, %{input: %{id: id}}, _resolution)
-      when is_bitstring(id) do
-    Database.Models.Account
-    |> Database.Repository.get(id)
-    |> case do
-      nil -> {:error, :not_found}
-      account -> Database.Models.Account.revoke_administrator_powers!(account)
-    end
-  end
-
-  def revoke_administration_powers(_parent, _arguments, %{
-        context: %{current_account: nil}
-      }) do
-    {:error, :unauthenticated}
   end
 end
