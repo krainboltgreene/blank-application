@@ -14,7 +14,7 @@ defmodule Core.MixProject do
       aliases: aliases(),
       deps: deps(),
       releases: [
-        clumsy_chinchilla_production: [
+        production: [
           include_erts: true,
           include_executables_for: [:unix],
           applications: [
