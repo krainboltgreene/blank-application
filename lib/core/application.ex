@@ -15,7 +15,8 @@ defmodule Core.Application do
       {Phoenix.PubSub, name: Core.PubSub},
       # Start the Endpoint (http/https)
       Web.Endpoint,
-      {Absinthe.Subscription, Web.Endpoint}
+      {Absinthe.Subscription, Web.Endpoint},
+      Web.Presence
       # Start a worker by calling: Core.Worker.start_link(arg)
       # {Core.Worker, arg}
     ]
