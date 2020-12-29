@@ -6,5 +6,5 @@ defmodule Web.Presence do
   docs for more details.
   """
   use Phoenix.Presence, otp_app: :clumsy_chinchilla,
-                        pubsub_server: ClumsyChinchilla.PubSub
+                        pubsub_server: Core.PubSub
 end
