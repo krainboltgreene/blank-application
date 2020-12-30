@@ -40,8 +40,8 @@ export default function SelectField<V> (properties: Readonly<PropertiesType<V>>)
   const helpId = `${inputId}-help`;
 
   // TODO: Handle select change
-  return <section className="form-check">
-    <select id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes}>
+  return <section>
+    <select id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes}>
       {
         mapValues(
           ({key, option}: Readonly<{key: string; option: string | number | ReadonlyArray<string>}>) => <option value={option} selected={value === key}>{key}</option>

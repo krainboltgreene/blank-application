@@ -52,7 +52,7 @@ export default function SignUpForm (): JSX.Element {
       }}
     />
     <section>
-      <button disabled={createAccountLoading} className="btn btn-primary" type="submit">Sign Up</button>
+      <button disabled={createAccountLoading} type="submit">Sign Up</button>
     </section>
   </form>;
 }

@@ -57,7 +57,7 @@ export default function AccountConfirmationForm (properties: Readonly<Properties
       }}
     />
     <section>
-      <button disabled={confirmAccountLoading} className="btn btn-primary" type="submit">Confirm Account</button>
+      <button disabled={confirmAccountLoading} type="submit">Confirm Account</button>
     </section>
   </form>;
 }

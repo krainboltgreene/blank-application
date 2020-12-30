@@ -68,7 +68,7 @@ export default function LoginForm (): JSX.Element {
       }}
     />
     <section>
-      <button disabled={createSessionLoading} className="btn btn-primary" type="submit">Login</button>
+      <button disabled={createSessionLoading} type="submit">Login</button>
     </section>
   </form>;
 }
