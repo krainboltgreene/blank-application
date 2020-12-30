@@ -4,7 +4,7 @@ import {Page} from "@clumsy_chinchilla/elements";
 import SettingsForm from "./SettingsForm";
 
 export default function Settings (): JSX.Element {
-  return <Page as="Settings" subtitle="Settings" kind="article">
+  return <Page as="Settings" subtitle="Settings">
     <h1>
       Settings
     </h1>

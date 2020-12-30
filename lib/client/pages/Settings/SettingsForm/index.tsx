@@ -11,25 +11,8 @@ import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateSettingsMutation from "./updateSettingsMutation.gql";
 import fetchSettingsQuery from "./fetchSettingsQuery.gql";
-
-interface UpdateSettingsMutation {
-  updateSettings: {
-    id: string;
-    lightMode: boolean;
-  };
-}
-interface FetchSettingsQuery {
-  session: {
-    id: string;
-    account: {
-      id: string;
-      settings: {
-        id: string;
-        lightMode: boolean;
-      };
-    };
-  };
-}
+import type {UpdateSettingsMutation} from "./UpdateSettingsMutation.d";
+import type {FetchSettingsQuery} from "./FetchSettingsQuery.d";
 
 interface SettingsType {
   id: string;
@@ -51,7 +34,7 @@ export default function SettingsForm (): JSX.Element {
   }, [updateSettingsData, setSettings, fetchSettingsData]);
   useEffect(() => {
     if (fetchSettingsData) {
-      setSettings(fetchSettingsData.session.account.settings);
+      setSettings(fetchSettingsData.session?.account.settings ?? null);
     }
   }, [fetchSettingsData, setSettings]);
 
@@ -59,7 +42,7 @@ export default function SettingsForm (): JSX.Element {
     throw fetchSettingsError;
   }
 
-  if (updateSettingsError && updateSettingsError.message !== "incorrect_credentials") {
+  if (updateSettingsError?.message !== "incorrect_credentials") {
     // TODO: Actually handle real errors
     throw updateSettingsError;
   }
@@ -70,9 +53,6 @@ export default function SettingsForm (): JSX.Element {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    console.log({settings});
-    console.log({fetchSettingsData});
-    console.log({id});
     await updateSettings({variables: {input: {id, lightMode}}});
   };
   const onChangeLightMode = (): void => {
@@ -88,7 +68,6 @@ export default function SettingsForm (): JSX.Element {
       inputAttributes={{
         readOnly: updateSettingsLoading,
         onChange: onChangeLightMode,
-        autoComplete: "currentPassword",
         checked: lightMode,
       }}
     />

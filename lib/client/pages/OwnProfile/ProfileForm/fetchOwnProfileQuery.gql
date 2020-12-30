@@ -1,0 +1,11 @@
+query FetchOwnProfileQuery {
+  session {
+    id
+    account {
+      id
+      profile {
+        id
+      }
+    }
+  }
+}

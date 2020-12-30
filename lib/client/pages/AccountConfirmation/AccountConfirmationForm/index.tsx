@@ -8,12 +8,7 @@ import {useHistory} from "react-router-dom";
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import confirmAccountMutation from "./confirmAccountMutation.gql";
-
-interface confirmAccountMutationType {
-  confirmAccount: {
-    id: string;
-  };
-}
+import type {ConfirmAccountMutation} from "./ConfirmAccountMutation.d";
 
 interface PropertiesType {
   confirmationSecret: string;
@@ -22,7 +17,7 @@ interface PropertiesType {
 export default function AccountConfirmationForm (properties: Readonly<PropertiesType>): JSX.Element {
   const history = useHistory();
   const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
-  const [confirmAccount, {loading: confirmAccountLoading, error: confirmAccountError, data: confirmAccountData}] = useMutation<confirmAccountMutationType>(confirmAccountMutation);
+  const [confirmAccount, {loading: confirmAccountLoading, error: confirmAccountError, data: confirmAccountData}] = useMutation<ConfirmAccountMutation>(confirmAccountMutation);
   const {confirmationSecret} = properties;
   const [password, setPassword] = useState("");
 
@@ -32,7 +27,7 @@ export default function AccountConfirmationForm (properties: Readonly<Properties
 
   useEffect(() => {
     if (confirmAccountData) {
-      setCurrentAccount(confirmAccountData.confirmAccount.id);
+      setCurrentAccount(confirmAccountData.confirmAccount?.id ?? null);
       history.push("/");
     }
   }, [confirmAccountData, setCurrentAccount, history]);
@@ -57,7 +52,7 @@ export default function AccountConfirmationForm (properties: Readonly<Properties
       }}
     />
     <section>
-      <button disabled={confirmAccountLoading} type="submit">Confirm Account</button>
+      <button disabled={confirmAccountLoading} className="btn btn-primary" type="submit">Confirm Account</button>
     </section>
   </form>;
 }
