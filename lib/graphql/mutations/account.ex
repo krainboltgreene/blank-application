@@ -7,14 +7,12 @@ defmodule Graphql.Mutations.Account do
     field :username, :string
     field :email_address, non_null(:string)
     field :password, :string
-    field :name, :string
   end
 
   input_object :account_changeset do
     field :id, non_null(:id)
     field :username, :string
     field :email_address, :string
-    field :name, :string
     field :password, :string
   end
 

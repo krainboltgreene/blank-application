@@ -10,9 +10,9 @@ import {profile as profileAtom} from "@clumsy_chinchilla/atoms";
 import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateProfileMutation from "./updateProfileMutation.gql";
-import fetchProfileQuery from "./fetchProfileQuery.gql";
-import type {UpdateProfileMutation} from "./UpdateProfileMutation.d";
-import type {FetchProfileQuery} from "./FetchProfileQuery.d";
+import fetchYourProfileQuery from "./fetchYourProfileQuery.gql";
+import type {UpdateProfileMutation} from "./UpdateProfileMutation";
+import type {FetchYourProfileQuery} from "./FetchYourProfileQuery";
 
 interface ProfileType {
   id: string;
@@ -21,10 +21,10 @@ interface ProfileType {
 
 export default function ProfileForm (): JSX.Element {
   const [profile, setProfile] = useRecoilState<ProfileType | null>(profileAtom);
-  const {loading: fetchProfileLoading, data: fetchProfileData, error: fetchProfileError} = useQuery<FetchProfileQuery>(fetchProfileQuery);
+  const {loading: fetchProfileLoading, data: fetchProfileData, error: fetchProfileError} = useQuery<FetchYourProfileQuery>(fetchYourProfileQuery);
   const [updateProfile, {loading: updateProfileLoading, error: updateProfileError, data: updateProfileData}] = useMutation<UpdateProfileMutation>(updateProfileMutation);
-  const {lightMode: savedLightMode = true} = dig<string, FetchProfileQuery | undefined, ProfileType | undefined>(["session", "account", "profile"])(fetchProfileData) ?? profile ?? {};
-  const {id} = dig<string, FetchProfileQuery | undefined, ProfileType | undefined>(["session", "account", "profile"])(fetchProfileData) ?? profile ?? {};
+  const {lightMode: savedLightMode = true} = dig<string, FetchYourProfileQuery | undefined, ProfileType | undefined>(["session", "account", "profile"])(fetchProfileData) ?? profile ?? {};
+  const {id} = dig<string, FetchYourProfileQuery | undefined, ProfileType | undefined>(["session", "account", "profile"])(fetchProfileData) ?? profile ?? {};
   const [lightMode, setLightMode] = useState(savedLightMode);
 
   useEffect(() => {

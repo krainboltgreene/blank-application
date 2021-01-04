@@ -1,10 +1,11 @@
-query FetchOwnProfileQuery {
+query FetchYourProfileQuery {
   session {
     id
     account {
       id
       profile {
         id
+        publicName
       }
     }
   }

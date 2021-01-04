@@ -10,9 +10,9 @@ import {settings as settingsAtom} from "@clumsy_chinchilla/atoms";
 import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateSettingsMutation from "./updateSettingsMutation.gql";
-import fetchSettingsQuery from "./fetchSettingsQuery.gql";
-import type {UpdateSettingsMutation} from "./UpdateSettingsMutation.d";
-import type {FetchSettingsQuery} from "./FetchSettingsQuery.d";
+import fetchYourSettingsQuery from "./fetchYourSettingsQuery.gql";
+import type {UpdateSettingsMutation} from "./UpdateSettingsMutation";
+import type {FetchYourSettingsQuery} from "./FetchYourSettingsQuery";
 
 interface SettingsType {
   id: string;
@@ -21,10 +21,10 @@ interface SettingsType {
 
 export default function SettingsForm (): JSX.Element {
   const [settings, setSettings] = useRecoilState<SettingsType | null>(settingsAtom);
-  const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<FetchSettingsQuery>(fetchSettingsQuery);
+  const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<FetchYourSettingsQuery>(fetchYourSettingsQuery);
   const [updateSettings, {loading: updateSettingsLoading, error: updateSettingsError, data: updateSettingsData}] = useMutation<UpdateSettingsMutation>(updateSettingsMutation);
-  const {lightMode: savedLightMode = true} = dig<string, FetchSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
-  const {id} = dig<string, FetchSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
+  const {lightMode: savedLightMode = true} = dig<string, FetchYourSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
+  const {id} = dig<string, FetchYourSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
   const [lightMode, setLightMode] = useState(savedLightMode);
 
   useEffect(() => {
