@@ -14,7 +14,7 @@ defmodule Core.MixProject do
       aliases: aliases(),
       deps: deps(),
       releases: [
-        clumsy_chinchilla_production: [
+        production: [
           include_erts: true,
           include_executables_for: [:unix],
           applications: [
@@ -89,6 +89,7 @@ defmodule Core.MixProject do
       {:redix, "~> 1.0"},
       {:plug_telemetry_server_timing, "~> 0.1"},
       {:telemetry_metrics, "~> 0.5"},
+      {:oban, "~> 2.1"},
       {:telemetry_poller, "~> 0.4"}
     ]
   end

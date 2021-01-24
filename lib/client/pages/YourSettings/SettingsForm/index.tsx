@@ -10,26 +10,9 @@ import {settings as settingsAtom} from "@clumsy_chinchilla/atoms";
 import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateSettingsMutation from "./updateSettingsMutation.gql";
-import fetchSettingsQuery from "./fetchSettingsQuery.gql";
-
-interface UpdateSettingsMutation {
-  updateSettings: {
-    id: string;
-    lightMode: boolean;
-  };
-}
-interface FetchSettingsQuery {
-  session: {
-    id: string;
-    account: {
-      id: string;
-      settings: {
-        id: string;
-        lightMode: boolean;
-      };
-    };
-  };
-}
+import fetchYourSettingsQuery from "./fetchYourSettingsQuery.gql";
+import type {UpdateSettingsMutation} from "./UpdateSettingsMutation";
+import type {FetchYourSettingsQuery} from "./FetchYourSettingsQuery";
 
 interface SettingsType {
   id: string;
@@ -38,10 +21,10 @@ interface SettingsType {
 
 export default function SettingsForm (): JSX.Element {
   const [settings, setSettings] = useRecoilState<SettingsType | null>(settingsAtom);
-  const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<FetchSettingsQuery>(fetchSettingsQuery);
+  const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<FetchYourSettingsQuery>(fetchYourSettingsQuery);
   const [updateSettings, {loading: updateSettingsLoading, error: updateSettingsError, data: updateSettingsData}] = useMutation<UpdateSettingsMutation>(updateSettingsMutation);
-  const {lightMode: savedLightMode = true} = dig<string, FetchSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
-  const {id} = dig<string, FetchSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
+  const {lightMode: savedLightMode = true} = dig<string, FetchYourSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
+  const {id} = dig<string, FetchYourSettingsQuery | undefined, SettingsType | undefined>(["session", "account", "settings"])(fetchSettingsData) ?? settings ?? {};
   const [lightMode, setLightMode] = useState(savedLightMode);
 
   useEffect(() => {
@@ -51,7 +34,7 @@ export default function SettingsForm (): JSX.Element {
   }, [updateSettingsData, setSettings, fetchSettingsData]);
   useEffect(() => {
     if (fetchSettingsData) {
-      setSettings(fetchSettingsData.session.account.settings);
+      setSettings(fetchSettingsData.session?.account.settings ?? null);
     }
   }, [fetchSettingsData, setSettings]);
 
@@ -59,7 +42,7 @@ export default function SettingsForm (): JSX.Element {
     throw fetchSettingsError;
   }
 
-  if (updateSettingsError && updateSettingsError.message !== "incorrect_credentials") {
+  if (updateSettingsError?.message !== "incorrect_credentials") {
     // TODO: Actually handle real errors
     throw updateSettingsError;
   }
@@ -70,9 +53,6 @@ export default function SettingsForm (): JSX.Element {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    console.log({settings});
-    console.log({fetchSettingsData});
-    console.log({id});
     await updateSettings({variables: {input: {id, lightMode}}});
   };
   const onChangeLightMode = (): void => {
@@ -88,12 +68,11 @@ export default function SettingsForm (): JSX.Element {
       inputAttributes={{
         readOnly: updateSettingsLoading,
         onChange: onChangeLightMode,
-        autoComplete: "currentPassword",
         checked: lightMode,
       }}
     />
     <section>
-      <button disabled={updateSettingsLoading} className="btn btn-primary" type="submit">
+      <button disabled={updateSettingsLoading} type="submit">
         Save Settings
       </button>
     </section>

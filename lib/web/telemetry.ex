@@ -49,6 +49,11 @@ defmodule Web.Telemetry do
       summary("absinthe.resolve.field.stop.duration", unit: {:native, :millisecond}),
       summary("absinthe.middleware.batch.stop.duration", unit: {:native, :millisecond}),
 
+      # Oban Metrics
+      summary("oban.job.stop.duration", unit: {:native, :millisecond}),
+      summary("oban.job.exception"),
+      summary("oban.circuit.trip"),
+
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
       summary("vm.total_run_queue_lengths.total"),
