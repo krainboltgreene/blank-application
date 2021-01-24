@@ -37,7 +37,7 @@ export default function Field (properties: Readonly<PropertiesType>): JSX.Elemen
 
   return <section>
     <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
-    <input id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} {...inputAttributes} />
+    <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} {...inputAttributes} />
     <FieldHelp id={helpId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;

@@ -8,17 +8,12 @@ import {useHistory} from "react-router-dom";
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import createAccountMutation from "./createAccountMutation.gql";
-
-interface CreateAccountMutationType {
-  createAccount: {
-    id: string;
-  };
-}
+import type {CreateAccountMutation} from "./CreateAccountMutation.d";
 
 export default function SignUpForm (): JSX.Element {
   const history = useHistory();
   const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
-  const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation<CreateAccountMutationType>(createAccountMutation);
+  const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation<CreateAccountMutation>(createAccountMutation);
   const [emailAddress, setEmailAddress] = useState("");
 
   if (createAccountError) {
@@ -27,7 +22,7 @@ export default function SignUpForm (): JSX.Element {
 
   useEffect(() => {
     if (createAccountData) {
-      setCurrentAccount(createAccountData.createAccount.id);
+      setCurrentAccount(createAccountData.createAccount?.id ?? null);
       history.push("/");
     }
   }, [createAccountData, setCurrentAccount, history]);
@@ -52,7 +47,7 @@ export default function SignUpForm (): JSX.Element {
       }}
     />
     <section>
-      <button disabled={createAccountLoading} className="btn btn-primary" type="submit">Sign Up</button>
+      <button disabled={createAccountLoading} type="submit">Sign Up</button>
     </section>
   </form>;
 }

@@ -6,17 +6,12 @@ import {useHistory} from "react-router-dom";
 
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import destroySessionMutation from "./destroySessionMutation.gql";
-
-interface DestroySessionMutationType {
-  destroySession: {
-    id: string;
-  };
-}
+import type {DestroySessionMutation} from "./DestroySessionMutation.d";
 
 export default function LogoutForm (): JSX.Element {
   const history = useHistory();
   const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
-  const [destroySession, {loading: destroySessionLoading, data: destroySessionData}] = useMutation<DestroySessionMutationType>(destroySessionMutation);
+  const [destroySession, {loading: destroySessionLoading, data: destroySessionData}] = useMutation<DestroySessionMutation>(destroySessionMutation);
 
   useEffect(() => {
     if (destroySessionData) {
@@ -30,7 +25,7 @@ export default function LogoutForm (): JSX.Element {
     await destroySession();
   }}>
     <section>
-      <button disabled={destroySessionLoading} className="btn btn-primary" type="submit">Logout</button>
+      <button disabled={destroySessionLoading} type="submit">Logout</button>
     </section>
   </form>;
 }

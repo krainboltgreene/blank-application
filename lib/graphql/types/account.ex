@@ -6,7 +6,6 @@ defmodule Graphql.Types.Account do
   object :account do
     field :id, non_null(:id)
     field :email_address, non_null(:string)
-    field :name, :string
     field :username, :string
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
@@ -18,6 +17,7 @@ defmodule Graphql.Types.Account do
       resolve: dataloader(Database.Models.Organization)
 
     field :settings, non_null(:settings)
+    field :profile, non_null(:profile)
     field :critiques, list_of(non_null(:critique)), resolve: dataloader(Database.Models.Critique)
     field :reviews, list_of(non_null(:review)), resolve: dataloader(Database.Models.Review)
     field :recipes, list_of(non_null(:recipe)), resolve: dataloader(Database.Models.Recipe)

@@ -20,3 +20,6 @@ config :clumsy_chinchilla, Web.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+
+config :clumsy_chinchilla, Oban, crontab: false, queues: false, plugins: false
