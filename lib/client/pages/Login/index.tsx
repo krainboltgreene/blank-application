@@ -18,7 +18,7 @@ export default function Login (): JSX.Element {
     history.push("/");
   }
 
-  return <Page as="Login">
+  return <Page as="Login" subtitle="Login">
     <h1>Login</h1>
     <LoginForm />
   </Page>;

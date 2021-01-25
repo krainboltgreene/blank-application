@@ -17,11 +17,11 @@ defmodule Database.Models.Account do
     field(:unconfirmed_email_address, :string)
     field(:confirmation_secret, :string)
     field(:username, :string)
-    field(:name, :string)
     field(:onboarding_state, :string, default: "converted")
     field(:password, :string, virtual: true)
     field(:password_hash, :string)
     embeds_one(:settings, Database.Models.Settings)
+    embeds_one(:profile, Database.Models.Profile)
     has_many(:organization_memberships, Database.Models.OrganizationMembership)
     has_many(:organizations, through: [:organization_memberships, :organization])
 
@@ -33,11 +33,11 @@ defmodule Database.Models.Account do
           unconfirmed_email_address: String.t() | nil,
           confirmation_secret: String.t(),
           username: String.t(),
-          name: String.t() | nil,
           onboarding_state: String.t(),
           password: String.t() | nil,
           password_hash: String.t() | nil,
           settings: Database.Models.Settings.t() | nil,
+          profile: Database.Models.Profile.t() | nil,
           organizations: list(Database.Models.Organization.t() | nil) | nil
         }
 
@@ -52,7 +52,8 @@ defmodule Database.Models.Account do
       when is_bitstring(email_address) and is_bitstring(password) do
     Database.Models.Account.__struct__(%{
       username: List.first(String.split(email_address, "@")),
-      settings: %{}
+      settings: %{},
+      profile: %{},
     })
     |> changeset(attributes)
     |> case do
@@ -105,12 +106,12 @@ defmodule Database.Models.Account do
     |> cast(attributes, [
       :email_address,
       :username,
-      :name,
       :password_hash,
       :confirmation_secret,
       :unconfirmed_email_address
     ])
     |> cast_embed(:settings)
+    |> cast_embed(:profile)
     |> validate_required([:email_address])
     |> unique_constraint(:email_address)
     |> unique_constraint(:username)

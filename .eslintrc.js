@@ -1,10 +1,4 @@
 module.exports = {
-  exclude: [
-    "*.config.js",
-    ".eslintrc.js",
-    "d.ts",
-    "webpack/"
-  ],
   parser: "@typescript-eslint/parser",
   plugins: [
     "@typescript-eslint",
@@ -32,6 +26,12 @@ module.exports = {
     "react": {
       version: "16.8.4",
     },
+    exclude: [
+      "*.config.js",
+      ".eslintrc.js",
+      "d.ts",
+      "webpack/"
+    ],
   },
   parserOptions: {
     tsconfigRootDir: __dirname,

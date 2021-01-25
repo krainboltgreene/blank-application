@@ -1,0 +1,7 @@
+mutation UpdateAccountMutation($input: AccountChangeset!) {
+  updateAccount(input: $input) {
+    id
+    emailAddress
+    username
+  }
+}

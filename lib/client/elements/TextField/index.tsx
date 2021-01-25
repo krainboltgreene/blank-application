@@ -35,7 +35,7 @@ export default function TextField (properties: Readonly<PropertiesType>): JSX.El
 
   return <section>
     <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
-    <textarea id={inputId} className="form-control" name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes} />
+    <textarea id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes} />
     <FieldHelp id={helpId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;

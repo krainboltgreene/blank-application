@@ -11,7 +11,8 @@ import {PrivacyPolicy} from "@clumsy_chinchilla/pages";
 import {SignUp} from "@clumsy_chinchilla/pages";
 import {TermsOfService} from "@clumsy_chinchilla/pages";
 import {ThisIsUs} from "@clumsy_chinchilla/pages";
-import {Settings} from "@clumsy_chinchilla/pages";
+import {YourProfile} from "@clumsy_chinchilla/pages";
+import {YourSettings} from "@clumsy_chinchilla/pages";
 
 export default function Router (): JSX.Element {
   return <Switch>
@@ -22,7 +23,9 @@ export default function Router (): JSX.Element {
     <Route path="/logout" component={Logout} />
     <Route path="/our-technology" component={OurTechnology} />
     <Route path="/privacy-policy" component={PrivacyPolicy} />
-    <Route path="/settings" component={Settings} />
+    {/* <Route path="/my/account" component={YourProfile} /> */}
+    <Route path="/my/profile" component={YourProfile} />
+    <Route path="/my/settings" component={YourSettings} />
     <Route path="/sign-up" component={SignUp} />
     <Route path="/terms-of-service" component={TermsOfService} />
     <Route path="/this-is-us" component={ThisIsUs} />

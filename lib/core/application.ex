@@ -15,9 +15,11 @@ defmodule Core.Application do
       {Phoenix.PubSub, name: Core.PubSub},
       # Start the Endpoint (http/https)
       Web.Endpoint,
-      {Absinthe.Subscription, Web.Endpoint}
       # Start a worker by calling: Core.Worker.start_link(arg)
       # {Core.Worker, arg}
+      Web.Presence,
+      {Absinthe.Subscription, Web.Endpoint},
+      {Oban, Application.get_env(:clumsy_chinchilla, Oban)}
     ]
 
     Plug.Telemetry.ServerTiming.install([

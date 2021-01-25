@@ -32,9 +32,9 @@ export default function CheckboxField (properties: Readonly<PropertiesType>): JS
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section className="form-check">
-    <input id={inputId} className="form-check-input" name={name} aria-labelledby={labelId} aria-describedby={helpId} type="checkbox" {...inputAttributes} />
-    <label id={labelId} htmlFor={inputId} className="form-check-label" {...labelAttributes}>{label}</label>;
+  return <section>
+    <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type="checkbox" {...inputAttributes} />
+    <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>;
     <FieldHelp id={inputId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;
