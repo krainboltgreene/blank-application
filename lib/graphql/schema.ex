@@ -11,6 +11,7 @@ defmodule Graphql.Schema do
   import_types(Graphql.Types.OrganizationPermission)
   import_types(Graphql.Types.Permission)
   import_types(Graphql.Types.Settings)
+  import_types(Graphql.Types.Profile)
   import_types(Graphql.Types.Session)
 
   import_types(Graphql.Queries.Account)
@@ -24,6 +25,7 @@ defmodule Graphql.Schema do
   import_types(Graphql.Mutations.Permission)
   import_types(Graphql.Mutations.Session)
   import_types(Graphql.Mutations.Settings)
+  import_types(Graphql.Mutations.Profile)
 
   import_types(Graphql.Subscriptions.Account)
   import_types(Graphql.Subscriptions.Permission)
@@ -43,6 +45,7 @@ defmodule Graphql.Schema do
     import_fields(:organization_mutations)
     import_fields(:permission_mutations)
     import_fields(:settings_mutations)
+    import_fields(:profile_mutations)
     import_fields(:session_mutations)
   end
 
@@ -66,7 +69,8 @@ defmodule Graphql.Schema do
             Database.Models.OrganizationMembership,
             Database.Models.OrganizationPermission,
             Database.Models.Permission,
-            Database.Models.Settings
+            Database.Models.Settings,
+            Database.Models.Profile,
           ],
           Dataloader.new(),
           fn model, loader -> Dataloader.add_source(loader, model, repository) end

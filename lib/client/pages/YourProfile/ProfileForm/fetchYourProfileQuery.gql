@@ -1,11 +1,11 @@
-query FetchSettingsQuery {
+query FetchYourProfileQuery {
   session {
     id
     account {
       id
-      settings {
+      profile {
         id
-        lightMode
+        publicName
       }
     }
   }

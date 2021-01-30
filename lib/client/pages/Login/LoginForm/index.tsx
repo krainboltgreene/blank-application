@@ -8,17 +8,12 @@ import {useHistory} from "react-router-dom";
 import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import createSessionMutation from "./createSessionMutation.gql";
-
-interface CreateSessionMutationType {
-  createSession: {
-    id: string;
-  };
-}
+import type {CreateSessionMutation} from "./CreateSessionMutation.d";
 
 export default function LoginForm (): JSX.Element {
   const history = useHistory();
   const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
-  const [createSession, {loading: createSessionLoading, error: createSessionError, data: createSessionData}] = useMutation<CreateSessionMutationType>(createSessionMutation);
+  const [createSession, {loading: createSessionLoading, error: createSessionError, data: createSessionData}] = useMutation<CreateSessionMutation>(createSessionMutation);
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,7 +23,7 @@ export default function LoginForm (): JSX.Element {
 
   useEffect(() => {
     if (createSessionData) {
-      setCurrentAccount(createSessionData.createSession.id);
+      setCurrentAccount(createSessionData.createSession?.id ?? null);
       history.push("/"); // TODO: This should be back instead
     }
   }, [createSessionData, setCurrentAccount, history]);
@@ -68,7 +63,7 @@ export default function LoginForm (): JSX.Element {
       }}
     />
     <section>
-      <button disabled={createSessionLoading} className="btn btn-primary" type="submit">Login</button>
+      <button disabled={createSessionLoading} type="submit">Login</button>
     </section>
   </form>;
 }

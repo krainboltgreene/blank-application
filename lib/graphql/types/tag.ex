@@ -1,6 +1,6 @@
 defmodule Graphql.Types.Tag do
   use Absinthe.Schema.Notation
-  import Absinthe.Resolution.Helpers
+  # import Absinthe.Resolution.Helpers
 
   # enum :taggable_types do
   #   # value :establishment, description: "Referencing the establishment data type"
