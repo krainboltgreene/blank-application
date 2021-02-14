@@ -1,5 +1,5 @@
-export {default as currentAccount} from "./currentAccount";
-export {default as loadingCurrentAccount} from "./loadingCurrentAccount";
+export {default as currentSessionId} from "./currentSessionId";
+export {default as loadingCurrentSessionId} from "./loadingCurrentSessionId";
 export {default as localDatabase} from "./localDatabase";
 export {default as remoteDatabase} from "./remoteDatabase";
 export {default as cookie} from "./cookie";

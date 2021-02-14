@@ -1,7 +1,7 @@
 import React from "react";
 import {useRecoilValue} from "recoil";
-import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
-import {loadingCurrentAccount as loadingCurrentAccountAtom} from "@clumsy_chinchilla/atoms";
+import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
+import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {Link} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 
@@ -11,17 +11,17 @@ const styles = {
 };
 
 export default function CallToAction (): JSX.Element {
-  const currentAccount = useRecoilValue<string | null>(currentAccountAtom);
-  const loadingCurrentAccount = useRecoilValue<boolean>(loadingCurrentAccountAtom);
+  const currentSessionId = useRecoilValue<string | null>(currentSessionIdAtom);
+  const loadingCurrentSessionId = useRecoilValue<boolean>(loadingCurrentSessionIdAtom);
 
-  if (currentAccount === null) {
+  if (currentSessionId === null) {
     return <section css={styles}>
       <Link href="/sign-up">Sign Up</Link>
       <Link href="/login">Login</Link>
     </section>;
   }
 
-  if (loadingCurrentAccount) {
+  if (loadingCurrentSessionId) {
     return <section css={styles}>
       <Loading kind="word" />
       <Loading kind="word" />
