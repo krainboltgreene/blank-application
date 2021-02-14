@@ -7,7 +7,7 @@ import {Loading} from "@clumsy_chinchilla/elements";
 
 
 const styles = {
-  display: "",
+  display: "grid",
 };
 
 export default function CallToAction (): JSX.Element {
@@ -29,8 +29,8 @@ export default function CallToAction (): JSX.Element {
   }
 
   return <section css={styles}>
-    <Link href="/my/account">Your Profile</Link>
-    <Link href="/my/profile">Your Account</Link>
+    <Link href="/my/account">Your Account</Link>
+    <Link href="/my/profile">Your Profile</Link>
     <Link href="/my/settings">Your Settings</Link>
     <Link href="/logout">Logout</Link>
   </section>;

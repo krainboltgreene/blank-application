@@ -4,28 +4,22 @@ import {useEffect} from "react";
 import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
-import {dig} from "@unction/complete";
 
 import {profile as profileAtom} from "@clumsy_chinchilla/atoms";
-import {CheckboxField} from "@clumsy_chinchilla/elements";
+import {Field} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateProfileMutation from "./updateProfileMutation.gql";
 import fetchYourProfileQuery from "./fetchYourProfileQuery.gql";
 import type {UpdateProfileMutation} from "./UpdateProfileMutation";
 import type {FetchYourProfileQuery} from "./FetchYourProfileQuery";
 
-interface ProfileType {
-  id: string;
-  lightMode: boolean;
-}
-
 export default function ProfileForm (): JSX.Element {
-  const [profile, setProfile] = useRecoilState<ProfileType | null>(profileAtom);
+  const [profile, setProfile] = useRecoilState(profileAtom);
   const {loading: fetchProfileLoading, data: fetchProfileData, error: fetchProfileError} = useQuery<FetchYourProfileQuery>(fetchYourProfileQuery);
   const [updateProfile, {loading: updateProfileLoading, error: updateProfileError, data: updateProfileData}] = useMutation<UpdateProfileMutation>(updateProfileMutation);
-  const {lightMode: savedLightMode = true} = dig<string, FetchYourProfileQuery | undefined, ProfileType | undefined>(["session", "account", "profile"])(fetchProfileData) ?? profile ?? {};
-  const {id} = dig<string, FetchYourProfileQuery | undefined, ProfileType | undefined>(["session", "account", "profile"])(fetchProfileData) ?? profile ?? {};
-  const [lightMode, setLightMode] = useState(savedLightMode);
+  const {publicName: savedPublicName} = profile ?? {};
+  const {id} = fetchProfileData?.session?.account.profile ?? {};
+  const [publicName, setPublicName] = useState(savedPublicName);
 
   useEffect(() => {
     if (updateProfileData) {
@@ -42,7 +36,7 @@ export default function ProfileForm (): JSX.Element {
     throw fetchProfileError;
   }
 
-  if (updateProfileError?.message !== "incorrect_credentials") {
+  if (updateProfileError && updateProfileError.message !== "incorrect_credentials") {
     // TODO: Actually handle real errors
     throw updateProfileError;
   }
@@ -53,23 +47,22 @@ export default function ProfileForm (): JSX.Element {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    await updateProfile({variables: {input: {id, lightMode}}});
+    await updateProfile({variables: {input: {id, publicName}}});
   };
-  const onChangeLightMode = (): void => {
-    setLightMode(!lightMode);
+  const onChangePublicName = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setPublicName(event.target.value);
   };
 
   return <form id="ProfileForm" onSubmit={onSubmit}>
-    <CheckboxField
+    <Field
+      type="text"
       scope="ProfileForm"
-      property="lightMode"
-      label="Light Mode"
+      property="publicName"
+      label="Public Name"
       hasValidated={false}
       inputAttributes={{
         readOnly: updateProfileLoading,
-        onChange: onChangeLightMode,
-        autoComplete: "currentPassword",
-        checked: lightMode,
+        onChange: onChangePublicName,
       }}
     />
     <section>

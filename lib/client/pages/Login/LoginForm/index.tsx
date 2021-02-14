@@ -32,6 +32,13 @@ export default function LoginForm (): JSX.Element {
     event.preventDefault();
     await createSession({variables: {input: {emailAddress, password}}});
   }}>
+    {
+      createSessionError ? <section>
+        <p>
+          {createSessionError.message}
+        </p>
+      </section> : null
+    }
     <Field
       scope="loginForm"
       type="email"
