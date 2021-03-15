@@ -48,8 +48,9 @@ defmodule Core.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe, "~> 1.5"},
       {:argon2_elixir, "~> 2.1"},
-      {:bamboo_smtp, "~> 3.0"},
-      {:bamboo, "~> 1.6"},
+      {:bamboo_smtp, "~> 4.0"},
+      {:bamboo_phoenix, "~> 1.0"},
+      {:bamboo, "~> 2.0"},
       {:brains, "~> 0.1"},
       {:castore, "~> 0.1"},
       {:comeonin, "~> 5.2"},
@@ -58,7 +59,7 @@ defmodule Core.MixProject do
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:crudry, "~> 2.3"},
       {:dataloader, "~> 1.0"},
-      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:distillery, "~> 2.1"},
       {:ecto_autoslug_field, "~> 2.0"},
       {:ecto_enum, "~> 1.4"},
@@ -90,6 +91,7 @@ defmodule Core.MixProject do
       {:plug_telemetry_server_timing, "~> 0.1"},
       {:telemetry_metrics, "~> 0.5"},
       {:oban, "~> 2.1"},
+      {:finch, "~> 0.6"},
       {:telemetry_poller, "~> 0.4"}
     ]
   end
