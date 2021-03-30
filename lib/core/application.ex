@@ -13,7 +13,7 @@ defmodule Core.Application do
       Web.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Core.PubSub},
-      {Finch, name: WeAllMatch.HTTPClient},
+      {Finch, name: Core.HTTPClient},
       # Start the Endpoint (http/https)
       Web.Endpoint,
       # Start a worker by calling: Core.Worker.start_link(arg)
