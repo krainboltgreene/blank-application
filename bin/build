@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-mix do ecto.migrate, ecto.dump, docs, phx.digest, phx.gen.cert
-bin/apollo-build
+bin/database-build &&
+mix do docs, phx.digest, phx.gen.cert
+bin/apollo-build &&
 bin/webpack-build

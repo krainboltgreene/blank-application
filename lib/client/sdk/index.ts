@@ -7,6 +7,8 @@ import type {ErrorResponse} from "@apollo/client/link/error";
 import type {GraphQLError} from "graphql";
 import {from} from "@apollo/client";
 
+import {socketLink} from "./links";
+
 export default new ApolloClient({
   link: from([
     onError((errors: Readonly<ErrorResponse>) => {
@@ -14,10 +16,12 @@ export default new ApolloClient({
       const {networkError} = errors;
 
       if (graphQLErrors) {
-        graphQLErrors.forEach((error: Readonly<GraphQLError>) => console.error(
-          "[GraphQL error]",
-          error,
-        ));
+        graphQLErrors.forEach((error: Readonly<GraphQLError>) => {
+          console.error(
+            "[GraphQL error]",
+            error,
+          );
+        });
       }
       if (networkError) {
         console.error("[Network error]", {networkError});
