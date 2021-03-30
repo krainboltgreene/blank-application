@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+mix do local.hex --force, local.rebar --force, deps.get, setup, dialyzer.build

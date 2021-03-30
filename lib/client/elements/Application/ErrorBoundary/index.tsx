@@ -8,7 +8,7 @@ interface PropertiesType<C> {
 }
 
 export default class ErrorBoundary<C> extends Component<Readonly<PropertiesType<C>>, {exception?: Error | string; metadata?: Record<string, unknown>}> {
-  private constructor (properties) {
+  private constructor (properties: Readonly<PropertiesType<C>>) {
     super(properties);
     this.state = {};
   }

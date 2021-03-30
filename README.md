@@ -10,7 +10,7 @@ This project is actually 5 parts:
 
 ## Setup
 
-  0. `initdb --username=postgres --pwprompt postgres/data`
+  0. `bin/postgres-setup`
   0. `bin/postgres-start`
   0. `bin/setup`
 
