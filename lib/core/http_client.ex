@@ -2,7 +2,7 @@ defmodule Core.HTTPClient do
   @type client_errors :: {:error, :missing_body | Jason.DecodeError.t | Mint.HTTPError.t | Mint.TransportError.t}
   @cache_directory "tmp"
 
-  @spec fetch(:community | :league, String.t) :: {:ok, Finch.Response.t()} | client_errors
+  @spec fetch(:community | :league, String.t) :: {:ok, term} | client_errors
   def fetch(owner, uri) do
     if File.exists?("#{@cache_directory}/#{owner}/#{checksum(uri)}") do
       File.read("#{@cache_directory}/#{owner}/#{checksum(uri)}")
