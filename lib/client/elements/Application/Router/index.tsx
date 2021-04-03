@@ -23,7 +23,7 @@ export default function Router (): JSX.Element {
     <Route path="/logout" component={Logout} />
     <Route path="/our-technology" component={OurTechnology} />
     <Route path="/privacy-policy" component={PrivacyPolicy} />
-    {/* <Route path="/my/account" component={YourProfile} /> */}
+    {/* <Route path="/my/account" component={YourAccount} /> */}
     <Route path="/my/profile" component={YourProfile} />
     <Route path="/my/settings" component={YourSettings} />
     <Route path="/sign-up" component={SignUp} />

@@ -17,7 +17,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(?:png|webp|jpe?g|gif|xml|txt|json)$/u,
+        test: /\.(?:png|webp|jpe?g|gif|xml|txt|json)$/iu,
         exclude: /node_modules/u,
         use: {
           loader: "file-loader",
@@ -27,7 +27,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(?:png|webp|jpe?g)$/u,
+        test: /\.(?:png|webp|jpe?g)$/iu,
         exclude: /node_modules/u,
         use: [
           {
@@ -40,12 +40,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.gql$/u,
+        test: /\.gql$/iu,
         exclude: /node_modules/u,
         loader: "graphql-tag/loader",
       },
       {
-        test: /\.(?:ts|js)x?$/u,
+        test: /\.(?:ts|js)x?$/iu,
         exclude: /node_modules/u,
         use: {
           loader: "babel-loader",
