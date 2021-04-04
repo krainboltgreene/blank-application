@@ -1,4 +1,3 @@
-import React from "react";
 import {compact} from "@unction/complete";
 
 interface PropertiesType {

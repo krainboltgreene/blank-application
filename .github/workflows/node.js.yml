@@ -1,23 +1,30 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
 name: Node.js CI
+
 on:
   push:
     branches: [ core ]
   pull_request:
     branches: [ core ]
+
 jobs:
-  validate:
+  build:
+
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
       with:
-        node-version: '15.x'
-    - uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: ${{ runner.os }}-npm-
+        node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: bin/eslint-check
-    - run: bin/typescript-check
-    - run: bin/webpack-build
+    - run: npm run build --if-present
+    - run: npm test

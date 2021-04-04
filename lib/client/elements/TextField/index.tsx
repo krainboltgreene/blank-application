@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from "react";
 import type {ReactNode} from "react";
 import type {LabelHTMLAttributes} from "react";
 import type {TextareaHTMLAttributes} from "react";
