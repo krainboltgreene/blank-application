@@ -1,4 +1,3 @@
-import React from "react";
 import {useRecoilValue} from "recoil";
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@clumsy_chinchilla/atoms";

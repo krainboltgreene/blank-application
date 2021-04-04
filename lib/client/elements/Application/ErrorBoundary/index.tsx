@@ -1,4 +1,3 @@
-import React from "react";
 import type {ErrorInfo} from "react";
 import {Component} from "react";
 import Exception from "../../Exception";
