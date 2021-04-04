@@ -1,4 +1,3 @@
-import React from "react";
 import {Page} from "@clumsy_chinchilla/elements";
 import {Link} from "@clumsy_chinchilla/elements";
 import splash from "./splash.jpg";

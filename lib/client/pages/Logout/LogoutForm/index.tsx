@@ -1,4 +1,3 @@
-import React from "react";
 import {useEffect} from "react";
 import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
