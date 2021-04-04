@@ -4,7 +4,6 @@ module.exports = {
     "@typescript-eslint",
     "filenames",
     "graphql",
-    "import",
     "jest",
     "jsx-a11y",
     "promise",
@@ -20,9 +19,6 @@ module.exports = {
     browser: true,
   },
   settings: {
-    "import/resolver": {
-      "babel-module": {},
-    },
     "react": {
       version: "16.8.4",
     },
@@ -215,46 +211,6 @@ module.exports = {
     "id-length": "error",
     "id-match": "error",
     "implicit-arrow-linebreak": "error",
-    "import/default": "error",
-    "import/dynamic-import-chunkname": "error",
-    "import/export": "error",
-    "import/exports-last": "error",
-    "import/extensions": "error",
-    "import/first": "error",
-    "import/group-exports": "off", // Doesn't work for my style
-    "import/max-dependencies": "off", // not worth it
-    "import/named": "error",
-    "import/namespace": "error",
-    "import/newline-after-import": "error",
-    "import/no-absolute-path": "error",
-    "import/no-amd": "error",
-    "import/no-anonymous-default-export": ["error", {allowObject: true}],
-    "import/no-commonjs": "warn",
-    "import/no-cycle": "error",
-    "import/no-default-export": "error",
-    "import/no-deprecated": "error",
-    "import/no-duplicates": "off", // Just frankly a bad rule
-    "import/no-dynamic-require": "error",
-    "import/no-extraneous-dependencies": "error",
-    "import/no-internal-modules": "error",
-    "import/no-mutable-exports": "error",
-    "import/no-named-as-default-member": "error",
-    "import/no-named-as-default": "error",
-    "import/no-named-default": "error",
-    "import/no-named-export": "error",
-    "import/no-namespace": "error",
-    "import/no-nodejs-modules": "error",
-    "import/no-relative-parent-imports": "off", // doesn't work for me
-    "import/no-restricted-paths": "error",
-    "import/no-self-import": "error",
-    "import/no-unassigned-import": "off", // flies in the face of modern importing
-    "import/no-unresolved": "error",
-    "import/no-unused-modules": "error",
-    "import/no-useless-path-segments": "error",
-    "import/no-webpack-loader-syntax": "error",
-    "import/order": ["error", {groups: ["builtin", "external", "internal", "parent", "sibling", "index"]}],
-    "import/prefer-default-export": "warn",
-    "import/unambiguous": "error",
     "indent": ["error", 2, {SwitchCase: 1}],
     "init-declarations": "error",
     "jest/consistent-test-it": "error",
@@ -585,7 +541,7 @@ module.exports = {
     "react/jsx-sort-default-props": "off", // This is just busy work
     "react/jsx-sort-props": "off", // This is just busy work
     "react/jsx-tag-spacing": "error",
-    "react/jsx-uses-react": "error",
+    "react/jsx-uses-react": "off", // React 17 makes this unnecessary
     "react/jsx-uses-vars": "error",
     "react/jsx-wrap-multilines": "off", // This is just busy work
     "react/no-access-state-in-setstate": "error",
@@ -617,7 +573,7 @@ module.exports = {
     "react/prefer-read-only-props": "error",
     "react/prefer-stateless-function": "error",
     "react/prop-types": "off", // We use functions
-    "react/react-in-jsx-scope": "error",
+    "react/react-in-jsx-scope": "off", // React 17 makes this unnecessary
     "react/require-default-props": "off", // We use functions
     "react/require-optimization": "off", // We use functions
     "react/require-render-return": "off", // We use functions

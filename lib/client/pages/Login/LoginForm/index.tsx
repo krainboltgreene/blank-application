@@ -1,18 +1,17 @@
-import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
 import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
+import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import createSessionMutation from "./createSessionMutation.gql";
 import type {CreateSessionMutation} from "./CreateSessionMutation.d";
 
 export default function LoginForm (): JSX.Element {
   const history = useHistory();
-  const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
+  const setCurrentSessionId = useSetRecoilState(currentSessionIdAtom);
   const [createSession, {loading: createSessionLoading, error: createSessionError, data: createSessionData}] = useMutation<CreateSessionMutation>(createSessionMutation);
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
@@ -23,15 +22,22 @@ export default function LoginForm (): JSX.Element {
 
   useEffect(() => {
     if (createSessionData) {
-      setCurrentAccount(createSessionData.createSession?.id ?? null);
+      setCurrentSessionId(createSessionData.createSession?.id ?? null);
       history.push("/"); // TODO: This should be back instead
     }
-  }, [createSessionData, setCurrentAccount, history]);
+  }, [createSessionData, setCurrentSessionId, history]);
 
   return <form id="loginForm" onSubmit={async (event): Promise<void> => {
     event.preventDefault();
     await createSession({variables: {input: {emailAddress, password}}});
   }}>
+    {
+      createSessionError ? <section>
+        <p>
+          {createSessionError.message}
+        </p>
+      </section> : null
+    }
     <Field
       scope="loginForm"
       type="email"

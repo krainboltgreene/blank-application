@@ -10,7 +10,7 @@ This project is actually 5 parts:
 
 ## Setup
 
-  0. `initdb --username=postgres --pwprompt postgres/data`
+  0. `bin/postgres-setup`
   0. `bin/postgres-start`
   0. `bin/setup`
 
@@ -48,6 +48,7 @@ Step one is to create the component in `lib/client/pages/` and then export it in
   - Finish setting up the html meta
   - Get a google tag manager id
   - Hot reloading not noticing change in css
+  - Check out DLLplugin
   - Utilize recoil state persistance for hydration
   - make storybook load recoil
   - Tried to create an account, then I saw this in logs:

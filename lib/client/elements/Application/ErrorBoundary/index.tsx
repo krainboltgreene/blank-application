@@ -1,4 +1,3 @@
-import React from "react";
 import type {ErrorInfo} from "react";
 import {Component} from "react";
 import Exception from "../../Exception";
@@ -8,7 +7,7 @@ interface PropertiesType<C> {
 }
 
 export default class ErrorBoundary<C> extends Component<Readonly<PropertiesType<C>>, {exception?: Error | string; metadata?: Record<string, unknown>}> {
-  private constructor (properties) {
+  private constructor (properties: Readonly<PropertiesType<C>>) {
     super(properties);
     this.state = {};
   }

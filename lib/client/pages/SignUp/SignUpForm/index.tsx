@@ -1,18 +1,17 @@
-import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
 import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentAccount as currentAccountAtom} from "@clumsy_chinchilla/atoms";
+import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import createAccountMutation from "./createAccountMutation.gql";
 import type {CreateAccountMutation} from "./CreateAccountMutation.d";
 
 export default function SignUpForm (): JSX.Element {
   const history = useHistory();
-  const setCurrentAccount = useSetRecoilState<string | null>(currentAccountAtom);
+  const setCurrentAccount = useSetRecoilState(currentSessionIdAtom);
   const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation<CreateAccountMutation>(createAccountMutation);
   const [emailAddress, setEmailAddress] = useState("");
 
