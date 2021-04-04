@@ -13,7 +13,7 @@ module.exports = {
       "^@clumsy_chinchilla/(.+)$": "./lib/client/\\1",
       "^@assets/(.+)$": "./assets/\\1",
     }}],
-    process.env.NODE_ENV === "production" ? null : "react-hot-loader/babel",
     process.env.NODE_ENV === "production" ? null : "annotate-console-log",
+    "react-refresh/babel"
   ].filter((preset) => preset),
 };

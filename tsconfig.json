@@ -9,9 +9,9 @@
   ],
   "compilerOptions": {
     "noEmit": true,
-    "jsx": "react",
-    "esModuleInterop": true,
+    "jsx": "react-jsx",
     "strict": true,
+    "esModuleInterop": true,
     "baseUrl": ".", // This must be specified if "paths" is.
     "paths": {
       "@clumsy_chinchilla/*": ["lib/client/*"] // This mapping is relative to "baseUrl"
