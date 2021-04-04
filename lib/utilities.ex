@@ -1,4 +1,7 @@
 defmodule Utilities do
+  @moduledoc """
+  A set of very valuable utilities
+  """
   require Logger
 
   @spec couple_with(list(value) | value, pairing) :: list({value, pairing}) | {value, pairing}
@@ -20,14 +23,27 @@ defmodule Utilities do
     |> Inflex.singularize()
   end
 
-  @spec tap(value, (value -> any())) :: value when value: any
+  @spec ok_tap({:ok | any, value}, (value -> any())) :: value when value: any
+  def ok_tap({:ok, value}, function) when is_function(function) do
+    function.(value)
+    {:ok, value}
+  end
+
+  def ok_tap(touple, _), do: touple
+
+  @spec tap(value, (value -> any)) :: value when value: any
   def tap(value, function) when is_function(function) do
     function.(value)
     value
   end
 
   @spec right({any, value}) :: value when value: any
-  def right({_left, value}) do
+  def right({_, value}) do
+    value
+  end
+
+  @spec left({value, any}) :: value when value: any
+  def left({value, _}) do
     value
   end
 
@@ -39,31 +55,21 @@ defmodule Utilities do
     |> right()
   end
 
-  @spec prepend(list, any) :: nonempty_maybe_improper_list
+  @spec prepend(list, any) :: nonempty_list()
   def prepend(list, value) when is_list(list) do
     [value | list]
   end
 
-  @spec flow_logger(Flow.t()) :: Flow.t()
-  def flow_logger(flow) do
-    flow
-    |> Flow.map(fn value ->
-      Logger.info(Kernel.inspect(value))
+  @spec aside_log(list | Flow.t(), String.t() | (any -> any)) :: list | Flow.t()
+  def aside_log(list, function) when is_list(list) and is_function(function, 1) do
+    list
+    |> Enum.map(fn value ->
+      Logger.info(function.(value))
       value
     end)
   end
 
-  @spec flow_logger(Flow.t(), String.t()) :: Flow.t()
-  def flow_logger(flow, message) when is_bitstring(message) do
-    flow
-    |> Flow.map(fn value ->
-      Logger.info(message)
-      value
-    end)
-  end
-
-  @spec flow_logger(Flow.t(), (any -> any)) :: Flow.t()
-  def flow_logger(flow, function) when is_function(function, 1) do
+  def aside_log(flow, function) when is_struct(flow, Flow) and is_function(function, 1) do
     flow
     |> Flow.map(fn value ->
       Logger.info(function.(value))
@@ -71,29 +77,35 @@ defmodule Utilities do
     end)
   end
 
-  @spec enum_logger(Enum.t()) :: Enum.t()
-  def enum_logger(enumerable) do
-    enumerable
-    |> Enum.map(fn value ->
-      Logger.info(Kernel.inspect(value))
-      value
-    end)
-  end
-
-  @spec enum_logger(Enum.t(), String.t()) :: Enum.t()
-  def enum_logger(enumerable, message) when is_bitstring(message) do
-    enumerable
+  def aside_log(list, message) when is_list(list) and is_bitstring(message) do
+    list
     |> Enum.map(fn value ->
       Logger.info(message)
       value
     end)
   end
 
-  @spec enum_logger(Enum.t(), (any -> any)) :: Enum.t()
-  def enum_logger(enumerable, function) when is_function(function, 1) do
-    enumerable
+  def aside_log(flow, message) when is_struct(flow, Flow) and is_bitstring(message) do
+    flow
+    |> Flow.map(fn value ->
+      Logger.info(message)
+      value
+    end)
+  end
+
+  @spec aside_log(list | Flow.t()) :: list | Flow.t()
+  def aside_log(list) when is_list(list) do
+    list
     |> Enum.map(fn value ->
-      Logger.info(function.(value))
+      Logger.info(Kernel.inspect(value))
+      value
+    end)
+  end
+
+  def aside_log(flow) when is_struct(flow, Flow) do
+    flow
+    |> Flow.map(fn value ->
+      Logger.info(Kernel.inspect(value))
       value
     end)
   end
@@ -182,7 +194,7 @@ defmodule Utilities do
     end
   end
 
-  @spec cache_erase(bitstring) ::
+  @spec cache_erase(String.t()) ::
           {:error,
            atom
            | %{
@@ -201,4 +213,8 @@ defmodule Utilities do
     Logger.debug("[Cache] Erasing from cache", key: key)
     Redix.command(:redix, ["DEL", key])
   end
+
+  @spec generate_secret :: String.t()
+  def generate_secret,
+    do: :crypto.strong_rand_bytes(64) |> Base.url_encode64(case: :upper) |> binary_part(0, 64)
 end

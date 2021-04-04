@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+npx apollo client:codegen --target typescript --useReadOnlyTypes --tsFileExtension d.ts .

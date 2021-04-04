@@ -1,9 +1,9 @@
 /* eslint-disable import/no-commonjs */
 /* eslint-disable import/no-nodejs-modules */
-const {resolve} = require("path");
+const path = require("path");
 
 module.exports = {
-  stories: ["../lib/browser/**/story.ts"],
+  stories: ["../lib/client/**/story.ts"],
   addons: [
     "@storybook/addon-a11y/register",
     "@storybook/addon-knobs/register",
@@ -12,7 +12,7 @@ module.exports = {
       options: {
         rule: {
           test: [/story\.ts?$/u],
-          include: [resolve(__dirname, "..", "lib", "browser")],
+          include: [path.resolve(__dirname, "..", "lib", "client")],
         },
       },
     },

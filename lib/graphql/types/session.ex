@@ -1,7 +1,9 @@
 defmodule Graphql.Types.Session do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   object :session do
-    field :id, non_null(:string)
+    field :id, :string
+    field :account, non_null(:account)
   end
 end

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-bin/webpack-client-build
-bin/webpack-server-build
-mix compile
-mix ecto.setup
-mix absinthe.schema.json --schema Graphql.Schema
+bin/database-build &&
+mix do docs, phx.digest, phx.gen.cert
+bin/apollo-build &&
+bin/webpack-build

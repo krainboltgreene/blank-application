@@ -1,12 +1,20 @@
 {
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "d.ts",
+    "lib/client/",
+    "node_modules/bdd-lazy-var/index.d.ts"
+  ],
   "compilerOptions": {
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "strict": true,
     "esModuleInterop": true,
     "baseUrl": ".", // This must be specified if "paths" is.
     "paths": {
-      "@clumsy_chinchilla/*": ["lib/browser/*"] // This mapping is relative to "baseUrl"
+      "@clumsy_chinchilla/*": ["lib/client/*"] // This mapping is relative to "baseUrl"
     }
   }
 }

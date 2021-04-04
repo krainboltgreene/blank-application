@@ -1,4 +1,5 @@
 defmodule Graphql.Inputs do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   input_object :identity do

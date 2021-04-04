@@ -1,21 +1,17 @@
-/* eslint-disable no-undef */
+/* eslint-disable spaced-comment */
 /* eslint-disable init-declarations */
-/* eslint-disable no-unused-vars */
+
+/// <reference types="@emotion/react/types/css-prop" />
 
 declare module "*.gql" {
-  import {DocumentNode} from "graphql";
+  import type {DocumentNode} from "graphql";
 
   const Schema: DocumentNode;
 
-  export = Schema
+  export = Schema;
 }
+declare module "*.png|jpeg|jpg|webp|gif|json|txt|svg|xml" {
+  const value: string;
 
-declare module ".tsx" {
-  import {NormalizedCacheObject} from "@apollo/client";
-
-  interface Window {
-    __APOLLO_STATE__: NormalizedCacheObject;
-  }
+  export = value;
 }
-
-declare const RUNTIME_ENV: string;

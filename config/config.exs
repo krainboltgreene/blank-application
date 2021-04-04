@@ -13,11 +13,11 @@ config :clumsy_chinchilla,
   generators: [binary_id: true]
 
 # Configures the endpoint
-config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
+config :clumsy_chinchilla, Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "QBzZwNT6wxgJZdiJ6aJVht82dDvzRFvXXLmK8RlHV888PqL/gzRQX36DlWjRjFWs",
-  render_errors: [view: ClumsyChinchillaWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: ClumsyChinchilla.PubSub,
+  render_errors: [view: Web.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Core.PubSub,
   live_view: [signing_salt: "bbTmf3m/"]
 
 # Use Jason for JSON parsing in Phoenix
@@ -43,6 +43,18 @@ config :paper_trail,
   item_type: Ecto.UUID,
   originator_type: Ecto.UUID,
   originator: [name: :account, model: Database.Models.Account]
+
+config :clumsy_chinchilla, Oban,
+  repo: Database.Repository,
+  plugins: [
+    Oban.Plugins.Pruner
+  ],
+  queues: [
+    default: 10,
+    mailers: 20,
+    media: 20,
+    events: 50,
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
