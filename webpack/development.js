@@ -5,7 +5,7 @@ const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const SizePlugin = require("size-plugin");
+
 // Helpful constants
 const ROOT_DIRECTORY = [__dirname, ".."];
 const ASSETS_DIRECTORY = [...ROOT_DIRECTORY, "assets"];
@@ -74,11 +74,10 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js", ".jsx"],
   },
   plugins: [
-    new EnvironmentPlugin([
-      "NODE_ENV",
-    ]),
+    new EnvironmentPlugin({
+      NODE_ENV: "development"
+    }),
     HOTLOADED && new ReactRefreshWebpackPlugin(),
-    new SizePlugin(),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
       from,
       to: path.resolve(...OUTPUT_DIRECTORY, "assets", ...to),
