@@ -541,7 +541,7 @@ module.exports = {
     "react/jsx-sort-default-props": "off", // This is just busy work
     "react/jsx-sort-props": "off", // This is just busy work
     "react/jsx-tag-spacing": "error",
-    "react/jsx-uses-react": "error",
+    "react/jsx-uses-react": "off", // React 17 makes this unnecessary
     "react/jsx-uses-vars": "error",
     "react/jsx-wrap-multilines": "off", // This is just busy work
     "react/no-access-state-in-setstate": "error",
@@ -573,7 +573,7 @@ module.exports = {
     "react/prefer-read-only-props": "error",
     "react/prefer-stateless-function": "error",
     "react/prop-types": "off", // We use functions
-    "react/react-in-jsx-scope": "error",
+    "react/react-in-jsx-scope": "off", // React 17 makes this unnecessary
     "react/require-default-props": "off", // We use functions
     "react/require-optimization": "off", // We use functions
     "react/require-render-return": "off", // We use functions

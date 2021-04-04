@@ -1,15 +1,24 @@
 const path = require("path");
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const {EnvironmentPlugin} = require("webpack");
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const SizePlugin = require("size-plugin");
+
 // Helpful constants
 const ROOT_DIRECTORY = [__dirname, ".."];
 const ASSETS_DIRECTORY = [...ROOT_DIRECTORY, "assets"];
 const CLIENT_DIRECTORY = [...ROOT_DIRECTORY, "lib", "client"];
 const OUTPUT_DIRECTORY = [...ROOT_DIRECTORY, "tmp", "browser-client"];
 const PACKAGE_ASSETS = [];
+const ASSET_LOADER = {
+  loader: "file-loader",
+  options: {
+    name: "[name].[ext]",
+  },
+}
+const HOTLOADED = process.env.HOT === "enabled";
 
 module.exports = {
   mode: "development",
@@ -17,44 +26,28 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(?:png|webp|jpe?g|gif|xml|txt|json)$/iu,
-        exclude: /node_modules/u,
-        use: {
-          loader: "file-loader",
-          options: {
-            name: "[name].[contenthash].[ext]",
-          },
-        },
+        test: /\.(?:gif|xml|txt|json)$/iu,
+        include: path.resolve(...ASSETS_DIRECTORY),
+        use: [ASSET_LOADER],
       },
       {
         test: /\.(?:png|webp|jpe?g)$/iu,
-        exclude: /node_modules/u,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].[contenthash].[ext]",
-            },
-          },
-          "webp-loader"
-        ],
+        include: path.resolve(...ASSETS_DIRECTORY),
+        use: [ASSET_LOADER, "webp-loader"],
       },
       {
         test: /\.gql$/iu,
-        exclude: /node_modules/u,
-        loader: "graphql-tag/loader",
+        include: path.resolve(...CLIENT_DIRECTORY),
+        use: ["graphql-tag/loader"],
       },
       {
         test: /\.(?:ts|js)x?$/iu,
-        exclude: /node_modules/u,
-        use: {
-          loader: "babel-loader",
-        },
+        include: path.resolve(...CLIENT_DIRECTORY),
+        use: ["babel-loader"],
       },
     ],
   },
   entry: [
-    "react-hot-loader/patch",
     path.resolve(...CLIENT_DIRECTORY, "index.tsx"),
   ],
   target: "web",
@@ -63,8 +56,13 @@ module.exports = {
     path: path.resolve(...OUTPUT_DIRECTORY),
     filename: "browser-client.js",
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'async'
+    },
+  },
   devServer: {
-    hot: true,
+    hot: HOTLOADED,
     historyApiFallback: true,
     headers: {"Access-Control-Allow-Origin": "*"},
   },
@@ -72,16 +70,14 @@ module.exports = {
     ignored: ["node_modules"],
   },
   resolve: {
+    symlinks: false,
     extensions: [".tsx", ".ts", ".js", ".jsx"],
-    alias: {
-      "react-dom": "@hot-loader/react-dom",
-    },
   },
   plugins: [
-    new EnvironmentPlugin([
-      "NODE_ENV",
-    ]),
-    new SizePlugin(),
+    new EnvironmentPlugin({
+      NODE_ENV: "development"
+    }),
+    HOTLOADED && new ReactRefreshWebpackPlugin(),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
       from,
       to: path.resolve(...OUTPUT_DIRECTORY, "assets", ...to),
@@ -117,5 +113,6 @@ module.exports = {
       },
       template: path.resolve(...CLIENT_DIRECTORY, "templates", "index.html"),
     }),
-  ],
+    !HOTLOADED && new BundleAnalyzerPlugin()
+  ].filter(Boolean),
 };
