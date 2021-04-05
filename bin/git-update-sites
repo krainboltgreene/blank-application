@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+
+git branch | grep -v core | grep -v '\*' | grep '\.' | xargs -I % sh -c 'git checkout core && git checkout % && git pull origin && git pull origin core && git push origin % && git checkout core'

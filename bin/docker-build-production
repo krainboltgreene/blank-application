@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# -t us.gcr.io/clumsy-chinchilla/application-production:latest \
-docker build \
-  -t application-production:latest \
-  --file docker/prod/Dockerfile .
