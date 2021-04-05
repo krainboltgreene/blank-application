@@ -110,14 +110,23 @@ jobs:
         key: ${{ runner.os }}-graphql
     - run: bin/graphql-build
       env:
-        # The hostname used to communicate with the PostgreSQL service container
         POSTGRES_HOST: postgres
-        # The default PostgreSQL port
         POSTGRES_PORT: 5432
   elixir-check:
     name: Elixir Checks
     needs: ["elixir-setup"]
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        # Docker Hub image
+        image: postgres:13.2
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - uses: actions/checkout@v2
     - name: Restore mix cache
@@ -136,6 +145,9 @@ jobs:
         elixir-version: '1.11.4'
         otp-version: '23.3'
     - run: bin/esunit-check
+      env:
+        POSTGRES_HOST: postgres
+        POSTGRES_PORT: 5432
   javascript-check:
     name: Javascript Checks
     needs: ["graphql-build", "javascript-setup"]
