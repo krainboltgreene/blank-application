@@ -18,11 +18,27 @@ const ASSET_LOADER = {
     name: "[name].[ext]",
   },
 }
+const CI = process.env.GITHUB_ACTIONS === "true";
 const HOTLOADED = process.env.HOT === "enabled";
 
 module.exports = {
   mode: "development",
-  devtool: "inline-source-map",
+  devtool: CI ? false : "cheap-source-map",
+  target: "web",
+  cache: CI ? {
+    type: 'filesystem'
+  } : true,
+  watch: HOTLOADED,
+  watchOptions: {
+    ignored: ["node_modules"],
+  },
+  entry: [
+    path.resolve(...CLIENT_DIRECTORY, "index.tsx"),
+  ],
+  resolve: {
+    symlinks: false,
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
+  },
   module: {
     rules: [
       {
@@ -47,10 +63,6 @@ module.exports = {
       },
     ],
   },
-  entry: [
-    path.resolve(...CLIENT_DIRECTORY, "index.tsx"),
-  ],
-  target: "web",
   output: {
     publicPath: "http://localhost:8080/",
     path: path.resolve(...OUTPUT_DIRECTORY),
@@ -65,13 +77,6 @@ module.exports = {
     hot: HOTLOADED,
     historyApiFallback: true,
     headers: {"Access-Control-Allow-Origin": "*"},
-  },
-  watchOptions: {
-    ignored: ["node_modules"],
-  },
-  resolve: {
-    symlinks: false,
-    extensions: [".tsx", ".ts", ".js", ".jsx"],
   },
   plugins: [
     new EnvironmentPlugin({
@@ -113,6 +118,6 @@ module.exports = {
       },
       template: path.resolve(...CLIENT_DIRECTORY, "templates", "index.html"),
     }),
-    !HOTLOADED && new BundleAnalyzerPlugin()
+    !HOTLOADED && !CI && new BundleAnalyzerPlugin()
   ].filter(Boolean),
 };
