@@ -1,0 +1,147 @@
+name: Elixir CI
+
+on:
+  push:
+    branches: [ core ]
+  pull_request:
+    branches: [ core ]
+
+jobs:
+  javascript-setup:
+    name: Javascript Setup
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Restore npm cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-npm-
+    - name: Restore browser-client build cache
+      uses: actions/cache@v2
+      with:
+        path: tmp/browser-client
+        key: ${{ runner.os }}-javascript-build
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
+    - run: npm ci
+  elixir-setup:
+    name: Elixir Setup
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Restore mix cache
+      uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Restore elixir build cache
+      uses: actions/cache@v2
+      with:
+        path: _build
+        key: ${{ runner.os }}-elixir-build
+    - uses: erlef/setup-beam@v1
+      with:
+        elixir-version: '1.11.4'
+        otp-version: '23.3'
+    - run: bin/elixir-setup
+  javascript-build:
+    needs: ["javascript-setup"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Restore npm cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-npm-
+    - name: Restore browser-client build cache
+      uses: actions/cache@v2
+      with:
+        path: tmp/browser-client
+        key: ${{ runner.os }}-javascript-build
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
+    - run: bin/webpack-build
+  graphql-build:
+    needs: ["elixir-setup"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Restore mix cache
+      uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Restore elixir build cache
+      uses: actions/cache@v2
+      with:
+        path: _build
+        key: ${{ runner.os }}-elixir-build
+    - uses: erlef/setup-beam@v1
+      with:
+        elixir-version: '1.11.4'
+        otp-version: '23.3'
+    - name: Restore graphql cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          schema.graphql
+          schema.json
+        key: ${{ runner.os }}-graphql
+    - run: bin/graphql-build
+  elixir-check:
+    needs: ["elixir-build"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Restore mix cache
+      uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Restore elixir build cache
+      uses: actions/cache@v2
+      with:
+        path: _build
+        key: ${{ runner.os }}-elixir-build
+    - uses: erlef/setup-beam@v1
+      with:
+        elixir-version: '1.11.4'
+        otp-version: '23.3'
+    - run: bin/esunit-check
+  javascript-check:
+    needs: ["graphql-build", "javascript-setup"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Restore npm cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-npm-
+    - name: Restore browser-client build cache
+      uses: actions/cache@v2
+      with:
+        path: tmp/browser-client
+        key: ${{ runner.os }}-javascript-build
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
+    - name: Restore graphql cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          schema.graphql
+          schema.json
+        key: ${{ runner.os }}-graphql
+    - run: bin/eslint-check
+    - run: bin/typescript-check
