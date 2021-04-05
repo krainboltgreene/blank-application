@@ -14,7 +14,7 @@ defmodule Estate do
               changeset
             end
 
-            @desc "Called after #{unquote(event_name)}, with the changset"
+            @desc "Called after #{unquote(event_name)}, with the changeset"
             def unquote(:"after_#{event_name}_from_#{from}")(
                   %Ecto.Changeset{
                     changes: %{unquote(column_name) => unquote(to)},
