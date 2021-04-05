@@ -21,66 +21,35 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-defmodule Seeds do
-  @moduledoc false
-  def create_record(attributes, model) do
-    struct(model)
-    |> model.changeset(attributes)
-    |> Database.Repository.insert!()
-  end
-
-  def assign_membership(account, organization, permission) do
-    %{
-      organization_membership:
-        %{
-          account: account,
-          organization: organization
-        }
-        |> create_record(Database.Models.OrganizationMembership),
-      permission: permission
-    }
-    |> create_record(Database.Models.OrganizationPermission)
-  end
-end
-
-administrator_permissions =
-  %{
-    name: "Administrator"
-  }
-  |> Seeds.create_record(Database.Models.Permission)
-
-user_permissions =
-  %{
-    name: "User"
-  }
-  |> Seeds.create_record(Database.Models.Permission)
-
-users_organization =
-  %{
-    name: "Users"
-  }
-  |> Seeds.create_record(Database.Models.Organization)
+Database.Models.Permission.create(%{
+  name: "Administrator"
+})
+Database.Models.Permission.create(%{
+  name: "Default"
+})
 
 krainboltgreene =
-  %{
+  Database.Models.Account.create(%{
     name: "Kurtis Rainbolt-Greene",
     email_address: "kurtis@clumsy-chinchilla.club",
     username: "krainboltgreene",
     password: "password"
-  }
-  |> Seeds.create_record(Database.Models.Account)
-
+  })
 alabaster =
-  %{
+  Database.Models.Account.create(%{
     name: "Alabaster Wolf",
     email_address: "alabaster@clumsy-chinchilla.club",
     username: "alabaster",
     password: "password"
-  }
-  |> Seeds.create_record(Database.Models.Account)
+  })
 
-krainboltgreene |> Seeds.assign_membership(users_organization, administrator_permissions)
-alabaster |> Seeds.assign_membership(users_organization, user_permissions)
+default_organization =
+  Database.Models.Organization.create(%{
+    name: "Default"
+  })
+
+krainboltgreene |> Core.Organization.join(default_organization, "administrator")
+alabaster |> Core.Organization.join(default_organization)
 
 Enum.each([
   "Diabetic",
@@ -94,7 +63,7 @@ Enum.each([
   "Low-Salt",
   "Vegan",
   "Vegetarian"
-], fn name -> %Database.Models.Diet{} |> Database.Models.Diet.changeset(%{name: name}) |> Database.Repository.insert_or_update!() end)
+], fn name -> Database.Models.Diet.create(%{name: name}))
 
 Enum.each([
   "Cow's Milk",
@@ -107,7 +76,7 @@ Enum.each([
   "Wheat",
   "Rice",
   "Fruit"
-], fn name -> %Database.Models.Allergy{} |> Database.Models.Allergy.changeset(%{name: name}) |> Database.Repository.insert_or_update!() end)
+], fn name -> Database.Models.Allergy.create(%{name: name}))
 
 Enum.each([
   "Cash",
@@ -119,7 +88,7 @@ Enum.each([
   "Giftcards",
   "Online Payments",
   "Bitcoin/Cryptocurrency"
-], fn name -> %Database.Models.PaymentType{} |> Database.Models.PaymentType.changeset(%{name: name}) |> Database.Repository.insert_or_update!() end)
+], fn name -> Database.Models.PaymentType.create(%{name: name}))
 
 Enum.each(
   [
@@ -178,7 +147,7 @@ Enum.each(
       ]
     }
   ],
-  fn question -> %Database.Models.Question{} |> Database.Models.Question.changeset(question) |> Database.Repository.insert_or_update!() end
+  fn question -> Database.Models.Question.create(question) end
 )
 
 Enum.each(
@@ -194,5 +163,5 @@ Enum.each(
       ]
     }
   ],
-  fn establishment -> %Database.Models.Establishment{} |> Database.Models.Establishment.changeset(establishment) |> Database.Repository.insert_or_update!() end
+  fn establishment -> Database.Models.Establishment.create(question) end
 )
