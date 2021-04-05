@@ -15,7 +15,10 @@ defmodule Database.Models.OrganizationPermission do
     timestamps()
   end
 
-  @type t :: %__MODULE__{}
+  @type t :: %__MODULE__{
+    organization_membership: Database.Models.OrganizationMembership.t(),
+    permission: Database.Models.Permission.t(),
+  }
 
   @spec changeset(Database.Models.OrganizationPermission.t(), map) ::
           Ecto.Changeset.t(Database.Models.OrganizationPermission.t())
