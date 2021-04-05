@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker build \
+  --file ./docker/production/server-backend/Dockerfile \
+  .
+
+docker build \
+  --file ./docker/production/browser-client/Dockerfile \
+  .
