@@ -2,7 +2,12 @@ defmodule Database.Models.OrganizationPermission do
   @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
+  import Database.Models, only: :macros
 
+  @type t :: %__MODULE__{
+    organization_membership: Database.Models.OrganizationMembership.t(),
+    permission: Database.Models.Permission.t(),
+  }
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organization_permissions" do
@@ -15,7 +20,7 @@ defmodule Database.Models.OrganizationPermission do
     timestamps()
   end
 
-  @type t :: %__MODULE__{}
+  has_standard_behavior()
 
   @spec changeset(Database.Models.OrganizationPermission.t(), map) ::
           Ecto.Changeset.t(Database.Models.OrganizationPermission.t())
@@ -27,22 +32,5 @@ defmodule Database.Models.OrganizationPermission do
     |> put_assoc(:permission, attributes.permission)
     |> assoc_constraint(:organization_membership)
     |> assoc_constraint(:permission)
-  end
-
-  @spec create(%{
-          organization_membership: Database.Models.OrganizationMembership.t(),
-          permission: Database.Models.Permission.t()
-        }) ::
-          {:ok, Database.Models.OrganizationPermission.t()}
-          | {:error,
-             Database.Models.OrganizationPermission.t()
-             | Ecto.Changeset.t(Database.Models.OrganizationPermission.t())}
-  def create(attributes) do
-    Database.Models.OrganizationPermission.__struct__()
-    |> changeset(attributes)
-    |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
-    end
   end
 end

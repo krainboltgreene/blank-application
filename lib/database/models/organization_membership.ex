@@ -2,6 +2,7 @@ defmodule Database.Models.OrganizationMembership do
   @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
+  import Database.Models, only: :macros
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -16,22 +17,7 @@ defmodule Database.Models.OrganizationMembership do
 
   @type t :: %__MODULE__{}
 
-  @spec create(%{
-          organization: Database.Models.OrganizationMembership.t(),
-          account: Database.Models.Permission.t()
-        }) ::
-          {:ok, Database.Models.OrganizationMembership.t()}
-          | {:error,
-             Database.Models.OrganizationMembership.t()
-             | Ecto.Changeset.t(Database.Models.OrganizationMembership.t())}
-  def create(attributes) do
-    Database.Models.OrganizationMembership.__struct__()
-    |> changeset(attributes)
-    |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
-    end
-  end
+  has_standard_behavior()
 
   @spec changeset(Database.Models.OrganizationMembership.t(), map) ::
           Ecto.Changeset.t(Database.Models.OrganizationMembership.t())

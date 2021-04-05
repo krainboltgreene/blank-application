@@ -2,13 +2,13 @@ defmodule Database.Models.Profile do
   @moduledoc false
   use Ecto.Schema
 
+  @type t :: %__MODULE__{
+    public_name: String.t | nil
+  }
   embedded_schema do
     field(:public_name, :string)
   end
 
-  @type t :: %__MODULE__{
-    public_name: String.t | nil
-  }
 
   @spec changeset(Database.Models.Profile.t(), map) ::
           Ecto.Changeset.t(Database.Models.Profile.t())

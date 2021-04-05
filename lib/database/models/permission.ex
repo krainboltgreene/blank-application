@@ -2,7 +2,12 @@ defmodule Database.Models.Permission do
   @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
+  import Database.Models, only: :macros
 
+  @type t :: %__MODULE__{
+          name: String.t(),
+          slug: String.t()
+        }
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "permissions" do
@@ -13,10 +18,7 @@ defmodule Database.Models.Permission do
     timestamps()
   end
 
-  @type t :: %__MODULE__{
-          name: String.t(),
-          slug: String.t()
-        }
+  has_standard_behavior()
 
   @spec changeset(map, map) :: Ecto.Changeset.t()
   @doc false
