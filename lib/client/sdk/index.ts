@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import {ApolloClient} from "@apollo/client";
 import {InMemoryCache} from "@apollo/client";
 import {HttpLink} from "@apollo/client";
