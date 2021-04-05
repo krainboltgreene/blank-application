@@ -69,7 +69,8 @@ module.exports = {
     filename: "browser-client.js",
   },
   optimization: {
-    runtimeChunk: true,
+    // [webpack-cli] Error: Conflict: Multiple chunks emit assets to the same filename browser-client.js (chunks main and runtime~main)
+    // runtimeChunk: true,
     splitChunks: {
       chunks: 'async'
     },
