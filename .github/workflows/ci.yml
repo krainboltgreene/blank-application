@@ -103,7 +103,7 @@ jobs:
         POSTGRES_PORT: 5432
   elixir-check:
     name: Elixir Checks
-    needs: ["elixir-setup"]
+    needs: ["elixir-build"]
     runs-on: ubuntu-latest
     services:
       postgres:
