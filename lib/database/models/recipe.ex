@@ -35,7 +35,7 @@ defmodule Database.Models.Recipe do
   @doc false
   #@spec changeset (Database.Models.Account.t(), map) :: Ecto.Changeset.t(Database.Models.Account.t())
   def changeset(record, attributes) do
-    recipe
+    record
       |> cast(attributes, [:author_account_id, :moderation_state, :name, :body, :ingredients, :instructions, :cook_time, :prep_time])
       |> validate_required([:author_account_id, :moderation_state, :name, :body, :ingredients, :instructions, :cook_time, :prep_time])
       |> Database.Slugs.Name.maybe_generate_slug

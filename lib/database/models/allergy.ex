@@ -16,7 +16,7 @@ defmodule Database.Models.Allergy do
   @doc false
   #@spec changeset (Database.Models.Account.t(), map) :: Ecto.Changeset.t(Database.Models.Account.t())
   def changeset(record, attributes) do
-    allergy
+    record
       |> cast(attributes, [:name])
       |> validate_required([:name])
       |> Database.Slugs.Name.maybe_generate_slug

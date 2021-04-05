@@ -31,7 +31,7 @@ defmodule Database.Models.Establishment do
   @doc false
   #@spec changeset (Database.Models.Account.t(), map) :: Ecto.Changeset.t(Database.Models.Account.t())
   def changeset(record, attributes) do
-    establishment
+    record
       |> cast(attributes, [:name, :google_place_id, :google_place_data, :moderation_state])
       |> cast_assoc(:menu_items, with: &Database.Models.MenuItem.changeset/2)
       |> validate_required([:name, :google_place_id, :moderation_state])

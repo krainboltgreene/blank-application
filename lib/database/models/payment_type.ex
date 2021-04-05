@@ -15,7 +15,7 @@ defmodule Database.Models.PaymentType do
   @doc false
   #@spec changeset (Database.Models.Account.t(), map) :: Ecto.Changeset.t(Database.Models.Account.t())
   def changeset(record, attributes) do
-    payment_type
+    record
       |> cast(attributes, [:name])
       |> validate_required([:name])
       |> unique_constraint(:name)

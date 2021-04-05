@@ -17,7 +17,7 @@ defmodule Database.Models.Question do
   @doc false
   #@spec changeset (Database.Models.Account.t(), map) :: Ecto.Changeset.t(Database.Models.Account.t())
   def changeset(record, attributes) do
-    question
+    record
       |> cast(attributes, [:body, :kind])
       |> cast_assoc(:answers, with: &Database.Models.Answer.changeset/2)
       |> cast_assoc(:requisit_answer, with: &Database.Models.Answer.changeset/2)

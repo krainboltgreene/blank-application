@@ -32,7 +32,7 @@ defmodule Database.Models.MenuItem do
   @doc false
   #@spec changeset (Database.Models.Account.t(), map) :: Ecto.Changeset.t(Database.Models.Account.t())
   def changeset(record, attributes) do
-    menu_item
+    record
       |> cast(attributes, [:name, :body, :moderation_state])
       |> validate_required([:name, :body, :moderation_state])
       |> Database.Slugs.Name.maybe_generate_slug
