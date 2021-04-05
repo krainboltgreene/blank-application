@@ -10,6 +10,13 @@ config :clumsy_chinchilla, Database.Repository,
   pool_size: 10,
   prepare: :unnamed
 
+# Configure the database for GitHub Actions
+if System.get_env("GITHUB_ACTIONS") do
+  config :clumsy_chinchilla, Database.Repository,
+    username: "postgres",
+    password: "postgres"
+end
+
 config :logger,
   backends: [:console]
 
