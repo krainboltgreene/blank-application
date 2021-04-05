@@ -23,7 +23,7 @@ const HOTLOADED = process.env.HOT === "enabled";
 
 module.exports = {
   mode: "development",
-  devtool: CI ? false : "cheap-source-map",
+  devtool: CI ? false : "eval-cheap-module-source-map",
   target: "web",
   cache: CI ? {
     type: 'filesystem'
@@ -69,6 +69,7 @@ module.exports = {
     filename: "browser-client.js",
   },
   optimization: {
+    runtimeChunk: true,
     splitChunks: {
       chunks: 'async'
     },
