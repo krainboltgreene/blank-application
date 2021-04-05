@@ -97,7 +97,7 @@ jobs:
         key: ${{ runner.os }}-graphql
     - run: bin/graphql-build
   elixir-check:
-    needs: ["elixir-build"]
+    needs: ["elixir-setup"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
