@@ -49,6 +49,7 @@ jobs:
         otp-version: '23.3'
     - run: bin/elixir-setup
   javascript-build:
+    name: Javascript Build
     needs: ["javascript-setup"]
     runs-on: ubuntu-latest
     steps:
@@ -69,6 +70,7 @@ jobs:
         node-version: '15.x'
     - run: bin/webpack-build
   graphql-build:
+    name: GraphQL Schema Build
     needs: ["elixir-setup"]
     runs-on: ubuntu-latest
     steps:
@@ -97,6 +99,7 @@ jobs:
         key: ${{ runner.os }}-graphql
     - run: bin/graphql-build
   elixir-check:
+    name: Elixir Checks
     needs: ["elixir-setup"]
     runs-on: ubuntu-latest
     steps:
@@ -118,6 +121,7 @@ jobs:
         otp-version: '23.3'
     - run: bin/esunit-check
   javascript-check:
+    name: Javascript Checks
     needs: ["graphql-build", "javascript-setup"]
     runs-on: ubuntu-latest
     steps:
