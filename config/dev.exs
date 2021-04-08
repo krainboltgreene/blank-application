@@ -13,7 +13,6 @@ config :clumsy_chinchilla, Database.Repository,
 # Configure the database for GitHub Actions
 if System.get_env("GITHUB_ACTIONS") do
   config :clumsy_chinchilla, Database.Repository,
-    hostname: System.get_env("POSTGRES_HOST"),
     username: "postgres",
     password: "postgres"
 end
