@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
     - name: Restore npm cache
       uses: actions/cache@v2
       with:
         path: node_modules
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
         restore-keys: ${{ runner.os }}-npm-
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '15.x'
     - run: npm ci
   elixir-setup:
     name: Elixir Setup
@@ -98,6 +98,7 @@ jobs:
           schema.graphql
           schema.json
         key: ${{ runner.os }}-graphql
+    - run: bin/database-setup
     - run: bin/elixir-build
   elixir-check:
     name: Elixir Checks
@@ -131,6 +132,7 @@ jobs:
       with:
         path: _build
         key: ${{ runner.os }}-elixir-build
+    - run: bin/database-setup
     - run: bin/esunit-check
   javascript-check:
     name: Javascript Checks
