@@ -63,17 +63,6 @@ jobs:
     name: Elixir Build
     needs: ["elixir-setup"]
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:13.2
-        ports: ['5432:5432']
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
     - uses: actions/checkout@v2
     - uses: erlef/setup-beam@v1
@@ -99,8 +88,6 @@ jobs:
           schema.json
         key: ${{ runner.os }}-graphql
     - run: bin/elixir-build
-      env:
-        POSTGRES_HOST: postgres
   elixir-check:
     name: Elixir Checks
     needs: ["elixir-build"]
@@ -134,8 +121,6 @@ jobs:
         path: _build
         key: ${{ runner.os }}-elixir-build
     - run: bin/esunit-check
-      env:
-        POSTGRES_HOST: postgres
   javascript-check:
     name: Javascript Checks
     needs: ["elixir-build", "javascript-setup"]
