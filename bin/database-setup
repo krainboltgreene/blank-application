@@ -1,6 +1,6 @@
 #!/bin/bash
 
-psql -v ON_ERROR_STOP=1 --username "postgres" --dbname "template1" <<-EOSQL
+psql -v ON_ERROR_STOP=1 --host localhost --username "postgres" --dbname "template1" <<-EOSQL
   BEGIN;
     CREATE EXTENSION IF NOT EXISTS "citext";
     CREATE EXTENSION IF NOT EXISTS "pgcrypto";
