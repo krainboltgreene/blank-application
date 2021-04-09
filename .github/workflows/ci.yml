@@ -98,7 +98,6 @@ jobs:
           schema.graphql
           schema.json
         key: ${{ runner.os }}-graphql
-    - run: bin/database-setup
     - run: bin/elixir-build
   elixir-check:
     name: Elixir Checks
