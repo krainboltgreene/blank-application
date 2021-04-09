@@ -84,7 +84,11 @@ config :clumsy_chinchilla, :flow, max_demand: 8
 # Setup Bamboo mailer
 config :clumsy_chinchilla, Mailer,
   adapter: Bamboo.LocalAdapter,
-  open_email_in_browser_url: "http://localhost:4000/sent_emails"
+
+unless System.get_env("GITHUB_ACTIONS") do
+  config :clumsy_chinchilla, Mailer,
+    open_email_in_browser_url: "http://localhost:4000/sent_emails"
+end
 
 config :clumsy_chinchilla, :remotes, %{
   browser_remote: %URI{
