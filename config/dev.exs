@@ -83,7 +83,7 @@ config :clumsy_chinchilla, :flow, max_demand: 8
 
 # Setup Bamboo mailer
 config :clumsy_chinchilla, Mailer,
-  adapter: Bamboo.LocalAdapter,
+  adapter: Bamboo.LocalAdapter
 
 unless System.get_env("GITHUB_ACTIONS") do
   config :clumsy_chinchilla, Mailer,
