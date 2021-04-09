@@ -37,7 +37,7 @@ jobs:
         path: deps
         key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-mix-
-    - run: bin/elixir-setup
+    - run: mix deps.get
   javascript-build:
     name: Javascript Build
     needs: ["javascript-setup"]
@@ -98,7 +98,9 @@ jobs:
           schema.graphql
           schema.json
         key: ${{ runner.os }}-graphql
-    - run: bin/elixir-build
+    - run: mix compile
+    - run: mix dialyzer.build
+    - run: mix ecto.setup
   elixir-check:
     name: Elixir Checks
     needs: ["elixir-build"]
@@ -131,7 +133,7 @@ jobs:
       with:
         path: _build
         key: ${{ runner.os }}-elixir-build
-    - run: bin/esunit-check
+    - run: mix test
   javascript-check:
     name: Javascript Checks
     needs: ["elixir-build", "javascript-setup"]
@@ -159,5 +161,5 @@ jobs:
           schema.graphql
           schema.json
         key: ${{ runner.os }}-graphql
-    - run: bin/eslint-check
-    - run: bin/typescript-check
+    - run: npx eslint --quiet --ext .tsx,.ts,.gql lib/client/
+    - run: npx tsc
