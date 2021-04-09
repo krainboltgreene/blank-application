@@ -131,7 +131,6 @@ jobs:
       with:
         path: _build
         key: ${{ runner.os }}-elixir-build
-    - run: bin/database-setup
     - run: bin/esunit-check
   javascript-check:
     name: Javascript Checks
