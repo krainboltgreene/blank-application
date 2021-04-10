@@ -1,30 +1,50 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:focal
+FROM mcr.microsoft.com/oryx/build:vso-focal-20210319.1 as kitchensink
 
+ARG USERNAME=codespace
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+ENV SHELL="/bin/bash"
+ENV ORYX_ENV_TYPE="vsonline-present"
+ENV NPM_GLOBAL="/home/${USERNAME}/.npm-global"
 ENV OTP_VERSION="23.3.1"
 ENV REBAR3_VERSION="3.14.4"
 ENV REBAR_VERSION="2.6.4"
 ENV ELIXIR_VERSION="v1.11.4"
 ENV NODE_VERSION="15.14.0"
 ENV LANG=C.UTF-8
+ENV PATH="${ORIGINAL_PATH}:${NPM_GLOBAL}/bin:${ORYX_PATHS}"
 
-# Docker setup
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-RUN echo \
-  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-RUN apt-get update
-RUN apt-get install -y --no-install-recommend \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release \
-    git \
-    build-essential \
-    docker-ce \
-    docker-ce-cli \
-    containerd.io
+# VSCode Setup
+COPY library-scripts/* setup-user.sh first-run-notice.txt /tmp/scripts/
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    # Restore man command
+    && yes | unminimize 2>&1 \ 
+    # Run common script and setup user
+    && bash /tmp/scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "true" "true" "true" \
+    && bash /tmp/scripts/setup-user.sh "${USERNAME}" "${PATH}" \
+    # Change owner of opt contents since Oryx can dynamically install and will run as "codespace"
+    && chown codespace /opt/* \
+    # Verify expected build and debug tools are present
+    && apt-get -y install apt-transport-https ca-certificates build-essential cmake cppcheck curl clang lldb llvm gdb gnupg lsb-release \
+    # Install tools and shells not in common script
+    && apt-get install -yq vim vim-doc xtail software-properties-common libsecret-1-dev \
+    # Install additional tools (useful for 'puppeteer' project)
+    && apt-get install -y --no-install-recommends libnss3 libnspr4 libatk-bridge2.0-0 libatk1.0-0 libx11-6 libpangocairo-1.0-0 libx11-xcb1 libcups2 libxcomposite1 libxdamage1 libxfixes3 libpango-1.0-0 libgbm1 \
+    && bash /tmp/scripts/sshd-debian.sh \
+    && bash /tmp/scripts/git-lfs-debian.sh \
+    && bash /tmp/scripts/github-debian.sh \
+    && bash /tmp/scripts/azcli-debian.sh \
+    && bash /tmp/scripts/kubectl-helm-debian.sh \
+    # Install Moby CLI and Engine
+    && bash /tmp/scripts/docker-in-docker-debian.sh "true" "${USERNAME}" "true" \
+    # Build latest git from source
+    && bash /tmp/scripts/git-from-src-debian.sh "latest" \
+    # Clean up
+    && apt-get autoremove -y && apt-get clean -y \
+    # Move first run notice to right spot
+    && mkdir -p /usr/local/etc/vscode-dev-containers/ \
+    && mv -f /tmp/scripts/first-run-notice.txt /usr/local/etc/vscode-dev-containers/
 
 # Node.js setup
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
@@ -75,7 +95,7 @@ RUN set -xe \
 	&& buildDeps='unixodbc-dev \
 			libsctp-dev \
 			libwxgtk3.0-dev' \
-	&& apt-get install -y --no-install-recommends $runtimeDeps $buildDeps \
+	&& apt-get install -ys $runtimeDeps $buildDeps \
 	&& curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
 	&& echo "$OTP_DOWNLOAD_SHA256  otp-src.tar.gz" | sha256sum -c - \
 	&& export ERL_TOP="/usr/src/otp_src_${OTP_VERSION%%@*}" \
@@ -129,3 +149,21 @@ RUN set -xe \
 	&& rm elixir-src.tar.gz \
 	&& cd /usr/local/src/elixir \
 	&& make install clean
+
+
+# Mount for docker-in-docker 
+VOLUME [ "/var/lib/docker" ]
+
+# Fire Docker/Moby script if needed along with Oryx's benv
+ENTRYPOINT [ "/usr/local/share/docker-init.sh", "/usr/local/share/ssh-init.sh", "benv" ]
+CMD [ "sleep", "infinity" ]
+
+# [Optional] Install debugger for development of Codespaces - Not in resulting image by default
+ARG DeveloperBuild
+RUN if [ -z $DeveloperBuild ]; then \
+        echo "not including debugger" ; \
+    else \
+        curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg ; \
+    fi
+
+USER ${USERNAME}
