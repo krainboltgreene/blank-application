@@ -94,7 +94,7 @@ RUN set -xe \
 			libwxgtk3.0' \
 	&& buildDeps='unixodbc-dev \
 			libsctp-dev \
-			libwxgtk3.0-dev' \
+			libwxgtk3.0-gtk3-dev' \
 	&& apt-get install -ys $runtimeDeps $buildDeps \
 	&& curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
 	&& echo "$OTP_DOWNLOAD_SHA256  otp-src.tar.gz" | sha256sum -c - \
