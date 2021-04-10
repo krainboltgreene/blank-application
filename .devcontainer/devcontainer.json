@@ -1,37 +1,48 @@
 // For format details, see https://aka.ms/devcontainer.json.
 {
-	"name": "Project",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "codespace",
-	"settings": {
-		"terminal.integrated.shell.linux": "/bin/bash",
-		"sqltools.connections": [{
-			"name": "Container database",
-			"driver": "PostgreSQL",
-			"previewLimit": 50,
-			"server": "localhost",
-			"port": 5432,
-			"database": "postgres",
-			"username": "postgres",
-			"password": ""
-		}]
-	},
-	"remoteUser": "codespace",
-	"forwardPorts": [4000, 4001, 5432],
-	"overrideCommand": false,
-	"workspaceFolder": "/home/codespace/source",
-	"runArgs": [
-		"--cap-add=SYS_PTRACE",
-		"--security-opt",
-		"seccomp=unconfined",
-		"--privileged",
-		"--init"
-	],
-	"extensions": [
-		"github.codespaces",
-		"ms-azuretools.vscode-docker",
-		"jakebecker.elixir-ls",
-		"mtxr.sqltools",
-		"mtxr.sqltools-driver-pg"
-	]
+  "name": "Project",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "codespace",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "sqltools.connections": [{
+      "name": "Container database",
+      "driver": "PostgreSQL",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "database": "postgres",
+      "username": "postgres",
+      "password": ""
+    }]
+  },
+  "remoteUser": "codespace",
+  "forwardPorts": [4000, 4001, 5432],
+  "overrideCommand": false,
+  "workspaceFolder": "/home/codespace/source",
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt",
+    "seccomp=unconfined",
+    "--privileged",
+    "--init"
+  ],
+  "extensions": [
+    "mgmcdermott.vscode-language-babel",
+    "apollographql.vscode-apollo",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "github.codespaces",
+    "ms-azuretools.vscode-docker",
+    "jakebecker.elixir-ls",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg"
+  ],
+  "postCreateCommand": [
+    "mix deps.get",
+    "mix compile",
+    "npm install --no-audit",
+    "mix dialyzer.build",
+    "mix ecto.setup"
+  ]
 }
