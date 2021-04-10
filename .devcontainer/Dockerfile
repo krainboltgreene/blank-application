@@ -26,9 +26,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # Change owner of opt contents since Oryx can dynamically install and will run as "codespace"
     && chown codespace /opt/* \
     # Verify expected build and debug tools are present
-    && apt-get -y install apt-transport-https ca-certificates build-essential cmake cppcheck curl clang lldb llvm gdb gnupg lsb-release \
+    && apt-get install -y --no-install-recommends apt-transport-https ca-certificates build-essential cmake cppcheck curl clang lldb llvm gdb gnupg lsb-release \
     # Install tools and shells not in common script
-    && apt-get install -yq vim vim-doc xtail software-properties-common libsecret-1-dev \
+    && apt-get install --no-install-recommends -yq vim vim-doc xtail software-properties-common libsecret-1-dev \
     # Install additional tools (useful for 'puppeteer' project)
     && apt-get install -y --no-install-recommends libnss3 libnspr4 libatk-bridge2.0-0 libatk1.0-0 libx11-6 libpangocairo-1.0-0 libx11-xcb1 libcups2 libxcomposite1 libxdamage1 libxfixes3 libpango-1.0-0 libgbm1 \
     && bash /tmp/scripts/sshd-debian.sh \
@@ -92,7 +92,7 @@ RUN set -xe \
 	&& buildDeps='unixodbc-dev \
 			libsctp-dev \
 			libwxgtk3.0-gtk3-dev' \
-	&& apt-get install -ys $runtimeDeps $buildDeps \
+	&& apt-get install -ys --no-install-recommends $runtimeDeps $buildDeps \
 	&& curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
 	&& echo "$OTP_DOWNLOAD_SHA256  otp-src.tar.gz" | sha256sum -c - \
 	&& export ERL_TOP="/usr/src/otp_src_${OTP_VERSION%%@*}" \
