@@ -32,10 +32,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # Install additional tools (useful for 'puppeteer' project)
     && apt-get install -y --no-install-recommends libnss3 libnspr4 libatk-bridge2.0-0 libatk1.0-0 libx11-6 libpangocairo-1.0-0 libx11-xcb1 libcups2 libxcomposite1 libxdamage1 libxfixes3 libpango-1.0-0 libgbm1 \
     && bash /tmp/scripts/sshd-debian.sh \
-    && bash /tmp/scripts/git-lfs-debian.sh \
     && bash /tmp/scripts/github-debian.sh \
-    && bash /tmp/scripts/azcli-debian.sh \
-    && bash /tmp/scripts/kubectl-helm-debian.sh \
     # Install Moby CLI and Engine
     && bash /tmp/scripts/docker-in-docker-debian.sh "true" "${USERNAME}" "true" \
     # Build latest git from source
