@@ -19,7 +19,7 @@
 	"remoteUser": "codespace",
 	"forwardPorts": [4000, 4001, 5432],
 	"overrideCommand": false,
-	"workspaceFolder": "/home/codespace/",
+	"workspaceFolder": "/home/codespace/source",
 	"runArgs": [
 		"--cap-add=SYS_PTRACE",
 		"--security-opt",
