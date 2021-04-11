@@ -17,7 +17,7 @@ ENV PATH="${ORIGINAL_PATH}:${NPM_GLOBAL}/bin:${ORYX_PATHS}"
 
 # VSCode Setup
 COPY library-scripts/* setup-user.sh first-run-notice.txt /tmp/scripts/
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+RUN export DEBIAN_FRONTEND=noninteractive \
     # Restore man command
     && yes | unminimize 2>&1 \ 
     # Run common script and setup user
@@ -26,11 +26,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # Change owner of opt contents since Oryx can dynamically install and will run as "codespace"
     && chown codespace /opt/* \
     # Verify expected build and debug tools are present
-    && apt-get install -y --no-install-recommends apt-transport-https ca-certificates build-essential cmake cppcheck curl clang lldb llvm gdb gnupg lsb-release \
-    # Install tools and shells not in common script
-    && apt-get install --no-install-recommends -yq vim vim-doc xtail software-properties-common libsecret-1-dev \
-    # Install additional tools (useful for 'puppeteer' project)
-    && apt-get install -y --no-install-recommends libnss3 libnspr4 libatk-bridge2.0-0 libatk1.0-0 libx11-6 libpangocairo-1.0-0 libx11-xcb1 libcups2 libxcomposite1 libxdamage1 libxfixes3 libpango-1.0-0 libgbm1 \
+    && apt-get install -y --no-install-recommends build-essential software-properties-common libsecret-1-dev \
     && bash /tmp/scripts/sshd-debian.sh \
     && bash /tmp/scripts/github-debian.sh \
     # Install Moby CLI and Engine
