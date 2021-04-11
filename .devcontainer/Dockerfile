@@ -112,7 +112,6 @@ RUN set -xe \
 	  && make -j$(nproc) \
 	  && make install ) \
 	&& find /usr/local -name examples | xargs rm -rf \
-	&& apt-get purge -y --auto-remove $buildDeps \
 	&& rm -rf $ERL_TOP /var/lib/apt/lists/*
 RUN set -xe \
 	&& REBAR_DOWNLOAD_URL="https://github.com/rebar/rebar/archive/${REBAR_VERSION}.tar.gz" \
@@ -150,6 +149,7 @@ RUN set -xe \
 	&& tar -xzC /usr/local/src/elixir --strip-components=1 -f elixir-src.tar.gz \
 	&& rm elixir-src.tar.gz \
 	&& cd /usr/local/src/elixir \
+	&& apt-get install --yes --no-install-recommends gcc \
 	&& make install clean
 
 
