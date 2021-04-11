@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 bin/postgres-setup &&
-bin/database-setup &&
 bin/elixir-setup &&
 npm install &&
 bin/build

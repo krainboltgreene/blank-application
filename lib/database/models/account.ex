@@ -64,7 +64,7 @@ defmodule Database.Models.Account do
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
     |> Utilities.ok_tap(fn
-      account -> Database.Models.Organization.join(account, "users")
+      account -> Core.Organization.join(account, "users")
     end)
     |> Utilities.ok_tap(fn
       account -> Mailer.Accounts.onboarding_email(account) |> Mailer.deliver_now()
