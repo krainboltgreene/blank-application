@@ -26,7 +26,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     # Change owner of opt contents since Oryx can dynamically install and will run as "codespace"
     && chown codespace /opt/* \
     # Verify expected build and debug tools are present
-    && apt-get install -y --no-install-recommends build-essential software-properties-common libsecret-1-dev \
+    && apt-get install -y --no-install-recommends build-essential software-properties-common libsecret-1-dev gdb \
     && bash /tmp/scripts/sshd-debian.sh \
     && bash /tmp/scripts/github-debian.sh \
     # Install Moby CLI and Engine
