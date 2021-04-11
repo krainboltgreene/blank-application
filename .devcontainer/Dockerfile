@@ -82,15 +82,30 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 RUN set -xe \
 	&& OTP_DOWNLOAD_URL="https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz" \
 	&& OTP_DOWNLOAD_SHA256="a5a067a3b17bbef8511f2c056957925b666670b6f2cdaf645e1bc28ce3dd3517" \
-	&& runtimeDeps=' \
-			libsctp1 \
-			libwxgtk3.0' \
-	&& buildDeps='unixodbc-dev \
-			libsctp-dev \
-			libwxgtk3.0-gtk3-dev' \
-	&& apt-get install -ys --no-install-recommends $runtimeDeps $buildDeps \
+	&& fetchDeps=' \
+		curl \
+		ca-certificates' \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends $fetchDeps \
 	&& curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
 	&& echo "$OTP_DOWNLOAD_SHA256  otp-src.tar.gz" | sha256sum -c - \
+	&& runtimeDeps=' \
+		libodbc1 \
+		libssl1.1 \
+		libsctp1 \
+	' \
+	&& buildDeps=' \
+		autoconf \
+		dpkg-dev \
+		gcc \
+		g++ \
+		make \
+		libncurses-dev \
+		unixodbc-dev \
+		libssl-dev \
+		libsctp-dev \
+	' \
+	&& apt-get install -y --no-install-recommends $runtimeDeps $buildDeps \
 	&& export ERL_TOP="/usr/src/otp_src_${OTP_VERSION%%@*}" \
 	&& mkdir -vp $ERL_TOP \
 	&& tar -xzf otp-src.tar.gz -C $ERL_TOP --strip-components=1 \
@@ -100,10 +115,9 @@ RUN set -xe \
 	  && gnuArch="$(dpkg-architecture --query DEB_HOST_GNU_TYPE)" \
 	  && ./configure --build="$gnuArch" \
 	  && make -j$(nproc) \
-	  && make -j$(nproc) docs DOC_TARGETS=chunks \
-	  && make install install-docs DOC_TARGETS=chunks ) \
+	  && make install ) \
 	&& find /usr/local -name examples | xargs rm -rf \
-	&& apt-get purge -y --auto-remove $buildDeps \
+	&& apt-get purge -y --auto-remove $buildDeps $fetchDeps \
 	&& rm -rf $ERL_TOP /var/lib/apt/lists/*
 RUN set -xe \
 	&& REBAR_DOWNLOAD_URL="https://github.com/rebar/rebar/archive/${REBAR_VERSION}.tar.gz" \
