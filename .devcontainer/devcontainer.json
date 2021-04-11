@@ -38,5 +38,5 @@
     "mtxr.sqltools",
     "mtxr.sqltools-driver-pg"
   ],
-  "postCreateCommand": "mix deps.get && mix compile && mix dialyzer.build && mix ecto.setup; npm install --no-audit"
+  "postCreateCommand": "mix do local.hex --force, local.rebar --force, deps.get, compile, dialyzer.build, ecto.setup; npm install --no-audit"
 }

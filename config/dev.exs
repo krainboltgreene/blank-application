@@ -17,6 +17,7 @@ if System.get_env("GITHUB_ACTIONS") do
     password: "postgres"
 end
 
+
 config :logger,
   backends: [:console]
 
@@ -85,7 +86,7 @@ config :clumsy_chinchilla, :flow, max_demand: 8
 config :clumsy_chinchilla, Mailer,
   adapter: Bamboo.LocalAdapter
 
-unless System.get_env("GITHUB_ACTIONS") do
+unless System.get_env("GITHUB_ACTIONS") || System.get_env("CODESPACES") do
   config :clumsy_chinchilla, Mailer,
     open_email_in_browser_url: "http://localhost:4000/sent_emails"
 end
