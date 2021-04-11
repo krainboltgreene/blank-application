@@ -1,4 +1,5 @@
 defmodule Database.Models do
+  @spec has_standard_behavior :: {:__block__, [], [{:def, [...], [...]}, ...]}
   defmacro has_standard_behavior() do
     quote do
       def find_or_initialize_by_external_id(attributes) do

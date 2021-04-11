@@ -1,7 +1,13 @@
 defmodule Database.Models.Tag do
   use Ecto.Schema
   import Ecto.Changeset
+  import Database.Models, only: :macros
 
+
+  @type t :: %__MODULE__{
+    name: String.t(),
+    slug: String.t()
+  }
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "tags" do
@@ -13,10 +19,7 @@ defmodule Database.Models.Tag do
     timestamps()
   end
 
-  @type t :: %__MODULE__{
-          name: String.t(),
-          slug: String.t()
-        }
+  has_standard_behavior()
 
   @doc false
   @spec changeset(Database.Models.Tag.t(), map) :: Ecto.Changeset.t(Database.Models.Tag.t())

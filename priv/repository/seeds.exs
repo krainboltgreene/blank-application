@@ -21,63 +21,32 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-defmodule Seeds do
-  @moduledoc false
-  def create_record(attributes, model) do
-    struct(model)
-    |> model.changeset(attributes)
-    |> Database.Repository.insert!()
-  end
-
-  def assign_membership(account, organization, permission) do
-    %{
-      organization_membership:
-        %{
-          account: account,
-          organization: organization
-        }
-        |> create_record(Database.Models.OrganizationMembership),
-      permission: permission
-    }
-    |> create_record(Database.Models.OrganizationPermission)
-  end
-end
-
-administrator_permissions =
-  %{
-    name: "Administrator"
-  }
-  |> Seeds.create_record(Database.Models.Permission)
-
-user_permissions =
-  %{
-    name: "User"
-  }
-  |> Seeds.create_record(Database.Models.Permission)
-
-users_organization =
-  %{
-    name: "Users"
-  }
-  |> Seeds.create_record(Database.Models.Organization)
+Database.Models.Permission.create(%{
+  name: "Administrator"
+})
+Database.Models.Permission.create(%{
+  name: "Default"
+})
 
 krainboltgreene =
-  %{
+  Database.Models.Account.create(%{
     name: "Kurtis Rainbolt-Greene",
     email_address: "kurtis@clumsy-chinchilla.club",
     username: "krainboltgreene",
     password: "password"
-  }
-  |> Seeds.create_record(Database.Models.Account)
-
+  })
 alabaster =
-  %{
+  Database.Models.Account.create(%{
     name: "Alabaster Wolf",
     email_address: "alabaster@clumsy-chinchilla.club",
     username: "alabaster",
     password: "password"
-  }
-  |> Seeds.create_record(Database.Models.Account)
+  })
 
-krainboltgreene |> Seeds.assign_membership(users_organization, administrator_permissions)
-alabaster |> Seeds.assign_membership(users_organization, user_permissions)
+{:ok, _} =
+  Database.Models.Organization.create(%{
+    name: "Default"
+  })
+
+Core.Organization.join(krainboltgreene, "default", "administrator")
+Core.Organization.join(alabaster, "default")
