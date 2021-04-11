@@ -43,7 +43,7 @@ alabaster =
     password: "password"
   })
 
-default_organization =
+{:ok, _} =
   Database.Models.Organization.create(%{
     name: "Default"
   })
