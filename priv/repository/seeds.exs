@@ -163,8 +163,5 @@ Enum.each(
   fn establishment -> Database.Models.Establishment.create(question) end
 )
 
-krainboltgreene |> Core.Organization.join(default_organization, "administrator")
-alabaster |> Core.Organization.join(default_organization)
-=======
 Core.Organization.join(krainboltgreene, "default", "administrator")
-Core.Organization.join(alabaster, "default")=
+Core.Organization.join(alabaster, "default")
