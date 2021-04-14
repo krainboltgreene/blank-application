@@ -5,16 +5,28 @@
   "service": "codespace",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash",
-    "sqltools.connections": [{
-      "name": "Container database",
-      "driver": "PostgreSQL",
-      "previewLimit": 50,
-      "server": "localhost",
-      "port": 5432,
-      "database": "postgres",
-      "username": "postgres",
-      "password": ""
-    }]
+    "sqltools.connections": [
+      {
+        "name": "Postgres database",
+        "driver": "PostgreSQL",
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "database": "postgres",
+        "username": "postgres",
+        "password": ""
+      },
+      {
+        "name": "Primary database",
+        "driver": "PostgreSQL",
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "database": "clumsy_chinchilla_dev",
+        "username": "postgres",
+        "password": ""
+      }
+    ]
   },
   "remoteUser": "codespace",
   "forwardPorts": [4000, 4001, 5432],
