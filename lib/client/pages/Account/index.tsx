@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@find_reel_love/elements";
 import AccountForm from "./AccountForm";
 
 export default function Account (): JSX.Element {

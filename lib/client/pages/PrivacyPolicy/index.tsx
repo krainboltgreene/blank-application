@@ -1,4 +1,4 @@
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@find_reel_love/elements";
 
 export default function PrivacyPolicy (): JSX.Element {
   return <Page as="PrivacyPolicy" kind="article" subtitle="Privacy Policy">

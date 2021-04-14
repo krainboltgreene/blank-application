@@ -4,8 +4,8 @@ import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
 
-import {account as accountAtom} from "@clumsy_chinchilla/atoms";
-import {Loading} from "@clumsy_chinchilla/elements";
+import {account as accountAtom} from "@find_reel_love/atoms";
+import {Loading} from "@find_reel_love/elements";
 import updateAccountMutation from "./updateAccountMutation.gql";
 import fetchAccountQuery from "./fetchAccountQuery.gql";
 import type {UpdateAccountMutation} from "./UpdateAccountMutation";

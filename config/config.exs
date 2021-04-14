@@ -8,12 +8,12 @@
 use Mix.Config
 import IO
 
-config :clumsy_chinchilla,
+config :find_reel_love,
   ecto_repos: [Database.Repository],
   generators: [binary_id: true]
 
 # Configures the endpoint
-config :clumsy_chinchilla, Web.Endpoint,
+config :find_reel_love, Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "QBzZwNT6wxgJZdiJ6aJVht82dDvzRFvXXLmK8RlHV888PqL/gzRQX36DlWjRjFWs",
   render_errors: [view: Web.ErrorView, accepts: ~w(html json), layout: false],
@@ -44,7 +44,7 @@ config :paper_trail,
   originator_type: Ecto.UUID,
   originator: [name: :account, model: Database.Models.Account]
 
-config :clumsy_chinchilla, Oban,
+config :find_reel_love, Oban,
   repo: Database.Repository,
   plugins: [
     Oban.Plugins.Pruner

@@ -2,12 +2,12 @@ defmodule Mailer do
   @moduledoc """
   Contains all the core email logic.
   """
-  use Bamboo.Mailer, otp_app: :clumsy_chinchilla
+  use Bamboo.Mailer, otp_app: :find_reel_love
   use Bamboo.Phoenix, view: Mailer.EmailView
   import Bamboo.Email
 
-  @default_from_email_address "no-reply@clumsy-chinchilla.club"
-  @default_replyto_email_address "no-reply@clumsy-chinchilla.club"
+  @default_from_email_address "no-reply@findreel.love"
+  @default_replyto_email_address "no-reply@findreel.love"
 
   def new_application_email() do
     new_email()
@@ -19,7 +19,7 @@ defmodule Mailer do
   def browser_remote_url(component, parameters) when is_bitstring(component) do
     Web.Endpoint.url()
     |> URI.parse()
-    |> Map.merge(Application.fetch_env!(:clumsy_chinchilla, :remotes)[:browser_remote])
+    |> Map.merge(Application.fetch_env!(:find_reel_love, :remotes)[:browser_remote])
     |> Web.Router.Helpers.remote_url(:browser_remote, component, parameters)
   end
 

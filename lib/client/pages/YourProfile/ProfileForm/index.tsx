@@ -5,9 +5,9 @@ import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
 
-import {profile as profileAtom} from "@clumsy_chinchilla/atoms";
-import {Field} from "@clumsy_chinchilla/elements";
-import {Loading} from "@clumsy_chinchilla/elements";
+import {profile as profileAtom} from "@find_reel_love/atoms";
+import {Field} from "@find_reel_love/elements";
+import {Loading} from "@find_reel_love/elements";
 import updateProfileMutation from "./updateProfileMutation.gql";
 import fetchYourProfileQuery from "./fetchYourProfileQuery.gql";
 import type {UpdateProfileMutation} from "./UpdateProfileMutation";

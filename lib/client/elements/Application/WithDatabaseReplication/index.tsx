@@ -2,7 +2,7 @@
 // import {useEffect} from "react";
 // import {hidden} from "visibilityjs";
 
-// import {remoteDatabase as remoteDatabaseAtom} from "@clumsy_chinchilla/atoms";
+// import {remoteDatabase as remoteDatabaseAtom} from "@find_reel_love/atoms";
 // updateMetadata (currentState, [type, information]) {
 //   return mergeDeepRight(currentState)({
 //     [type]: {

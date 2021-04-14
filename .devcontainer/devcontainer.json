@@ -22,7 +22,7 @@
         "previewLimit": 50,
         "server": "localhost",
         "port": 5432,
-        "database": "clumsy_chinchilla_dev",
+        "database": "find_reel_love_dev",
         "username": "postgres",
         "password": ""
       }

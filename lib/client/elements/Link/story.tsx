@@ -12,6 +12,6 @@ export function withRelativeHref (): JSX.Element {
 
 export function withAbsoluteHref (): JSX.Element {
   return <BrowserRouter>
-    <Link href={text("href", "https://www.clumsy-chinchilla.club")}>{text("content", "A Simple Life")}</Link>
+    <Link href={text("href", "https://www.findreel.love")}>{text("content", "A Simple Life")}</Link>
   </BrowserRouter>;
 }

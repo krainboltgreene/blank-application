@@ -1,5 +1,5 @@
 defmodule Web.Endpoint do
-  use Phoenix.Endpoint, otp_app: :clumsy_chinchilla
+  use Phoenix.Endpoint, otp_app: :find_reel_love
   use Absinthe.Phoenix.Endpoint
 
   # The session will be stored in the cookie and signed,
@@ -7,7 +7,7 @@ defmodule Web.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_clumsy_chinchilla_key",
+    key: "_find_reel_love_key",
     signing_salt: "bbTmf3m/"
   ]
 
@@ -23,7 +23,7 @@ defmodule Web.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :clumsy_chinchilla,
+    from: :find_reel_love,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -33,7 +33,7 @@ defmodule Web.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :clumsy_chinchilla
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :find_reel_love
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

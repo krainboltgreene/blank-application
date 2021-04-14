@@ -3,7 +3,7 @@ import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
+import {currentSessionId as currentSessionIdAtom} from "@find_reel_love/atoms";
 import destroySessionMutation from "./destroySessionMutation.gql";
 import type {DestroySessionMutation} from "./DestroySessionMutation.d";
 

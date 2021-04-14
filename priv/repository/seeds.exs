@@ -31,14 +31,14 @@ Database.Models.Permission.create(%{
 krainboltgreene =
   Database.Models.Account.create(%{
     name: "Kurtis Rainbolt-Greene",
-    email_address: "kurtis@clumsy-chinchilla.club",
+    email_address: "kurtis@findreel.love",
     username: "krainboltgreene",
     password: "password"
   })
 alabaster =
   Database.Models.Account.create(%{
     name: "Alabaster Wolf",
-    email_address: "alabaster@clumsy-chinchilla.club",
+    email_address: "alabaster@findreel.love",
     username: "alabaster",
     password: "password"
   })

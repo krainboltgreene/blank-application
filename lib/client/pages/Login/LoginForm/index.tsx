@@ -4,8 +4,8 @@ import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {Field} from "@clumsy_chinchilla/elements";
+import {currentSessionId as currentSessionIdAtom} from "@find_reel_love/atoms";
+import {Field} from "@find_reel_love/elements";
 import createSessionMutation from "./createSessionMutation.gql";
 import type {CreateSessionMutation} from "./CreateSessionMutation.d";
 

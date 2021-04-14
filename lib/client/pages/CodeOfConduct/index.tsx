@@ -1,4 +1,4 @@
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@find_reel_love/elements";
 
 export default function CodeOfConduct (): JSX.Element {
   return <Page as="CodeOfConduct" kind="article" subtitle="Code Of Conduct">
@@ -6,7 +6,7 @@ export default function CodeOfConduct (): JSX.Element {
       Our Pledge
     </h2>
     <p>
-      In the interest of fostering an open and welcoming environment, we as Clumsy Chinchilla pledge to making participation in our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation. Our goal is to make nail polish open to everyone. These guidelines allow us to ensure that all nail polish enthusiasts feel safe and welcome to share their art and express themselves without fear.
+      In the interest of fostering an open and welcoming environment, we as Find Reel Love pledge to making participation in our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation. Our goal is to make nail polish open to everyone. These guidelines allow us to ensure that all nail polish enthusiasts feel safe and welcome to share their art and express themselves without fear.
     </p>
 
     <h2>
@@ -49,7 +49,7 @@ export default function CodeOfConduct (): JSX.Element {
       </li>
 
       <li>
-        Harshly criticizing the work of newer Clumsy Chinchilla
+        Harshly criticizing the work of newer Find Reel Love
       </li>
 
       <li>
@@ -80,14 +80,14 @@ export default function CodeOfConduct (): JSX.Element {
       Scope
     </h2>
     <p>
-      This Code of Conduct applies both within the community and in public spaces when an individual is representing Clumsy Chinchilla or its community. Examples of representing a project or community include using an official e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event. We reserve the right to redefine and clarify what representation means for Clumsy Chinchilla in the future.
+      This Code of Conduct applies both within the community and in public spaces when an individual is representing Find Reel Love or its community. Examples of representing a project or community include using an official e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event. We reserve the right to redefine and clarify what representation means for Find Reel Love in the future.
     </p>
 
     <h2>
       Enforcement
     </h2>
     <p>
-      Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the Clumsy Chinchilla admin team at <a href="mailto:support@clumsy-chinchilla.club">support@clumsy-chinchilla.club</a>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+      Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the Find Reel Love admin team at <a href="mailto:support@findreel.love">support@findreel.love</a>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
     </p>
 
     <p>
@@ -95,7 +95,7 @@ export default function CodeOfConduct (): JSX.Element {
     </p>
 
     <p>
-      This is version 1.0 of the <a href="https://www.clumsy-chinchilla.club">Clumsy Chinchilla</a> Code of Conduct. It was prepared by Ellen McGrody for modification and maintenance by the Clumsy Chinchilla administration team.
+      This is version 1.0 of the <a href="https://www.findreel.love">Find Reel Love</a> Code of Conduct. It was prepared by Ellen McGrody for modification and maintenance by the Find Reel Love administration team.
     </p>
 
     <p>

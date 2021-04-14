@@ -2,9 +2,9 @@ import {useCookie} from "react-use";
 import {useRecoilState} from "recoil";
 import {useEffect} from "react";
 
-import {cookie as cookieAtom} from "@clumsy_chinchilla/atoms";
+import {cookie as cookieAtom} from "@find_reel_love/atoms";
 
-const COOKIES_KEY = "_clumsy_chinchilla_key";
+const COOKIES_KEY = "_find_reel_love_key";
 
 interface PropertiesType<C> {
   children: C;

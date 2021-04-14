@@ -10,7 +10,7 @@ module.exports = {
   plugins: [
     "babel-plugin-graphql-tag",
     ["module-resolver", {extensions: [".tsx", ".ts", ".js", ".jsx"], alias: {
-      "^@clumsy_chinchilla/(.+)$": "./lib/client/\\1",
+      "^@find_reel_love/(.+)$": "./lib/client/\\1",
       "^@assets/(.+)$": "./assets/\\1",
     }}],
     process.env.NODE_ENV === "production" ? null : "annotate-console-log",

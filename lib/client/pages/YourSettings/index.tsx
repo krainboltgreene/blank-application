@@ -1,4 +1,4 @@
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@find_reel_love/elements";
 import SettingsForm from "./SettingsForm";
 
 export default function YourSettings (): JSX.Element {

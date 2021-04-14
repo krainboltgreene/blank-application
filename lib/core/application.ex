@@ -19,7 +19,7 @@ defmodule Core.Application do
       # {Core.Worker, arg}
       Web.Presence,
       {Absinthe.Subscription, Web.Endpoint},
-      {Oban, Application.get_env(:clumsy_chinchilla, Oban)}
+      {Oban, Application.get_env(:find_reel_love, Oban)}
     ]
 
     Plug.Telemetry.ServerTiming.install([

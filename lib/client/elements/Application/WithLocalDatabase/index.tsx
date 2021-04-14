@@ -3,7 +3,7 @@ import {useEffect} from "react";
 // import {hidden} from "visibilityjs";
 
 import PouchDB from "pouchdb";
-import {localDatabase as localDatabaseAtom} from "@clumsy_chinchilla/atoms";
+import {localDatabase as localDatabaseAtom} from "@find_reel_love/atoms";
 // updateSearchMetadata (currentState, payload) {
 //   return mergeDeepRight(currentState)({search: payload});
 // },

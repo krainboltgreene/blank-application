@@ -1,4 +1,4 @@
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@find_reel_love/elements";
 
 export default function TermsOfService (): JSX.Element {
   return <Page as="TermsOfService" kind="article" subtitle="Terms Of Service">

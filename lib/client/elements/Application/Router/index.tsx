@@ -1,18 +1,18 @@
 import {Route, Switch} from "react-router";
-import {AccountConfirmation} from "@clumsy_chinchilla/pages";
-import {CodeOfConduct} from "@clumsy_chinchilla/pages";
-import {DataPolicy} from "@clumsy_chinchilla/pages";
-import {LandingPage} from "@clumsy_chinchilla/pages";
-import {Login} from "@clumsy_chinchilla/pages";
-import {Logout} from "@clumsy_chinchilla/pages";
-import {OurTechnology} from "@clumsy_chinchilla/pages";
-import {PageNotFound} from "@clumsy_chinchilla/pages";
-import {PrivacyPolicy} from "@clumsy_chinchilla/pages";
-import {SignUp} from "@clumsy_chinchilla/pages";
-import {TermsOfService} from "@clumsy_chinchilla/pages";
-import {ThisIsUs} from "@clumsy_chinchilla/pages";
-import {YourProfile} from "@clumsy_chinchilla/pages";
-import {YourSettings} from "@clumsy_chinchilla/pages";
+import {AccountConfirmation} from "@find_reel_love/pages";
+import {CodeOfConduct} from "@find_reel_love/pages";
+import {DataPolicy} from "@find_reel_love/pages";
+import {LandingPage} from "@find_reel_love/pages";
+import {Login} from "@find_reel_love/pages";
+import {Logout} from "@find_reel_love/pages";
+import {OurTechnology} from "@find_reel_love/pages";
+import {PageNotFound} from "@find_reel_love/pages";
+import {PrivacyPolicy} from "@find_reel_love/pages";
+import {SignUp} from "@find_reel_love/pages";
+import {TermsOfService} from "@find_reel_love/pages";
+import {ThisIsUs} from "@find_reel_love/pages";
+import {YourProfile} from "@find_reel_love/pages";
+import {YourSettings} from "@find_reel_love/pages";
 
 export default function Router (): JSX.Element {
   return <Switch>

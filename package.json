@@ -1,5 +1,5 @@
 {
-  "name": "clumsy_chinchilla",
+  "name": "find_reel_love",
   "version": "1.0.0",
   "private": true,
   "description": "The frontend application for this web service",
@@ -12,9 +12,9 @@
     }
   ],
   "license": "MIT",
-  "homepage": "https://github.com/difference-engineers/clumsy_chinchilla#readme",
-  "repository": "github:difference-engineers/clumsy_chinchilla",
-  "bugs": "https://github.com/difference-engineers/clumsy_chinchilla/issues",
+  "homepage": "https://github.com/difference-engineers/find_reel_love#readme",
+  "repository": "github:difference-engineers/find_reel_love",
+  "bugs": "https://github.com/difference-engineers/find_reel_love/issues",
   "engines": {
     "node": "~> 15",
     "npm": "~> 7"

@@ -18,7 +18,7 @@
 *.ez
 /.env
 /erl_crash.dump
-/clumsy_chinchilla-*.tar
+/find_reel_love-*.tar
 /schema.json
 /schema.graphql
 /npm-debug.log

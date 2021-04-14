@@ -1,8 +1,8 @@
 import {useRecoilValue} from "recoil";
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {Link} from "@clumsy_chinchilla/elements";
-import {Loading} from "@clumsy_chinchilla/elements";
+import {currentSessionId as currentSessionIdAtom} from "@find_reel_love/atoms";
+import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@find_reel_love/atoms";
+import {Link} from "@find_reel_love/elements";
+import {Loading} from "@find_reel_love/elements";
 
 
 const styles = {

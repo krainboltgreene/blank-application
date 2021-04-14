@@ -101,7 +101,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       hash: true,
-      title: "Clumsy Chinchilla",
+      title: "Find Reel Love",
       base: "http://localhost:8080/",
       templateParameters: {
         metadata: {

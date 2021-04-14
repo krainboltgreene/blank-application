@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@find_reel_love/elements";
 import ProfileForm from "./ProfileForm";
 
 export default function YourProfile (): JSX.Element {

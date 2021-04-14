@@ -4,9 +4,9 @@ import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
 
-import {settings as settingsAtom} from "@clumsy_chinchilla/atoms";
-import {CheckboxField} from "@clumsy_chinchilla/elements";
-import {Loading} from "@clumsy_chinchilla/elements";
+import {settings as settingsAtom} from "@find_reel_love/atoms";
+import {CheckboxField} from "@find_reel_love/elements";
+import {Loading} from "@find_reel_love/elements";
 import updateSettingsMutation from "./updateSettingsMutation.gql";
 import fetchYourSettingsQuery from "./fetchYourSettingsQuery.gql";
 import type {UpdateSettingsMutation} from "./UpdateSettingsMutation";

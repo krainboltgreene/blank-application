@@ -1,4 +1,4 @@
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@find_reel_love/elements";
 import LogoutForm from "./LogoutForm";
 
 export default function Logout (): JSX.Element {

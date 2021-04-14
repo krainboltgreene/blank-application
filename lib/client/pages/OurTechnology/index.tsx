@@ -1,4 +1,4 @@
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@find_reel_love/elements";
 
 export default function OurTechnology (): JSX.Element {
   return <Page as="OurTechnology" kind="article" subtitle="Our Technology">

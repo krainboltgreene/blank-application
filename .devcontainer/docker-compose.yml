@@ -21,7 +21,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: clumsy_chinchilla_dev
+      POSTGRES_DB: find_reel_love_dev
 
 volumes:
   postgres-data:

@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :clumsy_chinchilla, Database.Repository,
+config :find_reel_love, Database.Repository,
   username: "postgres",
   password: "postgres",
-  database: "clumsy_chinchilla_dev",
+  database: "find_reel_love_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
@@ -12,7 +12,7 @@ config :clumsy_chinchilla, Database.Repository,
 
 # Configure the database for GitHub Actions
 if System.get_env("GITHUB_ACTIONS") do
-  config :clumsy_chinchilla, Database.Repository,
+  config :find_reel_love, Database.Repository,
     username: "postgres",
     password: "postgres"
 end
@@ -27,7 +27,7 @@ config :logger,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :clumsy_chinchilla, Web.Endpoint,
+config :find_reel_love, Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -58,13 +58,13 @@ config :clumsy_chinchilla, Web.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :clumsy_chinchilla, Web.Endpoint,
+config :find_reel_love, Web.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/clumsy_chinchilla_web/(live|views)/.*(ex)$",
-      ~r"lib/clumsy_chinchilla_web/templates/.*(eex)$"
+      ~r"lib/find_reel_love_web/(live|views)/.*(ex)$",
+      ~r"lib/find_reel_love_web/templates/.*(eex)$"
     ]
   ]
 
@@ -78,20 +78,20 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :clumsy_chinchilla, :graphql, uri: "http://localhost:4000/graphql"
+config :find_reel_love, :graphql, uri: "http://localhost:4000/graphql"
 
-config :clumsy_chinchilla, :flow, max_demand: 8
+config :find_reel_love, :flow, max_demand: 8
 
 # Setup Bamboo mailer
-config :clumsy_chinchilla, Mailer,
+config :find_reel_love, Mailer,
   adapter: Bamboo.LocalAdapter
 
 unless System.get_env("GITHUB_ACTIONS") || System.get_env("CODESPACES") do
-  config :clumsy_chinchilla, Mailer,
+  config :find_reel_love, Mailer,
     open_email_in_browser_url: "http://localhost:4000/sent_emails"
 end
 
-config :clumsy_chinchilla, :remotes, %{
+config :find_reel_love, :remotes, %{
   browser_remote: %URI{
     scheme: "http",
     host: "localhost",
