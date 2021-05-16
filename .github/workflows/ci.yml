@@ -7,6 +7,14 @@ on:
     branches: [ core ]
 
 jobs:
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
   javascript-setup:
     name: Javascript Setup
     runs-on: ubuntu-latest
