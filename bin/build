@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-bin/database-build &&
 mix do docs, phx.digest, phx.gen.cert
 bin/apollo-build &&
 bin/webpack-build

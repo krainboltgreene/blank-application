@@ -5,8 +5,8 @@ defmodule Database.Models.OrganizationPermission do
   import Database.Models, only: :macros
 
   @type t :: %__MODULE__{
-    organization_membership: Database.Models.OrganizationMembership.t(),
-    permission: Database.Models.Permission.t(),
+    organization_membership: Database.Models.OrganizationMembership.t() | Ecto.Association.NotLoaded.t(),
+    permission: Database.Models.Permission.t() | Ecto.Association.NotLoaded.t(),
   }
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

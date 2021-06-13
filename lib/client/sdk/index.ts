@@ -1,3 +1,4 @@
+/* eslint-disable promise/prefer-await-to-callbacks */
 import {ApolloClient} from "@apollo/client";
 import {InMemoryCache} from "@apollo/client";
 import {HttpLink} from "@apollo/client";
@@ -6,7 +7,7 @@ import type {ErrorResponse} from "@apollo/client/link/error";
 import type {GraphQLError} from "graphql";
 import {from} from "@apollo/client";
 
-import {socketLink} from "./links";
+// import {socketLink} from "./links";
 
 export default new ApolloClient({
   link: from([

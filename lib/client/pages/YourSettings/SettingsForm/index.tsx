@@ -17,9 +17,9 @@ export default function SettingsForm (): JSX.Element {
   const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<FetchYourSettingsQuery>(fetchYourSettingsQuery);
   const [updateSettings, {loading: updateSettingsLoading, error: updateSettingsError, data: updateSettingsData}] = useMutation<UpdateSettingsMutation>(updateSettingsMutation);
   const {lightMode: clientLightMode} = clientSettings ?? {};
-  const serverSettings = fetchSettingsData?.session?.account.settings ?? {};
+  const serverSettings = fetchSettingsData?.session?.account.settings ?? {id: null};
   const {id} = serverSettings;
-  const {lightMode: serverLightMode} = serverSettings;
+  // const {lightMode: serverLightMode} = serverSettings;
   const [lightMode, setLightMode] = useState(clientLightMode);
 
   useEffect(() => {
@@ -51,7 +51,9 @@ export default function SettingsForm (): JSX.Element {
     await updateSettings({variables: {input: {id, lightMode}}});
   };
   const onChangeLightMode = (): void => {
-    setLightMode(!lightMode);
+    if (typeof lightMode !== "undefined") {
+      setLightMode(!lightMode);
+    }
   };
 
   return <form id="SettingsForm" onSubmit={onSubmit}>
