@@ -5,8 +5,8 @@ defmodule Database.Models.Permission do
   import Database.Models, only: :macros
 
   @type t :: %__MODULE__{
-          name: String.t(),
-          slug: String.t()
+          name: String.t() | nil,
+          slug: String.t() | nil
         }
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

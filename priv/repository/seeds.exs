@@ -43,10 +43,10 @@ alabaster =
     password: "password"
   })
 
-default_organization =
+{:ok, _} =
   Database.Models.Organization.create(%{
     name: "Default"
   })
 
-krainboltgreene |> Core.Organization.join(default_organization, "administrator")
-alabaster |> Core.Organization.join(default_organization)
+Core.Organization.join(krainboltgreene, "default", "administrator")
+Core.Organization.join(alabaster, "default")
