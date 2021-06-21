@@ -48,7 +48,8 @@
     "ms-azuretools.vscode-docker",
     "jakebecker.elixir-ls",
     "mtxr.sqltools",
-    "mtxr.sqltools-driver-pg"
+    "mtxr.sqltools-driver-pg",
+    "hashicorp.terraform"
   ],
   "postCreateCommand": "mix do local.hex --force, local.rebar --force, deps.get, compile, dialyzer.build, ecto.setup; npm install --no-audit",
   "postStartCommand": "mix do compile, dialyzer.build, ecto.setup"

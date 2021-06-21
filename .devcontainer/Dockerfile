@@ -19,7 +19,7 @@ ENV PATH="${ORIGINAL_PATH}:${NPM_GLOBAL}/bin:${ORYX_PATHS}"
 COPY library-scripts/* setup-user.sh first-run-notice.txt /tmp/scripts/
 RUN export DEBIAN_FRONTEND=noninteractive \
     # Restore man command
-    && yes | unminimize 2>&1 \ 
+    && yes | unminimize 2>&1 \
     # Run common script and setup user
     && bash /tmp/scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "true" "true" "true" \
     && bash /tmp/scripts/setup-user.sh "${USERNAME}" "${PATH}" \
@@ -153,7 +153,10 @@ RUN set -xe \
 	&& make install clean
 
 
-# Mount for docker-in-docker 
+# Terraform Setup
+RUN apt-get install terraform
+
+# Mount for docker-in-docker
 VOLUME [ "/var/lib/docker" ]
 
 # Fire Docker/Moby script if needed along with Oryx's benv
