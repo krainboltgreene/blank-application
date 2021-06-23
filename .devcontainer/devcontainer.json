@@ -51,5 +51,5 @@
     "mtxr.sqltools-driver-pg",
     "hashicorp.terraform"
   ],
-  "postStartCommand": "./post_setup.sh"
+  "postStartCommand": "bash .devcontainer/post_start.sh"
 }
