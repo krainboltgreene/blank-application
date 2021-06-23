@@ -51,6 +51,5 @@
     "mtxr.sqltools-driver-pg",
     "hashicorp.terraform"
   ],
-  "postCreateCommand": "mix do local.hex --force, local.rebar --force, deps.get, compile, dialyzer.build, ecto.setup; npm install --no-audit",
-  "postStartCommand": "mix do compile, dialyzer.build, ecto.setup"
+  "postStartCommand": "./post_create.sh"
 }
