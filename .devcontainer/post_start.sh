@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+. $HOME/.asdf/asdf.sh &&
 echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc &&
 echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc &&
 terraform apply &&
