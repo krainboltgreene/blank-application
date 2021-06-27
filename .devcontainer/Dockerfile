@@ -18,9 +18,26 @@ RUN wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc |
 
 RUN apt-get update
 RUN export DEBIAN_FRONTEND=noninteractive && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true"
-RUN apt-get install -y --no-install-recommends curl git
-RUN apt-get install -y --no-install-recommends dirmngr gpg gawk
-RUN apt-get install -y --no-install-recommends esl-erlang
+RUN apt-get install -y --no-install-recommends curl \
+    git \
+    dirmngr \
+    gpg \
+    gawk \
+    build-essential \
+    autoconf \
+    m4 \
+    libncurses5-dev \
+    libwxgtk3.0-gtk3-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libpng-dev \
+    libssh-dev \
+    unixodbc-dev \
+    xsltproc \
+    fop \
+    libxml2-utils \
+    libncurses-dev \
+    openjdk-11-jdk
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
 USER ${USERNAME}
@@ -30,6 +47,8 @@ RUN . $HOME/.asdf/asdf.sh && asdf plugin add terraform https://github.com/asdf-c
 RUN . $HOME/.asdf/asdf.sh && asdf install terraform 1.0.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add nodejs
 RUN . $HOME/.asdf/asdf.sh && asdf install nodejs 16.4.0
+RUN . $HOME/.asdf/asdf.sh && asdf plugin add erlang
+RUN . $HOME/.asdf/asdf.sh && asdf install erlang 24.0.2
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add elixir
 RUN . $HOME/.asdf/asdf.sh && asdf install elixir 1.12.1-otp-24
 
