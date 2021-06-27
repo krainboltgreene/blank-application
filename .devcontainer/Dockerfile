@@ -27,11 +27,11 @@ USER ${USERNAME}
 
 RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add terraform https://github.com/asdf-community/asdf-hashicorp.git
-RUN . $HOME/.asdf/asdf.sh && asdf install terraform latest
+RUN . $HOME/.asdf/asdf.sh && asdf install terraform 1.0.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add nodejs
-RUN . $HOME/.asdf/asdf.sh && asdf install nodejs latest
+RUN . $HOME/.asdf/asdf.sh && asdf install nodejs 16.4.0
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add elixir
-RUN . $HOME/.asdf/asdf.sh && asdf install elixir latest
+RUN . $HOME/.asdf/asdf.sh && asdf install elixir 1.12.1-otp-24
 
 CMD [ "sleep", "infinity" ]
 
