@@ -22,6 +22,7 @@ provider "tls" {
 resource "tls_private_key" "codespaces_key_pair_configuration" {
   algorithm = "RSA"
   rsa_bits = 4096
+
 }
 
 resource "local_file" "codespaces_development_private_key_file" {

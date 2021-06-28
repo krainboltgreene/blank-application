@@ -37,7 +37,8 @@ RUN apt-get install -y --no-install-recommends curl \
     fop \
     libxml2-utils \
     libncurses-dev \
-    openjdk-11-jdk
+    openjdk-11-jdk \
+    inotify-tools
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
 USER ${USERNAME}
