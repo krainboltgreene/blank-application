@@ -22,6 +22,8 @@
 /schema.json
 /schema.graphql
 /npm-debug.log
+/.devcontainer/.terraform.lock.hcl
+/.devcontainer/.terraform/
 /config/prod.secret.exs
 /priv/secrets/master.key
 
