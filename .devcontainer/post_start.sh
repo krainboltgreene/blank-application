@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-update-locale LC_ALL=en_US.UTF-8 &&
+sudo update-locale LC_ALL=en_US.UTF-8 &&
 . $HOME/.asdf/asdf.sh &&
 echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc &&
 echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc &&

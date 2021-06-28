@@ -1,8 +1,6 @@
 ARG VARIANT="buster"
 FROM buildpack-deps:${VARIANT}-curl
 
-ARG INSTALL_ZSH="true"
-ARG UPGRADE_PACKAGES="false"
 ARG USERNAME=codespace
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -16,10 +14,8 @@ COPY library-scripts/*.sh library-scripts/*.env /tmp/library-scripts/
 RUN wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
 	echo "deb https://packages.erlang-solutions.com/ubuntu focal contrib" | tee /etc/apt/sources.list.d/rabbitmq.list
 
-RUN apt-get update
-RUN export DEBIAN_FRONTEND=noninteractive && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true"
-RUN apt-get install -y --no-install-recommends curl \
-    git \
+RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "false" "true" "true"
+RUN apt-get -y install --no-install-recommends curl \
     dirmngr \
     gpg \
     gawk \

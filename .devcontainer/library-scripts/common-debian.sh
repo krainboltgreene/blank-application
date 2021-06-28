@@ -385,7 +385,7 @@ fi
 if [ "${INSTALL_ZSH}" = "true" ]; then
     if ! type zsh > /dev/null 2>&1; then
         apt-get-update-if-needed
-        apt-get install -y zsh
+        apt-get install -y --no-install-recommends zsh
     fi
     if [ "${ZSH_ALREADY_INSTALLED}" != "true" ]; then
         echo "${RC_SNIPPET}" >> /etc/zsh/zshrc

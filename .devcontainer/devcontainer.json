@@ -40,6 +40,8 @@
     "--init"
   ],
   "extensions": [
+    "krainboltgreene.all-builtin-commands",
+    "ms-vscode.atom-keybindings",
     "mgmcdermott.vscode-language-babel",
     "apollographql.vscode-apollo",
     "dbaeumer.vscode-eslint",
