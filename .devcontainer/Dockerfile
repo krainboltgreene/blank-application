@@ -34,8 +34,16 @@ RUN apt-get -y install --no-install-recommends curl \
     libxml2-utils \
     libncurses-dev \
     openjdk-11-jdk \
+    software-properties-common \
+    libsecret-1-dev \
+    gdb \
+    ca-certificates \
     inotify-tools
-RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
+RUN apt-get autoremove -y
+RUN apt-get clean -y
+RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
+RUN mkdir -p /usr/local/etc/vscode-dev-containers/
+RUN chown codespace /opt/*
 
 USER ${USERNAME}
 
@@ -48,6 +56,7 @@ RUN . $HOME/.asdf/asdf.sh && asdf plugin add erlang
 RUN . $HOME/.asdf/asdf.sh && asdf install erlang 24.0.2
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add elixir
 RUN . $HOME/.asdf/asdf.sh && asdf install elixir 1.12.1-otp-24
+COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt
 
 CMD [ "sleep", "infinity" ]
 
