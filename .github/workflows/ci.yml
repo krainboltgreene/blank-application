@@ -7,11 +7,22 @@ on:
     branches: [ core ]
 
 jobs:
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
   javascript-setup:
     name: Javascript Setup
+    needs: cleanup
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - uses: actions/setup-node@v1
       with:
         node-version: '15.x'
@@ -24,26 +35,41 @@ jobs:
     - run: npm install
   elixir-setup:
     name: Elixir Setup
+    needs: cleanup
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        elixir: [1.11]
+        otp: [24]
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - uses: erlef/setup-beam@v1
       with:
-        elixir-version: '1.11.4'
-        otp-version: '23.3'
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
     - name: Restore mix cache
+      id: mix-cache
       uses: actions/cache@v2
       with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - run: mix deps.get
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-24-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+    - run: |
+        mix deps.get
+        mix local.rebar --force
+        mix local.hex --force
   javascript-build:
     name: Javascript Build
     needs: ["javascript-setup"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - uses: actions/setup-node@v1
       with:
         node-version: '15.x'
@@ -76,21 +102,21 @@ jobs:
           --health-retries 5
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - uses: erlef/setup-beam@v1
       with:
         elixir-version: '1.11.4'
         otp-version: '23.3'
     - name: Restore mix cache
       uses: actions/cache@v2
+      id: mix-cache
       with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - name: Restore elixir build cache
-      uses: actions/cache@v2
-      with:
-        path: _build
-        key: ${{ runner.os }}-elixir-build
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
     - name: Restore graphql cache
       uses: actions/cache@v2
       with:
@@ -99,7 +125,9 @@ jobs:
           schema.json
         key: ${{ runner.os }}-graphql
     - run: mix compile
-    - run: mix dialyzer.build
+    - run: |
+        mkdir -p priv/plts
+        mix dialyzer --plt
     - run: mix ecto.setup
   elixir-check:
     name: Elixir Checks
@@ -118,28 +146,40 @@ jobs:
           --health-retries 5
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - uses: erlef/setup-beam@v1
       with:
         elixir-version: '1.11.4'
         otp-version: '23.3'
     - name: Restore mix cache
-      uses: actions/cache@v2
+      id: mix-cache
       with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
     - name: Restore elixir build cache
       uses: actions/cache@v2
       with:
         path: _build
         key: ${{ runner.os }}-elixir-build
-    - run: mix test
+    - name: Check Code Format
+      run: mix format --check-formatted
+    - name: Run Credo
+      run: mix credo
+    - name: Run Dialyzer
+      run: mix dialyzer --no-check
+    - run: mix test --trace --slowest 10
   javascript-check:
     name: Javascript Checks
     needs: ["elixir-build", "javascript-setup"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - uses: actions/setup-node@v1
       with:
         node-version: '15.x'

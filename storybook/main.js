@@ -3,7 +3,11 @@
 const path = require("path");
 
 module.exports = {
-  stories: ["../lib/client/**/story.ts"],
+  reactOptions: {
+    fastRefresh: true,
+    // strictMode: true,
+  },
+  stories: [path.resolve(__dirname, "..", "lib", "client", "**", "story.tsx")],
   addons: [
     "@storybook/addon-a11y/register",
     "@storybook/addon-knobs/register",
@@ -11,7 +15,7 @@ module.exports = {
       name: "@storybook/addon-storysource",
       options: {
         rule: {
-          test: [/story\.ts?$/u],
+          test: [/story\.tsx?$/u],
           include: [path.resolve(__dirname, "..", "lib", "client")],
         },
       },
