@@ -59,3 +59,12 @@ Step one is to create the component in `lib/client/pages/` and then export it in
     ```
       But also the browser encountered a json error
   - Client side errors don't back correctly
+  - Reinstall storybook plugins later
+    "@storybook/addon-a11y": "^6.1",2
+    "@storybook/addon-console": "^1.2",
+    "@storybook/addon-essentials": "^6.1",
+    "@storybook/addon-knobs": "^6.1",
+    "@storybook/addon-links": "^6.1",
+    "@storybook/addon-storysource": "^6.1",
+    "@storybook/addons": "^6.1",
+    "@storybook/react": "^6.2",
