@@ -4,7 +4,7 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "codespace",
   "settings": {
-    "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.shell.linux": "/bin/zsh",
     "sqltools.connections": [
       {
         "name": "Postgres database",
