@@ -44,6 +44,10 @@ config :paper_trail,
   originator_type: Ecto.UUID,
   originator: [name: :account, model: Database.Models.Account]
 
+
+config :google_maps,
+  api_key: "YOUR API KEY HERE"
+
 config :clumsy_chinchilla, Oban,
   repo: Database.Repository,
   plugins: [
