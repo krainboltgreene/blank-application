@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 13.1
--- Dumped by pg_dump version 13.1
+-- Dumped from database version 12.2
+-- Dumped by pg_dump version 12.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -181,7 +181,7 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
 -- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
 --
 
-COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
@@ -240,44 +240,6 @@ CREATE EXTENSION IF NOT EXISTS tablefunc WITH SCHEMA public;
 COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, including crosstab';
 
 
---
--- Name: oban_job_state; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE public.oban_job_state AS ENUM (
-    'available',
-    'scheduled',
-    'executing',
-    'retryable',
-    'completed',
-    'discarded',
-    'cancelled'
-);
-
-
---
--- Name: oban_jobs_notify(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.oban_jobs_notify() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-  channel text;
-  notice json;
-BEGIN
-  IF NEW.state = 'available' THEN
-    channel = 'public.oban_insert';
-    notice = json_build_object('queue', NEW.queue, 'state', NEW.state);
-
-    PERFORM pg_notify(channel, notice::text);
-  END IF;
-
-  RETURN NULL;
-END;
-$$;
-
-
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -291,84 +253,57 @@ CREATE TABLE public.accounts (
     email_address public.citext NOT NULL,
     unconfirmed_email_address public.citext,
     username public.citext,
+    name text,
     onboarding_state public.citext NOT NULL,
+    role_state public.citext NOT NULL,
     confirmation_secret text,
     password_hash character varying(255),
     inserted_at timestamp(0) without time zone NOT NULL,
     updated_at timestamp(0) without time zone NOT NULL,
-    settings jsonb DEFAULT '{}'::jsonb NOT NULL,
-    profile jsonb DEFAULT '{}'::jsonb NOT NULL
+    settings jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
 --
--- Name: oban_beats; Type: TABLE; Schema: public; Owner: -
+-- Name: elixir_functions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.oban_beats (
-    node text NOT NULL,
-    queue text NOT NULL,
-    nonce text NOT NULL,
-    "limit" integer NOT NULL,
-    paused boolean DEFAULT false NOT NULL,
-    running bigint[] DEFAULT ARRAY[]::integer[] NOT NULL,
-    inserted_at timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL,
-    started_at timestamp without time zone NOT NULL
+CREATE TABLE public.elixir_functions (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    hash character varying(255) NOT NULL,
+    slug text NOT NULL,
+    documentation text NOT NULL,
+    declaration text NOT NULL,
+    inputs text NOT NULL,
+    typespec jsonb NOT NULL,
+    guards text NOT NULL,
+    body text NOT NULL,
+    ast text NOT NULL,
+    source text NOT NULL,
+    elixir_module_id uuid NOT NULL,
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
 );
 
 
 --
--- Name: oban_jobs; Type: TABLE; Schema: public; Owner: -
+-- Name: elixir_modules; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.oban_jobs (
-    id bigint NOT NULL,
-    state public.oban_job_state DEFAULT 'available'::public.oban_job_state NOT NULL,
-    queue text DEFAULT 'default'::text NOT NULL,
-    worker text NOT NULL,
-    args jsonb NOT NULL,
-    errors jsonb[] DEFAULT ARRAY[]::jsonb[] NOT NULL,
-    attempt integer DEFAULT 0 NOT NULL,
-    max_attempts integer DEFAULT 20 NOT NULL,
-    inserted_at timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL,
-    scheduled_at timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL,
-    attempted_at timestamp without time zone,
-    completed_at timestamp without time zone,
-    attempted_by text[],
-    discarded_at timestamp without time zone,
-    priority integer DEFAULT 0,
-    tags character varying(255)[] DEFAULT ARRAY[]::character varying[],
-    meta jsonb DEFAULT '{}'::jsonb,
-    cancelled_at timestamp without time zone,
-    CONSTRAINT queue_length CHECK (((char_length(queue) > 0) AND (char_length(queue) < 128))),
-    CONSTRAINT worker_length CHECK (((char_length(worker) > 0) AND (char_length(worker) < 128)))
+CREATE TABLE public.elixir_modules (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    hash character varying(255) NOT NULL,
+    slug text NOT NULL,
+    documentation text NOT NULL,
+    body text NOT NULL,
+    ast text NOT NULL,
+    source text NOT NULL,
+    deployment_state public.citext NOT NULL,
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
 );
-
-
---
--- Name: TABLE oban_jobs; Type: COMMENT; Schema: public; Owner: -
---
-
-COMMENT ON TABLE public.oban_jobs IS '9';
-
-
---
--- Name: oban_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.oban_jobs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: oban_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.oban_jobs_id_seq OWNED BY public.oban_jobs.id;
 
 
 --
@@ -483,13 +418,6 @@ ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
 
 
 --
--- Name: oban_jobs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.oban_jobs ALTER COLUMN id SET DEFAULT nextval('public.oban_jobs_id_seq'::regclass);
-
-
---
 -- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -505,11 +433,19 @@ ALTER TABLE ONLY public.accounts
 
 
 --
--- Name: oban_jobs oban_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: elixir_functions elixir_functions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.oban_jobs
-    ADD CONSTRAINT oban_jobs_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.elixir_functions
+    ADD CONSTRAINT elixir_functions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: elixir_modules elixir_modules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.elixir_modules
+    ADD CONSTRAINT elixir_modules_pkey PRIMARY KEY (id);
 
 
 --
@@ -583,24 +519,31 @@ CREATE INDEX accounts_onboarding_state_index ON public.accounts USING btree (onb
 
 
 --
--- Name: oban_beats_inserted_at_index; Type: INDEX; Schema: public; Owner: -
+-- Name: accounts_role_state_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX oban_beats_inserted_at_index ON public.oban_beats USING btree (inserted_at);
-
-
---
--- Name: oban_jobs_attempted_at_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX oban_jobs_attempted_at_id_index ON public.oban_jobs USING btree (attempted_at DESC, id) WHERE (state = ANY (ARRAY['completed'::public.oban_job_state, 'discarded'::public.oban_job_state]));
+CREATE INDEX accounts_role_state_index ON public.accounts USING btree (role_state);
 
 
 --
--- Name: oban_jobs_queue_state_priority_scheduled_at_id_index; Type: INDEX; Schema: public; Owner: -
+-- Name: elixir_functions_elixir_module_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX oban_jobs_queue_state_priority_scheduled_at_id_index ON public.oban_jobs USING btree (queue, state, priority, scheduled_at, id);
+CREATE INDEX elixir_functions_elixir_module_id_index ON public.elixir_functions USING btree (elixir_module_id);
+
+
+--
+-- Name: elixir_functions_slug_elixir_module_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX elixir_functions_slug_elixir_module_id_index ON public.elixir_functions USING btree (slug, elixir_module_id);
+
+
+--
+-- Name: elixir_modules_slug_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX elixir_modules_slug_index ON public.elixir_modules USING btree (slug);
 
 
 --
@@ -695,10 +638,11 @@ CREATE INDEX versions_originator_id_index ON public.versions USING btree (origin
 
 
 --
--- Name: oban_jobs oban_notify; Type: TRIGGER; Schema: public; Owner: -
+-- Name: elixir_functions elixir_functions_elixir_module_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-CREATE TRIGGER oban_notify AFTER INSERT ON public.oban_jobs FOR EACH ROW EXECUTE FUNCTION public.oban_jobs_notify();
+ALTER TABLE ONLY public.elixir_functions
+    ADD CONSTRAINT elixir_functions_elixir_module_id_fkey FOREIGN KEY (elixir_module_id) REFERENCES public.elixir_modules(id);
 
 
 --
@@ -751,8 +695,7 @@ INSERT INTO public."schema_migrations" (version) VALUES (20200127021834);
 INSERT INTO public."schema_migrations" (version) VALUES (20200127021837);
 INSERT INTO public."schema_migrations" (version) VALUES (20200127021838);
 INSERT INTO public."schema_migrations" (version) VALUES (20200127021839);
+INSERT INTO public."schema_migrations" (version) VALUES (20200407065918);
+INSERT INTO public."schema_migrations" (version) VALUES (20200407071225);
 INSERT INTO public."schema_migrations" (version) VALUES (20201108234622);
 INSERT INTO public."schema_migrations" (version) VALUES (20201215210357);
-INSERT INTO public."schema_migrations" (version) VALUES (20201230062737);
-INSERT INTO public."schema_migrations" (version) VALUES (20201230220614);
-INSERT INTO public."schema_migrations" (version) VALUES (20201230220625);
