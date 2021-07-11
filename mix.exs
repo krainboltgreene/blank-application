@@ -91,6 +91,7 @@ defmodule Core.MixProject do
       {:plug_telemetry_server_timing, "~> 0.1"},
       {:telemetry_metrics, "~> 0.5"},
       {:oban, "~> 2.1"},
+      {:finch, "~> 0.6"},
       {:telemetry_poller, "~> 0.4"}
     ]
   end
