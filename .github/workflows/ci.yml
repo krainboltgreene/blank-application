@@ -1,0 +1,205 @@
+name: Elixir CI
+
+on:
+  push:
+    branches: [ core ]
+  pull_request:
+    branches: [ core ]
+
+jobs:
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+  javascript-setup:
+    name: Javascript Setup
+    needs: cleanup
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
+    - name: Restore npm cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-npm-
+    - run: npm install
+  elixir-setup:
+    name: Elixir Setup
+    needs: cleanup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        elixir: [1.11]
+        otp: [24]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: erlef/setup-beam@v1
+      with:
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+    - name: Restore mix cache
+      id: mix-cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-24-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+    - run: |
+        mix deps.get
+        mix local.rebar --force
+        mix local.hex --force
+  javascript-build:
+    name: Javascript Build
+    needs: ["javascript-setup"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
+    - name: Restore npm cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-npm-
+    - name: Restore browser-client build cache
+      uses: actions/cache@v2
+      with:
+        path: tmp/browser-client
+        key: ${{ runner.os }}-javascript-build
+    - run: bin/webpack-build
+  elixir-build:
+    name: Elixir Build
+    needs: ["elixir-setup"]
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13.2
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: erlef/setup-beam@v1
+      with:
+        elixir-version: '1.11.4'
+        otp-version: '23.3'
+    - name: Restore mix cache
+      uses: actions/cache@v2
+      id: mix-cache
+      with:
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+    - name: Restore graphql cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          schema.graphql
+          schema.json
+        key: ${{ runner.os }}-graphql
+    - run: mix compile
+    - run: |
+        mkdir -p priv/plts
+        mix dialyzer --plt
+    - run: mix ecto.setup
+  elixir-check:
+    name: Elixir Checks
+    needs: ["elixir-build"]
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13.2
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: erlef/setup-beam@v1
+      with:
+        elixir-version: '1.11.4'
+        otp-version: '23.3'
+    - name: Restore mix cache
+      id: mix-cache
+      with:
+        path: |
+          deps
+          _build
+          priv/plts
+        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+    - name: Restore elixir build cache
+      uses: actions/cache@v2
+      with:
+        path: _build
+        key: ${{ runner.os }}-elixir-build
+    - name: Check Code Format
+      run: mix format --check-formatted
+    - name: Run Credo
+      run: mix credo
+    - name: Run Dialyzer
+      run: mix dialyzer --no-check
+    - run: mix test --trace --slowest 10
+  javascript-check:
+    name: Javascript Checks
+    needs: ["elixir-build", "javascript-setup"]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '15.x'
+    - name: Restore npm cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: ${{ runner.os }}-npm-
+    - name: Restore browser-client build cache
+      uses: actions/cache@v2
+      with:
+        path: tmp/browser-client
+        key: ${{ runner.os }}-javascript-build
+    - name: Restore graphql cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          schema.graphql
+          schema.json
+        key: ${{ runner.os }}-graphql
+    - run: npx eslint --quiet --ext .tsx,.ts,.gql lib/client/
+    - run: npx tsc | true

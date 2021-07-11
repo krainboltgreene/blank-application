@@ -1,5 +1,4 @@
 defmodule Database.Models do
-
   @spec has_standard_behavior :: {:__block__, [], [{:def, [...], [...]}, ...]}
   defmacro has_standard_behavior() do
     quote do
@@ -13,6 +12,7 @@ defmodule Database.Models do
       def create_or_update_by_external_id(attributes) do
         Database.Repository.get_by(__MODULE__, external_id: attributes.external_id)
         |> case do
+
           nil -> create(attributes)
           record -> record |> update(attributes)
         end

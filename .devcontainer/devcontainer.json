@@ -1,0 +1,57 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+  "name": "Project",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "codespace",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "sqltools.connections": [
+      {
+        "name": "Postgres database",
+        "driver": "PostgreSQL",
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "database": "postgres",
+        "username": "postgres",
+        "password": ""
+      },
+      {
+        "name": "Primary database",
+        "driver": "PostgreSQL",
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "database": "clumsy_chinchilla_dev",
+        "username": "postgres",
+        "password": ""
+      }
+    ]
+  },
+  "remoteUser": "codespace",
+  "forwardPorts": [4000, 4001, 5432],
+  "overrideCommand": false,
+  "workspaceFolder": "/home/codespace/source",
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt",
+    "seccomp=unconfined",
+    "--privileged",
+    "--init"
+  ],
+  "extensions": [
+    "krainboltgreene.all-builtin-commands",
+    "ms-vscode.atom-keybindings",
+    "mgmcdermott.vscode-language-babel",
+    "apollographql.vscode-apollo",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "github.codespaces",
+    "ms-azuretools.vscode-docker",
+    "jakebecker.elixir-ls",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+    "hashicorp.terraform"
+  ],
+  "postStartCommand": "bash .devcontainer/post_start.sh"
+}
