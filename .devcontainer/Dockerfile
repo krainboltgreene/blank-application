@@ -13,38 +13,14 @@ COPY library-scripts/*.sh library-scripts/*.env /tmp/library-scripts/
 
 RUN wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
 	echo "deb https://packages.erlang-solutions.com/ubuntu focal contrib" | tee /etc/apt/sources.list.d/rabbitmq.list
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && echo \
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+RUN echo \
   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  focal stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "false" "true" "true"
-RUN apt-get -y install --no-install-recommends \
-    dirmngr \
-    gpg \
-    gawk \
-    build-essential \
-    autoconf \
-    m4 \
-    libncurses5-dev \
-    libwxgtk3.0-gtk3-dev \
-    libgl1-mesa-dev \
-    libglu1-mesa-dev \
-    libpng-dev \
-    libssh-dev \
-    bzip2 \
-    libreadline6 \
-    unixodbc-dev \
-    xsltproc \
-    fop \
-    libxml2-utils \
-    libncurses-dev \
-    openjdk-11-jdk \
-    software-properties-common \
-    libsecret-1-dev \
-    gdb \
-    inotify-tools \
-    docker-ce \
-    docker-ce-cli \
-    containerd.io
+RUN add-apt-repository ppa:ubuntu-sdk-team/ppa
+RUN apt-get update
+RUN apt-get -y install --no-install-recommends docker-ce docker-ce-cli containerd.io
 RUN apt-get autoremove -y
 RUN apt-get clean -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
