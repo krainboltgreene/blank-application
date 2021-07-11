@@ -1,5 +1,4 @@
-ARG VARIANT="buster"
-FROM buildpack-deps:${VARIANT}-curl
+FROM buildpack-deps:focal-curl
 
 ARG USERNAME=codespace
 ARG USER_UID=1000
@@ -11,15 +10,11 @@ SHELL ["/bin/bash", "-c"]
 
 COPY library-scripts/*.sh library-scripts/*.env /tmp/library-scripts/
 
-RUN wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add - && \
-	echo "deb https://packages.erlang-solutions.com/ubuntu focal contrib" | tee /etc/apt/sources.list.d/rabbitmq.list
+RUN echo "deb https://packages.erlang-solutions.com/ubuntu focal contrib" | tee /etc/apt/sources.list.d/erlang.list > /dev/null
+RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add -
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-RUN echo \
-  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  focal stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "false" "true" "true"
-RUN add-apt-repository ppa:ubuntu-sdk-team/ppa
-RUN apt-get update
 RUN apt-get -y install --no-install-recommends docker-ce docker-ce-cli containerd.io
 RUN apt-get autoremove -y
 RUN apt-get clean -y
