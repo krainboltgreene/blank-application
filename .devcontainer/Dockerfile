@@ -20,24 +20,19 @@ RUN apt-get autoremove -y
 RUN apt-get clean -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 RUN mkdir -p /usr/local/etc/vscode-dev-containers/
-RUN chown codespace /opt/*
+COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt
+# RUN chown codespace /opt/*
 
 USER ${USERNAME}
 
 RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add terraform https://github.com/asdf-community/asdf-hashicorp.git
-RUN . $HOME/.asdf/asdf.sh && asdf install terraform 1.0.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add nodejs
-RUN . $HOME/.asdf/asdf.sh && asdf install nodejs 16.4.0
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add erlang
-RUN . $HOME/.asdf/asdf.sh && asdf install erlang 24.0.2
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add elixir
-RUN . $HOME/.asdf/asdf.sh && asdf install elixir 1.12.1-otp-24
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add python
-RUN . $HOME/.asdf/asdf.sh && asdf install python 3.9.6
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add gcloud
-RUN . $HOME/.asdf/asdf.sh && asdf install gcloud 347.0.0
-COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt
+RUN . $HOME/.asdf/asdf.sh && asdf install
 
 CMD [ "sleep", "infinity" ]
 
