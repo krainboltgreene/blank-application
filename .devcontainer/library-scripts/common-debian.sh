@@ -128,6 +128,7 @@ if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
         rsync \
         software-properties-common \
         strace \
+        sqlite3 \
         sudo \
         unixodbc-dev \
         unzip \

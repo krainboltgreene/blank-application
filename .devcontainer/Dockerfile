@@ -26,21 +26,20 @@ COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/first-run-notice.
 USER ${USERNAME}
 
 RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
-RUN . $HOME/.asdf/asdf.sh && asdf plugin add terraform https://github.com/asdf-community/asdf-hashicorp.git
-RUN . $HOME/.asdf/asdf.sh && asdf plugin add nodejs
-RUN . $HOME/.asdf/asdf.sh && asdf plugin add erlang
-RUN . $HOME/.asdf/asdf.sh && asdf plugin add elixir
-RUN . $HOME/.asdf/asdf.sh && asdf plugin add python
-RUN . $HOME/.asdf/asdf.sh && asdf plugin add gcloud
-COPY .tool-versions /tmp/.tool-versions
-RUN . $HOME/.asdf/asdf.sh && cd /tmp/ && asdf install
+RUN . $HOME/.asdf/asdf.sh && asdf plugin add terraform https://github.com/asdf-community/asdf-hashicorp.git && asdf install terraform 1.0.1 && asdf global terraform 1.0.1
+RUN . $HOME/.asdf/asdf.sh && asdf plugin add nodejs && asdf install nodejs 16.4.0 && asdf global nodejs 16.4.0
+RUN . $HOME/.asdf/asdf.sh && asdf plugin add erlang && asdf install erlang 24.0.2 && asdf global erlang 24.0.2
+RUN . $HOME/.asdf/asdf.sh && asdf plugin add elixir && asdf install elixir 1.12.1-otp-24 && asdf global elixir 1.12.1-otp-24
+RUN echo "test"
+# RUN . $HOME/.asdf/asdf.sh && asdf plugin add python && asdf install python 3.9.6 && asdf global python 3.9.6
+# RUN . $HOME/.asdf/asdf.sh && asdf plugin add gcloud && asdf install gcloud 347.0.0 && asdf global gcloud 347.0.0
 
-CMD [ "sleep", "infinity" ]
+# CMD [ "sleep", "infinity" ]
 
-ARG DeveloperBuild
+# ARG DeveloperBuild
 
-RUN if [ -z $DeveloperBuild ]; then \
-        echo "not including debugger" ; \
-    else \
-        curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg ; \
-    fi
+# RUN if [ -z $DeveloperBuild ]; then \
+#         echo "not including debugger" ; \
+#     else \
+#         curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg ; \
+#     fi
