@@ -32,7 +32,8 @@ RUN . $HOME/.asdf/asdf.sh && asdf plugin add erlang
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add elixir
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add python
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add gcloud
-RUN . $HOME/.asdf/asdf.sh && asdf install
+COPY .tool-versions /tmp/.tool-versions
+RUN . $HOME/.asdf/asdf.sh && cd /tmp/ && asdf install
 
 CMD [ "sleep", "infinity" ]
 
