@@ -129,6 +129,8 @@ if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
         software-properties-common \
         strace \
         sqlite3 \
+        libsqlite3-dev \
+        libbz2-dev \
         sudo \
         unixodbc-dev \
         unzip \

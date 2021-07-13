@@ -16,8 +16,8 @@
   "repository": "github:difference-engineers/clumsy_chinchilla",
   "bugs": "https://github.com/difference-engineers/clumsy_chinchilla/issues",
   "engines": {
-    "node": "~> 15",
-    "npm": "~> 7"
+    "node": "^16.4.0",
+    "npm": "^7.18.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12",

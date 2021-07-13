@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
-sudo update-locale LC_ALL=en_US.UTF-8 &&
+
 . $HOME/.asdf/asdf.sh &&
-echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc &&
-echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc &&
-asdf install &&
-mix do local.hex --force, local.rebar --force, deps.get, compile, dialyzer.build, ecto.reset &&
+mix do deps.get, compile, dialyzer.build, ecto.reset &&
 npm install --no-audit
 # terraform init &&
 # terraform apply &&
