@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 . $HOME/.asdf/asdf.sh &&
 mix do deps.get, compile, dialyzer.build, ecto.reset &&
