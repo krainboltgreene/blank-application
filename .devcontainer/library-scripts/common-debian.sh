@@ -65,7 +65,7 @@ apt-get-update-if-needed()
 {
     if [ ! -d "/var/lib/apt/lists" ] || [ "$(ls /var/lib/apt/lists/ | wc -l)" = "0" ]; then
         echo "Running apt-get update..."
-        apt-get update
+        apt-get -qq update
     else
         echo "Skipping apt-get update."
     fi
@@ -176,7 +176,7 @@ if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
     fi
 
     echo "Packages to verify are installed: ${PACKAGE_LIST}"
-    apt-get -y install --no-install-recommends ${PACKAGE_LIST} 2> >( grep -v 'debconf: delaying package configuration, since apt-utils is not installed' >&2 )
+    apt-get -qq -y install --no-install-recommends ${PACKAGE_LIST} 2> >( grep -v 'debconf: delaying package configuration, since apt-utils is not installed' >&2 )
 
     PACKAGES_ALREADY_INSTALLED="true"
 fi
@@ -184,8 +184,8 @@ fi
 # Get to latest versions of all packages
 if [ "${UPGRADE_PACKAGES}" = "true" ]; then
     apt-get-update-if-needed
-    apt-get -y upgrade --no-install-recommends
-    apt-get autoremove -y
+    apt-get -qq upgrade -y --no-install-recommends
+    apt-get -qq autoremove -y
 fi
 
 # Ensure at least the en_US.UTF-8 UTF-8 locale is available.
@@ -409,7 +409,7 @@ fi
 if [ "${INSTALL_ZSH}" = "true" ]; then
     if ! type zsh > /dev/null 2>&1; then
         apt-get-update-if-needed
-        apt-get install -y --no-install-recommends zsh
+        apt-get -qq install -y --no-install-recommends zsh
     fi
     if [ "${ZSH_ALREADY_INSTALLED}" != "true" ]; then
         echo "${RC_SNIPPET}" >> /etc/zsh/zshrc

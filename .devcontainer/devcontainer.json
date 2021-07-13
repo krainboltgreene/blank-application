@@ -55,6 +55,6 @@
     "ms-azuretools.vscode-docker",
     "hashicorp.terraform"
   ],
-  "postStartCommand": "/bin/bash .devcontainer/post_start.sh",
-  "postCreateCommand": "/bin/bash .devcontainer/post_create.sh"
+  "onCreateCommand": "/bin/bash .devcontainer/on_create.sh",
+  "postStartCommand": "/bin/bash .devcontainer/post_start.sh"
 }

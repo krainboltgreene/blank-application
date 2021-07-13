@@ -14,8 +14,8 @@ RUN echo "deb https://packages.erlang-solutions.com/ubuntu focal contrib" | tee 
 RUN wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add -
 RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "false" "true" "true"
 RUN /bin/bash /tmp/library-scripts/docker-in-docker-debian.sh "true" "${USERNAME}" "true"
-RUN apt-get autoremove -y
-RUN apt-get clean -y
+RUN apt-get -qq autoremove -y
+RUN apt-get -qq clean -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 RUN mkdir -p /usr/local/etc/vscode-dev-containers/
 COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt

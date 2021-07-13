@@ -42,7 +42,7 @@ apt-get-update-if-needed()
 {
     if [ ! -d "/var/lib/apt/lists" ] || [ "$(ls /var/lib/apt/lists/ | wc -l)" = "0" ]; then
         echo "Running apt-get update..."
-        apt-get update
+        apt-get -qq update
     else
         echo "Skipping apt-get update."
     fi
@@ -54,7 +54,7 @@ export DEBIAN_FRONTEND=noninteractive
 # Install docker/dockerd dependencies if missing
 if ! dpkg -s apt-transport-https curl ca-certificates lxc pigz iptables > /dev/null 2>&1 || ! type gpg > /dev/null 2>&1; then
     apt-get-update-if-needed
-    apt-get -y install --no-install-recommends apt-transport-https curl ca-certificates lxc pigz iptables gnupg2
+    apt-get -qq install -y --no-install-recommends apt-transport-https curl ca-certificates lxc pigz iptables gnupg2
 fi
 
 # Swap to legacy iptables for compatibility
@@ -73,14 +73,14 @@ else
         # Import key safely (new 'signed-by' method rather than deprecated apt-key approach) and install
         curl -sSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/microsoft-archive-keyring.gpg
         echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/microsoft-${ID}-${VERSION_CODENAME}-prod ${VERSION_CODENAME} main" > /etc/apt/sources.list.d/microsoft.list
-        apt-get update
-        apt-get -y install --no-install-recommends moby-cli moby-buildx moby-engine
+        apt-get -qq update
+        apt-get -y -qq install --no-install-recommends moby-cli moby-buildx moby-engine
     else
         # Import key safely (new 'signed-by' method rather than deprecated apt-key approach) and install
         curl -fsSL https://download.docker.com/linux/${ID}/gpg | gpg --dearmor > /usr/share/keyrings/docker-archive-keyring.gpg
         echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/${ID} ${VERSION_CODENAME} stable" > /etc/apt/sources.list.d/docker.list
-        apt-get update
-        apt-get -y install --no-install-recommends docker-ce-cli docker-ce
+        apt-get -qq update
+        apt-get -y -qq install --no-install-recommends docker-ce-cli docker-ce
     fi
 fi
 
@@ -98,7 +98,7 @@ else
         # Use pip to get a version that runns on this architecture
         if ! dpkg -s python3-minimal python3-pip libffi-dev python3-venv pipx > /dev/null 2>&1; then
             apt-get-update-if-needed
-            apt-get -y install python3-minimal python3-pip libffi-dev python3-venv pipx
+            apt-get -qq -y install python3-minimal python3-pip libffi-dev python3-venv pipx
         fi
         export PIPX_HOME=/usr/local/pipx
         mkdir -p ${PIPX_HOME}
