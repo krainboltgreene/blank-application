@@ -33,13 +33,13 @@ RUN . $HOME/.asdf/asdf.sh && asdf plugin add postgres
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add redis
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add gcloud && asdf install gcloud 347.0.0 && asdf global gcloud 347.0.0
 
-VOLUME [ "/var/lib/docker" ]
+# VOLUME [ "/var/lib/docker" ]
 CMD [ "sleep", "infinity" ]
 
 # Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine
 # inside the container "overrideCommand": false is set in devcontainer.json.
 # The script will also execute CMD if you need to alter startup behaviors.
-ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
+# ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 ARG DeveloperBuild
 RUN if [ -z $DeveloperBuild ]; then \
         echo "not including debugger" ; \
