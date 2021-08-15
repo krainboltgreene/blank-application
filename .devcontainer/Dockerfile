@@ -18,7 +18,6 @@ RUN apt-get -qq autoremove -y
 RUN apt-get -qq clean -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 RUN mkdir -p /usr/local/etc/vscode-dev-containers/
-COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt
 
 USER ${USERNAME}
 
