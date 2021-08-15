@@ -13,7 +13,6 @@ services:
     network_mode: service:postgres
 
     # Overrides default command so things don't shut down after the process ends.
-    # command: sleep infinity
 
   postgres:
     image: postgres:13.2
