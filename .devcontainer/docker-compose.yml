@@ -3,16 +3,12 @@ version: "3.7"
 services:
   codespace:
     init: true
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/krainboltgreene/blank-application_devcontainer_codespace:latest
     volumes:
       - ..:/home/codespace/source:cached
       - /var/run/docker.sock:/var/run/docker-host.sock
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     network_mode: service:postgres
-
-    # Overrides default command so things don't shut down after the process ends.
 
   postgres:
     image: postgres:13.2
