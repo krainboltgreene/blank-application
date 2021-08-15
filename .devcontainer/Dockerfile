@@ -43,7 +43,6 @@ RUN apt-get autoremove -y
 RUN apt-get clean -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 RUN mkdir -p /usr/local/etc/vscode-dev-containers/
-RUN chown codespace /opt/*
 
 USER ${USERNAME}
 
