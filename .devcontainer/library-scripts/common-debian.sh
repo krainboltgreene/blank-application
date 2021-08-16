@@ -65,7 +65,7 @@ apt-get-update-if-needed()
 {
     if [ ! -d "/var/lib/apt/lists" ] || [ "$(ls /var/lib/apt/lists/ | wc -l)" = "0" ]; then
         echo "Running apt-get update..."
-        apt-get update
+        apt-get -qq update
     else
         echo "Skipping apt-get update."
     fi
@@ -74,45 +74,71 @@ apt-get-update-if-needed()
 # Run install apt-utils to avoid debconf warning then verify presence of other common developer tools and dependencies
 if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
 
-    PACKAGE_LIST="apt-utils \
-        git \
-        openssh-client \
-        gnupg2 \
-        iproute2 \
-        procps \
-        lsof \
-        htop \
-        net-tools \
-        psmisc \
-        curl \
-        wget \
-        rsync \
+    PACKAGE_LIST="apt-transport-https \
+        apt-utils \
+        autoconf \
+        build-essential \
+        bzip2 \
         ca-certificates \
-        unzip \
-        zip \
-        nano \
-        vim-tiny \
-        less \
-        jq \
-        lsb-release \
-        apt-transport-https \
+        curl \
         dialog \
+        dirmngr \
+        fop \
+        gawk \
+        gdb \
+        git \
+        gnupg2 \
+        htop \
+        init-system-helpers \
+        inotify-tools\
+        iproute2 \
+        jq \
+        less \
         libc6 \
         libgcc1 \
-        libkrb5-3 \
+        libgl1-mesa-dev \
+        libglu1-mesa-dev \
         libgssapi-krb5-2 \
         libicu[0-9][0-9] \
+        libkrb5-3 \
         liblttng-ust0 \
+        libncurses-dev \
+        libncurses5-dev \
+        libpng-dev \
+        libreadline6-dev \
+        libsecret-1-dev \
+        libssh-dev \
         libstdc++6 \
-        zlib1g \
+        libwxgtk3.0-gtk3-dev \
+        libxml2-utils \
         locales \
-        sudo \
-        ncdu \
+        lsb-release \
+        lsof \
+        m4 \
         man-db \
-        strace \
         manpages \
         manpages-dev \
-        init-system-helpers"
+        nano \
+        ncdu \
+        net-tools \
+        openjdk-11-jdk \
+        openssh-client \
+        procps \
+        psmisc \
+        rsync \
+        software-properties-common \
+        strace \
+        sqlite3 \
+        libsqlite3-dev \
+        libbz2-dev \
+        sudo \
+        unixodbc-dev \
+        unzip \
+        vim-tiny \
+        wget \
+        xsltproc \
+        zip \
+        zlib1g"
 
     # Needed for adding manpages-posix and manpages-posix-dev which are non-free packages in Debian
     if [ "${ADD_NON_FREE_PACKAGES}" = "true" ]; then
@@ -150,7 +176,7 @@ if [ "${PACKAGES_ALREADY_INSTALLED}" != "true" ]; then
     fi
 
     echo "Packages to verify are installed: ${PACKAGE_LIST}"
-    apt-get -y install --no-install-recommends ${PACKAGE_LIST} 2> >( grep -v 'debconf: delaying package configuration, since apt-utils is not installed' >&2 )
+    apt-get -qq -y install --no-install-recommends ${PACKAGE_LIST} 2> >( grep -v 'debconf: delaying package configuration, since apt-utils is not installed' >&2 )
 
     PACKAGES_ALREADY_INSTALLED="true"
 fi
@@ -158,8 +184,8 @@ fi
 # Get to latest versions of all packages
 if [ "${UPGRADE_PACKAGES}" = "true" ]; then
     apt-get-update-if-needed
-    apt-get -y upgrade --no-install-recommends
-    apt-get autoremove -y
+    apt-get -qq upgrade -y --no-install-recommends
+    apt-get -qq autoremove -y
 fi
 
 # Ensure at least the en_US.UTF-8 UTF-8 locale is available.
@@ -292,9 +318,7 @@ __bash_prompt() {
         && [ "$XIT" -ne "0" ] && echo -n "\[\033[1;31m\]➜" || echo -n "\[\033[0m\]➜"`'
     local gitbranch='`\
         export BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null); \
-        if [ "${BRANCH}" = "HEAD" ]; then \
-            export BRANCH=$(git describe --contains --all HEAD 2>/dev/null); \
-        fi; \
+        export BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null); \
         if [ "${BRANCH}" != "" ]; then \
             echo -n "\[\033[0;36m\](\[\033[1;31m\]${BRANCH}" \
             && if git ls-files --error-unmatch -m --directory --no-empty-directory -o --exclude-standard ":/*" > /dev/null 2>&1; then \
@@ -385,7 +409,7 @@ fi
 if [ "${INSTALL_ZSH}" = "true" ]; then
     if ! type zsh > /dev/null 2>&1; then
         apt-get-update-if-needed
-        apt-get install -y --no-install-recommends zsh
+        apt-get -qq install -y --no-install-recommends zsh
     fi
     if [ "${ZSH_ALREADY_INSTALLED}" != "true" ]; then
         echo "${RC_SNIPPET}" >> /etc/zsh/zshrc
