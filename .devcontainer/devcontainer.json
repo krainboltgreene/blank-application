@@ -30,15 +30,7 @@
   },
   "remoteUser": "codespace",
   "forwardPorts": [4000, 4001, 5432],
-  "overrideCommand": false,
   "workspaceFolder": "/home/codespace/source",
-  "runArgs": [
-    "--cap-add=SYS_PTRACE",
-    "--security-opt",
-    "seccomp=unconfined",
-    "--privileged",
-    "--init"
-  ],
   "extensions": [
     "krainboltgreene.all-builtin-commands",
     "ms-vscode.atom-keybindings",
@@ -51,7 +43,9 @@
     "jakebecker.elixir-ls",
     "mtxr.sqltools",
     "mtxr.sqltools-driver-pg",
+    "ms-azuretools.vscode-docker",
     "hashicorp.terraform"
   ],
-  "postStartCommand": "bash .devcontainer/post_start.sh"
+  "onCreateCommand": "/bin/zsh .devcontainer/on_create.sh",
+  "postStartCommand": "/bin/zsh .devcontainer/post_start.sh"
 }
