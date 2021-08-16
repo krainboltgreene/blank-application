@@ -1,11 +1,9 @@
-#!/usr/bin/env bash
-sudo update-locale LC_ALL=en_US.UTF-8 &&
+#!/usr/bin/env zsh
+
 . $HOME/.asdf/asdf.sh &&
-echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc &&
-echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc &&
-asdf install &&
-mix do local.hex --force, local.rebar --force, deps.get, compile, dialyzer.build, ecto.reset &&
-npm install --no-audit
+mix do deps.get, compile, dialyzer.build, ecto.reset &&
+npm install --no-audit &&
+echo $CODESPACE_PACKAGE_TOKEN | docker login ghcr.io -u krainboltgreene --password-stdin
 # terraform init &&
 # terraform apply &&
 # eval "$(ssh-agent -s)" &&
