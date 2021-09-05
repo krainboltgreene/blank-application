@@ -44,9 +44,9 @@ defmodule Core.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:absinthe_phoenix, "~> 2.0"},
+      {:absinthe_phoenix, "~> 2.0.1"},
       {:absinthe_plug, "~> 1.5"},
-      {:absinthe, "~> 1.5"},
+      {:absinthe, "~> 1.6.5"},
       {:argon2_elixir, "~> 2.1"},
       {:bamboo_smtp, "~> 4.0"},
       {:bamboo_phoenix, "~> 1.0"},
@@ -65,7 +65,7 @@ defmodule Core.MixProject do
       {:ecto_enum, "~> 1.4"},
       {:ecto_psql_extras, "~> 0.2"},
       {:ecto_sql, "~> 3.4"},
-      {:encrypted_secrets, "~> 0.2.0"},
+      {:encrypted_secrets, "~> 0.3.0"},
       {:envy, "~> 1.1"},
       {:exvcr, "~> 0.11", only: :test},
       {:flippant, "~> 2.0"},
@@ -77,11 +77,11 @@ defmodule Core.MixProject do
       {:jason, "~> 1.2"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:paper_trail, "~> 0.8"},
-      {:phoenix_ecto, "~> 4.1"},
-      {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_dashboard, "~> 0.2"},
+      {:phoenix_ecto, "~> 4.4.0"},
+      {:phoenix_html, "~> 2.13"},
+      {:phoenix_live_dashboard, "~> 0.5.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.13"},
+      {:phoenix_live_view, "~> 0.16.1"},
       {:phoenix_pubsub, "~> 2.0"},
       {:phoenix, "~> 1.5"},
       {:plug_cowboy, "~> 2.3"},
@@ -89,9 +89,9 @@ defmodule Core.MixProject do
       {:recase, "~> 0.6"},
       {:redix, "~> 1.0"},
       {:plug_telemetry_server_timing, "~> 0.1"},
-      {:telemetry_metrics, "~> 0.5"},
+      {:telemetry_metrics, "~> 0.6.1"},
       {:oban, "~> 2.1"},
-      {:telemetry_poller, "~> 0.4"}
+      {:telemetry_poller, "~> 1.0.0"}
     ]
   end
 

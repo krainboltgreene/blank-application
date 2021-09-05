@@ -20,7 +20,7 @@ module.exports = {
   },
   settings: {
     "react": {
-      version: "16.8.4",
+      version: "17.0",
     },
     exclude: [
       "*.config.js",

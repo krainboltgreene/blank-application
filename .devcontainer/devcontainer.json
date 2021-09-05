@@ -4,7 +4,42 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "codespace",
   "settings": {
-    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "files.autoSave": "onFocusChange",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "javascript.format.semicolons": "insert",
+    "typescript.format.semicolons": "insert",
+    "terminal.integrated.copyOnSelection": true,
+    "eslint.format.enable": true,
+    "eslint.onIgnoredFiles": "warn",
+    "eslint.run": "onType",
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "graphql"
+    ],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "graphql"
+    ],
+    "eslint.codeAction.showDocumentation": {
+        "enable": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "elixirLS.fetchDeps": false,
+    "elixirLS.mixEnv": "dev",
+    "editor.tabSize": 2,
     "sqltools.connections": [
       {
         "name": "Postgres database",
