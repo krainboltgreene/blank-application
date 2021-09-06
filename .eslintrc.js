@@ -22,12 +22,6 @@ module.exports = {
     "react": {
       version: "17.0",
     },
-    exclude: [
-      "*.config.js",
-      ".eslintrc.js",
-      "d.ts",
-      "webpack/"
-    ],
   },
   parserOptions: {
     tsconfigRootDir: __dirname,
