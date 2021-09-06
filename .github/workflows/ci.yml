@@ -84,7 +84,7 @@ jobs:
       with:
         path: tmp/browser-client
         key: ${{ runner.os }}-javascript-build
-    - run: bin/webpack-build
+    - run: bin/esbuild-build
   elixir-build:
     name: Elixir Build
     needs: ["elixir-setup"]
