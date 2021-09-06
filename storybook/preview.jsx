@@ -11,7 +11,7 @@ addDecorator(withA11y);
 addDecorator((story) => <BrowserRouter>
   <HelmetProvider>
     <ApolloProvider client={sdk}>
-      <section css={{padding: "25px"}}>{story()}</section>
+      <section>{story()}</section>
     </ApolloProvider>
   </HelmetProvider>
 </BrowserRouter>);

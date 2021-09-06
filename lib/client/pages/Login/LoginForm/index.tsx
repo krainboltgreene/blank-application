@@ -6,7 +6,7 @@ import {useHistory} from "react-router-dom";
 
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
-import createSessionMutation from "./createSessionMutation.gql";
+import createSessionMutation from "./createSessionMutation.graphql";
 import type {CreateSessionMutation} from "./CreateSessionMutation.d";
 
 export default function LoginForm (): JSX.Element {

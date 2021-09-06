@@ -6,7 +6,7 @@ import {useEffect} from "react";
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 
-import fetchSessionQuery from "./fetchSessionQuery.gql";
+import fetchSessionQuery from "./fetchSessionQuery.graphql";
 
 interface SessionQueryType {
   session: {

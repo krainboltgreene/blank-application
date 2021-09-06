@@ -1,9 +1,7 @@
 import Link from "../Link";
 
-const styling = {};
-
 export default function Navbar (): JSX.Element {
-  return <nav css={styling}>
+  return <nav>
     <Link href="/">Navbar</Link>
   </nav>;
 }

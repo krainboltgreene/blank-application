@@ -1,9 +1,7 @@
 import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
 
-const page = {
-  display: "grid",
-};
+const page = "";
 
 interface PropertiesType {
   as: string;
@@ -28,13 +26,13 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
 
   switch (kind) {
     case "article": {
-      return <article css={[page, styling]} data-component={as}>
+      return <article className={`${page} ${styling}`} data-component={as}>
         {titleChange}
         {children}
       </article>;
     }
     default: {
-      return <main css={[page, styling]} data-component={as}>
+      return <main className={`${page} ${styling}`} data-component={as}>
         {titleChange}
         {children}
       </main>;

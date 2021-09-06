@@ -31,7 +31,7 @@ defmodule Core.MixProject do
   def application do
     [
       mod: {Core.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug, :bamboo]
+      extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug, :bamboo, :eex, :sasl]
     ]
   end
 

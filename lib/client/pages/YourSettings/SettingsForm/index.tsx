@@ -7,8 +7,8 @@ import {useQuery} from "@apollo/client";
 import {settings as settingsAtom} from "@clumsy_chinchilla/atoms";
 import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
-import updateSettingsMutation from "./updateSettingsMutation.gql";
-import fetchYourSettingsQuery from "./fetchYourSettingsQuery.gql";
+import updateSettingsMutation from "./updateSettingsMutation.graphql";
+import fetchYourSettingsQuery from "./fetchYourSettingsQuery.graphql";
 import type {UpdateSettingsMutation} from "./UpdateSettingsMutation";
 import type {FetchYourSettingsQuery} from "./FetchYourSettingsQuery";
 

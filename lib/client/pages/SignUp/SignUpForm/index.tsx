@@ -6,7 +6,7 @@ import {useHistory} from "react-router-dom";
 
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
-import createAccountMutation from "./createAccountMutation.gql";
+import createAccountMutation from "./createAccountMutation.graphql";
 import type {CreateAccountMutation} from "./CreateAccountMutation.d";
 
 export default function SignUpForm (): JSX.Element {

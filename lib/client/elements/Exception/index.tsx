@@ -6,12 +6,6 @@ interface PropertiesType {
   metadata?: Readonly<Record<string, unknown>>;
 }
 
-const overlay = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: "100vh",
-};
 
 export default function Exception (properties: Readonly<PropertiesType>): JSX.Element {
   const {kind} = properties;
@@ -21,7 +15,7 @@ export default function Exception (properties: Readonly<PropertiesType>): JSX.El
   console.debug({as, metadata});
 
   if (kind === "overlay") {
-    return <section css={overlay}>
+    return <section>
       <h1>Something went wrong.</h1>
 
       <p>
