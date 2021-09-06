@@ -1,10 +1,12 @@
 const {build} = require('esbuild');
 const {default: graphqlLoaderPlugin} = require('@luckycatfactory/esbuild-graphql-loader');
-const postcss = require("esbuild-postcss")
 
 build({
   entryPoints: ['lib/client'],
+  define: {
+    global: "window"
+  },
   bundle: true,
   outfile: 'priv/static/js/application.js',
-  plugins: [graphqlLoaderPlugin(), postcss()],
+  plugins: [graphqlLoaderPlugin()],
 }).catch(() => process.exit(1));
