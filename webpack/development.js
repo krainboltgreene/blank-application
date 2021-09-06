@@ -1,7 +1,5 @@
 const path = require("path");
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const {EnvironmentPlugin} = require("webpack");
-const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -19,7 +17,6 @@ const ASSET_LOADER = {
   },
 }
 const CI = process.env.GITHUB_ACTIONS === "true";
-const HOTLOADED = process.env.HOT === "enabled";
 
 module.exports = {
   mode: "development",
@@ -28,10 +25,6 @@ module.exports = {
   cache: CI ? {
     type: 'filesystem'
   } : true,
-  watch: HOTLOADED,
-  watchOptions: {
-    ignored: ["node_modules"],
-  },
   entry: [
     path.resolve(...CLIENT_DIRECTORY, "index.tsx"),
   ],
@@ -75,16 +68,10 @@ module.exports = {
       chunks: 'async'
     },
   },
-  devServer: {
-    hot: HOTLOADED,
-    historyApiFallback: true,
-    headers: {"Access-Control-Allow-Origin": "*"},
-  },
   plugins: [
     new EnvironmentPlugin({
       NODE_ENV: "development"
     }),
-    HOTLOADED && new ReactRefreshWebpackPlugin(),
     ...PACKAGE_ASSETS.map(([from, ...to]) => new CopyWebpackPlugin([{
       from,
       to: path.resolve(...OUTPUT_DIRECTORY, "assets", ...to),
@@ -120,6 +107,5 @@ module.exports = {
       },
       template: path.resolve(...CLIENT_DIRECTORY, "templates", "index.html"),
     }),
-    !HOTLOADED && !CI && new BundleAnalyzerPlugin()
   ].filter(Boolean),
 };

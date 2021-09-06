@@ -74,6 +74,7 @@
     "@tailwindcss/forms": "^0.3.3",
     "@unction/complete": "^21.4",
     "babel-loader": "^8.2.2",
+    "babel-plugin-graphql-tag": "^3.3.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "case": "^1.6",
     "copy-webpack-plugin": "^9.0.1",

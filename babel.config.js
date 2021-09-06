@@ -5,7 +5,6 @@ module.exports = {
     ["@babel/preset-typescript", {isTSX: true, allExtensions: true}],
     ["@babel/preset-react", {runtime: "automatic", development: process.env.NODE_ENV !== "production"}],
     process.env.NODE_ENV === "production" ? "minify" : null,
-    "@emotion/babel-preset-css-prop",
   ].filter((preset) => preset),
   plugins: [
     "babel-plugin-graphql-tag",
@@ -13,7 +12,6 @@ module.exports = {
       "^@clumsy_chinchilla/(.+)$": "./lib/client/\\1",
       "^@assets/(.+)$": "./assets/\\1",
     }}],
-    process.env.NODE_ENV === "production" ? null : "annotate-console-log",
-    "react-refresh/babel"
+    process.env.NODE_ENV === "production" ? null : "annotate-console-log"
   ].filter((preset) => preset),
 };
