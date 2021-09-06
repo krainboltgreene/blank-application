@@ -31,7 +31,17 @@ config :clumsy_chinchilla, Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false
+  check_origin: false,
+  watchers: [
+    # node: [
+    #   "node_modules/webpack/bin/webpack.js",
+    #   "--mode",
+    #   "development",
+    #   "--watch-stdin",
+    #   cd: Path.expand("../assets", __DIR__)
+    # ]
+  ]
+
 
 # ## SSL Support
 #
@@ -63,8 +73,8 @@ config :clumsy_chinchilla, Web.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/clumsy_chinchilla_web/(live|views)/.*(ex)$",
-      ~r"lib/clumsy_chinchilla_web/templates/.*(eex)$"
+      ~r"lib/web/(live|views)/.*(ex)$",
+      ~r"lib/web/templates/.*(eex)$"
     ]
   ]
 
@@ -91,10 +101,10 @@ unless System.get_env("GITHUB_ACTIONS") || System.get_env("CODESPACES") do
     open_email_in_browser_url: "http://localhost:4000/sent_emails"
 end
 
-config :clumsy_chinchilla, :remotes, %{
-  browser_remote: %URI{
-    scheme: "http",
-    host: "localhost",
-    port: 8080
-  }
-}
+# config :clumsy_chinchilla, :remotes, %{
+#   browser_remote: %URI{
+#     scheme: "http",
+#     host: "localhost",
+#     port: 8080
+#   }
+# }

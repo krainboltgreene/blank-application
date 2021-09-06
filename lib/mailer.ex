@@ -16,12 +16,11 @@ defmodule Mailer do
     |> put_header("Reply-To", @default_replyto_email_address)
   end
 
-  def browser_remote_url(component, parameters) when is_bitstring(component) do
-    Web.Endpoint.url()
-    |> URI.parse()
-    |> Map.merge(Application.fetch_env!(:clumsy_chinchilla, :remotes)[:browser_remote])
-    |> Web.Router.Helpers.remote_url(:browser_remote, component, parameters)
-  end
+  # def browser_remote_url(component, parameters) when is_bitstring(component) do
+  #   Web.Endpoint.url()
+  #   |> URI.parse()
+  #   |> Web.Router.Helpers.remote_url(:browser_remote, component, parameters)
+  # end
 
   def router do
     quote do

@@ -8,8 +8,8 @@ import {useQuery} from "@apollo/client";
 import {profile as profileAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
-import updateProfileMutation from "./updateProfileMutation.gql";
-import fetchYourProfileQuery from "./fetchYourProfileQuery.gql";
+import updateProfileMutation from "./updateProfileMutation.graphql";
+import fetchYourProfileQuery from "./fetchYourProfileQuery.graphql";
 import type {UpdateProfileMutation} from "./UpdateProfileMutation";
 import type {FetchYourProfileQuery} from "./FetchYourProfileQuery";
 

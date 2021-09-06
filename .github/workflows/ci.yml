@@ -201,5 +201,5 @@ jobs:
           schema.graphql
           schema.json
         key: ${{ runner.os }}-graphql
-    - run: npx eslint --quiet --ext .tsx,.ts,.gql lib/client/
+    - run: npx eslint --quiet --ext .tsx,.ts,.graphql lib/client/
     - run: npx tsc | true

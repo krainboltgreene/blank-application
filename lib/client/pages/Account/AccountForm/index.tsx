@@ -6,8 +6,8 @@ import {useQuery} from "@apollo/client";
 
 import {account as accountAtom} from "@clumsy_chinchilla/atoms";
 import {Loading} from "@clumsy_chinchilla/elements";
-import updateAccountMutation from "./updateAccountMutation.gql";
-import fetchAccountQuery from "./fetchAccountQuery.gql";
+import updateAccountMutation from "./updateAccountMutation.graphql";
+import fetchAccountQuery from "./fetchAccountQuery.graphql";
 import type {UpdateAccountMutation} from "./UpdateAccountMutation";
 import type {FetchAccountQuery} from "./FetchAccountQuery";
 

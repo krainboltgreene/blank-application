@@ -11,7 +11,6 @@ module.exports = {
     "react",
     "security",
     "unicorn",
-    "@emotion",
   ],
   env: {
     es6: true,
@@ -20,14 +19,8 @@ module.exports = {
   },
   settings: {
     "react": {
-      version: "16.8.4",
+      version: "17.0",
     },
-    exclude: [
-      "*.config.js",
-      ".eslintrc.js",
-      "d.ts",
-      "webpack/"
-    ],
   },
   parserOptions: {
     tsconfigRootDir: __dirname,
@@ -38,12 +31,6 @@ module.exports = {
   },
   reportUnusedDisableDirectives: true,
   rules: {
-    "@emotion/import-from-emotion": "error",
-    "@emotion/jsx-import": "off", // We use the babel plugin
-    "@emotion/no-vanilla": "error",
-    "@emotion/pkg-renaming": "error",
-    "@emotion/styled-import": "error",
-    "@emotion/syntax-preference": "error",
     "@typescript-eslint/adjacent-overload-signatures": "error",
     "@typescript-eslint/array-type": ["error", {"default": "generic", readonly: "generic"}],
     "@typescript-eslint/await-thenable": "error",
