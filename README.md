@@ -32,3 +32,5 @@ Well first *shared* styles sit in `lib/client/styles` and there are no (by defau
 ### How do I add a new web page?
 
 Step one is to create the component in `lib/client/pages/` and then export it in `lib/client/pages/index.ts`. Remember that our component folders are named after the component and the file is `index.tsx` if it has react or `index.ts` if it doesn't (so `<LoginPage>` would be `lib/client/pages/Login/index.tsx`). Finally place it in the `lib/client/elements/Application/Router/index.tsx` file.
+The ElixirLS - blank-application server crashed 5 times in the last 3 minutes. The server will not be restarted.
+Failed to run 'elixir' command. ElixirLS will probably fail to launch. Logged PATH to Development Console.

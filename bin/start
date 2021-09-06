@@ -42,7 +42,7 @@ osascript <<EOF
       set latestPane to current session of (current tab)
 
       tell latestPane
-        write text "bin/webpack-start"
+        write text "bin/esbuild-watch"
       end tell
     end tell
   end tell

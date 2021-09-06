@@ -48,8 +48,8 @@ defmodule Web.Router do
       # as long as you are also using SSL (which you should anyway).
       live_dashboard "/dashboard", metrics: Web.Telemetry
     end
-
-    get "/:path", Web.RemoteController, :browser_remote
+    get "/", Web.PageController, :index
+    # get "/:path", Web.RemoteController, :browser_remote
   end
 
   scope "/graphql" do

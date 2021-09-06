@@ -101,10 +101,10 @@ unless System.get_env("GITHUB_ACTIONS") || System.get_env("CODESPACES") do
     open_email_in_browser_url: "http://localhost:4000/sent_emails"
 end
 
-config :clumsy_chinchilla, :remotes, %{
-  browser_remote: %URI{
-    scheme: "http",
-    host: "localhost",
-    port: 8080
-  }
-}
+# config :clumsy_chinchilla, :remotes, %{
+#   browser_remote: %URI{
+#     scheme: "http",
+#     host: "localhost",
+#     port: 8080
+#   }
+# }
