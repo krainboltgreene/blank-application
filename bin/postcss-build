@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+npx postcss lib/client/styles/index.postcss --map --output priv/static/css/application.css
