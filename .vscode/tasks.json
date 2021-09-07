@@ -15,7 +15,7 @@
         "Typecheck javascript files",
         "Build CSS files",
         "Build javascript files",
-        "Build apollo type files"
+        "Build graphql-codegen type files"
       ]
     },
     {
@@ -79,9 +79,9 @@
       }
     },
     {
-      "label": "Build apollo type files",
+      "label": "Build graphql type files",
       "type": "shell",
-      "command": "bin/apollo-start",
+      "command": "bin/graphql-codegen-start",
       "group": "build",
       "presentation": {
         "panel": "dedicated"
