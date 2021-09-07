@@ -3,9 +3,11 @@ const {default: graphqlLoaderPlugin} = require('@luckycatfactory/esbuild-graphql
 
 build({
   entryPoints: ['lib/client'],
+  logLevel: "info",
   define: {
     global: "window"
   },
+  watch: !!process.env.WATCHING,
   bundle: true,
   outfile: 'priv/static/js/application.js',
   plugins: [graphqlLoaderPlugin()],
