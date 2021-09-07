@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+    {
+      "label": "Build javascript files",
+      "type": "process",
+			"linux": {
+        "command": "zsh",
+        "args": ["-c", "-l", "bin/esbuild-build"]
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+				"focus": false,
+        "panel": "dedicated",
+				"showReuseMessage": true
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+	]
+}

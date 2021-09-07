@@ -1,3 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
+echo "Building javascript"
 node esbuild.config.js
