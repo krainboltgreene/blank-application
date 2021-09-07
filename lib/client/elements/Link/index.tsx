@@ -2,8 +2,8 @@
 import type {ReactNode} from "react";
 // import ComponentLink from "react-router-component-link";
 import {Link as ReactRouterLink} from "react-router-dom";
-import {startsWith} from "@unction/complete";
-import {withoutKeys} from "@unction/complete";
+import {startsWith} from "ramda";
+import {omit} from "ramda";
 
 const REMAINING_PROP_NAMES = [
   "href",
@@ -20,7 +20,7 @@ export default function Link (properties: Readonly<PropertiesType>): JSX.Element
   const {id} = properties;
   const {children} = properties;
   const {href} = properties;
-  const remainingProperties = withoutKeys(REMAINING_PROP_NAMES)(properties);
+  const remainingProperties = omit(REMAINING_PROP_NAMES)(properties);
 
   if (startsWith("https")(href) || startsWith("http")(href)) {
     return <a id={id} data-element="Link" href={href} {...remainingProperties}>

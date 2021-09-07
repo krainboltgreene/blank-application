@@ -1,4 +1,4 @@
-import {compact} from "@unction/complete";
+import {filter} from "ramda";
 
 interface PropertiesType {
   type?: string;
@@ -10,7 +10,7 @@ export default function Icon (properties: Readonly<PropertiesType>): JSX.Element
   const {type = "fas"} = properties;
   const {name} = properties;
   const {modifiers = []} = properties;
-  const cssClasses = compact<string>([type, name, ...modifiers]) as Array<string>;
+  const cssClasses = filter<string>(Boolean)([type, name, ...modifiers]) as Array<string>;
 
   return <span className={cssClasses.join(" ")} />;
 }

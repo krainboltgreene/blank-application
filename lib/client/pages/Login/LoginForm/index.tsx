@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import createSessionMutation from "./createSessionMutation.graphql";
-import type {CreateSessionMutation} from "./CreateSessionMutation.d";
+import type {CreateSessionMutation} from "@clumsy_chinchilla/types";
 
 export default function LoginForm (): JSX.Element {
   const history = useHistory();

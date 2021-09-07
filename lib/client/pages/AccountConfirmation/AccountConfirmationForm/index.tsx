@@ -7,7 +7,6 @@ import {useHistory} from "react-router-dom";
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
 import confirmAccountMutation from "./confirmAccountMutation.graphql";
-import type {ConfirmAccountMutation} from "./ConfirmAccountMutation.d";
 
 interface PropertiesType {
   confirmationSecret: string;

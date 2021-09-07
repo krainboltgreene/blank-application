@@ -5,7 +5,6 @@ import {useHistory} from "react-router-dom";
 
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import destroySessionMutation from "./destroySessionMutation.graphql";
-import type {DestroySessionMutation} from "./DestroySessionMutation.d";
 
 export default function LogoutForm (): JSX.Element {
   const history = useHistory();
