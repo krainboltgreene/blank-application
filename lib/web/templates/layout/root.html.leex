@@ -1,15 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">
+    <%#
+      Set the character encoding for this document, so that
+      all characters within the UTF-8 space (such as emoji)
+      are rendered correctly.
+    %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%#
+      The above 2 meta tags *must* come first in the <head>
+      to consistently ensure proper document rendering.
+      Any other head element should come *after* these tags.
+    %>
+    <%# Force IE 8/9/10 to use its latest rendering engine %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <%# Set the document's title %>
+    <%= live_title_tag assigns[:page_title] || Application.get_env(:clumsy_chinchilla, :browser_metadata).title %>
+
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Clumsy Chinchilla" %>
-    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/application.css") %>"/>
-    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/application.js") %>"></script>
+
+    <%# Set the base URL for all relative URLs within the document %>
+    <base href="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url %>">
+
+    <%# Name of web application (only should be used if the website is used as an app) %>
+    <meta name="application-name" content="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).application_name %>">
+
+    <%# Theme Color for Chrome, Firefox OS and Opera %>
+    <meta name="theme-color" content="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).theme_color %>">
+
+    <%# Short description of the document (limit to 150 characters). This content *may* be used as a part of search engine results. %>
+    <meta name="description" content="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).description %>">
+
+    <%# Generic Search Engines %>
+    <%# DYNAMIC <meta name="robots" content="index,follow"> %>
+    <%# Google Search Engine %>
+    <%# DYNAMIC <meta name="googlebot" content="index,follow"> %>
+
+    <%# Tells Google not to show the sitelinks search box %>
+    <meta name="google" content="nositelinkssearchbox">
+
+    <%# Tells Google not to provide a translation for this document %>
+    <meta name="google" content="translate">
+
+    <%# Google Search Console %>
+    <meta name="google-site-verification" content="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).google_site_verification %>">
+
+    <%# Allows control over how referrer information is passed %>
+    <meta name="referrer" content="no-referrer">
+
+    <%# Completely opt out of DNS prefetching by setting to "off" %>
+    <meta http-equiv="x-dns-prefetch-control" content="off">
+
+    <%# Specifies the document to appear in a specific frame %>
+    <meta http-equiv="Window-Target" content="_value">
+
+    <%# Links to a JSON file that specifies "installation" credentials for the web applications %>
+    <link rel="manifest" href="<%= Routes.static_path(@conn, "/manifest.json") %>">
+
+    <%# Links to information about the author(s) of the document %>
+    <link rel="author" href="<%= Routes.static_path(@conn, "/humans.txt") %>">
+
+    <%# Refers to a copyright statement that applies to the link's context %>
+    <link rel="license" href="<%= Routes.static_path(@conn, "/copyright.html") %>">
+
+    <%# Prefetching, preloading, prebrowsing (More info: https://css-tricks.com/prefetching-preloading-prebrowsing/) %>
+    <link rel="dns-prefetch" href="//<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).domain %>/">
+    <link rel="preconnect" href="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url %>">
+    <link rel="prefetch" href="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url %>">
+    <link rel="prerender" href="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url %>">
+
+    <%# For IE 10 and below: Place favicon.ico in the root directory - no tag necessary %>
+    <%# Icon in the highest resolution we need it for %>
+    <link rel="icon" sizes="192x192" href="/icon.png">
+
+    <%# Apple Touch Icon (reuse 192px icon.png) %>
+    <%# TODO: <link rel="apple-touch-icon" href="/apple-touch-icon.png"> %>
+
+    <%# Safari Pinned Tab Icon %>
+    <%# TODO: <link rel="mask-icon" href="/mask-icon.svg" color="blue"> %>
+
+    <%# Launch Icon Title %>
+    <meta name="apple-mobile-web-app-title" content="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).title %>">
+
+    <%# Select rendering engine order %>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+    <%# Locks the screen into the specified orientation %>
+    <meta name="x5-orientation" content="landscape/portrait">
+
+    <%# Display this document in fullscreen %>
+    <meta name="x5-fullscreen" content="true">
+
+    <%# Document will be displayed in "application mode" (fullscreen, etc.) %>
+    <meta name="x5-page-mode" content="app">
+
+    <%# Locks the screen into the specified orientation %>
+    <meta name="screen-orientation" content="landscape/portrait">
+
+    <%# Display this document in fullscreen %>
+    <meta name="full-screen" content="yes">
+
+    <%# UC browser will display images even if in "text mode" %>
+    <meta name="imagemode" content="force">
+
+    <%# Document will be displayed in "application mode"(fullscreen, forbidding gesture, etc.) %>
+    <meta name="browsermode" content="application">
+
+    <%# Disabled the UC browser's "night mode" for this document %>
+    <meta name="nightmode" content="disable">
+
+    <%# Simplify the document to reduce data transfer %>
+    <meta name="layoutmode" content="fitscreen">
+
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/assets/css/application.css") %>">
+    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/assets/js/application.js") %>"></script>
+    <script async src="https://kit.fontawesome.com/2fbfa382cc.js" crossorigin="anonymous"></script>
+    <script async>
+      (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', '<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).google_tag_manager_id %>');
+    </script>
   </head>
-  <body>
+
+  <body id="application">
     <%= @inner_content %>
+    <noscript>
+      <iframe title="google tag manager" src="https://www.googletagmanager.com/ns.html?id=<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).google_tag_manager_id %>" height="0" width="0" style="display: none; visibility: none;"></iframe>
+    </noscript>
+
+    <noscript>
+      <h1>Hello!</h1>
+
+      <p>
+        You&apos;re visiting a application that works almost entirely via Javascript,
+        but you don&apos;t have Javascript enabled. I get why you might do that,
+        considering the nature of the modern web, but I like writing javascript
+        and it makes designing UI a much more enjoyable experience.
+      </p>
+
+      <p>
+        I would love to spend time making the application work without
+        Javascript, but I just don&apos;t have the time or energy to do this! While
+        server-side rendering is very common and approachable the technology I
+        decided to work with is experimental and currently doesn&apos;t have any
+        integration with server-side rendering.
+      </p>
+
+      <p>
+        I&apos;m a big fan of the open web and accessability and I try very hard to
+        make this a home for <strong>anyone</strong> interested. You are not
+        invisible to this team. <a href="mailto:<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).support_email_address %>">Let me know you want
+        a non-javascript version of this site</a>. I would love to hear from you on this issue and our inbox is open to
+        anyone wanting to talk about it.
+      </p>
+    </noscript>
   </body>
 </html>

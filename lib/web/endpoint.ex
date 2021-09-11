@@ -24,8 +24,18 @@ defmodule Web.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :clumsy_chinchilla,
-    gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    brotli: true,
+    gzip: true#,
+    # only_matching: [
+    #   "assets",
+    #   "fonts",
+    #   "images",
+    #   "favicon.ico",
+    #   "png",
+    #   "xml",
+    #   "*txt",
+    #   "json"
+    # ]
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

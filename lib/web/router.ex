@@ -31,7 +31,7 @@ defmodule Web.Router do
     pipe_through :browser
 
     get "/", Web.PageController, :index
-    get "/:path", Web.PageController, :index
+    # get "/:path", Web.PageController, :index
 
     # live "/", PageLive, :index
     if Mix.env() != :prod do

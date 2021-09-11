@@ -32,16 +32,6 @@ config :clumsy_chinchilla, Web.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  # watchers: [
-  #   sh: [
-  #     "bin/esbuild-build",
-  #     cd: Path.expand("..", __DIR__)
-  #   ],
-  #   sh: [
-  #     "bin/postcss-build",
-  #     cd: Path.expand("..", __DIR__)
-  #   ],
-  # ],
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
@@ -86,7 +76,7 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :clumsy_chinchilla, :graphql, uri: "http://localhost:4000/graphql"
+config :clumsy_chinchilla, :graphql, uri: "https://#{System.get_env("CODESPACE_NAME")}.githubpreview.dev/graphql"
 
 config :clumsy_chinchilla, :flow, max_demand: 8
 
@@ -96,5 +86,18 @@ config :clumsy_chinchilla, Mailer,
 
 unless System.get_env("GITHUB_ACTIONS") || System.get_env("CODESPACES") do
   config :clumsy_chinchilla, Mailer,
-    open_email_in_browser_url: "http://localhost:4000/sent_emails"
+    open_email_in_browser_url: "https://#{System.get_env("CODESPACE_NAME")}.githubpreview.dev/sent_emails"
 end
+
+config :clumsy_chinchilla, :browser_metadata, %{
+  domain: "#{System.get_env("CODESPACE_NAME")}.githubpreview.dev",
+  application_name: "Clumsy Chinchilla",
+  base_url: "/",
+  theme_color: "#ffffff",
+  description: "A website",
+  google_site_verification: "",
+  short_description: "A website",
+  title: "Clumsy Chinchilla",
+  google_tag_manager_id: "",
+  support_email_address: "support@clumsy-chinchilla.club"
+}
