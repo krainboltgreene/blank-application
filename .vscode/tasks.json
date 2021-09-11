@@ -15,7 +15,7 @@
         "Typecheck javascript files",
         "Build CSS files",
         "Build javascript files",
-        "Build graphql-codegen type files"
+        "Build graphql type files"
       ]
     },
     {

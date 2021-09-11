@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 echo "Building css"
-npx postcss lib/client/styles/index.postcss --map --output priv/static/css/application.css
+npx postcss lib/client/styles/index.postcss --map --output priv/static/assets/css/application.css
