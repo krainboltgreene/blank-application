@@ -1,4 +1,4 @@
-<html>
+<html lang="en" phx-socket="/live">
   <head>
     <meta charset="utf-8">
     <%#
@@ -56,7 +56,7 @@
     <meta http-equiv="Window-Target" content="_value">
 
     <%# Links to a JSON file that specifies "installation" credentials for the web applications %>
-    <link rel="manifest" href="<%= Routes.static_path(@conn, "/manifest.json") %>">
+    <%# <link rel="manifest" href="%= Routes.static_path(@conn, "/manifest.json") %"> %>
 
     <%# Links to information about the author(s) of the document %>
     <link rel="author" href="<%= Routes.static_path(@conn, "/humans.txt") %>">
@@ -72,7 +72,7 @@
 
     <%# For IE 10 and below: Place favicon.ico in the root directory - no tag necessary %>
     <%# Icon in the highest resolution we need it for %>
-    <link rel="icon" sizes="192x192" href="/icon.png">
+    <%# <link rel="icon" sizes="192x192" href="/icon.png"> %>
 
     <%# Apple Touch Icon (reuse 192px icon.png) %>
     <%# TODO: <link rel="apple-touch-icon" href="/apple-touch-icon.png"> %>
@@ -82,36 +82,6 @@
 
     <%# Launch Icon Title %>
     <meta name="apple-mobile-web-app-title" content="<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).title %>">
-
-    <%# Select rendering engine order %>
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-
-    <%# Locks the screen into the specified orientation %>
-    <meta name="x5-orientation" content="landscape/portrait">
-
-    <%# Display this document in fullscreen %>
-    <meta name="x5-fullscreen" content="true">
-
-    <%# Document will be displayed in "application mode" (fullscreen, etc.) %>
-    <meta name="x5-page-mode" content="app">
-
-    <%# Locks the screen into the specified orientation %>
-    <meta name="screen-orientation" content="landscape/portrait">
-
-    <%# Display this document in fullscreen %>
-    <meta name="full-screen" content="yes">
-
-    <%# UC browser will display images even if in "text mode" %>
-    <meta name="imagemode" content="force">
-
-    <%# Document will be displayed in "application mode"(fullscreen, forbidding gesture, etc.) %>
-    <meta name="browsermode" content="application">
-
-    <%# Disabled the UC browser's "night mode" for this document %>
-    <meta name="nightmode" content="disable">
-
-    <%# Simplify the document to reduce data transfer %>
-    <meta name="layoutmode" content="fitscreen">
 
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/assets/css/application.css") %>">
