@@ -11,6 +11,8 @@ import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateSettingsMutation from "./updateSettingsMutation.graphql";
 import fetchYourSettingsQuery from "./fetchYourSettingsQuery.graphql";
+import type {FetchYourSettingsQuery} from "@clumsy_chinchilla/types";
+import type {UpdateSettingsMutation} from "@clumsy_chinchilla/types";
 
 export default function SettingsForm (): JSX.Element {
   const [clientSettings, setSettings] = useRecoilState(settingsAtom);

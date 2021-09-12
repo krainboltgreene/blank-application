@@ -12,6 +12,8 @@ import {Field} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateProfileMutation from "./updateProfileMutation.graphql";
 import fetchYourProfileQuery from "./fetchYourProfileQuery.graphql";
+import type {FetchYourProfileQuery} from "@clumsy_chinchilla/types";
+import type {UpdateProfileMutation} from "@clumsy_chinchilla/types";
 
 export default function ProfileForm (): JSX.Element {
   const [profile, setProfile] = useRecoilState(profileAtom);

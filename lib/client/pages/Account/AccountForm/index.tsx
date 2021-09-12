@@ -9,8 +9,8 @@ import {account as accountAtom} from "@clumsy_chinchilla/atoms";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateAccountMutation from "./updateAccountMutation.graphql";
 import fetchAccountQuery from "./fetchAccountQuery.graphql";
-import type {UpdateAccountMutation} from "./UpdateAccountMutation";
-import type {FetchAccountQuery} from "./FetchAccountQuery";
+import type {UpdateAccountMutation} from "@clumsy_chinchilla/types";
+import type {FetchAccountQuery} from "@clumsy_chinchilla/types";
 
 export default function AccountForm (): JSX.Element {
   const [account, setAccount] = useRecoilState(accountAtom);
