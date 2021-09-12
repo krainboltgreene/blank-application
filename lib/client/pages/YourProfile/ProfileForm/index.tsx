@@ -1,4 +1,6 @@
 import React from "react";
+import type {FormEvent} from "react";
+import type {ChangeEvent} from "react";
 import {useState} from "react";
 import {useEffect} from "react";
 import {useRecoilState} from "recoil";
@@ -43,11 +45,11 @@ export default function ProfileForm (): JSX.Element {
     return <Loading kind="block" />;
   }
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     await updateProfile({variables: {input: {id, publicName}}});
   };
-  const onChangePublicName = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChangePublicName = (event: ChangeEvent<HTMLInputElement>): void => {
     setPublicName(event.target.value);
   };
 

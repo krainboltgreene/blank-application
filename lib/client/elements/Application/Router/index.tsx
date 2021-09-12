@@ -1,3 +1,4 @@
+import React from "react";
 import {Route, Switch} from "react-router";
 import {AccountConfirmation} from "@clumsy_chinchilla/pages";
 import {CodeOfConduct} from "@clumsy_chinchilla/pages";

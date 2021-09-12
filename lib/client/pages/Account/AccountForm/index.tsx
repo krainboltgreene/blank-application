@@ -1,4 +1,5 @@
 import React from "react";
+import type {FormEvent} from "react";
 import {useEffect} from "react";
 import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
@@ -43,7 +44,7 @@ export default function AccountForm (): JSX.Element {
     return <Loading kind="block" />;
   }
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     await updateAccount({variables: {input: {id, username, emailAddress}}});
   };

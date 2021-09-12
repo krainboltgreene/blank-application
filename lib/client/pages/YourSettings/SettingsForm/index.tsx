@@ -1,3 +1,5 @@
+import React from "react";
+import type {FormEvent} from "react";
 import {useState} from "react";
 import {useEffect} from "react";
 import {useRecoilState} from "recoil";
@@ -44,7 +46,7 @@ export default function SettingsForm (): JSX.Element {
     return <Loading kind="block" />;
   }
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     await updateSettings({variables: {input: {id, lightMode}}});
   };
