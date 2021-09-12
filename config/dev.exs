@@ -40,7 +40,14 @@ config :clumsy_chinchilla, Web.Endpoint,
       ~r"lib/web/templates/.*(eex)$"
     ]
   ]
-
+config :phoenix_live_reload,
+  dirs: [
+    "priv/static/",
+    "priv/gettext/",
+    "lib/web/live/",
+    "lib/web/views/",
+    "lib/web/templates/"
+  ]
 
 # ## SSL Support
 #
