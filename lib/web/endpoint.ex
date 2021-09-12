@@ -25,17 +25,7 @@ defmodule Web.Endpoint do
     at: "/",
     from: :clumsy_chinchilla,
     brotli: true,
-    gzip: true#,
-    # only_matching: [
-    #   "assets",
-    #   "fonts",
-    #   "images",
-    #   "favicon.ico",
-    #   "png",
-    #   "xml",
-    #   "*txt",
-    #   "json"
-    # ]
+    gzip: true
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
