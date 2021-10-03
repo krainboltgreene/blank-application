@@ -86,7 +86,7 @@ defmodule Core.MixProject do
       {:phoenix_pubsub, "~> 2.0.0"},
       {:phoenix, "~> 1.6.0"},
       {:plug_cowboy, "~> 2.5.1"},
-      {:plug_telemetry_server_timing, "~> 0.2.0"},
+      {:plug_telemetry_server_timing, "~> 0.1.0"},
       {:postgrex, "~> 0.15.10"},
       {:recase, "~> 0.7.0"},
       {:redix, "~> 1.1.4"},
