@@ -10,7 +10,7 @@ build({
   watch: !!process.env.WATCHING,
   bundle: true,
   sourcemap: "inline",
-  minify: true,
+  minify: false,
   outfile: 'priv/static/assets/js/application.js',
   plugins: [graphqlLoaderPlugin()],
 }).catch(() => process.exit(1));
