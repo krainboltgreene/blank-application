@@ -1,3 +1,3 @@
 Thanks for signing up, please use the link below to confirm your account and pick a password:
 
-<%= Mailer.show_page_url("account-confirmation", token: assigns[:confirmation_secret]) %>
+<%= assigns[:call_to_action] %>
