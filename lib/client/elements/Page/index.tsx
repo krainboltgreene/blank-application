@@ -1,7 +1,8 @@
 import React from "react";
 import {Helmet} from "react-helmet-async";
 import type {ReactNode} from "react";
-const pageStyling = "";
+import Navigation from "./Navigation";
+const PAGE_STYLING = "container";
 
 interface PropertiesType {
   as: string;
@@ -9,6 +10,7 @@ interface PropertiesType {
   subtitle?: string;
   description?: string;
   kind?: "article";
+  navbar?: boolean;
   children: ReactNode;
 }
 
@@ -17,6 +19,7 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
   const {styling = ""} = properties;
   const {subtitle = ""} = properties;
   const {description = ""} = properties;
+  const {navbar = true} = properties;
   const {kind} = properties;
   const {children} = properties;
   const titleChange = <Helmet>
@@ -26,16 +29,23 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
 
   switch (kind) {
     case "article": {
-      return <article className={`${pageStyling} ${styling}`} data-component={as}>
-        {titleChange}
-        {children}
-      </article>;
+      return <>
+        {navbar ? <Navigation /> : null}
+        <article className={`${PAGE_STYLING} ${styling}`} data-component={as}>
+          {navbar ? <Navigation /> : null}
+          {titleChange}
+          {children}
+        </article>
+      </>;
     }
     default: {
-      return <main className={`${pageStyling} ${styling}`} data-component={as}>
-        {titleChange}
-        {children}
-      </main>;
+      return <>
+        {navbar ? <Navigation /> : null}
+        <main className={`${PAGE_STYLING} ${styling}`} data-component={as}>
+          {titleChange}
+          {children}
+        </main>
+      </>;
     }
   }
 }

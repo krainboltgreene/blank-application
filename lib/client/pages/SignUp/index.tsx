@@ -20,6 +20,7 @@ export default function SignUp (): JSX.Element {
   }
 
   return <Page as="SignUp" subtitle="Sign Up">
+    <h1>Sign Up</h1>
     <SignUpForm />
   </Page>;
 }

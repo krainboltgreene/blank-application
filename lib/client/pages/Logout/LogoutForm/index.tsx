@@ -25,7 +25,7 @@ export default function LogoutForm (): JSX.Element {
     await destroySession();
   }}>
     <section>
-      <button disabled={destroySessionLoading} type="submit">Logout</button>
+      <button disabled={destroySessionLoading} type="submit" className="btn btn-primary">Logout</button>
     </section>
   </form>;
 }

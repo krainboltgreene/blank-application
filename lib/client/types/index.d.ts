@@ -21,22 +21,22 @@ export type Scalars = {
 
 export type Account = {
   __typename?: 'Account';
-  id: Scalars['ID'];
   emailAddress: Scalars['String'];
-  username?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
   insertedAt: Scalars['NaiveDateTime'];
-  updatedAt: Scalars['NaiveDateTime'];
   organizationMemberships?: Maybe<Array<OrganizationMembership>>;
   organizations?: Maybe<Array<Maybe<Organization>>>;
-  settings: Settings;
   profile: Profile;
+  settings: Settings;
+  updatedAt: Scalars['NaiveDateTime'];
+  username?: Maybe<Scalars['String']>;
 };
 
 export type AccountChangeset = {
-  id: Scalars['ID'];
-  username?: Maybe<Scalars['String']>;
   emailAddress?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
   password?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
 };
 
 export type AccountConfirmation = {
@@ -53,9 +53,9 @@ export type ListParameters = {
 };
 
 export type NewAccount = {
-  username?: Maybe<Scalars['String']>;
   emailAddress: Scalars['String'];
   password?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
 };
 
 export type NewOrganization = {
@@ -73,14 +73,14 @@ export type NewSession = {
 
 export type Organization = {
   __typename?: 'Organization';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  slug: Scalars['String'];
-  insertedAt: Scalars['NaiveDateTime'];
-  updatedAt: Scalars['NaiveDateTime'];
   accounts?: Maybe<Array<Account>>;
+  id: Scalars['ID'];
+  insertedAt: Scalars['NaiveDateTime'];
+  name: Scalars['String'];
   organizationPermissions?: Maybe<Array<OrganizationPermission>>;
   permissions?: Maybe<Array<Permission>>;
+  slug: Scalars['String'];
+  updatedAt: Scalars['NaiveDateTime'];
 };
 
 export type OrganizationChangeset = {
@@ -90,29 +90,29 @@ export type OrganizationChangeset = {
 
 export type OrganizationMembership = {
   __typename?: 'OrganizationMembership';
-  insertedAt: Scalars['NaiveDateTime'];
-  updatedAt: Scalars['NaiveDateTime'];
   account: Account;
-  organizationPermissions?: Maybe<Array<OrganizationPermission>>;
+  insertedAt: Scalars['NaiveDateTime'];
   organization: Organization;
+  organizationPermissions?: Maybe<Array<OrganizationPermission>>;
+  updatedAt: Scalars['NaiveDateTime'];
 };
 
 export type OrganizationPermission = {
   __typename?: 'OrganizationPermission';
   insertedAt: Scalars['NaiveDateTime'];
-  updatedAt: Scalars['NaiveDateTime'];
-  permission: Permission;
   organization: Organization;
+  permission: Permission;
+  updatedAt: Scalars['NaiveDateTime'];
 };
 
 export type Permission = {
   __typename?: 'Permission';
   id: Scalars['ID'];
-  name: Scalars['String'];
-  slug: Scalars['String'];
   insertedAt: Scalars['NaiveDateTime'];
-  updatedAt: Scalars['NaiveDateTime'];
+  name: Scalars['String'];
   organizationPermissions?: Maybe<Array<OrganizationPermission>>;
+  slug: Scalars['String'];
+  updatedAt: Scalars['NaiveDateTime'];
 };
 
 export type PermissionChangeset = {
@@ -133,44 +133,34 @@ export type ProfileChangeset = {
 
 export type RootMutationType = {
   __typename?: 'RootMutationType';
-  /** Create a new account */
-  createAccount?: Maybe<Account>;
-  /** Update an existing account */
-  updateAccount?: Maybe<Account>;
   /** Confirm an existing account */
   confirmAccount?: Maybe<Account>;
-  /** Permanently delete an existing account */
-  destroyAccount?: Maybe<Account>;
+  /** Create a new account */
+  createAccount?: Maybe<Account>;
   /** Create a new organization */
   createOrganization?: Maybe<Organization>;
-  /** Update an existing organization */
-  updateOrganization?: Maybe<Organization>;
-  /** Permanently delete an existing organization */
-  destroyOrganization?: Maybe<Organization>;
   /** Create a new permission */
   createPermission?: Maybe<Permission>;
-  /** Update an existing permission */
-  updatePermission?: Maybe<Permission>;
-  /** Permanently delete an existing permission */
-  destroyPermission?: Maybe<Permission>;
-  /** Update an existing settings */
-  updateSettings?: Maybe<Settings>;
-  /** Update an existing profile */
-  updateProfile?: Maybe<Profile>;
   /** Create a new session */
   createSession?: Maybe<Session>;
+  /** Permanently delete an existing account */
+  destroyAccount?: Maybe<Account>;
+  /** Permanently delete an existing organization */
+  destroyOrganization?: Maybe<Organization>;
+  /** Permanently delete an existing permission */
+  destroyPermission?: Maybe<Permission>;
   /** Permanently delete an existing session */
   destroySession?: Maybe<Session>;
-};
-
-
-export type RootMutationTypeCreateAccountArgs = {
-  input: NewAccount;
-};
-
-
-export type RootMutationTypeUpdateAccountArgs = {
-  input: AccountChangeset;
+  /** Update an existing account */
+  updateAccount?: Maybe<Account>;
+  /** Update an existing organization */
+  updateOrganization?: Maybe<Organization>;
+  /** Update an existing permission */
+  updatePermission?: Maybe<Permission>;
+  /** Update an existing profile */
+  updateProfile?: Maybe<Profile>;
+  /** Update an existing settings */
+  updateSettings?: Maybe<Settings>;
 };
 
 
@@ -179,8 +169,8 @@ export type RootMutationTypeConfirmAccountArgs = {
 };
 
 
-export type RootMutationTypeDestroyAccountArgs = {
-  input: Identity;
+export type RootMutationTypeCreateAccountArgs = {
+  input: NewAccount;
 };
 
 
@@ -189,8 +179,18 @@ export type RootMutationTypeCreateOrganizationArgs = {
 };
 
 
-export type RootMutationTypeUpdateOrganizationArgs = {
-  input: OrganizationChangeset;
+export type RootMutationTypeCreatePermissionArgs = {
+  input: NewPermission;
+};
+
+
+export type RootMutationTypeCreateSessionArgs = {
+  input: NewSession;
+};
+
+
+export type RootMutationTypeDestroyAccountArgs = {
+  input: Identity;
 };
 
 
@@ -199,8 +199,18 @@ export type RootMutationTypeDestroyOrganizationArgs = {
 };
 
 
-export type RootMutationTypeCreatePermissionArgs = {
-  input: NewPermission;
+export type RootMutationTypeDestroyPermissionArgs = {
+  input: Identity;
+};
+
+
+export type RootMutationTypeUpdateAccountArgs = {
+  input: AccountChangeset;
+};
+
+
+export type RootMutationTypeUpdateOrganizationArgs = {
+  input: OrganizationChangeset;
 };
 
 
@@ -209,8 +219,8 @@ export type RootMutationTypeUpdatePermissionArgs = {
 };
 
 
-export type RootMutationTypeDestroyPermissionArgs = {
-  input: Identity;
+export type RootMutationTypeUpdateProfileArgs = {
+  input: ProfileChangeset;
 };
 
 
@@ -218,37 +228,22 @@ export type RootMutationTypeUpdateSettingsArgs = {
   input: SettingsChangeset;
 };
 
-
-export type RootMutationTypeUpdateProfileArgs = {
-  input: ProfileChangeset;
-};
-
-
-export type RootMutationTypeCreateSessionArgs = {
-  input: NewSession;
-};
-
 export type RootQueryType = {
   __typename?: 'RootQueryType';
-  /** Get all accounts */
-  accounts?: Maybe<Array<Maybe<Account>>>;
   /** Get an account by id */
   account?: Maybe<Account>;
-  /** Get all organizations */
-  organizations?: Maybe<Array<Maybe<Organization>>>;
+  /** Get all accounts */
+  accounts?: Maybe<Array<Maybe<Account>>>;
   /** Get an organization by id */
   organization?: Maybe<Organization>;
-  /** Get all permissions */
-  permissions?: Maybe<Array<Maybe<Permission>>>;
+  /** Get all organizations */
+  organizations?: Maybe<Array<Maybe<Organization>>>;
   /** Get an permission by id */
   permission?: Maybe<Permission>;
+  /** Get all permissions */
+  permissions?: Maybe<Array<Maybe<Permission>>>;
   /** Get current session */
   session?: Maybe<Session>;
-};
-
-
-export type RootQueryTypeAccountsArgs = {
-  input?: Maybe<ListParameters>;
 };
 
 
@@ -257,7 +252,7 @@ export type RootQueryTypeAccountArgs = {
 };
 
 
-export type RootQueryTypeOrganizationsArgs = {
+export type RootQueryTypeAccountsArgs = {
   input?: Maybe<ListParameters>;
 };
 
@@ -267,13 +262,18 @@ export type RootQueryTypeOrganizationArgs = {
 };
 
 
-export type RootQueryTypePermissionsArgs = {
+export type RootQueryTypeOrganizationsArgs = {
   input?: Maybe<ListParameters>;
 };
 
 
 export type RootQueryTypePermissionArgs = {
   input: Identity;
+};
+
+
+export type RootQueryTypePermissionsArgs = {
+  input?: Maybe<ListParameters>;
 };
 
 export type RootSubscriptionType = {
@@ -310,8 +310,8 @@ export type RootSubscriptionTypeSessionCreatedArgs = {
 
 export type Session = {
   __typename?: 'Session';
-  id?: Maybe<Scalars['String']>;
   account: Account;
+  id?: Maybe<Scalars['String']>;
 };
 
 export type Settings = {
@@ -328,71 +328,83 @@ export type SettingsChangeset = {
 export type FetchSessionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FetchSessionQuery = { __typename?: 'RootQueryType', session?: Maybe<{ __typename?: 'Session', id?: Maybe<string> }> };
+export type FetchSessionQuery = { __typename?: 'RootQueryType', session?: { __typename?: 'Session', id?: string | null | undefined } | null | undefined };
 
 export type FetchAccountQueryVariables = Exact<{
   input: Identity;
 }>;
 
 
-export type FetchAccountQuery = { __typename?: 'RootQueryType', account?: Maybe<{ __typename?: 'Account', id: string, username?: Maybe<string>, emailAddress: string }> };
+export type FetchAccountQuery = { __typename?: 'RootQueryType', account?: { __typename?: 'Account', id: string, username?: string | null | undefined, emailAddress: string } | null | undefined };
 
 export type UpdateAccountMutationVariables = Exact<{
   input: AccountChangeset;
 }>;
 
 
-export type UpdateAccountMutation = { __typename?: 'RootMutationType', updateAccount?: Maybe<{ __typename?: 'Account', id: string, emailAddress: string, username?: Maybe<string> }> };
+export type UpdateAccountMutation = { __typename?: 'RootMutationType', updateAccount?: { __typename?: 'Account', id: string, emailAddress: string, username?: string | null | undefined } | null | undefined };
 
 export type ConfirmAccountMutationVariables = Exact<{
   input: AccountConfirmation;
 }>;
 
 
-export type ConfirmAccountMutation = { __typename?: 'RootMutationType', confirmAccount?: Maybe<{ __typename?: 'Account', id: string }> };
+export type ConfirmAccountMutation = { __typename?: 'RootMutationType', confirmAccount?: { __typename?: 'Account', id: string } | null | undefined };
 
 export type CreateSessionMutationVariables = Exact<{
   input: NewSession;
 }>;
 
 
-export type CreateSessionMutation = { __typename?: 'RootMutationType', createSession?: Maybe<{ __typename?: 'Session', id?: Maybe<string> }> };
+export type CreateSessionMutation = { __typename?: 'RootMutationType', createSession?: { __typename?: 'Session', id?: string | null | undefined } | null | undefined };
 
 export type DestroySessionMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DestroySessionMutation = { __typename?: 'RootMutationType', destroySession?: Maybe<{ __typename?: 'Session', id?: Maybe<string> }> };
+export type DestroySessionMutation = { __typename?: 'RootMutationType', destroySession?: { __typename?: 'Session', id?: string | null | undefined } | null | undefined };
 
-export type CreateAccountMutationVariables = Exact<{
-  input: NewAccount;
+export type FetchMyAccountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FetchMyAccountQuery = { __typename?: 'RootQueryType', session?: { __typename?: 'Session', id?: string | null | undefined, account: { __typename?: 'Account', id: string, emailAddress: string } } | null | undefined };
+
+export type UpdateMyAccountMutationVariables = Exact<{
+  input: AccountChangeset;
 }>;
 
 
-export type CreateAccountMutation = { __typename?: 'RootMutationType', createAccount?: Maybe<{ __typename?: 'Account', id: string, emailAddress: string }> };
+export type UpdateMyAccountMutation = { __typename?: 'RootMutationType', updateAccount?: { __typename?: 'Account', id: string, emailAddress: string, username?: string | null | undefined } | null | undefined };
 
 export type FetchYourProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FetchYourProfileQuery = { __typename?: 'RootQueryType', session?: Maybe<{ __typename?: 'Session', id?: Maybe<string>, account: { __typename?: 'Account', id: string, profile: { __typename?: 'Profile', id: string, publicName?: Maybe<string> } } }> };
+export type FetchYourProfileQuery = { __typename?: 'RootQueryType', session?: { __typename?: 'Session', id?: string | null | undefined, account: { __typename?: 'Account', id: string, profile: { __typename?: 'Profile', id: string, publicName?: string | null | undefined } } } | null | undefined };
 
 export type UpdateProfileMutationVariables = Exact<{
   input: ProfileChangeset;
 }>;
 
 
-export type UpdateProfileMutation = { __typename?: 'RootMutationType', updateProfile?: Maybe<{ __typename?: 'Profile', id: string, publicName?: Maybe<string> }> };
+export type UpdateProfileMutation = { __typename?: 'RootMutationType', updateProfile?: { __typename?: 'Profile', id: string, publicName?: string | null | undefined } | null | undefined };
 
-export type FetchYourSettingsQueryVariables = Exact<{ [key: string]: never; }>;
+export type FetchMySettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FetchYourSettingsQuery = { __typename?: 'RootQueryType', session?: Maybe<{ __typename?: 'Session', id?: Maybe<string>, account: { __typename?: 'Account', id: string, settings: { __typename?: 'Settings', id: string, lightMode: boolean } } }> };
+export type FetchMySettingsQuery = { __typename?: 'RootQueryType', session?: { __typename?: 'Session', id?: string | null | undefined, account: { __typename?: 'Account', id: string, settings: { __typename?: 'Settings', id: string, lightMode: boolean } } } | null | undefined };
 
 export type UpdateSettingsMutationVariables = Exact<{
   input: SettingsChangeset;
 }>;
 
 
-export type UpdateSettingsMutation = { __typename?: 'RootMutationType', updateSettings?: Maybe<{ __typename?: 'Settings', id: string, lightMode: boolean }> };
+export type UpdateSettingsMutation = { __typename?: 'RootMutationType', updateSettings?: { __typename?: 'Settings', id: string, lightMode: boolean } | null | undefined };
+
+export type CreateAccountMutationVariables = Exact<{
+  input: NewAccount;
+}>;
+
+
+export type CreateAccountMutation = { __typename?: 'RootMutationType', createAccount?: { __typename?: 'Account', id: string, emailAddress: string } | null | undefined };
 
 
 
@@ -464,13 +476,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Account: ResolverTypeWrapper<Account>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   AccountChangeset: AccountChangeset;
   AccountConfirmation: AccountConfirmation;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Identity: Identity;
-  ListParameters: ListParameters;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  ListParameters: ListParameters;
   NaiveDateTime: ResolverTypeWrapper<Scalars['NaiveDateTime']>;
   NewAccount: NewAccount;
   NewOrganization: NewOrganization;
@@ -489,20 +501,20 @@ export type ResolversTypes = {
   RootSubscriptionType: ResolverTypeWrapper<{}>;
   Session: ResolverTypeWrapper<Session>;
   Settings: ResolverTypeWrapper<Settings>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   SettingsChangeset: SettingsChangeset;
+  String: ResolverTypeWrapper<Scalars['String']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Account: Account;
-  ID: Scalars['ID'];
-  String: Scalars['String'];
   AccountChangeset: AccountChangeset;
   AccountConfirmation: AccountConfirmation;
+  Boolean: Scalars['Boolean'];
+  ID: Scalars['ID'];
   Identity: Identity;
-  ListParameters: ListParameters;
   Int: Scalars['Int'];
+  ListParameters: ListParameters;
   NaiveDateTime: Scalars['NaiveDateTime'];
   NewAccount: NewAccount;
   NewOrganization: NewOrganization;
@@ -521,20 +533,20 @@ export type ResolversParentTypes = {
   RootSubscriptionType: {};
   Session: Session;
   Settings: Settings;
-  Boolean: Scalars['Boolean'];
   SettingsChangeset: SettingsChangeset;
+  String: Scalars['String'];
 };
 
 export type AccountResolvers<ContextType = any, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   emailAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   insertedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
   organizationMemberships?: Resolver<Maybe<Array<ResolversTypes['OrganizationMembership']>>, ParentType, ContextType>;
   organizations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Organization']>>>, ParentType, ContextType>;
-  settings?: Resolver<ResolversTypes['Settings'], ParentType, ContextType>;
   profile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType>;
+  settings?: Resolver<ResolversTypes['Settings'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -543,41 +555,41 @@ export interface NaiveDateTimeScalarConfig extends GraphQLScalarTypeConfig<Resol
 }
 
 export type OrganizationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Organization'] = ResolversParentTypes['Organization']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  insertedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
   accounts?: Resolver<Maybe<Array<ResolversTypes['Account']>>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  insertedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   organizationPermissions?: Resolver<Maybe<Array<ResolversTypes['OrganizationPermission']>>, ParentType, ContextType>;
   permissions?: Resolver<Maybe<Array<ResolversTypes['Permission']>>, ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type OrganizationMembershipResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrganizationMembership'] = ResolversParentTypes['OrganizationMembership']> = {
-  insertedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
   account?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
-  organizationPermissions?: Resolver<Maybe<Array<ResolversTypes['OrganizationPermission']>>, ParentType, ContextType>;
+  insertedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
   organization?: Resolver<ResolversTypes['Organization'], ParentType, ContextType>;
+  organizationPermissions?: Resolver<Maybe<Array<ResolversTypes['OrganizationPermission']>>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type OrganizationPermissionResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrganizationPermission'] = ResolversParentTypes['OrganizationPermission']> = {
   insertedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
-  permission?: Resolver<ResolversTypes['Permission'], ParentType, ContextType>;
   organization?: Resolver<ResolversTypes['Organization'], ParentType, ContextType>;
+  permission?: Resolver<ResolversTypes['Permission'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PermissionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Permission'] = ResolversParentTypes['Permission']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   insertedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   organizationPermissions?: Resolver<Maybe<Array<ResolversTypes['OrganizationPermission']>>, ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['NaiveDateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -588,29 +600,29 @@ export type ProfileResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type RootMutationTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['RootMutationType'] = ResolversParentTypes['RootMutationType']> = {
-  createAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<RootMutationTypeCreateAccountArgs, 'input'>>;
-  updateAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdateAccountArgs, 'input'>>;
   confirmAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<RootMutationTypeConfirmAccountArgs, 'input'>>;
-  destroyAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<RootMutationTypeDestroyAccountArgs, 'input'>>;
+  createAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<RootMutationTypeCreateAccountArgs, 'input'>>;
   createOrganization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType, RequireFields<RootMutationTypeCreateOrganizationArgs, 'input'>>;
-  updateOrganization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdateOrganizationArgs, 'input'>>;
-  destroyOrganization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType, RequireFields<RootMutationTypeDestroyOrganizationArgs, 'input'>>;
   createPermission?: Resolver<Maybe<ResolversTypes['Permission']>, ParentType, ContextType, RequireFields<RootMutationTypeCreatePermissionArgs, 'input'>>;
-  updatePermission?: Resolver<Maybe<ResolversTypes['Permission']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdatePermissionArgs, 'input'>>;
-  destroyPermission?: Resolver<Maybe<ResolversTypes['Permission']>, ParentType, ContextType, RequireFields<RootMutationTypeDestroyPermissionArgs, 'input'>>;
-  updateSettings?: Resolver<Maybe<ResolversTypes['Settings']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdateSettingsArgs, 'input'>>;
-  updateProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdateProfileArgs, 'input'>>;
   createSession?: Resolver<Maybe<ResolversTypes['Session']>, ParentType, ContextType, RequireFields<RootMutationTypeCreateSessionArgs, 'input'>>;
+  destroyAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<RootMutationTypeDestroyAccountArgs, 'input'>>;
+  destroyOrganization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType, RequireFields<RootMutationTypeDestroyOrganizationArgs, 'input'>>;
+  destroyPermission?: Resolver<Maybe<ResolversTypes['Permission']>, ParentType, ContextType, RequireFields<RootMutationTypeDestroyPermissionArgs, 'input'>>;
   destroySession?: Resolver<Maybe<ResolversTypes['Session']>, ParentType, ContextType>;
+  updateAccount?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdateAccountArgs, 'input'>>;
+  updateOrganization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdateOrganizationArgs, 'input'>>;
+  updatePermission?: Resolver<Maybe<ResolversTypes['Permission']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdatePermissionArgs, 'input'>>;
+  updateProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdateProfileArgs, 'input'>>;
+  updateSettings?: Resolver<Maybe<ResolversTypes['Settings']>, ParentType, ContextType, RequireFields<RootMutationTypeUpdateSettingsArgs, 'input'>>;
 };
 
 export type RootQueryTypeResolvers<ContextType = any, ParentType extends ResolversParentTypes['RootQueryType'] = ResolversParentTypes['RootQueryType']> = {
-  accounts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Account']>>>, ParentType, ContextType, RequireFields<RootQueryTypeAccountsArgs, never>>;
   account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<RootQueryTypeAccountArgs, 'input'>>;
-  organizations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Organization']>>>, ParentType, ContextType, RequireFields<RootQueryTypeOrganizationsArgs, never>>;
+  accounts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Account']>>>, ParentType, ContextType, RequireFields<RootQueryTypeAccountsArgs, never>>;
   organization?: Resolver<Maybe<ResolversTypes['Organization']>, ParentType, ContextType, RequireFields<RootQueryTypeOrganizationArgs, 'input'>>;
-  permissions?: Resolver<Maybe<Array<Maybe<ResolversTypes['Permission']>>>, ParentType, ContextType, RequireFields<RootQueryTypePermissionsArgs, never>>;
+  organizations?: Resolver<Maybe<Array<Maybe<ResolversTypes['Organization']>>>, ParentType, ContextType, RequireFields<RootQueryTypeOrganizationsArgs, never>>;
   permission?: Resolver<Maybe<ResolversTypes['Permission']>, ParentType, ContextType, RequireFields<RootQueryTypePermissionArgs, 'input'>>;
+  permissions?: Resolver<Maybe<Array<Maybe<ResolversTypes['Permission']>>>, ParentType, ContextType, RequireFields<RootQueryTypePermissionsArgs, never>>;
   session?: Resolver<Maybe<ResolversTypes['Session']>, ParentType, ContextType>;
 };
 
@@ -622,8 +634,8 @@ export type RootSubscriptionTypeResolvers<ContextType = any, ParentType extends 
 };
 
 export type SessionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Session'] = ResolversParentTypes['Session']> = {
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   account?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

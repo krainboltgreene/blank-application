@@ -10,13 +10,13 @@ import {settings as settingsAtom} from "@clumsy_chinchilla/atoms";
 import {CheckboxField} from "@clumsy_chinchilla/elements";
 import {Loading} from "@clumsy_chinchilla/elements";
 import updateSettingsMutation from "./updateSettingsMutation.graphql";
-import fetchYourSettingsQuery from "./fetchYourSettingsQuery.graphql";
-import type {FetchYourSettingsQuery} from "@clumsy_chinchilla/types";
+import fetchMySettingsQuery from "./fetchMySettingsQuery.graphql";
+import type {FetchMySettingsQuery} from "@clumsy_chinchilla/types";
 import type {UpdateSettingsMutation} from "@clumsy_chinchilla/types";
 
 export default function SettingsForm (): JSX.Element {
   const [clientSettings, setSettings] = useRecoilState(settingsAtom);
-  const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<FetchYourSettingsQuery>(fetchYourSettingsQuery);
+  const {loading: fetchSettingsLoading, data: fetchSettingsData, error: fetchSettingsError} = useQuery<FetchMySettingsQuery>(fetchMySettingsQuery);
   const [updateSettings, {loading: updateSettingsLoading, error: updateSettingsError, data: updateSettingsData}] = useMutation<UpdateSettingsMutation>(updateSettingsMutation);
   const {lightMode: clientLightMode} = clientSettings ?? {};
   const serverSettings = fetchSettingsData?.session?.account.settings ?? {id: null};
@@ -30,9 +30,13 @@ export default function SettingsForm (): JSX.Element {
     }
   }, [fetchSettingsData, setSettings]);
   useEffect(() => {
-    if (updateSettingsData) {
-      setSettings(updateSettingsData.updateSettings);
+    if (typeof updateSettingsData === "undefined" || updateSettingsData === null) {
+      return;
     }
+    if (typeof updateSettingsData.updateSettings === "undefined" || updateSettingsData.updateSettings === null) {
+      return;
+    }
+    setSettings(updateSettingsData.updateSettings);
   }, [updateSettingsData, setSettings, fetchSettingsData]);
 
   if (fetchSettingsError) {
@@ -58,7 +62,7 @@ export default function SettingsForm (): JSX.Element {
     }
   };
 
-  return <form id="SettingsForm" onSubmit={onSubmit}>
+  return <form id="SettingsForm" className="row g-3" onSubmit={onSubmit}>
     <CheckboxField
       scope="SettingsForm"
       property="lightMode"
@@ -71,8 +75,8 @@ export default function SettingsForm (): JSX.Element {
       }}
     />
     <section>
-      <button disabled={updateSettingsLoading} type="submit">
-        Save Settings
+      <button disabled={updateSettingsLoading} type="submit" className="btn btn-primary">
+        Save
       </button>
     </section>
   </form>;

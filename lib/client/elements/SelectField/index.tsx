@@ -40,7 +40,7 @@ export default function SelectField (properties: Readonly<PropertiesType>): JSX.
   const helpId = `${inputId}-help`;
 
   // TODO: Handle select change
-  return <section>
+  return <section className="col-md-6">
     <select id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes}>
       {
         map(

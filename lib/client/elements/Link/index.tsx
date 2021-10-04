@@ -13,14 +13,16 @@ const REMAINING_PROP_NAMES = [
 
 interface PropertiesType {
   id?: string;
+  className?: string;
   children: ReactNode;
   href: string;
 }
 
-const LINK_STYLES = "text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md";
+const LINK_STYLES = "";
 
 export default function Link (properties: Readonly<PropertiesType>): JSX.Element {
   const {id} = properties;
+  const {className = ""} = properties;
   const {children} = properties;
   const {href} = properties;
   const remainingProperties = omit(REMAINING_PROP_NAMES)(properties);
@@ -31,5 +33,5 @@ export default function Link (properties: Readonly<PropertiesType>): JSX.Element
     </a>;
   }
 
-  return <ReactRouterLink className={LINK_STYLES} id={id} to={href} {...remainingProperties}>{children}</ReactRouterLink>;
+  return <ReactRouterLink className={`${LINK_STYLES} ${className}`} id={id} to={href} {...remainingProperties}>{children}</ReactRouterLink>;
 }

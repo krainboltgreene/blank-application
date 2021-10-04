@@ -21,9 +21,13 @@ export default function AccountForm (): JSX.Element {
   const {emailAddress} = account ?? fetchAccountData?.account ?? {};
 
   useEffect(() => {
-    if (updateAccountData) {
-      setAccount(updateAccountData.updateAccount);
+    if (typeof updateAccountData === "undefined" || updateAccountData === null) {
+      return;
     }
+    if (typeof updateAccountData.updateAccount === "undefined" || updateAccountData.updateAccount === null) {
+      return;
+    }
+    setAccount(updateAccountData.updateAccount);
   }, [updateAccountData, setAccount, fetchAccountData]);
   useEffect(() => {
     if (fetchAccountData) {
@@ -49,9 +53,9 @@ export default function AccountForm (): JSX.Element {
     await updateAccount({variables: {input: {id, username, emailAddress}}});
   };
 
-  return <form id="AccountForm" onSubmit={onSubmit}>
+  return <form id="AccountForm" className="row g-3" onSubmit={onSubmit}>
     <section>
-      <button disabled={updateAccountLoading} type="submit">
+      <button disabled={updateAccountLoading} type="submit" className="btn btn-primary">
         Save Account
       </button>
     </section>

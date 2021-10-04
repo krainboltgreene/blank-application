@@ -1,4 +1,4 @@
-query FetchYourSettingsQuery {
+query FetchMySettingsQuery {
   session {
     id
     account {

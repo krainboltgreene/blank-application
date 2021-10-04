@@ -21,17 +21,22 @@ export default function ProfileForm (): JSX.Element {
   const [updateProfile, {loading: updateProfileLoading, error: updateProfileError, data: updateProfileData}] = useMutation<UpdateProfileMutation>(updateProfileMutation);
   const {publicName: savedPublicName} = profile ?? {};
   const {id} = fetchProfileData?.session?.account.profile ?? {};
-  const [publicName, setPublicName] = useState(savedPublicName);
+  const [publicName, setPublicName] = useState(savedPublicName ?? "");
 
   useEffect(() => {
-    if (updateProfileData) {
-      setProfile(updateProfileData.updateProfile);
+    if (typeof updateProfileData === "undefined" || updateProfileData === null) {
+      return;
     }
+    if (typeof updateProfileData.updateProfile === "undefined" || updateProfileData.updateProfile === null) {
+      return;
+    }
+    setProfile(updateProfileData.updateProfile);
   }, [updateProfileData, setProfile, fetchProfileData]);
   useEffect(() => {
-    if (fetchProfileData) {
-      setProfile(fetchProfileData.session?.account.profile ?? null);
+    if (typeof fetchProfileData === "undefined") {
+      return;
     }
+    setProfile(fetchProfileData.session?.account.profile ?? null);
   }, [fetchProfileData, setProfile]);
 
   if (fetchProfileError) {
@@ -55,7 +60,7 @@ export default function ProfileForm (): JSX.Element {
     setPublicName(event.target.value);
   };
 
-  return <form id="ProfileForm" onSubmit={onSubmit}>
+  return <form id="ProfileForm" className="row g-3" onSubmit={onSubmit}>
     <Field
       type="text"
       scope="ProfileForm"
@@ -65,11 +70,12 @@ export default function ProfileForm (): JSX.Element {
       inputAttributes={{
         readOnly: updateProfileLoading,
         onChange: onChangePublicName,
+        value: publicName,
       }}
     />
     <section>
-      <button disabled={updateProfileLoading} type="submit">
-        Save Profile
+      <button disabled={updateProfileLoading} type="submit" className="btn btn-primary">
+        Save
       </button>
     </section>
   </form>;

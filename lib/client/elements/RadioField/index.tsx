@@ -36,7 +36,7 @@ export default function RadioField (properties: Readonly<PropertiesType>): JSX.E
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section>
+  return <section className="col-md-6">
     <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type="radio" {...inputAttributes} />
     <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>;
     <FieldHelp id={inputId}>{help}</FieldHelp>

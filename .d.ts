@@ -53,10 +53,19 @@ declare module '*/destroySessionMutation.graphql' {
 }
     
 
-declare module '*/createAccountMutation.graphql' {
+declare module '*/fetchMyAccountQuery.graphql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const CreateAccountMutation: DocumentNode;
+  export const FetchMyAccountQuery: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/updateMyAccountMutation.graphql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const UpdateMyAccountMutation: DocumentNode;
 
   export default defaultDocument;
 }
@@ -80,10 +89,10 @@ declare module '*/updateProfileMutation.graphql' {
 }
     
 
-declare module '*/fetchYourSettingsQuery.graphql' {
+declare module '*/fetchMySettingsQuery.graphql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const FetchYourSettingsQuery: DocumentNode;
+  export const FetchMySettingsQuery: DocumentNode;
 
   export default defaultDocument;
 }
@@ -93,6 +102,15 @@ declare module '*/updateSettingsMutation.graphql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const UpdateSettingsMutation: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/createAccountMutation.graphql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const CreateAccountMutation: DocumentNode;
 
   export default defaultDocument;
 }
