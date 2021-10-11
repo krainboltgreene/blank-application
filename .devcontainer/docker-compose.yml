@@ -3,7 +3,9 @@ version: "3.7"
 services:
   codespace:
     init: true
-    image: ghcr.io/krainboltgreene/blank-application_devcontainer_codespace:latest
+    # image: ghcr.io/krainboltgreene/blank-application_devcontainer_codespace:latest
+    build:
+      context: .
     volumes:
       - ..:/home/codespace/source:cached
       - /var/run/docker.sock:/var/run/docker-host.sock
