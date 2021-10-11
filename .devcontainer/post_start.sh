@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-. $HOME/.asdf/asdf.sh &&
 mix do deps.get, compile &&
 npm install --no-audit &&
 mix dialyzer.build &

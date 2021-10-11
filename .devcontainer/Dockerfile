@@ -27,9 +27,13 @@ RUN . $HOME/.asdf/asdf.sh && asdf plugin add nodejs && asdf install nodejs 16.4.
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add erlang && asdf install erlang 24.0.2 && asdf global erlang 24.0.2
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add elixir && asdf install elixir 1.12.1-otp-24 && asdf global elixir 1.12.1-otp-24
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add python && asdf install python 3.9.6 && asdf global python 3.9.6
-RUN . $HOME/.asdf/asdf.sh && asdf plugin add postgres
-RUN . $HOME/.asdf/asdf.sh && asdf plugin add redis
+RUN . $HOME/.asdf/asdf.sh && asdf plugin add postgres && asdf install postgres 13.2
+RUN . $HOME/.asdf/asdf.sh && asdf plugin add redis && asdf install redis 6.2.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add gcloud && asdf install gcloud 347.0.0 && asdf global gcloud 347.0.0
+
+SHELL ["/bin/zsh", "-c"]
+
+COPY docker-entrypoint.sh docker-entrypoint.sh
 
 VOLUME [ "/var/lib/docker" ]
 CMD [ "sleep", "infinity" ]
@@ -37,7 +41,7 @@ CMD [ "sleep", "infinity" ]
 # Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine
 # inside the container "overrideCommand": false is set in devcontainer.json.
 # The script will also execute CMD if you need to alter startup behaviors.
-ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 ARG DeveloperBuild
 RUN if [ -z $DeveloperBuild ]; then \
         echo "not including debugger" ; \
