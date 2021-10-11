@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "../Link";
 
 interface PropertiesType {
@@ -5,7 +6,6 @@ interface PropertiesType {
   as: string | Error;
   metadata?: Readonly<Record<string, unknown>>;
 }
-
 
 export default function Exception (properties: Readonly<PropertiesType>): JSX.Element {
   const {kind} = properties;

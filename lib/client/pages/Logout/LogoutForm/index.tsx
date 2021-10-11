@@ -1,3 +1,4 @@
+import React from "react";
 import {useEffect} from "react";
 import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
@@ -5,7 +6,7 @@ import {useHistory} from "react-router-dom";
 
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import destroySessionMutation from "./destroySessionMutation.graphql";
-import type {DestroySessionMutation} from "./DestroySessionMutation.d";
+import type {DestroySessionMutation} from "@clumsy_chinchilla/types";
 
 export default function LogoutForm (): JSX.Element {
   const history = useHistory();
@@ -24,7 +25,7 @@ export default function LogoutForm (): JSX.Element {
     await destroySession();
   }}>
     <section>
-      <button disabled={destroySessionLoading} type="submit">Logout</button>
+      <button disabled={destroySessionLoading} type="submit" className="btn btn-primary">Logout</button>
     </section>
   </form>;
 }

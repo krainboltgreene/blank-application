@@ -1,3 +1,4 @@
+import React from "react";
 import type {ReactNode} from "react";
 
 interface PropertiesType {
@@ -25,7 +26,7 @@ export default function FieldFeedback (properties: Readonly<PropertiesType>): JS
 
   const type = isValid ? "valid" : "invalid";
 
-  return <p data-state={type}>
+  return <section className={`${type}-feedback`} data-state={type}>
     {children}
-  </p>;
+  </section>;
 }

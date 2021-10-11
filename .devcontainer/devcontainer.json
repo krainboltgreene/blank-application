@@ -2,6 +2,8 @@
 {
   "name": "Project",
   "dockerComposeFile": "docker-compose.yml",
+  "overrideCommand": false,
+  "userEnvProbe": "interactiveShell",
   "service": "codespace",
   "settings": {
     "terminal.integrated.defaultProfile.linux": "zsh",
@@ -67,22 +69,22 @@
   "forwardPorts": [4000, 4001, 5432],
   "workspaceFolder": "/home/codespace/source",
   "extensions": [
-	"krainboltgreene.all-builtin-commands",
-	"ms-vscode.atom-keybindings",
-	"mgmcdermott.vscode-language-babel",
-	"apollographql.vscode-apollo",
-	"dbaeumer.vscode-eslint",
-	"eamodio.gitlens",
-	"github.codespaces",
-	"ms-azuretools.vscode-docker",
-	"jakebecker.elixir-ls",
-	"mtxr.sqltools",
-	"mtxr.sqltools-driver-pg",
-	"ms-azuretools.vscode-docker",
-	"hashicorp.terraform",
-	"csstools.postcss",
-	"benvp.vscode-hex-pm-intellisense"
-],
-  "onCreateCommand": "/bin/zsh .devcontainer/on_create.sh",
-  "postStartCommand": "/bin/zsh .devcontainer/post_start.sh"
+    "krainboltgreene.all-builtin-commands",
+    "ms-vscode.atom-keybindings",
+    "mgmcdermott.vscode-language-babel",
+    "apollographql.vscode-apollo",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "github.codespaces",
+    "ms-azuretools.vscode-docker",
+    "jakebecker.elixir-ls",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+    "ms-azuretools.vscode-docker",
+    "hashicorp.terraform",
+    "csstools.postcss",
+    "benvp.vscode-hex-pm-intellisense"
+  ],
+  "onCreateCommand": "zsh .devcontainer/on_create.sh",
+  "postStartCommand": "zsh .devcontainer/post_start.sh"
 }

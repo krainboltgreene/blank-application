@@ -16,8 +16,6 @@ defmodule Web.Router do
     # TODO: Replace with application config
     plug CORSPlug,
       origin: [
-        "http://localhost:8000",
-        "http://localhost:8080",
         "https://studio.apollographql.com"
       ]
 
@@ -32,7 +30,8 @@ defmodule Web.Router do
   scope "/" do
     pipe_through :browser
 
-    # get "/", Web.PageController, :index
+    get "/", Web.PageController, :index
+    get "/*path", Web.PageController, :index
 
     # live "/", PageLive, :index
     if Mix.env() != :prod do
@@ -48,8 +47,6 @@ defmodule Web.Router do
       # as long as you are also using SSL (which you should anyway).
       live_dashboard "/dashboard", metrics: Web.Telemetry
     end
-    get "/", Web.PageController, :index
-    # get "/:path", Web.RemoteController, :browser_remote
   end
 
   scope "/graphql" do

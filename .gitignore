@@ -27,4 +27,4 @@ terraform.tfstate
 .terraform/
 /config/prod.secret.exs
 /priv/secrets/master.key
-/priv/static/
+/priv/static/assets/

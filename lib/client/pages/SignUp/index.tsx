@@ -1,3 +1,4 @@
+import React from "react";
 import {useRecoilState} from "recoil";
 import {useRecoilValue} from "recoil";
 import {useHistory} from "react-router-dom";
@@ -19,6 +20,7 @@ export default function SignUp (): JSX.Element {
   }
 
   return <Page as="SignUp" subtitle="Sign Up">
+    <h1>Sign Up</h1>
     <SignUpForm />
   </Page>;
 }
