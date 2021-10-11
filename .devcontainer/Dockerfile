@@ -16,6 +16,7 @@ RUN wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc |
 RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "false" "true" "true"
 RUN /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "false"
 RUN /bin/bash /tmp/library-scripts/setup-user.sh "${USERNAME}" "${PATH}"
+RUN /bin/bash /tmp/library-scripts/github-debian.sh
 RUN chown ${USERNAME} /opt/*
 RUN chsh -s /bin/zsh ${USERNAME}
 RUN apt-get -qq autoremove -y
