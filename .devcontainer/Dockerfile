@@ -17,14 +17,13 @@ RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER
 RUN /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "false"
 RUN /bin/bash /tmp/library-scripts/setup-user.sh "${USERNAME}" "${PATH}"
 RUN /bin/bash /tmp/library-scripts/github-debian.sh
-RUN chown ${USERNAME} /opt/*
+# RUN chown ${USERNAME} /opt/*
 RUN chsh -s /bin/zsh ${USERNAME}
 RUN apt-get -qq autoremove -y
 RUN apt-get -qq clean -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 RUN mkdir -p /usr/local/etc/vscode-dev-containers/
-RUN mv -f /tmp/scripts/first-run-notice.txt /usr/local/etc/vscode-dev-containers/
-
+USER ${USERNAME}
 RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add terraform https://github.com/asdf-community/asdf-hashicorp.git && asdf install terraform 1.0.1 && asdf global terraform 1.0.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add nodejs && asdf install nodejs 16.4.0 && asdf global nodejs 16.4.0
@@ -38,6 +37,7 @@ RUN . $HOME/.asdf/asdf.sh && asdf plugin add gcloud && asdf install gcloud 347.0
 ENV SHELL=/bin/zsh
 SHELL [ "/bin/zsh", "-c" ]
 
+COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt
 COPY docker-entrypoint.sh docker-entrypoint.sh
 
 VOLUME [ "/var/lib/docker" ]
@@ -46,7 +46,8 @@ CMD [ "sleep", "infinity" ]
 # Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine
 # inside the container "overrideCommand": false is set in devcontainer.json.
 # The script will also execute CMD if you need to alter startup behaviors.
-ENTRYPOINT [ "/usr/local/share/docker-init.sh", "docker-entrypoint.sh" ]
+# ENTRYPOINT [ "/usr/local/share/docker-init.sh", "docker-entrypoint.sh"]
+ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 ARG DeveloperBuild
 RUN if [ -z $DeveloperBuild ]; then \
         echo "not including debugger" ; \
