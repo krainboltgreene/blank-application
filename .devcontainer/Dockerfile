@@ -17,13 +17,14 @@ RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER
 RUN /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "false"
 RUN /bin/bash /tmp/library-scripts/setup-user.sh "${USERNAME}" "${PATH}"
 RUN /bin/bash /tmp/library-scripts/github-debian.sh
-# RUN chown ${USERNAME} /opt/*
-RUN chsh -s /bin/zsh ${USERNAME}
 RUN apt-get -qq autoremove -y
 RUN apt-get -qq clean -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 RUN mkdir -p /usr/local/etc/vscode-dev-containers/
+RUN chsh -s /bin/zsh ${USERNAME}
 USER ${USERNAME}
+ENV SHELL=/bin/zsh
+SHELL [ "/bin/zsh", "-c" ]
 RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add terraform https://github.com/asdf-community/asdf-hashicorp.git && asdf install terraform 1.0.1 && asdf global terraform 1.0.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add nodejs && asdf install nodejs 16.4.0 && asdf global nodejs 16.4.0
@@ -33,9 +34,6 @@ RUN . $HOME/.asdf/asdf.sh && asdf plugin add python && asdf install python 3.9.6
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add postgres && asdf install postgres 13.2
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add redis && asdf install redis 6.2.1
 RUN . $HOME/.asdf/asdf.sh && asdf plugin add gcloud && asdf install gcloud 347.0.0 && asdf global gcloud 347.0.0
-
-ENV SHELL=/bin/zsh
-SHELL [ "/bin/zsh", "-c" ]
 
 COPY first-run-notice.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt
 COPY docker-entrypoint.sh docker-entrypoint.sh
