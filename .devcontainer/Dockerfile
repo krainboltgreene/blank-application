@@ -45,12 +45,10 @@ CMD [ "sleep", "infinity" ]
 # inside the container "overrideCommand": false is set in devcontainer.json.
 # The script will also execute CMD if you need to alter startup behaviors.
 # ENTRYPOINT [ "/usr/local/share/docker-init.sh", "docker-entrypoint.sh"]
-ENTRYPOINT [ "/usr/local/share/docker-init.sh", "docker-entrypoint.sh" ]
+ENTRYPOINT [ "./docker-entrypoint.sh" ]
 ARG DeveloperBuild
 RUN if [ -z $DeveloperBuild ]; then \
         echo "not including debugger" ; \
     else \
         curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg ; \
     fi
-
-USER ${USERNAME}
