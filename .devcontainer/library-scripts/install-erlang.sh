@@ -1,18 +1,12 @@
 #!/usr/bin/env bash
 
-OTP_VERSION="24.1.2"
-REBAR_VERSION="2.6.4"
-REBAR_DOWNLOAD_URL="https://github.com/rebar/rebar/archive/${REBAR_VERSION}.tar.gz"
-REBAR_DOWNLOAD_SHA256="577246bafa2eb2b2c3f1d0c157408650446884555bf87901508ce71d5cc0bd07"
-REBAR3_VERSION="3.17.0"
-REBAR3_DOWNLOAD_URL="https://github.com/erlang/rebar3/archive/${REBAR3_VERSION}.tar.gz"
-REBAR3_DOWNLOAD_SHA256="4c7f33a342bcab498f9bf53cc0ee5b698d9598b8fa9ef6a14bcdf44d21945c27"
-OTP_DOWNLOAD_URL="https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz"
-OTP_DOWNLOAD_SHA256="c141a046bb7184a7bb5c3d6da2ed013e465d1fbe4ff5cd16e0fbb7a0e786a152"
-runtimeDeps='libodbc1 libsctp1 libwxgtk3.0'
-buildDeps='unixodbc-dev libsctp-dev libwxgtk3.0-dev'
-
-apt-get update \
+OTP_VERSION="24.1.2" \
+  && REBAR3_VERSION="3.17.0" \
+	&& OTP_DOWNLOAD_URL="https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz" \
+	&& OTP_DOWNLOAD_SHA256="c141a046bb7184a7bb5c3d6da2ed013e465d1fbe4ff5cd16e0fbb7a0e786a152" \
+	&& runtimeDeps='libodbc1 libsctp1 libwxgtk3.0' \
+	&& buildDeps='unixodbc-dev libsctp-dev libwxgtk3.0-gtk3-dev' \
+	&& apt-get update \
 	&& apt-get install -y --no-install-recommends $runtimeDeps \
 	&& apt-get install -y --no-install-recommends $buildDeps \
 	&& curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
@@ -27,27 +21,4 @@ apt-get update \
 	  && ./configure --build="$gnuArch" \
 	  && make -j$(nproc) \
 	  && make -j$(nproc) docs DOC_TARGETS=chunks \
-	  && make install install-docs DOC_TARGETS=chunks ) \
-	&& find /usr/local -name examples | xargs rm -rf \
-	&& apt-get purge -y --auto-remove $buildDeps \
-	&& rm -rf $ERL_TOP /var/lib/apt/lists/*
-
-mkdir -p /usr/src/rebar-src \
-	&& curl -fSL -o rebar-src.tar.gz "$REBAR_DOWNLOAD_URL" \
-	&& echo "$REBAR_DOWNLOAD_SHA256 rebar-src.tar.gz" | sha256sum -c - \
-	&& tar -xzf rebar-src.tar.gz -C /usr/src/rebar-src --strip-components=1 \
-	&& rm rebar-src.tar.gz \
-	&& cd /usr/src/rebar-src \
-	&& ./bootstrap \
-	&& install -v ./rebar /usr/local/bin/ \
-	&& rm -rf /usr/src/rebar-src
-
-mkdir -p /usr/src/rebar3-src \
-	&& curl -fSL -o rebar3-src.tar.gz "$REBAR3_DOWNLOAD_URL" \
-	&& echo "$REBAR3_DOWNLOAD_SHA256 rebar3-src.tar.gz" | sha256sum -c - \
-	&& tar -xzf rebar3-src.tar.gz -C /usr/src/rebar3-src --strip-components=1 \
-	&& rm rebar3-src.tar.gz \
-	&& cd /usr/src/rebar3-src \
-	&& HOME=$PWD ./bootstrap \
-	&& install -v ./rebar3 /usr/local/bin/ \
-	&& rm -rf /usr/src/rebar3-src
+	  && make install install-docs DOC_TARGETS=chunks )

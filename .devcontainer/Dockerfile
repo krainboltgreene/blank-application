@@ -17,11 +17,10 @@ RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER
 RUN /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "false"
 RUN /bin/bash /tmp/library-scripts/setup-user.sh "${USERNAME}" "${PATH}"
 RUN /bin/bash /tmp/library-scripts/github-debian.sh
+RUN /bin/bash /tmp/library-scripts/install-postgresql.sh
+RUN /bin/bash /tmp/library-scripts/install-nodejs.sh
 RUN /bin/bash /tmp/library-scripts/install-erlang.sh
 RUN /bin/bash /tmp/library-scripts/install-elixir.sh
-RUN /bin/bash /tmp/library-scripts/install-nodejs.sh
-RUN /bin/bash /tmp/library-scripts/install-postgres.sh
-RUN /bin/bash /tmp/library-scripts/install-redis.sh
 RUN apt-get -qq autoremove -y
 RUN apt-get -qq clean -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/library-scripts
