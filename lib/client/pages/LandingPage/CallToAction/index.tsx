@@ -1,9 +1,9 @@
 import React from "react";
 import {useRecoilValue} from "recoil";
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {Link} from "@clumsy_chinchilla/elements";
-import {Loading} from "@clumsy_chinchilla/elements";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@client/atoms";
+import {Link} from "@client/elements";
+import {Loading} from "@client/elements";
 
 
 const styles = "";

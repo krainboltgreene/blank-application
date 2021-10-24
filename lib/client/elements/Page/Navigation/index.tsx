@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "@clumsy_chinchilla/elements";
+import {Link} from "@client/elements";
 
 export default function Navigation (): JSX.Element {
   return <header className="navbar navbar-expand-lg navbar-light bg-light">

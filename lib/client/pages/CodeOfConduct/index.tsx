@@ -1,5 +1,5 @@
 import React from "react";
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@client/elements";
 
 export default function CodeOfConduct (): JSX.Element {
   return <Page as="CodeOfConduct" kind="article" subtitle="Code Of Conduct">

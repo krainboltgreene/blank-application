@@ -7,7 +7,7 @@ import {HelmetProvider} from "react-helmet-async";
 import {ApolloProvider} from "@apollo/client";
 import {RecoilRoot} from "recoil";
 
-import {Application} from "@clumsy_chinchilla/elements";
+import {Application} from "@client/elements";
 import sdk from "./sdk";
 
 render(

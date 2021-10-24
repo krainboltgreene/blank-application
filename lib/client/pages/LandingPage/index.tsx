@@ -1,5 +1,5 @@
 import React from "react";
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@client/elements";
 import CallToAction from "./CallToAction";
 
 export default function LandingPage (): JSX.Element {
