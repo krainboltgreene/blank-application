@@ -1,9 +1,9 @@
 import {atom} from "recoil";
 
 interface AccountType {
-  id: string;
-  username: string | null;
-  emailAddress: string | null;
+  id?: string;
+  username?: string | null;
+  emailAddress?: string | null;
 }
 
 export default atom<AccountType | null>({

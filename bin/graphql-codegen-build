@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+npx graphql-codegen --config graphql-codegen.config.yml

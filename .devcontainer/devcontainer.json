@@ -2,9 +2,47 @@
 {
   "name": "Project",
   "dockerComposeFile": "docker-compose.yml",
+  "overrideCommand": false,
+  "userEnvProbe": "loginInteractiveShell",
   "service": "codespace",
   "settings": {
-    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.automationShell.linux": "zsh",
+    "files.autoSave": "onFocusChange",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "javascript.format.semicolons": "insert",
+    "typescript.format.semicolons": "insert",
+    "terminal.integrated.copyOnSelection": true,
+    "eslint.format.enable": true,
+    "eslint.onIgnoredFiles": "warn",
+    "eslint.run": "onType",
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "graphql"
+    ],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "graphql"
+    ],
+    "eslint.codeAction.showDocumentation": {
+        "enable": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "elixirLS.fetchDeps": false,
+    "elixirLS.mixEnv": "dev",
+    "editor.tabSize": 2,
     "sqltools.connections": [
       {
         "name": "Postgres database",
@@ -44,8 +82,11 @@
     "mtxr.sqltools",
     "mtxr.sqltools-driver-pg",
     "ms-azuretools.vscode-docker",
-    "hashicorp.terraform"
+    "hashicorp.terraform",
+    "csstools.postcss",
+    "benvp.vscode-hex-pm-intellisense"
   ],
-  "onCreateCommand": "/bin/zsh .devcontainer/on_create.sh",
-  "postStartCommand": "/bin/zsh .devcontainer/post_start.sh"
+  "waitFor": "postStartCommand",
+  "onCreateCommand": "/bin/zsh -i -c .devcontainer/onCreate.sh",
+  "postStartCommand": "/bin/zsh -i -c .devcontainer/postStart.sh"
 }

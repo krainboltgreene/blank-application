@@ -1,3 +1,4 @@
+import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
 import {useSetRecoilState} from "recoil";
@@ -6,8 +7,8 @@ import {useHistory} from "react-router-dom";
 
 import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
 import {Field} from "@clumsy_chinchilla/elements";
-import confirmAccountMutation from "./confirmAccountMutation.gql";
-import type {ConfirmAccountMutation} from "./ConfirmAccountMutation.d";
+import confirmAccountMutation from "./confirmAccountMutation.graphql";
+import type {ConfirmAccountMutation} from "@clumsy_chinchilla/types";
 
 interface PropertiesType {
   confirmationSecret: string;
@@ -51,7 +52,7 @@ export default function AccountConfirmationForm (properties: Readonly<Properties
       }}
     />
     <section>
-      <button disabled={confirmAccountLoading} type="submit">Confirm Account</button>
+      <button disabled={confirmAccountLoading} type="submit" className="btn btn-primary">Confirm Account</button>
     </section>
   </form>;
 }

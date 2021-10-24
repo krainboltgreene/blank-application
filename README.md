@@ -8,11 +8,6 @@ This project is actually 5 parts:
   4. PostgreSQL: Where we store long term data.
   5. Redis: Where we store short term ephemeral data.
 
-## Setup
-
-  0. `bin/postgres-setup`
-  0. `bin/postgres-start`
-  0. `bin/setup`
 
 ## FAQ
 

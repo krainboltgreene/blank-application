@@ -1,11 +1,10 @@
+import React from "react";
 import type {ReactNode} from "react";
 
 interface PropertiesType {
   id: string;
   children: ReactNode;
 }
-
-const styling = {};
 
 export default function FieldHelp (properties: Readonly<PropertiesType>): JSX.Element | null {
   const {id} = properties;
@@ -15,5 +14,5 @@ export default function FieldHelp (properties: Readonly<PropertiesType>): JSX.El
     return null;
   }
 
-  return <small id={id} css={styling}>{children}</small>;
+  return <small id={id}>{children}</small>;
 }

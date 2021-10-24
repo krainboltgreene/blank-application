@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from "react";
 import type {ReactNode} from "react";
 import type {LabelHTMLAttributes} from "react";
 import type {InputHTMLAttributes} from "react";
@@ -32,9 +33,9 @@ export default function CheckboxField (properties: Readonly<PropertiesType>): JS
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section>
-    <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type="checkbox" {...inputAttributes} />
-    <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>;
+  return <section className="form-check col-md-6">
+    <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type="checkbox" className="form-check-input" {...inputAttributes} />
+    <label id={labelId} htmlFor={inputId} className="form-check-label" {...labelAttributes}>{label}</label>;
     <FieldHelp id={inputId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;

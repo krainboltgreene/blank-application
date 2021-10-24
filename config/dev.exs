@@ -31,7 +31,23 @@ config :clumsy_chinchilla, Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false
+  check_origin: false,
+  live_reload: [
+    patterns: [
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
+      ~r"lib/web/(live|views)/.*(ex)$",
+      ~r"lib/web/templates/.*(eex)$"
+    ]
+  ]
+config :phoenix_live_reload,
+  dirs: [
+    "priv/static/",
+    "priv/gettext/",
+    "lib/web/live/",
+    "lib/web/views/",
+    "lib/web/templates/"
+  ]
 
 # ## SSL Support
 #
@@ -57,17 +73,6 @@ config :clumsy_chinchilla, Web.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
-# Watch static and templates for browser reloading.
-config :clumsy_chinchilla, Web.Endpoint,
-  live_reload: [
-    patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"lib/clumsy_chinchilla_web/(live|views)/.*(ex)$",
-      ~r"lib/clumsy_chinchilla_web/templates/.*(eex)$"
-    ]
-  ]
-
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
@@ -78,7 +83,7 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :clumsy_chinchilla, :graphql, uri: "http://localhost:4000/graphql"
+config :clumsy_chinchilla, :graphql, uri: "https://#{System.get_env("CODESPACE_NAME")}.githubpreview.dev/graphql"
 
 config :clumsy_chinchilla, :flow, max_demand: 8
 
@@ -88,13 +93,18 @@ config :clumsy_chinchilla, Mailer,
 
 unless System.get_env("GITHUB_ACTIONS") || System.get_env("CODESPACES") do
   config :clumsy_chinchilla, Mailer,
-    open_email_in_browser_url: "http://localhost:4000/sent_emails"
+    open_email_in_browser_url: "https://#{System.get_env("CODESPACE_NAME")}.githubpreview.dev/sent_emails"
 end
 
-config :clumsy_chinchilla, :remotes, %{
-  browser_remote: %URI{
-    scheme: "http",
-    host: "localhost",
-    port: 8080
-  }
+config :clumsy_chinchilla, :browser_metadata, %{
+  domain: "#{System.get_env("CODESPACE_NAME")}.githubpreview.dev",
+  application_name: "Clumsy Chinchilla",
+  base_url: "/",
+  theme_color: "#ffffff",
+  description: "A website",
+  google_site_verification: "",
+  short_description: "A website",
+  title: "Clumsy Chinchilla",
+  google_tag_manager_id: "",
+  support_email_address: "support@clumsy-chinchilla.club"
 }

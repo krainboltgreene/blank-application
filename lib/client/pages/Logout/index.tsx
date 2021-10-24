@@ -1,3 +1,4 @@
+import React from "react";
 import {Page} from "@clumsy_chinchilla/elements";
 import LogoutForm from "./LogoutForm";
 

@@ -3,9 +3,10 @@
     "node_modules"
   ],
   "include": [
-    "d.ts",
-    "lib/client/",
-    "node_modules/bdd-lazy-var/index.d.ts"
+    ".d.ts",
+    "lib/client/types",
+    "lib/client/**/index.tsx",
+    ".d.ts_modules/bdd-lazy-var/index.d.ts"
   ],
   "compilerOptions": {
     "noEmit": true,

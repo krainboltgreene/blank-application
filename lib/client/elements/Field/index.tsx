@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from "react";
 import type {ReactNode} from "react";
 import type {LabelHTMLAttributes} from "react";
 import type {InputHTMLAttributes} from "react";
@@ -34,9 +35,9 @@ export default function Field (properties: Readonly<PropertiesType>): JSX.Elemen
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section>
-    <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>
-    <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} {...inputAttributes} />
+  return <section className="col-md-6">
+    <label id={labelId} htmlFor={inputId} className="form-label" {...labelAttributes}>{label}</label>
+    <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type={type} className="form-control" {...inputAttributes} />
     <FieldHelp id={helpId}>{help}</FieldHelp>
     <FieldFeedback hasValidated={hasValidated} isValid={isValid}>{feedback}</FieldFeedback>
   </section>;
