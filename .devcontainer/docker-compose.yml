@@ -13,6 +13,13 @@ services:
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     network_mode: service:postgres
 
+  livebook:
+    image: livebook/livebook:0.3.0
+    network_mode: service:postgres
+    # -u $(id -u):$(id -g) -v $(pwd):/data
+    volumes:
+      - ../livebook/:/data
+
   postgres:
     image: postgres:13.2
     restart: unless-stopped
