@@ -18,6 +18,6 @@ defmodule Mailer.Accounts do
   end
 
   defp account_confirmation_url(secret) do
-    Web.Router.Helpers.page_url(Web.Endpoint, :index, :account_confirmation, token: secret)
+    Web.Router.Helpers.page_url(Web.Endpoint, :index, ["account_confirmation"], token: secret)
   end
 end
