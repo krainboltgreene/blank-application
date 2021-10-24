@@ -3,10 +3,11 @@
   "name": "Project",
   "dockerComposeFile": "docker-compose.yml",
   "overrideCommand": false,
-  "userEnvProbe": "interactiveShell",
+  "userEnvProbe": "loginInteractiveShell",
   "service": "codespace",
   "settings": {
     "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.automationShell.linux": "zsh",
     "files.autoSave": "onFocusChange",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
@@ -85,6 +86,7 @@
     "csstools.postcss",
     "benvp.vscode-hex-pm-intellisense"
   ],
-  "onCreateCommand": "zsh .devcontainer/on_create.sh",
-  "postStartCommand": "zsh .devcontainer/post_start.sh"
+  "waitFor": "postStartCommand",
+  "onCreateCommand": "/bin/zsh -i -c .devcontainer/onCreate.sh",
+  "postStartCommand": "/bin/zsh -i -c .devcontainer/postStart.sh"
 }
