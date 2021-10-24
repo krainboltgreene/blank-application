@@ -5,10 +5,10 @@ import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {Field} from "@clumsy_chinchilla/elements";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {Field} from "@client/elements";
 import createAccountMutation from "./createAccountMutation.graphql";
-import type {CreateAccountMutation} from "@clumsy_chinchilla/types";
+import type {CreateAccountMutation} from "@client/types";
 
 export default function SignUpForm (): JSX.Element {
   const history = useHistory();

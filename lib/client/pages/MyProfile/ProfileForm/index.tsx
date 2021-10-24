@@ -7,13 +7,13 @@ import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
 
-import {profile as profileAtom} from "@clumsy_chinchilla/atoms";
-import {Field} from "@clumsy_chinchilla/elements";
-import {Loading} from "@clumsy_chinchilla/elements";
+import {profile as profileAtom} from "@client/atoms";
+import {Field} from "@client/elements";
+import {Loading} from "@client/elements";
 import updateProfileMutation from "./updateProfileMutation.graphql";
 import fetchYourProfileQuery from "./fetchYourProfileQuery.graphql";
-import type {FetchYourProfileQuery} from "@clumsy_chinchilla/types";
-import type {UpdateProfileMutation} from "@clumsy_chinchilla/types";
+import type {FetchYourProfileQuery} from "@client/types";
+import type {UpdateProfileMutation} from "@client/types";
 
 export default function ProfileForm (): JSX.Element {
   const [profile, setProfile] = useRecoilState(profileAtom);

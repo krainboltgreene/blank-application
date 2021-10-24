@@ -1,5 +1,5 @@
 import React from "react";
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@client/elements";
 
 export default function ThisIsUs (): JSX.Element {
   return <Page as="ThisIsUs" kind="article" subtitle="This Is Us">

@@ -1,5 +1,5 @@
 import React from "react";
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@client/elements";
 import SettingsForm from "./SettingsForm";
 
 export default function MySettings (): JSX.Element {

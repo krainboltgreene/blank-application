@@ -24,7 +24,7 @@ If it's global data, define a recoil atom in `lib/client/atoms/`, otherwise use 
 Well first *shared* styles sit in `lib/client/styles` and there are no (by default) *global* styles. Instead you have to opt-in to a collection of shared resources by doing this in your scss:
 
 ``` scss
-@import "@clumsy_chinchilla/styles/index.scss";
+@import "@client/styles/index.scss";
 
 // Your styles here
 ```

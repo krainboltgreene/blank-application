@@ -1,20 +1,20 @@
 import React from "react";
 import {Route, Switch} from "react-router";
-import {AccountConfirmation} from "@clumsy_chinchilla/pages";
-import {CodeOfConduct} from "@clumsy_chinchilla/pages";
-import {DataPolicy} from "@clumsy_chinchilla/pages";
-import {LandingPage} from "@clumsy_chinchilla/pages";
-import {Login} from "@clumsy_chinchilla/pages";
-import {Logout} from "@clumsy_chinchilla/pages";
-import {OurTechnology} from "@clumsy_chinchilla/pages";
-import {PageNotFound} from "@clumsy_chinchilla/pages";
-import {PrivacyPolicy} from "@clumsy_chinchilla/pages";
-import {SignUp} from "@clumsy_chinchilla/pages";
-import {TermsOfService} from "@clumsy_chinchilla/pages";
-import {ThisIsUs} from "@clumsy_chinchilla/pages";
-import {MyProfile} from "@clumsy_chinchilla/pages";
-import {MyAccount} from "@clumsy_chinchilla/pages";
-import {MySettings} from "@clumsy_chinchilla/pages";
+import {AccountConfirmation} from "@client/pages";
+import {CodeOfConduct} from "@client/pages";
+import {DataPolicy} from "@client/pages";
+import {LandingPage} from "@client/pages";
+import {Login} from "@client/pages";
+import {Logout} from "@client/pages";
+import {OurTechnology} from "@client/pages";
+import {PageNotFound} from "@client/pages";
+import {PrivacyPolicy} from "@client/pages";
+import {SignUp} from "@client/pages";
+import {TermsOfService} from "@client/pages";
+import {ThisIsUs} from "@client/pages";
+import {MyProfile} from "@client/pages";
+import {MyAccount} from "@client/pages";
+import {MySettings} from "@client/pages";
 
 export default function Router (): JSX.Element {
   return <Switch>

@@ -4,8 +4,8 @@ import {useRecoilState} from "recoil";
 import {useSetRecoilState} from "recoil";
 import {useEffect} from "react";
 
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@clumsy_chinchilla/atoms";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@client/atoms";
 
 import fetchSessionQuery from "./fetchSessionQuery.graphql";
 

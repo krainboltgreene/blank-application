@@ -5,12 +5,12 @@ import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
 
-import {account as accountAtom} from "@clumsy_chinchilla/atoms";
-import {Loading} from "@clumsy_chinchilla/elements";
+import {account as accountAtom} from "@client/atoms";
+import {Loading} from "@client/elements";
 import updateAccountMutation from "./updateAccountMutation.graphql";
 import fetchAccountQuery from "./fetchAccountQuery.graphql";
-import type {UpdateAccountMutation} from "@clumsy_chinchilla/types";
-import type {FetchAccountQuery} from "@clumsy_chinchilla/types";
+import type {UpdateAccountMutation} from "@client/types";
+import type {FetchAccountQuery} from "@client/types";
 
 export default function AccountForm (): JSX.Element {
   const [account, setAccount] = useRecoilState(accountAtom);

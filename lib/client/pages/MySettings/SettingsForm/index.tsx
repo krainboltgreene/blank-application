@@ -6,13 +6,13 @@ import {useRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/client";
 
-import {settings as settingsAtom} from "@clumsy_chinchilla/atoms";
-import {CheckboxField} from "@clumsy_chinchilla/elements";
-import {Loading} from "@clumsy_chinchilla/elements";
+import {settings as settingsAtom} from "@client/atoms";
+import {CheckboxField} from "@client/elements";
+import {Loading} from "@client/elements";
 import updateSettingsMutation from "./updateSettingsMutation.graphql";
 import fetchMySettingsQuery from "./fetchMySettingsQuery.graphql";
-import type {FetchMySettingsQuery} from "@clumsy_chinchilla/types";
-import type {UpdateSettingsMutation} from "@clumsy_chinchilla/types";
+import type {FetchMySettingsQuery} from "@client/types";
+import type {UpdateSettingsMutation} from "@client/types";
 
 export default function SettingsForm (): JSX.Element {
   const [clientSettings, setSettings] = useRecoilState(settingsAtom);

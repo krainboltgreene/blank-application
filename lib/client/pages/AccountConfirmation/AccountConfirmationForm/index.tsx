@@ -5,10 +5,10 @@ import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {Field} from "@clumsy_chinchilla/elements";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {Field} from "@client/elements";
 import confirmAccountMutation from "./confirmAccountMutation.graphql";
-import type {ConfirmAccountMutation} from "@clumsy_chinchilla/types";
+import type {ConfirmAccountMutation} from "@client/types";
 
 interface PropertiesType {
   confirmationSecret: string;

@@ -4,9 +4,9 @@ import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
 import destroySessionMutation from "./destroySessionMutation.graphql";
-import type {DestroySessionMutation} from "@clumsy_chinchilla/types";
+import type {DestroySessionMutation} from "@client/types";
 
 export default function LogoutForm (): JSX.Element {
   const history = useHistory();
