@@ -13,7 +13,7 @@ defmodule Mailer.Accounts do
     Mailer.new_application_email()
     |> assign(:call_to_action, account_confirmation_url(confirmation_secret))
     |> to(unconfirmed_email_address)
-    |> subject("Finish setting up your Clumsy Chinchilla Account")
+    |> subject("Finish setting up your #{Application.get_env(:clumsy_chinchilla, :application_name)} Account")
     |> render(:onboarding_email)
   end
 
