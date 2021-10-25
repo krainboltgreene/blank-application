@@ -7,7 +7,7 @@
 /doc/
 /.fetch
 /postgres/data/
-/.env
+/.devcontainer/.env
 
 # Generated files
 /node_modules/
