@@ -1,4 +1,4 @@
-# Clumsy Chinchilla
+# Card Game
 
 This project is actually 5 parts:
 

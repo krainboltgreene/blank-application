@@ -20,8 +20,8 @@ export default function Exception (properties: Readonly<PropertiesType>): JSX.El
 
       <p>
         The web application you are using is having trouble running. We have been notified of the issue
-        automatically, but we might need to reach out to you for more information. <Link href="https://public-issues.clumsy-chinchilla.club">You can
-        track the status of this issue by visiting our issue tracker at https://public-issues.clumsy-chinchilla.club</Link>
+        automatically, but we might need to reach out to you for more information. <Link href="https://public-issues.cardgame.club">You can
+        track the status of this issue by visiting our issue tracker at https://public-issues.cardgame.club</Link>
       </p>
     </section>;
   }

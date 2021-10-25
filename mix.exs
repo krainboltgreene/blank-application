@@ -4,7 +4,7 @@ defmodule Core.MixProject do
 
   def project do
     [
-      app: :clumsy_chinchilla,
+      app: :card_game,
       version: "1.0.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),

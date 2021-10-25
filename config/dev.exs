@@ -1,10 +1,10 @@
 use Mix.Config
 
-Application.put_env(:clumsy_chinchilla, :domain, "localhost")
-Application.put_env(:clumsy_chinchilla, :base_url, "/")
+Application.put_env(:card_game, :domain, "localhost")
+Application.put_env(:card_game, :base_url, "/")
 
 # Configure your database
-config :clumsy_chinchilla, Database.Repository,
+config :card_game, Database.Repository,
   username: "postgres",
   password: "postgres",
   database: "clumsy_chinchilla_dev",
@@ -15,7 +15,7 @@ config :clumsy_chinchilla, Database.Repository,
 
 # Configure the database for GitHub Actions
 if System.get_env("GITHUB_ACTIONS") do
-  config :clumsy_chinchilla, Database.Repository,
+  config :card_game, Database.Repository,
     username: "postgres",
     password: "postgres"
 end
@@ -29,7 +29,7 @@ config :logger,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :clumsy_chinchilla, Web.Endpoint,
+config :card_game, Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -85,16 +85,16 @@ config :phoenix, :stacktrace_depth, 10
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :clumsy_chinchilla, :graphql, uri: "/graphql"
+config :card_game, :graphql, uri: "/graphql"
 
-config :clumsy_chinchilla, :flow, max_demand: 8
+config :card_game, :flow, max_demand: 8
 
 # Setup Bamboo mailer
-config :clumsy_chinchilla, Mailer,
+config :card_game, Mailer,
   adapter: Bamboo.LocalAdapter,
   open_email_in_browser_url: "/sent_emails"
 
 if System.get_env("GITHUB_ACTIONS") do
-  config :clumsy_chinchilla, Mailer,
+  config :card_game, Mailer,
     open_email_in_browser_url: false
 end

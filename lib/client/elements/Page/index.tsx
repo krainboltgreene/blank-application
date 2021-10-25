@@ -23,7 +23,7 @@ export default function Page (properties: Readonly<PropertiesType>): JSX.Element
   const {kind} = properties;
   const {children} = properties;
   const titleChange = <Helmet>
-    {subtitle ? <title>Clumsy Chinchilla | {subtitle}</title> : null}
+    {subtitle ? <title>Card Game | {subtitle}</title> : null}
     {description ? <meta name="description" content={description} /> : null}
   </Helmet>;
 

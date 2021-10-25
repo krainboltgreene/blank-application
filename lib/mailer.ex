@@ -2,12 +2,12 @@ defmodule Mailer do
   @moduledoc """
   Contains all the core email logic.
   """
-  use Bamboo.Mailer, otp_app: :clumsy_chinchilla
+  use Bamboo.Mailer, otp_app: :card_game
   use Bamboo.Phoenix, view: Mailer.EmailView
   import Bamboo.Email
 
-  @default_from_email_address Application.get_env(:clumsy_chinchilla, :reply_email_address)
-  @default_replyto_email_address Application.get_env(:clumsy_chinchilla, :reply_email_address)
+  @default_from_email_address Application.get_env(:card_game, :reply_email_address)
+  @default_replyto_email_address Application.get_env(:card_game, :reply_email_address)
 
   def new_application_email() do
     new_email()

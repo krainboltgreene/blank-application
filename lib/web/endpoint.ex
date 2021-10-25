@@ -1,5 +1,5 @@
 defmodule Web.Endpoint do
-  use Phoenix.Endpoint, otp_app: :clumsy_chinchilla
+  use Phoenix.Endpoint, otp_app: :card_game
   use Absinthe.Phoenix.Endpoint
 
   # The session will be stored in the cookie and signed,
@@ -23,7 +23,7 @@ defmodule Web.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :clumsy_chinchilla,
+    from: :card_game,
     brotli: true,
     gzip: true
 
@@ -33,7 +33,7 @@ defmodule Web.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Reloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :clumsy_chinchilla
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :card_game
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

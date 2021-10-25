@@ -5,6 +5,6 @@ defmodule Web.Presence do
   See the [`Phoenix.Presence`](http://hexdocs.pm/phoenix/Phoenix.Presence.html)
   docs for more details.
   """
-  use Phoenix.Presence, otp_app: :clumsy_chinchilla,
+  use Phoenix.Presence, otp_app: :card_game,
                         pubsub_server: Core.PubSub
 end
