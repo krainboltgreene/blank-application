@@ -1,3 +1,4 @@
+import React from "react";
 import type {ReactNode} from "react";
 
 interface PropertiesType {
@@ -5,8 +6,6 @@ interface PropertiesType {
   hasValidated: boolean;
   children: ReactNode | null;
 }
-
-const styling = {};
 
 export default function FieldFeedback (properties: Readonly<PropertiesType>): JSX.Element | null {
   const {hasValidated} = properties;
@@ -27,7 +26,7 @@ export default function FieldFeedback (properties: Readonly<PropertiesType>): JS
 
   const type = isValid ? "valid" : "invalid";
 
-  return <p data-state={type} css={styling}>
+  return <section className={`${type}-feedback`} data-state={type}>
     {children}
-  </p>;
+  </section>;
 }

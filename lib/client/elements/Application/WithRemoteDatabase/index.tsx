@@ -1,9 +1,10 @@
+import React from "react";
 import {useRecoilState} from "recoil";
 import {useEffect} from "react";
 // import {hidden} from "visibilityjs";
 
 import PouchDB from "pouchdb";
-import {remoteDatabase as remoteDatabaseAtom} from "@clumsy_chinchilla/atoms";
+import {remoteDatabase as remoteDatabaseAtom} from "@client/atoms";
 
 
 const {env} = process;

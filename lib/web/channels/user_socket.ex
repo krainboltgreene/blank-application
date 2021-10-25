@@ -41,12 +41,13 @@ defmodule Web.UserSocket do
   #     Web.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  @spec id(%{optional(any) => any, assigns: %{optional(any) => any, account_id: binary}}) ::
+  @spec id(%{optional(any) => any, assigns: %{optional(any) => any, current_account: %{id: String.t}}}) ::
           binary
   @impl true
-  def id(socket), do: "user_socket:#{socket.assigns.account_id}"
+  def id(socket), do: "user_socket:#{socket.assigns.absinthe.opts[:context].current_account.id}"
 
-  defp account_from_session(%{"session_id" => id}) do
-    Database.Repository.get(Database.Models.Account, id)
+  defp account_from_session(_params) do # %{"session_id" => id}
+    # Database.Repository.get(Database.Models.Account, id)
+    %Database.Models.Account{id: 1}
   end
 end

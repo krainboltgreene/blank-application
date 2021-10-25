@@ -59,6 +59,18 @@ config :clumsy_chinchilla, Oban,
     media: 20,
     events: 50,
   ]
+config :clumsy_chinchilla, :browser_metadata, %{
+  domain: "www.clumsy-chinchilla.club",
+  application_name: "Clumsy Chinchilla",
+  base_url: "https://www.clumsy-chinchilla.club",
+  theme_color: "#ffffff",
+  description: "A website",
+  google_site_verification: "",
+  short_description: "A website",
+  title: "Clumsy Chinchilla",
+  google_tag_manager_id: "",
+  support_email_address: "support@clumsy-chinchilla.club"
+}
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

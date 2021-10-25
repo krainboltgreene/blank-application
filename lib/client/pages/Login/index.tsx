@@ -1,10 +1,11 @@
+import React from "react";
 import {useRecoilState} from "recoil";
 import {useRecoilValue} from "recoil";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {warningMessages as warningMessagesAtom} from "@clumsy_chinchilla/atoms";
-import {Page} from "@clumsy_chinchilla/elements";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {warningMessages as warningMessagesAtom} from "@client/atoms";
+import {Page} from "@client/elements";
 import LoginForm from "./LoginForm";
 
 
