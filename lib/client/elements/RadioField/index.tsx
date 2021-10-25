@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from "react";
 import type {ReactNode} from "react";
 import type {LabelHTMLAttributes} from "react";
 import type {InputHTMLAttributes} from "react";
@@ -35,7 +36,7 @@ export default function RadioField (properties: Readonly<PropertiesType>): JSX.E
   const labelId = `${inputId}-label`;
   const helpId = `${inputId}-help`;
 
-  return <section>
+  return <section className="col-md-6">
     <input id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} type="radio" {...inputAttributes} />
     <label id={labelId} htmlFor={inputId} {...labelAttributes}>{label}</label>;
     <FieldHelp id={inputId}>{help}</FieldHelp>

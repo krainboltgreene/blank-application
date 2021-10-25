@@ -3,9 +3,10 @@
     "node_modules"
   ],
   "include": [
-    "d.ts",
-    "lib/client/",
-    "node_modules/bdd-lazy-var/index.d.ts"
+    ".d.ts",
+    "lib/client/types",
+    "lib/client/**/index.tsx",
+    ".d.ts_modules/bdd-lazy-var/index.d.ts"
   ],
   "compilerOptions": {
     "noEmit": true,
@@ -14,7 +15,7 @@
     "esModuleInterop": true,
     "baseUrl": ".", // This must be specified if "paths" is.
     "paths": {
-      "@clumsy_chinchilla/*": ["lib/client/*"] // This mapping is relative to "baseUrl"
+      "@client/*": ["lib/client/*"] // This mapping is relative to "baseUrl"
     }
   }
 }

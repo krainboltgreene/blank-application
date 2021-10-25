@@ -1,9 +1,9 @@
 module.exports = {
   client: {
-    includes: ["./lib/client/**/*.gql"],
+    includes: ["./lib/client/**/*.graphql"],
     service: {
       name: "server",
-      localSchemaFile: "./schema.graphql"
+      localSchemaFile: "./schema.json"
     }
   },
 };

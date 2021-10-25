@@ -1,0 +1,76 @@
+{
+	"version": "2.0.0",
+  "options": {
+    "shell": {
+      "executable": "/usr/bin/zsh",
+      "args": ["-i", "-c"]
+    }
+  },
+	"tasks": [
+    {
+      "label": "Run all",
+      "dependsOn": [
+        "Run Phoenix Server",
+        "Lint javascript files",
+        "Typecheck javascript files",
+        "Build CSS files",
+        "Build javascript files",
+        "Build graphql type files"
+      ]
+    },
+    {
+      "label": "Run Phoenix Server",
+      "type": "shell",
+      "command": "bin/phoenix-start",
+      "group": "build",
+      "presentation": {
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Lint javascript files",
+      "type": "shell",
+      "command": "bin/eslint-start",
+      "group": "test",
+      "presentation": {
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Typecheck javascript files",
+      "type": "shell",
+      "command": "bin/typescript-start",
+      "group": "test",
+      "presentation": {
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Build CSS files",
+      "type": "shell",
+      "command": "bin/postcss-start",
+      "group": "build",
+      "presentation": {
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Build javascript files",
+      "type": "shell",
+      "command": "bin/esbuild-start",
+      "group": "build",
+      "presentation": {
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Build graphql type files",
+      "type": "shell",
+      "command": "bin/graphql-codegen-start",
+      "group": "build",
+      "presentation": {
+        "panel": "dedicated"
+      }
+    }
+	]
+}

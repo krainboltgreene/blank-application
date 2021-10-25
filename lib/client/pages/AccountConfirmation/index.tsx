@@ -1,6 +1,7 @@
+import React from "react";
 import {useLocation} from "react-router-dom";
 
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@client/elements";
 import AccountConfirmationForm from "./AccountConfirmationForm";
 
 export default function AccountConfirmation (): JSX.Element {

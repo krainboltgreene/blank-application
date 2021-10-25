@@ -1,18 +1,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from "react";
 import type {ReactNode} from "react";
 import type {LabelHTMLAttributes} from "react";
 import type {SelectHTMLAttributes} from "react";
-import {mapValues} from "@unction/complete";
+import {map} from "ramda";
 import FieldHelp from "../FieldHelp";
 import FieldFeedback from "../FieldFeedback";
 
-interface PropertiesType<V> {
+interface PropertiesType {
   scope: string;
   label: string;
   type: string;
   property: string;
-  options: Readonly<Record<string, V>>;
-  value: V;
+  options: Readonly<Array<{key: string; option: string}>>;
+  value: string;
   help?: string;
   isValid: boolean | null;
   hasValidated: boolean;
@@ -21,7 +22,7 @@ interface PropertiesType<V> {
   inputAttributes: Readonly<SelectHTMLAttributes<HTMLSelectElement>>;
 }
 
-export default function SelectField<V> (properties: Readonly<PropertiesType<V>>): JSX.Element {
+export default function SelectField (properties: Readonly<PropertiesType>): JSX.Element {
   const {scope} = properties;
   const {label} = properties;
   const {property} = properties;
@@ -39,11 +40,11 @@ export default function SelectField<V> (properties: Readonly<PropertiesType<V>>)
   const helpId = `${inputId}-help`;
 
   // TODO: Handle select change
-  return <section>
+  return <section className="col-md-6">
     <select id={inputId} name={name} aria-labelledby={labelId} aria-describedby={helpId} {...inputAttributes}>
       {
-        mapValues(
-          ({key, option}: Readonly<{key: string; option: string | number | ReadonlyArray<string>}>) => <option value={option} selected={value === key}>{key}</option>
+        map(
+          ({key, option}: Readonly<{key: string; option: string}>) => <option value={option} selected={value === key}>{key}</option>
         )(options)
       }
     </select>

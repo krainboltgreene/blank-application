@@ -1,0 +1,30 @@
+overwrite: true
+schema: "schema.graphql"
+documents: "lib/client/**/*.graphql"
+config:
+  dedupeOperationSuffix: true
+generates:
+  .d.ts:
+    - "typescript-graphql-files-modules"
+  lib/client/types/index.d.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-resolvers"
+  # lib/client/types/typed-document-nodes.ts:
+  #   plugins:
+  #     - "typed-document-node"
+  # lib/client/types/typescript-document-nodes.ts:
+  #   plugins:
+  #     - "typescript-document-nodes"
+  # lib/client/hocs/react-apollo.ts:
+  #   plugins:
+  #     - "typescript-react-apollo"
+  # lib/client/helpers/react-apollo.ts:
+  #   plugins:
+  #     - "typescript-apollo-client-helpers"
+
+
+  # ./graphql.schema.json:
+  #   plugins:
+  #     - "introspection"
