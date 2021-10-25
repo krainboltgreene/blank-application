@@ -1,9 +1,10 @@
+import React from "react";
 import {useRecoilState} from "recoil";
 import {useEffect} from "react";
 // import {hidden} from "visibilityjs";
 
 import PouchDB from "pouchdb";
-import {localDatabase as localDatabaseAtom} from "@find_reel_love/atoms";
+import {localDatabase as localDatabaseAtom} from "@client/atoms";
 // updateSearchMetadata (currentState, payload) {
 //   return mergeDeepRight(currentState)({search: payload});
 // },

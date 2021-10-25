@@ -1,12 +1,13 @@
+import React from "react";
 import {useLazyQuery} from "@apollo/client";
 import {useRecoilState} from "recoil";
 import {useSetRecoilState} from "recoil";
 import {useEffect} from "react";
 
-import {currentSessionId as currentSessionIdAtom} from "@find_reel_love/atoms";
-import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@find_reel_love/atoms";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {loadingCurrentSessionId as loadingCurrentSessionIdAtom} from "@client/atoms";
 
-import fetchSessionQuery from "./fetchSessionQuery.gql";
+import fetchSessionQuery from "./fetchSessionQuery.graphql";
 
 interface SessionQueryType {
   session: {

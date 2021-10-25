@@ -1,8 +1,9 @@
+import React from "react";
 import {useCookie} from "react-use";
 import {useRecoilState} from "recoil";
 import {useEffect} from "react";
 
-import {cookie as cookieAtom} from "@find_reel_love/atoms";
+import {cookie as cookieAtom} from "@client/atoms";
 
 const COOKIES_KEY = "_find_reel_love_key";
 

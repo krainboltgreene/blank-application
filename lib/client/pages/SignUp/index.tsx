@@ -1,10 +1,11 @@
+import React from "react";
 import {useRecoilState} from "recoil";
 import {useRecoilValue} from "recoil";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@find_reel_love/atoms";
-import {warningMessages as warningMessagesAtom} from "@find_reel_love/atoms";
-import {Page} from "@find_reel_love/elements";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {warningMessages as warningMessagesAtom} from "@client/atoms";
+import {Page} from "@client/elements";
 import SignUpForm from "./SignUpForm";
 
 
@@ -19,6 +20,7 @@ export default function SignUp (): JSX.Element {
   }
 
   return <Page as="SignUp" subtitle="Sign Up">
+    <h1>Sign Up</h1>
     <SignUpForm />
   </Page>;
 }

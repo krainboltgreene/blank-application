@@ -1,4 +1,5 @@
-import {Page} from "@find_reel_love/elements";
+import React from "react";
+import {Page} from "@client/elements";
 
 export default function ThisIsUs (): JSX.Element {
   return <Page as="ThisIsUs" kind="article" subtitle="This Is Us">

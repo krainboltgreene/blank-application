@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-mix do absinthe.schema.json --schema Graphql.Schema, absinthe.schema.sdl --schema Graphql.Schema

@@ -1,4 +1,5 @@
-import {Page} from "@find_reel_love/elements";
+import React from "react";
+import {Page} from "@client/elements";
 import LogoutForm from "./LogoutForm";
 
 export default function Logout (): JSX.Element {

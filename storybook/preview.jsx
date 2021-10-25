@@ -1,3 +1,4 @@
+import React from "react";
 import {addDecorator} from "@storybook/react";
 import {BrowserRouter} from "react-router-dom";
 import {HelmetProvider} from "react-helmet-async";
@@ -11,7 +12,7 @@ addDecorator(withA11y);
 addDecorator((story) => <BrowserRouter>
   <HelmetProvider>
     <ApolloProvider client={sdk}>
-      <section css={{padding: "25px"}}>{story()}</section>
+      <section>{story()}</section>
     </ApolloProvider>
   </HelmetProvider>
 </BrowserRouter>);

@@ -1,13 +1,14 @@
+import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
 import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@find_reel_love/atoms";
-import {Field} from "@find_reel_love/elements";
-import confirmAccountMutation from "./confirmAccountMutation.gql";
-import type {ConfirmAccountMutation} from "./ConfirmAccountMutation.d";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {Field} from "@client/elements";
+import confirmAccountMutation from "./confirmAccountMutation.graphql";
+import type {ConfirmAccountMutation} from "@client/types";
 
 interface PropertiesType {
   confirmationSecret: string;
@@ -51,7 +52,7 @@ export default function AccountConfirmationForm (properties: Readonly<Properties
       }}
     />
     <section>
-      <button disabled={confirmAccountLoading} type="submit">Confirm Account</button>
+      <button disabled={confirmAccountLoading} type="submit" className="btn btn-primary">Confirm Account</button>
     </section>
   </form>;
 }

@@ -1,18 +1,20 @@
+import React from "react";
 import {Route, Switch} from "react-router";
-import {AccountConfirmation} from "@find_reel_love/pages";
-import {CodeOfConduct} from "@find_reel_love/pages";
-import {DataPolicy} from "@find_reel_love/pages";
-import {LandingPage} from "@find_reel_love/pages";
-import {Login} from "@find_reel_love/pages";
-import {Logout} from "@find_reel_love/pages";
-import {OurTechnology} from "@find_reel_love/pages";
-import {PageNotFound} from "@find_reel_love/pages";
-import {PrivacyPolicy} from "@find_reel_love/pages";
-import {SignUp} from "@find_reel_love/pages";
-import {TermsOfService} from "@find_reel_love/pages";
-import {ThisIsUs} from "@find_reel_love/pages";
-import {YourProfile} from "@find_reel_love/pages";
-import {YourSettings} from "@find_reel_love/pages";
+import {AccountConfirmation} from "@client/pages";
+import {CodeOfConduct} from "@client/pages";
+import {DataPolicy} from "@client/pages";
+import {LandingPage} from "@client/pages";
+import {Login} from "@client/pages";
+import {Logout} from "@client/pages";
+import {OurTechnology} from "@client/pages";
+import {PageNotFound} from "@client/pages";
+import {PrivacyPolicy} from "@client/pages";
+import {SignUp} from "@client/pages";
+import {TermsOfService} from "@client/pages";
+import {ThisIsUs} from "@client/pages";
+import {MyProfile} from "@client/pages";
+import {MyAccount} from "@client/pages";
+import {MySettings} from "@client/pages";
 
 export default function Router (): JSX.Element {
   return <Switch>
@@ -23,9 +25,9 @@ export default function Router (): JSX.Element {
     <Route path="/logout" component={Logout} />
     <Route path="/our-technology" component={OurTechnology} />
     <Route path="/privacy-policy" component={PrivacyPolicy} />
-    {/* <Route path="/my/account" component={YourAccount} /> */}
-    <Route path="/my/profile" component={YourProfile} />
-    <Route path="/my/settings" component={YourSettings} />
+    <Route path="/my/account" component={MyAccount} />
+    <Route path="/my/profile" component={MyProfile} />
+    <Route path="/my/settings" component={MySettings} />
     <Route path="/sign-up" component={SignUp} />
     <Route path="/terms-of-service" component={TermsOfService} />
     <Route path="/this-is-us" component={ThisIsUs} />

@@ -1,4 +1,5 @@
-import {Page} from "@find_reel_love/elements";
+import React from "react";
+import {Page} from "@client/elements";
 
 export default function OurTechnology (): JSX.Element {
   return <Page as="OurTechnology" kind="article" subtitle="Our Technology">

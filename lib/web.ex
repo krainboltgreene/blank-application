@@ -30,7 +30,7 @@ defmodule Web do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/find_reel_love_web/templates",
+        root: "lib/web/templates",
         namespace: Web
 
       # Import convenience functions from controllers

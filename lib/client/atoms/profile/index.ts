@@ -2,7 +2,7 @@ import {atom} from "recoil";
 
 interface ProfileType {
   id: string;
-  publicName: string | null;
+  publicName?: string | null;
 }
 
 export default atom<ProfileType | null>({

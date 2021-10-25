@@ -1,4 +1,5 @@
-import {Page} from "@find_reel_love/elements";
+import React from "react";
+import {Page} from "@client/elements";
 
 export default function CodeOfConduct (): JSX.Element {
   return <Page as="CodeOfConduct" kind="article" subtitle="Code Of Conduct">

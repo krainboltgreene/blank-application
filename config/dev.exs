@@ -1,5 +1,13 @@
 use Mix.Config
 
+if System.get_env("CODESPACES") do
+  domain = "#{System.get_env("CODESPACE_NAME")}.githubpreview.dev"
+  protocal_and_domain = "https://#{domain}"
+else
+  domain = "localhost:4000"
+  protocol_and_domain = "http://#{domain}"
+end
+
 # Configure your database
 config :find_reel_love, Database.Repository,
   username: "postgres",
@@ -17,7 +25,6 @@ if System.get_env("GITHUB_ACTIONS") do
     password: "postgres"
 end
 
-
 config :logger,
   backends: [:console]
 
@@ -31,7 +38,23 @@ config :find_reel_love, Web.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false
+  check_origin: false,
+  live_reload: [
+    patterns: [
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
+      ~r"lib/web/(live|views)/.*(ex)$",
+      ~r"lib/web/templates/.*(eex)$"
+    ]
+  ]
+config :phoenix_live_reload,
+  dirs: [
+    "priv/static/",
+    "priv/gettext/",
+    "lib/web/live/",
+    "lib/web/views/",
+    "lib/web/templates/"
+  ]
 
 # ## SSL Support
 #
@@ -57,16 +80,6 @@ config :find_reel_love, Web.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
-# Watch static and templates for browser reloading.
-config :find_reel_love, Web.Endpoint,
-  live_reload: [
-    patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"lib/find_reel_love_web/(live|views)/.*(ex)$",
-      ~r"lib/find_reel_love_web/templates/.*(eex)$"
-    ]
-  ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
@@ -78,23 +91,29 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :find_reel_love, :graphql, uri: "http://localhost:4000/graphql"
+config :find_reel_love, :graphql, uri: "#{protocol_and_domain}/graphql"
 
 config :find_reel_love, :flow, max_demand: 8
 
 # Setup Bamboo mailer
 config :find_reel_love, Mailer,
-  adapter: Bamboo.LocalAdapter
+  adapter: Bamboo.LocalAdapter,
+  open_email_in_browser_url: "#{protocol_and_domain}/sent_emails"
 
-unless System.get_env("GITHUB_ACTIONS") || System.get_env("CODESPACES") do
+if System.get_env("GITHUB_ACTIONS") do
   config :find_reel_love, Mailer,
-    open_email_in_browser_url: "http://localhost:4000/sent_emails"
+    open_email_in_browser_url: false
 end
 
-config :find_reel_love, :remotes, %{
-  browser_remote: %URI{
-    scheme: "http",
-    host: "localhost",
-    port: 8080
-  }
+config :clumsy_chinchilla, :browser_metadata, %{
+  domain: domain,
+  application_name: "Find Reel Love",
+  base_url: "/",
+  theme_color: "#ffffff",
+  description: "A website",
+  google_site_verification: "",
+  short_description: "A website",
+  title: "Find Reel Love",
+  google_tag_manager_id: "",
+  support_email_address: "support@find-reel.love"
 }

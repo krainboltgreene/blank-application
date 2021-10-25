@@ -23,15 +23,15 @@ defmodule Web.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :find_reel_love,
-    gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    from: :clumsy_chinchilla,
+    brotli: true,
+    gzip: true
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.LiveReloader
+    plug Reloader
     plug Phoenix.CodeReloader
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :find_reel_love
   end
