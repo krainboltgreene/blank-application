@@ -1,23 +1,40 @@
+import React from "react";
 import {useState} from "react";
 import {useEffect} from "react";
 import {useSetRecoilState} from "recoil";
 import {useMutation} from "@apollo/client";
 import {useHistory} from "react-router-dom";
 
-import {currentSessionId as currentSessionIdAtom} from "@clumsy_chinchilla/atoms";
-import {Field} from "@clumsy_chinchilla/elements";
-import createAccountMutation from "./createAccountMutation.gql";
-import type {CreateAccountMutation} from "./CreateAccountMutation.d";
+import {currentSessionId as currentSessionIdAtom} from "@client/atoms";
+import {Field} from "@client/elements";
+import createAccountMutation from "./createAccountMutation.graphql";
+import type {CreateAccountMutation} from "@client/types";
 
 export default function SignUpForm (): JSX.Element {
   const history = useHistory();
   const setCurrentAccount = useSetRecoilState(currentSessionIdAtom);
   const [createAccount, {loading: createAccountLoading, error: createAccountError, data: createAccountData}] = useMutation<CreateAccountMutation>(createAccountMutation);
   const [emailAddress, setEmailAddress] = useState("");
+  const [hasValidated, setHasValidated] = useState(false);
+  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const [feedback, setFeedback] = useState<string | null>(null);
 
-  if (createAccountError) {
-    throw createAccountError;
-  }
+
+  useEffect(() => {
+    if (createAccountError) {
+      setIsValid(false);
+      setHasValidated(true);
+      switch (createAccountError.message) {
+        case "email_address has already been taken":
+          setHasValidated(true);
+          setFeedback(createAccountError.message);
+          break;
+        default: {
+          throw createAccountError;
+        }
+      }
+    }
+  }, [createAccountError, setFeedback, setHasValidated, setIsValid]);
 
   useEffect(() => {
     if (createAccountData) {
@@ -26,7 +43,7 @@ export default function SignUpForm (): JSX.Element {
     }
   }, [createAccountData, setCurrentAccount, history]);
 
-  return <form id="signUpForm" onSubmit={async (event): Promise<void> => {
+  return <form id="signUpForm" className="row g-3" onSubmit={async (event): Promise<void> => {
     event.preventDefault();
     await createAccount({variables: {input: {emailAddress}}});
   }}>
@@ -35,7 +52,9 @@ export default function SignUpForm (): JSX.Element {
       type="email"
       property="emailAddress"
       label="Email Address"
-      hasValidated={false}
+      hasValidated={hasValidated}
+      isValid={isValid}
+      feedback={feedback}
       inputAttributes={{
         readOnly: createAccountLoading,
         onChange: (event): void => {
@@ -46,7 +65,7 @@ export default function SignUpForm (): JSX.Element {
       }}
     />
     <section>
-      <button disabled={createAccountLoading} type="submit">Sign Up</button>
+      <button disabled={createAccountLoading} type="submit" className="btn btn-primary">Sign Up</button>
     </section>
   </form>;
 }

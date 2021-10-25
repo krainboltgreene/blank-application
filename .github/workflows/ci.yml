@@ -84,7 +84,7 @@ jobs:
       with:
         path: tmp/browser-client
         key: ${{ runner.os }}-javascript-build
-    - run: bin/webpack-build
+    - run: bin/esbuild-build
   elixir-build:
     name: Elixir Build
     needs: ["elixir-setup"]
@@ -201,5 +201,5 @@ jobs:
           schema.graphql
           schema.json
         key: ${{ runner.os }}-graphql
-    - run: npx eslint --quiet --ext .tsx,.ts,.gql lib/client/
+    - run: npx eslint --quiet --ext .tsx,.ts,.graphql lib/client/
     - run: npx tsc | true

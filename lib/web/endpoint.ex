@@ -24,14 +24,14 @@ defmodule Web.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :clumsy_chinchilla,
-    gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    brotli: true,
+    gzip: true
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.LiveReloader
+    plug Reloader
     plug Phoenix.CodeReloader
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :clumsy_chinchilla
   end

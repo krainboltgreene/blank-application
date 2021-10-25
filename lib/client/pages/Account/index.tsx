@@ -1,9 +1,14 @@
 import React from "react";
 
-import {Page} from "@clumsy_chinchilla/elements";
+import {Page} from "@client/elements";
 import AccountForm from "./AccountForm";
 
-export default function Account (): JSX.Element {
+interface PropertiesType {
+  username: string;
+}
+export default function Account (properties: Readonly<PropertiesType>): JSX.Element {
+  const {username} = properties;
+
   return <Page as="Account" subtitle="Settings">
     <h1>
       {username}
