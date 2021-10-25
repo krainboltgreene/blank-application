@@ -1,5 +1,13 @@
 use Mix.Config
 
+if System.get_env("CODESPACES") do
+  domain = "#{System.get_env("CODESPACE_NAME")}.githubpreview.dev"
+  protocal_and_domain = "https://#{domain}"
+else
+  domain = "localhost:4000"
+  protocol_and_domain = "http://#{domain}"
+end
+
 # Configure your database
 config :clumsy_chinchilla, Database.Repository,
   username: "postgres",
@@ -16,7 +24,6 @@ if System.get_env("GITHUB_ACTIONS") do
     username: "postgres",
     password: "postgres"
 end
-
 
 config :logger,
   backends: [:console]
@@ -73,6 +80,7 @@ config :phoenix_live_reload,
 # configured to run both http and https servers on
 # different ports.
 
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
@@ -83,21 +91,22 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :clumsy_chinchilla, :graphql, uri: "https://#{System.get_env("CODESPACE_NAME")}.githubpreview.dev/graphql"
+config :clumsy_chinchilla, :graphql, uri: "#{protocol_and_domain}/graphql"
 
 config :clumsy_chinchilla, :flow, max_demand: 8
 
 # Setup Bamboo mailer
 config :clumsy_chinchilla, Mailer,
-  adapter: Bamboo.LocalAdapter
+  adapter: Bamboo.LocalAdapter,
+  open_email_in_browser_url: "#{protocol_and_domain}/sent_emails"
 
-unless System.get_env("GITHUB_ACTIONS") || System.get_env("CODESPACES") do
+if System.get_env("GITHUB_ACTIONS") do
   config :clumsy_chinchilla, Mailer,
-    open_email_in_browser_url: "https://#{System.get_env("CODESPACE_NAME")}.githubpreview.dev/sent_emails"
+    open_email_in_browser_url: false
 end
 
 config :clumsy_chinchilla, :browser_metadata, %{
-  domain: "#{System.get_env("CODESPACE_NAME")}.githubpreview.dev",
+  domain: domain,
   application_name: "Clumsy Chinchilla",
   base_url: "/",
   theme_color: "#ffffff",
