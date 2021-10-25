@@ -4,7 +4,7 @@ import CallToAction from "./CallToAction";
 
 export default function LandingPage (): JSX.Element {
   return <Page as="LandingPage" navbar={false}>
-    <h1>Clumsy Chinchilla</h1>
+    <h1>Find Reel Love</h1>
     <p>
       Cupidatat aliquip exercitation sunt mollit amet laborum tempor. Duis
       elit deserunt cupidatat magna dolor ea sint sunt magna nostrud

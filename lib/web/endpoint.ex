@@ -23,7 +23,7 @@ defmodule Web.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :clumsy_chinchilla,
+    from: :find_reel_love,
     brotli: true,
     gzip: true
 

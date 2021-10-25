@@ -105,15 +105,15 @@ if System.get_env("GITHUB_ACTIONS") do
     open_email_in_browser_url: false
 end
 
-config :clumsy_chinchilla, :browser_metadata, %{
+config :find_reel_love, :browser_metadata, %{
   domain: domain,
   application_name: "Find Reel Love",
-  base_url: "/",
+  base_url: "/"
   theme_color: "#ffffff",
   description: "A website",
   google_site_verification: "",
   short_description: "A website",
   title: "Find Reel Love",
   google_tag_manager_id: "",
-  support_email_address: "support@find-reel.love"
+  support_email_address: "support@findreel.love"
 }

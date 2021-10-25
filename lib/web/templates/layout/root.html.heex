@@ -16,21 +16,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <%# Set the document's title %>
-    <%= live_title_tag(assigns[:page_title] || Application.get_env(:clumsy_chinchilla, :browser_metadata).title) %>
+    <%= live_title_tag(assigns[:page_title] || Application.get_env(:find_reel_love, :browser_metadata).title) %>
 
     <%= csrf_meta_tag() %>
 
     <%# Set the base URL for all relative URLs within the document %>
-    <base href={Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url}>
+    <base href={Application.get_env(:find_reel_love, :browser_metadata).base_url}>
 
     <%# Name of web application (only should be used if the website is used as an app) %>
-    <meta name="application-name" content={Application.get_env(:clumsy_chinchilla, :browser_metadata).application_name}>
+    <meta name="application-name" content={Application.get_env(:find_reel_love, :browser_metadata).application_name}>
 
     <%# Theme Color for Chrome, Firefox OS and Opera %>
-    <meta name="theme-color" content={Application.get_env(:clumsy_chinchilla, :browser_metadata).theme_color}>
+    <meta name="theme-color" content={Application.get_env(:find_reel_love, :browser_metadata).theme_color}>
 
     <%# Short description of the document (limit to 150 characters). This content *may* be used as a part of search engine results. %>
-    <meta name="description" content={Application.get_env(:clumsy_chinchilla, :browser_metadata).description}>
+    <meta name="description" content={Application.get_env(:find_reel_love, :browser_metadata).description}>
 
     <%# Generic Search Engines %>
     <%# DYNAMIC <meta name="robots" content="index,follow"> %>
@@ -44,7 +44,7 @@
     <meta name="google" content="translate">
 
     <%# Google Search Console %>
-    <meta name="google-site-verification" content={Application.get_env(:clumsy_chinchilla, :browser_metadata).google_site_verification}>
+    <meta name="google-site-verification" content={Application.get_env(:find_reel_love, :browser_metadata).google_site_verification}>
 
     <%# Allows control over how referrer information is passed %>
     <meta name="referrer" content="no-referrer">
@@ -65,10 +65,10 @@
     <link rel="license" href={Routes.static_path(@conn, "/copyright.html")}>
 
     <%# Prefetching, preloading, prebrowsing (More info: https://css-tricks.com/prefetching-preloading-prebrowsing/) %>
-    <link rel="dns-prefetch" href={"//#{Application.get_env(:clumsy_chinchilla, :browser_metadata).domain}/"}"">
-    <link rel="preconnect" href={Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url}>
-    <link rel="prefetch" href={Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url}>
-    <link rel="prerender" href={Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url}>
+    <link rel="dns-prefetch" href={"//#{Application.get_env(:find_reel_love, :browser_metadata).domain}/"}"">
+    <link rel="preconnect" href={Application.get_env(:find_reel_love, :browser_metadata).base_url}>
+    <link rel="prefetch" href={Application.get_env(:find_reel_love, :browser_metadata).base_url}>
+    <link rel="prerender" href={Application.get_env(:find_reel_love, :browser_metadata).base_url}>
 
     <%# For IE 10 and below: Place favicon.ico in the root directory - no tag necessary %>
     <%# Icon in the highest resolution we need it for %>
@@ -81,7 +81,7 @@
     <%# TODO: <link rel="mask-icon" href="/mask-icon.svg" color="blue"> %>
 
     <%# Launch Icon Title %>
-    <meta name="apple-mobile-web-app-title" content={Application.get_env(:clumsy_chinchilla, :browser_metadata).title}>
+    <meta name="apple-mobile-web-app-title" content={Application.get_env(:find_reel_love, :browser_metadata).title}>
 
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -90,14 +90,14 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/js/application.js")}></script>
     <script async src="https://kit.fontawesome.com/2fbfa382cc.js" crossorigin="anonymous"></script>
     <script async>
-      (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', '<%= Application.get_env(:clumsy_chinchilla, :browser_metadata).google_tag_manager_id %>');
+      (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', '<%= Application.get_env(:find_reel_love, :browser_metadata).google_tag_manager_id %>');
     </script>
   </head>
 
   <body id="application">
     <%= @inner_content %>
     <noscript>
-      <iframe title="google tag manager" src={"https://www.googletagmanager.com/ns.html?id=#{Application.get_env(:clumsy_chinchilla, :browser_metadata).google_tag_manager_id}"} height="0" width="0" style="display: none; visibility: none;"></iframe>
+      <iframe title="google tag manager" src={"https://www.googletagmanager.com/ns.html?id=#{Application.get_env(:find_reel_love, :browser_metadata).google_tag_manager_id}"} height="0" width="0" style="display: none; visibility: none;"></iframe>
     </noscript>
 
     <noscript>
@@ -121,7 +121,7 @@
       <p>
         I&apos;m a big fan of the open web and accessability and I try very hard to
         make this a home for <strong>anyone</strong> interested. You are not
-        invisible to this team. <a href={"mailto:#{Application.get_env(:clumsy_chinchilla, :browser_metadata).support_email_address}"}>Let me know you want
+        invisible to this team. <a href={"mailto:#{Application.get_env(:find_reel_love, :browser_metadata).support_email_address}"}>Let me know you want
         a non-javascript version of this site</a>. I would love to hear from you on this issue and our inbox is open to
         anyone wanting to talk about it.
       </p>

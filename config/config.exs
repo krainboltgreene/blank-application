@@ -8,6 +8,9 @@
 use Mix.Config
 import IO
 
+domain = "www.findreel.love"
+protocal_and_domain = "https://#{domain}"
+
 config :find_reel_love,
   ecto_repos: [Database.Repository],
   generators: [binary_id: true]
@@ -55,17 +58,18 @@ config :find_reel_love, Oban,
     media: 20,
     events: 50,
   ]
-config :clumsy_chinchilla, :browser_metadata, %{
-  domain: "www.clumsy-chinchilla.club",
-  application_name: "Clumsy Chinchilla",
-  base_url: "https://www.clumsy-chinchilla.club",
+
+config :find_reel_love, :browser_metadata, %{
+  domain: domain,
+  application_name: "Find Reel Love",
+  base_url: "https://www.findreel.love",
   theme_color: "#ffffff",
   description: "A website",
   google_site_verification: "",
   short_description: "A website",
-  title: "Clumsy Chinchilla",
+  title: "Find Reel Love",
   google_tag_manager_id: "",
-  support_email_address: "support@clumsy-chinchilla.club"
+  support_email_address: "support@findreel.love"
 }
 
 # Import environment specific config. This must remain at the bottom
