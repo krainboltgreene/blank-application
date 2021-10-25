@@ -1,5 +1,8 @@
 use Mix.Config
 
+Application.put_env(:clumsy_chinchilla, :domain, "www.clumsy-chinchilla.club")
+Application.put_env(:clumsy_chinchilla, :base_url, "https://www.clumsy-chinchilla.club")
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -10,7 +13,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :clumsy_chinchilla, Web.Endpoint,
-  url: [host: "www.clumsy-chinchilla.club", port: 80],
+  url: [host: Application.get_env(:clumsy_chinchilla, :domain), port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -23,7 +26,7 @@ config :logger, level: :info
 #
 #     config :clumsy_chinchilla, Web.Endpoint,
 #       ...
-#       url: [host: "www.clumsy-chinchilla.club", port: 443],
+#       url: [host: Application.get_env(:clumsy_chinchilla, :domain), port: 443],
 #       https: [
 #         port: 443,
 #         cipher_suite: :strong,
@@ -45,29 +48,22 @@ config :logger, level: :info
 # We also recommend setting `force_ssl` in your endpoint, ensuring
 # no data is ever sent via http, always redirecting to https:
 #
-#     config :clumsy_chinchilla, Web.Endpoint,
-#       force_ssl: [hsts: true]
+config :clumsy_chinchilla, Web.Endpoint,
+  force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
 config :clumsy_chinchilla, Database.Repository,
   database: "clumsy_chinchilla",
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
   prepare: :unnamed
-
-secret_key_base =
-  System.get_env("SECRET_KEY_BASE") ||
-    raise """
-    environment variable SECRET_KEY_BASE is missing.
-    You can generate one by calling: mix phx.gen.secret
-    """
 
 config :clumsy_chinchilla, Web.Endpoint,
   http: [
-    port: String.to_integer(System.get_env("PORT") || "4000"),
+    port: String.to_integer(System.get_env("PORT", "4000")),
     transport_options: [socket_opts: [:inet6]]
   ],
-  secret_key_base: secret_key_base
+  secret_key_base: Application.get_env(:clumsy_chinchilla, :secret_key_base)
 
 # ## Using releases (Elixir v1.9+)
 #
@@ -78,5 +74,3 @@ config :clumsy_chinchilla, Web.Endpoint,
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
-
-import_config("prod.secret.exs")

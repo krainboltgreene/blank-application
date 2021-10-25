@@ -67,7 +67,7 @@
     ]
   },
   "remoteUser": "codespace",
-  "forwardPorts": [4000, 4001, 5432, 8080],
+  "forwardPorts": [4000, 5432, 8080],
   "workspaceFolder": "/home/codespace/source",
   "extensions": [
     "krainboltgreene.all-builtin-commands",

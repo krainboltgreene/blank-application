@@ -33,7 +33,7 @@ export default function AccountForm (): JSX.Element {
     setAccount(updateAccountData.updateAccount);
   }, [updateAccountData, setAccount, fetchAccountData]);
   useEffect(() => {
-    if (typeof fetchAccountData === "undefined" || fetchAccountData === null) {
+    if (typeof fetchAccountData === "undefined") {
       return;
     }
     if (typeof fetchAccountData.session === "undefined" || fetchAccountData.session === null) {
