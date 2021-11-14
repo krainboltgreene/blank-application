@@ -92,7 +92,7 @@ defmodule Reloader do
 
   defp has_body?(resp_body), do: String.contains?(resp_body, "<body")
 
-  defp inject_reload_sript(conn, endpoint, config) do
+  defp inject_reload_sript(_, _, _) do
     IO.iodata_to_binary(["""
     <script type="application/javascript">#{read_external_javascript(:phoenix, "priv/static/phoenix.js")}</script>
     <script type="application/javascript">
