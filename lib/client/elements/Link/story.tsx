@@ -1,18 +1,22 @@
-/* eslint-disable func-style */
-import React from "react";
+import React, { ComponentProps } from 'react';
+import { Story, Meta } from '@storybook/react';
 import {BrowserRouter} from "react-router-dom";
-import {text} from "@storybook/addon-knobs";
 import Link from ".";
 
-export default {title: "elements/Link"};
-export function withRelativeHref (): JSX.Element {
-  return <BrowserRouter>
-    <Link href={text("href", "/help")}>{text("content", "A Simple Life")}</Link>
-  </BrowserRouter>;
-}
+export default {
+  title: 'elements/Link',
+  component: Link,
+} as Meta;
 
-export function withAbsoluteHref (): JSX.Element {
-  return <BrowserRouter>
-    <Link href={text("href", "https://www.findreel.love")}>{text("content", "A Simple Life")}</Link>
-  </BrowserRouter>;
-}
+const Template: Story<ComponentProps<typeof Link>> = (args) => <BrowserRouter><Link {...args}>{args.children}</Link></BrowserRouter>;
+
+export const WithRemoteHref = Template.bind({});
+WithRemoteHref.args = {
+  href: "https://example.com",
+  children: "Example link"
+};
+export const WithInternalHref = Template.bind({});
+WithRemoteHref.args = {
+  href: "/login",
+  children: "Example link"
+};

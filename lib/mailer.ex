@@ -6,8 +6,8 @@ defmodule Mailer do
   use Bamboo.Phoenix, view: Mailer.EmailView
   import Bamboo.Email
 
-  @default_from_email_address "no-reply@findreel.love"
-  @default_replyto_email_address "no-reply@findreel.love"
+  @default_from_email_address Application.get_env(:find_reel_love, :reply_email_address)
+  @default_replyto_email_address Application.get_env(:find_reel_love, :reply_email_address)
 
   def new_application_email() do
     new_email()

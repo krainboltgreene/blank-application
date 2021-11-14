@@ -8,8 +8,11 @@
 use Mix.Config
 import IO
 
-domain = "www.findreel.love"
-protocal_and_domain = "https://#{domain}"
+Application.put_env(:find_reel_love, :secret_key_base, System.get_env("SECRET_KEY_BASE"))
+Application.put_env(:find_reel_love, :signing_salt, System.get_env("SIGNING_SALT"))
+Application.put_env(:find_reel_love, :application_name, "Find Reel Love")
+Application.put_env(:find_reel_love, :support_email_address, "support@findreel.love")
+Application.put_env(:find_reel_love, :reply_email_address, "no-reply@findreel.love")
 
 config :find_reel_love,
   ecto_repos: [Database.Repository],
@@ -17,11 +20,11 @@ config :find_reel_love,
 
 # Configures the endpoint
 config :find_reel_love, Web.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "QBzZwNT6wxgJZdiJ6aJVht82dDvzRFvXXLmK8RlHV888PqL/gzRQX36DlWjRjFWs",
+  url: [host: Application.get_env(:find_reel_love, :domain)],
+  secret_key_base: Application.get_env(:find_reel_love, :secret_key_base),
   render_errors: [view: Web.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Core.PubSub,
-  live_view: [signing_salt: "bbTmf3m/"]
+  live_view: [signing_salt: Application.get_env(:find_reel_love, :signing_salt)]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
@@ -33,12 +36,6 @@ config :logger, :console,
   format: "[$level] #{IO.ANSI.bright()}$message#{IO.ANSI.normal()} $metadata[$level]\n",
   metadata: :all,
   color: :enabled
-
-config :logger, :logs,
-  path: "tmp/application.log",
-  metadata: :all,
-  format:
-    "[$date][$time][$node][$level] #{IO.ANSI.bright()}$message#{IO.ANSI.normal()} $metadata\n"
 
 # Setup configuration for paper_trail
 config :paper_trail,
@@ -60,16 +57,16 @@ config :find_reel_love, Oban,
   ]
 
 config :find_reel_love, :browser_metadata, %{
-  domain: domain,
-  application_name: "Find Reel Love",
-  base_url: "https://www.findreel.love",
+  domain: Application.get_env(:find_reel_love, :domain),
+  application_name: Application.get_env(:find_reel_love, :application_name),
+  base_url: Application.get_env(:find_reel_love, :base_url),
   theme_color: "#ffffff",
   description: "A website",
   google_site_verification: "",
   short_description: "A website",
-  title: "Find Reel Love",
+  title: Application.get_env(:find_reel_love, :application_name),
   google_tag_manager_id: "",
-  support_email_address: "support@findreel.love"
+  support_email_address: Application.get_env(:find_reel_love, :support_email_address)
 }
 
 # Import environment specific config. This must remain at the bottom

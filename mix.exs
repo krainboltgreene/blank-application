@@ -65,7 +65,6 @@ defmodule Core.MixProject do
       {:ecto_enum, "~> 1.4.0"},
       {:ecto_psql_extras, "~> 0.7.0"},
       {:ecto_sql, "~> 3.7.0"},
-      {:encrypted_secrets, "~> 0.3.0"},
       {:envy, "~> 1.1.1"},
       {:exvcr, "~> 0.13.2", only: :test},
       {:flippant, "~> 2.0.0"},

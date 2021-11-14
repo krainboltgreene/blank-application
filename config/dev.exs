@@ -1,12 +1,7 @@
 use Mix.Config
 
-if System.get_env("CODESPACES") do
-  domain = "#{System.get_env("CODESPACE_NAME")}.githubpreview.dev"
-  protocal_and_domain = "https://#{domain}"
-else
-  domain = "localhost:4000"
-  protocol_and_domain = "http://#{domain}"
-end
+Application.put_env(:find_reel_love, :domain, "localhost")
+Application.put_env(:find_reel_love, :base_url, "/")
 
 # Configure your database
 config :find_reel_love, Database.Repository,
@@ -80,40 +75,26 @@ config :phoenix_live_reload,
 # configured to run both http and https servers on
 # different ports.
 
-
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
-config :phoenix, :stacktrace_depth, 20
+config :phoenix, :stacktrace_depth, 10
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :find_reel_love, :graphql, uri: "#{protocol_and_domain}/graphql"
+config :find_reel_love, :graphql, uri: "/graphql"
 
 config :find_reel_love, :flow, max_demand: 8
 
 # Setup Bamboo mailer
 config :find_reel_love, Mailer,
   adapter: Bamboo.LocalAdapter,
-  open_email_in_browser_url: "#{protocol_and_domain}/sent_emails"
+  open_email_in_browser_url: "/sent_emails"
 
 if System.get_env("GITHUB_ACTIONS") do
   config :find_reel_love, Mailer,
     open_email_in_browser_url: false
 end
-
-config :find_reel_love, :browser_metadata, %{
-  domain: domain,
-  application_name: "Find Reel Love",
-  base_url: "/"
-  theme_color: "#ffffff",
-  description: "A website",
-  google_site_verification: "",
-  short_description: "A website",
-  title: "Find Reel Love",
-  google_tag_manager_id: "",
-  support_email_address: "support@findreel.love"
-}
