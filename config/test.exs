@@ -1,5 +1,8 @@
 use Mix.Config
 
+Application.put_env(:clumsy_chinchilla, :domain, "localhost")
+Application.put_env(:clumsy_chinchilla, :base_url, "/")
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
