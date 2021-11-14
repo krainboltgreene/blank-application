@@ -5,7 +5,7 @@ import {useEffect} from "react";
 
 import {cookie as cookieAtom} from "@client/atoms";
 
-const COOKIES_KEY = "_clumsy_chinchilla_key";
+const COOKIES_KEY = "_weallmatch_key";
 
 interface PropertiesType<C> {
   children: C;

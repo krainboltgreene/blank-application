@@ -60,14 +60,14 @@
         "previewLimit": 50,
         "server": "localhost",
         "port": 5432,
-        "database": "clumsy_chinchilla_dev",
+        "database": "weallmatch_dev",
         "username": "postgres",
         "password": ""
       }
     ]
   },
   "remoteUser": "codespace",
-  "forwardPorts": [4000, 4001, 5432, 8080],
+  "forwardPorts": [4000, 5432, 8080],
   "workspaceFolder": "/home/codespace/source",
   "extensions": [
     "krainboltgreene.all-builtin-commands",
@@ -75,14 +75,8 @@
     "mgmcdermott.vscode-language-babel",
     "apollographql.vscode-apollo",
     "dbaeumer.vscode-eslint",
-    "eamodio.gitlens",
     "github.codespaces",
-    "ms-azuretools.vscode-docker",
     "jakebecker.elixir-ls",
-    "mtxr.sqltools",
-    "mtxr.sqltools-driver-pg",
-    "ms-azuretools.vscode-docker",
-    "hashicorp.terraform",
     "csstools.postcss",
     "benvp.vscode-hex-pm-intellisense"
   ],

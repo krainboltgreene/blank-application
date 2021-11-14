@@ -1,6 +1,6 @@
 defmodule Database.Repository do
   use Ecto.Repo,
-    otp_app: :clumsy_chinchilla,
+    otp_app: :weallmatch,
     adapter: Ecto.Adapters.Postgres
 
   require Ecto.Query

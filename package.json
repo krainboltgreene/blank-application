@@ -1,5 +1,5 @@
 {
-  "name": "clumsy_chinchilla",
+  "name": "weallmatch",
   "version": "1.0.0",
   "private": true,
   "description": "The frontend application for this web service",
@@ -12,16 +12,17 @@
     }
   ],
   "license": "MIT",
-  "homepage": "https://github.com/difference-engineers/clumsy_chinchilla#readme",
-  "repository": "github:difference-engineers/clumsy_chinchilla",
-  "bugs": "https://github.com/difference-engineers/clumsy_chinchilla/issues",
+  "homepage": "https://github.com/difference-engineers/weallmatch#readme",
+  "repository": "github:difference-engineers/weallmatch",
+  "bugs": "https://github.com/difference-engineers/weallmatch/issues",
   "engines": {
     "node": "^16.4.0",
-    "npm": "^7.18.1"
+    "npm": "^8.1.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.2.0",
     "@graphql-codegen/typescript-resolvers": "^2.2.1",
+    "@storybook/react": "^6.3.12",
     "@types/absinthe__socket": "^0.2.3",
     "@types/absinthe__socket-apollo-link": "^0.2.1",
     "@types/phoenix": "^1.5.2",

@@ -8,17 +8,18 @@ services:
     #   context: .
     #   dockerfile: Dockerfile
     volumes:
-      # - ..:/home/codespace/source:cached
       - /var/run/docker.sock:/var/run/docker-host.sock
+    env_file: .env
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     network_mode: service:postgres
 
   livebook:
     image: livebook/livebook:0.3.0
-    network_mode: service:postgres
-    # -u $(id -u):$(id -g) -v $(pwd):/data
+    restart: unless-stopped
     volumes:
       - ../livebook/:/data/
+    network_mode: service:postgres
+    # -u $(id -u):$(id -g) -v $(pwd):/data
 
   postgres:
     image: postgres:13.2
@@ -28,7 +29,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: clumsy_chinchilla_dev
+      POSTGRES_DB: weallmatch_dev
 
 volumes:
   postgres-data:

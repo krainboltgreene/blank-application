@@ -8,17 +8,23 @@
 use Mix.Config
 import IO
 
-config :clumsy_chinchilla,
+Application.put_env(:weallmatch, :secret_key_base, System.get_env("SECRET_KEY_BASE"))
+Application.put_env(:weallmatch, :signing_salt, System.get_env("SIGNING_SALT"))
+Application.put_env(:weallmatch, :application_name, "We All Match")
+Application.put_env(:weallmatch, :support_email_address, "support@we-all-match.club")
+Application.put_env(:weallmatch, :reply_email_address, "no-reply@we-all-match.club")
+
+config :weallmatch,
   ecto_repos: [Database.Repository],
   generators: [binary_id: true]
 
 # Configures the endpoint
-config :clumsy_chinchilla, Web.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "QBzZwNT6wxgJZdiJ6aJVht82dDvzRFvXXLmK8RlHV888PqL/gzRQX36DlWjRjFWs",
+config :weallmatch, Web.Endpoint,
+  url: [host: Application.get_env(:weallmatch, :domain)],
+  secret_key_base: Application.get_env(:weallmatch, :secret_key_base),
   render_errors: [view: Web.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Core.PubSub,
-  live_view: [signing_salt: "bbTmf3m/"]
+  live_view: [signing_salt: Application.get_env(:weallmatch, :signing_salt)]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
@@ -31,12 +37,6 @@ config :logger, :console,
   metadata: :all,
   color: :enabled
 
-config :logger, :logs,
-  path: "tmp/application.log",
-  metadata: :all,
-  format:
-    "[$date][$time][$node][$level] #{IO.ANSI.bright()}$message#{IO.ANSI.normal()} $metadata\n"
-
 # Setup configuration for paper_trail
 config :paper_trail,
   repo: Database.Repository,
@@ -44,7 +44,7 @@ config :paper_trail,
   originator_type: Ecto.UUID,
   originator: [name: :account, model: Database.Models.Account]
 
-config :clumsy_chinchilla, Oban,
+config :weallmatch, Oban,
   repo: Database.Repository,
   plugins: [
     Oban.Plugins.Pruner
@@ -55,17 +55,18 @@ config :clumsy_chinchilla, Oban,
     media: 20,
     events: 50,
   ]
-config :clumsy_chinchilla, :browser_metadata, %{
-  domain: "www.clumsy-chinchilla.club",
-  application_name: "Clumsy Chinchilla",
-  base_url: "https://www.clumsy-chinchilla.club",
+
+config :weallmatch, :browser_metadata, %{
+  domain: Application.get_env(:weallmatch, :domain),
+  application_name: Application.get_env(:weallmatch, :application_name),
+  base_url: Application.get_env(:weallmatch, :base_url),
   theme_color: "#ffffff",
   description: "A website",
   google_site_verification: "",
   short_description: "A website",
-  title: "Clumsy Chinchilla",
+  title: Application.get_env(:weallmatch, :application_name),
   google_tag_manager_id: "",
-  support_email_address: "support@clumsy-chinchilla.club"
+  support_email_address: Application.get_env(:weallmatch, :support_email_address)
 }
 
 # Import environment specific config. This must remain at the bottom

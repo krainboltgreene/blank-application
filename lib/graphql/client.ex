@@ -6,7 +6,7 @@ defmodule Graphql.Client do
     Logger.info("[Client] Making a request to self")
     started_at = Time.utc_now()
 
-    Application.fetch_env!(:clumsy_chinchilla, :graphql)[:uri]
+    Application.fetch_env!(:weallmatch, :graphql)[:uri]
     |> Brains.Connection.new()
     |> Brains.query(body, variables: variables)
     |> Brains.Response.decode()
