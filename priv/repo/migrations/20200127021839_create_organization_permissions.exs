@@ -2,7 +2,7 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateOrganizationAccountPermissions 
   use Ecto.Migration
 
   def change do
-    create table(:organization_permissions, primary_key: false) do
+    create table(:organization_permissions) do
       add :id, :binary_id, primary_key: true
 
       add :permission_id,

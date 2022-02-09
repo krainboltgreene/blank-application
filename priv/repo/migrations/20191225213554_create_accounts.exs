@@ -2,15 +2,15 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateAccounts do
   use Ecto.Migration
 
   def change do
-    create table(:accounts, primary_key: false) do
+    create table(:accounts) do
       add :id, :binary_id, primary_key: true
       add :email_address, :citext, null: false
-      add :unconfirmed_email_address, :citext
+      add :confirmed_at, :naive_datetime
       add :username, :citext
-      add :name, :text
       add :onboarding_state, :citext, null: false
-      add :confirmation_secret, :text
-      add :password_hash, :string
+      add :hashed_password, :string, null: false
+      add :profile, :map, default: %{}, null: false
+      add :settings, :map, default: %{}, null: false
 
       timestamps()
     end

@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.User.AccountToken do
+defmodule ClumsyChinchilla.Users.AccountToken do
   use Ecto.Schema
   import Ecto.Query
 
@@ -18,7 +18,7 @@ defmodule ClumsyChinchilla.User.AccountToken do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
-    belongs_to :account, ClumsyChinchilla.User.Account
+    belongs_to :account, ClumsyChinchilla.Users.Account
 
     timestamps(updated_at: false)
   end
@@ -44,7 +44,7 @@ defmodule ClumsyChinchilla.User.AccountToken do
   """
   def build_session_token(account) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %ClumsyChinchilla.User.AccountToken{token: token, context: "session", account_id: account.id}}
+    {token, %ClumsyChinchilla.Users.AccountToken{token: token, context: "session", account_id: account.id}}
   end
 
   @doc """
@@ -87,7 +87,7 @@ defmodule ClumsyChinchilla.User.AccountToken do
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
     {Base.url_encode64(token, padding: false),
-     %ClumsyChinchilla.User.AccountToken{
+     %ClumsyChinchilla.Users.AccountToken{
        token: hashed_token,
        context: context,
        sent_to: sent_to,
@@ -164,17 +164,17 @@ defmodule ClumsyChinchilla.User.AccountToken do
   Returns the token struct for the given token value and context.
   """
   def token_and_context_query(token, context) do
-    from ClumsyChinchilla.User.AccountToken, where: [token: ^token, context: ^context]
+    from ClumsyChinchilla.Users.AccountToken, where: [token: ^token, context: ^context]
   end
 
   @doc """
   Gets all tokens for the given account for the given contexts.
   """
   def account_and_contexts_query(account, :all) do
-    from t in ClumsyChinchilla.User.AccountToken, where: t.account_id == ^account.id
+    from t in ClumsyChinchilla.Users.AccountToken, where: t.account_id == ^account.id
   end
 
   def account_and_contexts_query(account, [_ | _] = contexts) do
-    from t in ClumsyChinchilla.User.AccountToken, where: t.account_id == ^account.id and t.context in ^contexts
+    from t in ClumsyChinchilla.Users.AccountToken, where: t.account_id == ^account.id and t.context in ^contexts
   end
 end

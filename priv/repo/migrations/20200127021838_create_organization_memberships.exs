@@ -2,7 +2,7 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateOrganizationMemberships do
   use Ecto.Migration
 
   def change do
-    create table(:organization_memberships, primary_key: false) do
+    create table(:organization_memberships) do
       add :id, :binary_id, primary_key: true
 
       add :account_id,
