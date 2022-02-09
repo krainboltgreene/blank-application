@@ -1,53 +1,44 @@
-name: Elixir CI
-
 on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
   push:
-    branches: [ core ]
+    branches:
+      - main
   pull_request:
-    branches: [ core ]
+    branches:
+      - main
+  release:
+    types:
+      - created
 
 jobs:
-  cleanup:
-    name: Cleanup
+  install:
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.6.0
+      - uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
-  elixir-setup:
-    name: Elixir Setup
-    needs: cleanup
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: erlef/setup-beam@v1
-      with:
-        elixir-version: 1.13
-        otp-version: 24
-    - name: Restore mix cache
-      id: mix-cache
-      uses: actions/cache@v2
-      with:
-        path: |
-          deps
-          _build
-          priv/plts
-        key: ${{ runner.os }}-24-1.13-${{ hashFiles('mix.lock') }}
-    - run: |
-        mix local.rebar --force
-        mix local.hex --force
-        mix deps.get
-  elixir-build:
-    name: Elixir Build
-    needs: ["elixir-setup"]
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: mix deps.get
+  test:
+    needs: [install]
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:13.2
-        ports: ['5432:5432']
+        image: postgres
+        ports:
+          - 5432:5432
         env:
           POSTGRES_PASSWORD: postgres
         options: >-
@@ -56,67 +47,145 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: erlef/setup-beam@v1
-      with:
-        elixir-version: 1.13
-        otp-version: 24
-    - name: Restore mix cache
-      uses: actions/cache@v2
-      id: mix-cache
-      with:
-        path: |
-          deps
-          _build
-          priv/plts
-        key: ${{ runner.os }}-24-1.13-${{ hashFiles('mix.lock') }}
-    - run: mix compile
-    - run: |
-        mkdir -p priv/plts
-        mix dialyzer --plt
-    - run: mix ecto.setup
-  elixir-check:
-    name: Elixir Checks
-    needs: ["elixir-build"]
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}
+      - uses: actions/cache@v2
+        with:
+          path: |
+            _build
+            priv/plts
+          key: ${{ runner.os }}-24.1-1.13-build-${{ hashFiles('mix.lock') }}
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: MIX_ENV=test mix compile
+      - run: mix test
+      - uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: cover/
+  audit:
+    needs: [install]
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:13.2
-        ports: ['5432:5432']
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: erlef/setup-beam@v1
-      with:
-        elixir-version: 1.13
-        otp-version: 24
-    - name: Restore mix cache
-      id: mix-cache
-      with:
-        path: |
-          deps
-          _build
-          priv/plts
-        key: ${{ runner.os }}-24-1.13-${{ hashFiles('mix.lock') }}
-    - name: Restore elixir build cache
-      uses: actions/cache@v2
-      with:
-        path: _build
-        key: ${{ runner.os }}-elixir-build
-    - name: Check Code Format
-      run: mix format --check-formatted
-    - name: Run Credo
-      run: mix credo
-    - name: Run Dialyzer
-      run: mix dialyzer --no-check
-    - run: mix test --trace --slowest 10
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: mix hex.audit
+  outdated:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: mix hex.outdated
+  format:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: mix format --check-formatted
+  credo:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}
+      - uses: actions/cache@v2
+        with:
+          path: |
+            _build
+            priv/plts
+          key: ${{ runner.os }}-24.1-1.13-build-${{ hashFiles('mix.lock') }}
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: mix compile
+      - run: mix credo
+  dialyzer:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}
+      - uses: actions/cache@v2
+        with:
+          path: |
+            _build
+            priv/plts
+          key: ${{ runner.os }}-24.1-1.13-build-${{ hashFiles('mix.lock') }}
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: mix compile
+      - run: mix dialyzer.build
+      - run: mix dialyzer --no-check

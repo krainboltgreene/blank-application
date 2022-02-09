@@ -17,6 +17,11 @@ config :clumsy_chinchilla,
   ecto_repos: [ClumsyChinchilla.Repo],
   generators: [binary_id: true]
 
+config :plotgenerator,
+  Plotgenerator.Repo,
+  migration_primary_key: [name: :id, type: :binary_id],
+  migration_foreign_key: [column: :id, type: :binary_id]
+
 # Configures the endpoint
 config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
   url: [host: Application.get_env(:clumsy_chinchilla, :domain)],
