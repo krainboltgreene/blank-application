@@ -45,16 +45,6 @@
     "editor.tabSize": 2,
     "sqltools.connections": [
       {
-        "name": "Postgres database",
-        "driver": "PostgreSQL",
-        "previewLimit": 50,
-        "server": "localhost",
-        "port": 5432,
-        "database": "postgres",
-        "username": "postgres",
-        "password": ""
-      },
-      {
         "name": "Primary database",
         "driver": "PostgreSQL",
         "previewLimit": 50,
@@ -67,17 +57,13 @@
     ]
   },
   "remoteUser": "codespace",
-  "forwardPorts": [4000, 5432, 8080],
+  "forwardPorts": [4000, 5432],
   "workspaceFolder": "/home/codespace/source",
   "extensions": [
     "krainboltgreene.all-builtin-commands",
     "ms-vscode.atom-keybindings",
-    "mgmcdermott.vscode-language-babel",
-    "apollographql.vscode-apollo",
-    "dbaeumer.vscode-eslint",
     "github.codespaces",
     "jakebecker.elixir-ls",
-    "csstools.postcss",
     "benvp.vscode-hex-pm-intellisense"
   ],
   "waitFor": "postStartCommand",

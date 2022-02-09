@@ -1,4 +1,4 @@
-defmodule Database.Repository.Migrations.EnableExtensions do
+defmodule Database.Repo.Migrations.EnableExtensions do
   use Ecto.Migration
 
   def change do

@@ -13,11 +13,11 @@ defmodule Mailer.Accounts do
     Mailer.new_application_email()
     |> assign(:call_to_action, account_confirmation_url(confirmation_secret))
     |> to(unconfirmed_email_address)
-    |> subject("Finish setting up your #{Application.get_env(:clumsy_chinchilla, :application_name)} Account")
+    |> subject("Finish setting up your #{Application.get_env(:core, :application_name)} Account")
     |> render(:onboarding_email)
   end
 
   defp account_confirmation_url(secret) do
-    Web.Router.Helpers.page_url(Web.Endpoint, :index, ["account_confirmation"], token: secret)
+    CoreWeb.Router.Helpers.page_url(CoreWeb.Endpoint, :index, ["account_confirmation"], token: secret)
   end
 end

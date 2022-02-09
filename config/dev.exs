@@ -85,8 +85,6 @@ config :phoenix, :stacktrace_depth, 10
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :clumsy_chinchilla, :graphql, uri: "/graphql"
-
 config :clumsy_chinchilla, :flow, max_demand: 8
 
 # Setup Bamboo mailer

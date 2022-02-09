@@ -1,4 +1,4 @@
-defmodule Database.Repository.Migrations.CreateObanJobs do
+defmodule Database.Repo.Migrations.CreateObanJobs do
   use Ecto.Migration
 
   def up do

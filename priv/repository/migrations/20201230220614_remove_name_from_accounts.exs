@@ -1,4 +1,4 @@
-defmodule Database.Repository.Migrations.RemoveNameFromAccounts do
+defmodule Database.Repo.Migrations.RemoveNameFromAccounts do
   use Ecto.Migration
 
   def change do
