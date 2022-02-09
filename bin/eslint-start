@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-npx esw --watch --changed --color --ext .tsx,.js,.graphql lib/client/

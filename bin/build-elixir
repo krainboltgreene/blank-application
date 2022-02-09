@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+mix do compile, dialyzer.build, ecto.setup, docs

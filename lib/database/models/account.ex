@@ -57,7 +57,7 @@ defmodule Database.Models.Account do
     })
     |> changeset(attributes)
     |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
+      %Ecto.Changeset{valid?: true} = changeset -> Database.Repo.insert(changeset)
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
     |> Utilities.ok_tap(fn
@@ -90,7 +90,7 @@ defmodule Database.Models.Account do
     account
     |> changeset(%{unconfirmed_email_address: nil, password: password})
     |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.update(changeset)
+      %Ecto.Changeset{valid?: true} = changeset -> Database.Repo.update(changeset)
       %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
     end
   end

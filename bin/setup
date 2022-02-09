@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 
-bin/postgres-setup &&
-bin/elixir-setup &&
-npm install &&
-bin/build
+bin/setup-postgres &&
+bin/setup-elixir

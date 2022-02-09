@@ -12,11 +12,11 @@ defmodule Core.Organization do
              :not_found | Ecto.Changeset.t(Database.Models.OrganizationPermission.t())}
   def join(account, organization_slug, permission_slug) do
     Database.Models.Organization
-      |> Database.Repository.get_by(%{slug: organization_slug})
+      |> Database.Repo.get_by(%{slug: organization_slug})
       |> case do
         nil -> {:error, :not_found}
         organization -> Database.Models.Permission
-          |> Database.Repository.get_by(%{slug: permission_slug})
+          |> Database.Repo.get_by(%{slug: permission_slug})
           |> case do
             nil -> {:error, :not_found}
             permission -> {:ok, {organization, permission}}

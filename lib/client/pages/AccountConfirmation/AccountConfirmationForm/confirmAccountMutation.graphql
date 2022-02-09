@@ -1,5 +1,0 @@
-mutation ConfirmAccountMutation($input: AccountConfirmation!) {
-  confirmAccount(input: $input) {
-    id
-  }
-}

@@ -1,6 +1,0 @@
-mutation UpdateProfileMutation($input: ProfileChangeset!) {
-  updateProfile(input: $input) {
-    id
-    publicName
-  }
-}

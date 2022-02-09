@@ -5,7 +5,7 @@ defmodule Database.Models do
       def create(attributes) do
         changeset(%__MODULE__{}, attributes)
         |> case do
-          %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.insert(changeset)
+          %Ecto.Changeset{valid?: true} = changeset -> Database.Repo.insert(changeset)
           %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
         end
       end
@@ -13,7 +13,7 @@ defmodule Database.Models do
       def update(record, attributes) do
         changeset(record, attributes)
         |> case do
-          %Ecto.Changeset{valid?: true} = changeset -> Database.Repository.update(changeset)
+          %Ecto.Changeset{valid?: true} = changeset -> Database.Repo.update(changeset)
           %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
         end
       end

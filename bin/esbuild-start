@@ -1,4 +1,0 @@
-#!/usr/bin/env zsh
-
-echo "Building javascript"
-WATCHING=enabled node esbuild.config.js

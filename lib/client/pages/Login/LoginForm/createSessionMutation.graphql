@@ -1,5 +1,0 @@
-mutation CreateSessionMutation($input: NewSession!) {
-  createSession(input: $input) {
-    id
-  }
-}

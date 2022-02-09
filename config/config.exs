@@ -15,7 +15,7 @@ Application.put_env(:clumsy_chinchilla, :support_email_address, "support@clumsy-
 Application.put_env(:clumsy_chinchilla, :reply_email_address, "no-reply@clumsy-chinchilla.club")
 
 config :clumsy_chinchilla,
-  ecto_repos: [Database.Repository],
+  ecto_repos: [Database.Repo],
   generators: [binary_id: true]
 
 # Configures the endpoint
@@ -39,13 +39,13 @@ config :logger, :console,
 
 # Setup configuration for paper_trail
 config :paper_trail,
-  repo: Database.Repository,
+  repo: Database.Repo,
   item_type: Ecto.UUID,
   originator_type: Ecto.UUID,
   originator: [name: :account, model: Database.Models.Account]
 
 config :clumsy_chinchilla, Oban,
-  repo: Database.Repository,
+  repo: Database.Repo,
   plugins: [
     Oban.Plugins.Pruner
   ],

@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-bin/typescript-check
-bin/eslint-check
-mix credo

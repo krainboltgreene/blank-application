@@ -1,28 +1,19 @@
-version: "3.7"
+version: "3.8"
 
 services:
   codespace:
-    init: true
-    image: ghcr.io/krainboltgreene/blank-application_devcontainer_codespace:latest
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    init: true # possibly unneeded
+    # image: ghcr.io/krainboltgreene/blank-application_devcontainer_codespace:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - /var/run/docker.sock:/var/run/docker-host.sock
     env_file: .env
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     network_mode: service:postgres
-
-  livebook:
-    image: livebook/livebook:0.3.0
-    restart: unless-stopped
-    volumes:
-      - ../livebook/:/data/
-    network_mode: service:postgres
-    # -u $(id -u):$(id -g) -v $(pwd):/data
 
   postgres:
-    image: postgres:13.2
+    image: postgres:14.2
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data

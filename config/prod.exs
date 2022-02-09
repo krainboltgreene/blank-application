@@ -53,7 +53,7 @@ config :clumsy_chinchilla, Web.Endpoint,
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
-config :clumsy_chinchilla, Database.Repository,
+config :clumsy_chinchilla, Database.Repo,
   database: "clumsy_chinchilla",
   pool_size: String.to_integer(System.get_env("POOL_SIZE", "10")),
   prepare: :unnamed

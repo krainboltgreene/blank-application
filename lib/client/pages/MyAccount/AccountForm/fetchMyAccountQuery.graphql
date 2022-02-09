@@ -1,9 +1,0 @@
-query FetchMyAccountQuery {
-  session {
-    id
-    account {
-      id
-      emailAddress
-    }
-  }
-}

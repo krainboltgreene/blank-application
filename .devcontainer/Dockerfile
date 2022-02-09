@@ -11,10 +11,7 @@ RUN echo "deb https://packages.erlang-solutions.com/ubuntu focal contrib" | tee 
 RUN wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add -
 RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "false" "true" "true"
 RUN /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "false"
-RUN /bin/bash /tmp/library-scripts/user-debian.sh "${USERNAME}" "${PATH}"
-RUN /bin/bash /tmp/library-scripts/github-debian.sh
 RUN /bin/bash /tmp/library-scripts/postgresql-debian.sh
-RUN /bin/bash /tmp/library-scripts/nodejs-debian.sh
 RUN /bin/bash /tmp/library-scripts/erlang-debian.sh
 RUN /bin/bash /tmp/library-scripts/elixir-debian.sh
 RUN apt-get -qq autoremove -y
@@ -29,7 +26,6 @@ RUN chsh -s /bin/zsh ${USERNAME}
 USER ${USERNAME}
 ENV SHELL=/bin/zsh
 SHELL [ "/bin/zsh", "-c" ]
-
 
 # Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine
 # inside the container "overrideCommand": false is set in devcontainer.json.

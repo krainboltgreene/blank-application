@@ -1,4 +1,4 @@
-defmodule Database.Repository do
+defmodule Database.Repo do
   use Ecto.Repo,
     otp_app: :clumsy_chinchilla,
     adapter: Ecto.Adapters.Postgres
@@ -10,7 +10,7 @@ defmodule Database.Repository do
       when is_atom(model_or_query) or (is_struct(model_or_query) and is_atom(field)) do
     model_or_query
     |> Ecto.Query.select(^[field])
-    |> Database.Repository.all()
+    |> Database.Repo.all()
     |> Enum.map(&Map.get(&1, field))
   end
 
@@ -18,7 +18,7 @@ defmodule Database.Repository do
       when is_atom(model_or_query) or (is_struct(model_or_query) and is_list(fields)) do
     model_or_query
     |> Ecto.Query.select(^fields)
-    |> Database.Repository.all()
+    |> Database.Repo.all()
     |> Enum.map(fn record -> Map.values(Map.take(record, fields)) end)
   end
 end

@@ -1,7 +1,0 @@
-query FetchAccountQuery($input: Identity!) {
-  account(input: $input) {
-    id
-    username
-    emailAddress
-  }
-}

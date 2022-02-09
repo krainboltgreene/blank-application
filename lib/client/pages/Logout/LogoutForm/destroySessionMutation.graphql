@@ -1,5 +1,0 @@
-mutation DestroySessionMutation {
-  destroySession {
-    id
-  }
-}

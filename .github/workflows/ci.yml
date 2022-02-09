@@ -15,40 +15,18 @@ jobs:
         uses: styfle/cancel-workflow-action@0.6.0
         with:
           access_token: ${{ github.token }}
-  javascript-setup:
-    name: Javascript Setup
-    needs: cleanup
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '15.x'
-    - name: Restore npm cache
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: ${{ runner.os }}-npm-
-    - run: npm install
   elixir-setup:
     name: Elixir Setup
     needs: cleanup
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        elixir: [1.11]
-        otp: [24]
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
     - uses: erlef/setup-beam@v1
       with:
-        elixir-version: ${{ matrix.elixir }}
-        otp-version: ${{ matrix.otp }}
+        elixir-version: 1.13
+        otp-version: 24
     - name: Restore mix cache
       id: mix-cache
       uses: actions/cache@v2
@@ -57,34 +35,11 @@ jobs:
           deps
           _build
           priv/plts
-        key: ${{ runner.os }}-24-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+        key: ${{ runner.os }}-24-1.13-${{ hashFiles('mix.lock') }}
     - run: |
-        mix deps.get
         mix local.rebar --force
         mix local.hex --force
-  javascript-build:
-    name: Javascript Build
-    needs: ["javascript-setup"]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '15.x'
-    - name: Restore npm cache
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: ${{ runner.os }}-npm-
-    - name: Restore browser-client build cache
-      uses: actions/cache@v2
-      with:
-        path: tmp/browser-client
-        key: ${{ runner.os }}-javascript-build
-    - run: bin/esbuild-build
+        mix deps.get
   elixir-build:
     name: Elixir Build
     needs: ["elixir-setup"]
@@ -106,8 +61,8 @@ jobs:
         fetch-depth: 0
     - uses: erlef/setup-beam@v1
       with:
-        elixir-version: '1.11.4'
-        otp-version: '23.3'
+        elixir-version: 1.13
+        otp-version: 24
     - name: Restore mix cache
       uses: actions/cache@v2
       id: mix-cache
@@ -116,14 +71,7 @@ jobs:
           deps
           _build
           priv/plts
-        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
-    - name: Restore graphql cache
-      uses: actions/cache@v2
-      with:
-        path: |
-          schema.graphql
-          schema.json
-        key: ${{ runner.os }}-graphql
+        key: ${{ runner.os }}-24-1.13-${{ hashFiles('mix.lock') }}
     - run: mix compile
     - run: |
         mkdir -p priv/plts
@@ -150,8 +98,8 @@ jobs:
         fetch-depth: 0
     - uses: erlef/setup-beam@v1
       with:
-        elixir-version: '1.11.4'
-        otp-version: '23.3'
+        elixir-version: 1.13
+        otp-version: 24
     - name: Restore mix cache
       id: mix-cache
       with:
@@ -159,7 +107,7 @@ jobs:
           deps
           _build
           priv/plts
-        key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+        key: ${{ runner.os }}-24-1.13-${{ hashFiles('mix.lock') }}
     - name: Restore elixir build cache
       uses: actions/cache@v2
       with:
@@ -172,34 +120,3 @@ jobs:
     - name: Run Dialyzer
       run: mix dialyzer --no-check
     - run: mix test --trace --slowest 10
-  javascript-check:
-    name: Javascript Checks
-    needs: ["elixir-build", "javascript-setup"]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '15.x'
-    - name: Restore npm cache
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: ${{ runner.os }}-npm-
-    - name: Restore browser-client build cache
-      uses: actions/cache@v2
-      with:
-        path: tmp/browser-client
-        key: ${{ runner.os }}-javascript-build
-    - name: Restore graphql cache
-      uses: actions/cache@v2
-      with:
-        path: |
-          schema.graphql
-          schema.json
-        key: ${{ runner.os }}-graphql
-    - run: npx eslint --quiet --ext .tsx,.ts,.graphql lib/client/
-    - run: npx tsc | true

@@ -1,6 +1,0 @@
-mutation UpdateSettingsMutation($input: SettingsChangeset!) {
-  updateSettings(input: $input) {
-    id
-    lightMode
-  }
-}

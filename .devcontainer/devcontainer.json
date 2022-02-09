@@ -12,48 +12,9 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
-    "javascript.format.semicolons": "insert",
-    "typescript.format.semicolons": "insert",
     "terminal.integrated.copyOnSelection": true,
-    "eslint.format.enable": true,
-    "eslint.onIgnoredFiles": "warn",
-    "eslint.run": "onType",
-    "eslint.probe": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "html",
-        "graphql"
-    ],
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "html",
-        "graphql"
-    ],
-    "eslint.codeAction.showDocumentation": {
-        "enable": true
-    },
-    "editor.codeActionsOnSave": {
-        "source.fixAll": true
-    },
     "elixirLS.fetchDeps": false,
-    "elixirLS.mixEnv": "dev",
-    "editor.tabSize": 2,
     "sqltools.connections": [
-      {
-        "name": "Postgres database",
-        "driver": "PostgreSQL",
-        "previewLimit": 50,
-        "server": "localhost",
-        "port": 5432,
-        "database": "postgres",
-        "username": "postgres",
-        "password": ""
-      },
       {
         "name": "Primary database",
         "driver": "PostgreSQL",
@@ -67,7 +28,7 @@
     ]
   },
   "remoteUser": "codespace",
-  "forwardPorts": [4000, 5432, 8080],
+  "forwardPorts": [4000, 5432],
   "workspaceFolder": "/home/codespace/source",
   "extensions": [
     "krainboltgreene.all-builtin-commands",
@@ -80,7 +41,5 @@
     "csstools.postcss",
     "benvp.vscode-hex-pm-intellisense"
   ],
-  "waitFor": "postStartCommand",
   "onCreateCommand": "/bin/zsh -i -c .devcontainer/onCreate.sh",
-  "postStartCommand": "/bin/zsh -i -c .devcontainer/postStart.sh"
 }

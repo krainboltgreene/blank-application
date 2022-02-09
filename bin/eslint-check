@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-npx eslint --color --ext .tsx,.ts,.graphql lib/client/

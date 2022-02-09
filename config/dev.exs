@@ -4,7 +4,7 @@ Application.put_env(:clumsy_chinchilla, :domain, "localhost")
 Application.put_env(:clumsy_chinchilla, :base_url, "/")
 
 # Configure your database
-config :clumsy_chinchilla, Database.Repository,
+config :clumsy_chinchilla, Database.Repo,
   username: "postgres",
   password: "postgres",
   database: "clumsy_chinchilla_dev",
@@ -15,7 +15,7 @@ config :clumsy_chinchilla, Database.Repository,
 
 # Configure the database for GitHub Actions
 if System.get_env("GITHUB_ACTIONS") do
-  config :clumsy_chinchilla, Database.Repository,
+  config :clumsy_chinchilla, Database.Repo,
     username: "postgres",
     password: "postgres"
 end
@@ -85,14 +85,7 @@ config :phoenix, :stacktrace_depth, 10
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :clumsy_chinchilla, :graphql, uri: "/graphql"
-
 config :clumsy_chinchilla, :flow, max_demand: 8
-
-# Setup Bamboo mailer
-config :clumsy_chinchilla, Mailer,
-  adapter: Bamboo.LocalAdapter,
-  open_email_in_browser_url: "/sent_emails"
 
 if System.get_env("GITHUB_ACTIONS") do
   config :clumsy_chinchilla, Mailer,

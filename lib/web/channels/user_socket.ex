@@ -47,7 +47,7 @@ defmodule Web.UserSocket do
   def id(socket), do: "user_socket:#{socket.assigns.absinthe.opts[:context].current_account.id}"
 
   defp account_from_session(_params) do # %{"session_id" => id}
-    # Database.Repository.get(Database.Models.Account, id)
+    # Database.Repo.get(Database.Models.Account, id)
     %Database.Models.Account{id: 1}
   end
 end

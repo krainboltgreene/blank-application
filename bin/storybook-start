@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-npx start-storybook --config-dir storybook/

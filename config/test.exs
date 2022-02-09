@@ -8,7 +8,7 @@ Application.put_env(:clumsy_chinchilla, :base_url, "/")
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :clumsy_chinchilla, Database.Repository,
+config :clumsy_chinchilla, Database.Repo,
   username: "postgres",
   password: "postgres",
   database: "clumsy_chinchilla_test#{System.get_env("MIX_TEST_PARTITION")}",
@@ -17,7 +17,7 @@ config :clumsy_chinchilla, Database.Repository,
 
 # Configure the database for GitHub Actions
 if System.get_env("GITHUB_ACTIONS") do
-  config :clumsy_chinchilla, Database.Repository,
+  config :clumsy_chinchilla, Database.Repo,
     username: "postgres",
     password: "postgres"
 end
