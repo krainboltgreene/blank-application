@@ -1,4 +1,4 @@
-defmodule Database.Repo.Migrations.AddVersions do
+defmodule ClumsyChinchilla.Repo.Migrations.AddVersions do
   use Ecto.Migration
 
   def change do

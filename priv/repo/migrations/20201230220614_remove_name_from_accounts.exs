@@ -1,4 +1,4 @@
-defmodule Database.Repo.Migrations.RemoveNameFromAccounts do
+defmodule ClumsyChinchilla.Repo.Migrations.RemoveNameFromAccounts do
   use Ecto.Migration
 
   def change do

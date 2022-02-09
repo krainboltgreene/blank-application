@@ -1,4 +1,4 @@
-defmodule Database.Repo.Migrations.EnableExtensions do
+defmodule ClumsyChinchilla.Repo.Migrations.EnableExtensions do
   use Ecto.Migration
 
   def change do

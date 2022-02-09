@@ -60,18 +60,10 @@ defmodule Utilities do
     [value | list]
   end
 
-  @spec aside_log(list | Flow.t(), String.t() | (any -> any)) :: list | Flow.t()
+  @spec aside_log(list, String.t() | (any -> any)) :: list
   def aside_log(list, function) when is_list(list) and is_function(function, 1) do
     list
     |> Enum.map(fn value ->
-      Logger.info(function.(value))
-      value
-    end)
-  end
-
-  def aside_log(flow, function) when is_struct(flow, Flow) and is_function(function, 1) do
-    flow
-    |> Flow.map(fn value ->
       Logger.info(function.(value))
       value
     end)
@@ -85,26 +77,10 @@ defmodule Utilities do
     end)
   end
 
-  def aside_log(flow, message) when is_struct(flow, Flow) and is_bitstring(message) do
-    flow
-    |> Flow.map(fn value ->
-      Logger.info(message)
-      value
-    end)
-  end
-
-  @spec aside_log(list | Flow.t()) :: list | Flow.t()
+  @spec aside_log(list) :: list
   def aside_log(list) when is_list(list) do
     list
     |> Enum.map(fn value ->
-      Logger.info(Kernel.inspect(value))
-      value
-    end)
-  end
-
-  def aside_log(flow) when is_struct(flow, Flow) do
-    flow
-    |> Flow.map(fn value ->
       Logger.info(Kernel.inspect(value))
       value
     end)

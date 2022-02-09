@@ -1,42 +1,31 @@
 # Script for populating the database. You can run it as:
 #
-#     mix run priv/repository/seeds.exs
+#     mix run priv/repo/seeds.exs
 #
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     Database.Repo.insert!(%Database.Model.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repository/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Database.Repo.insert!(%Database.Model.SomeSchema{})
+#     ClumsyChinchilla.Repo.insert!(%ClumsyChinchilla.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-Database.Models.Permission.create(%{
+ClumsyChinchilla.Users.Permission.create(%{
   name: "Administrator"
 })
-Database.Models.Permission.create(%{
+ClumsyChinchilla.Users.Permission.create(%{
   name: "Default"
 })
 
 krainboltgreene =
-  Database.Models.Account.create(%{
+  ClumsyChinchilla.Users.Account.create(%{
     name: "Kurtis Rainbolt-Greene",
     email_address: "kurtis@clumsy-chinchilla.club",
     username: "krainboltgreene",
     password: "password"
   })
 alabaster =
-  Database.Models.Account.create(%{
+  ClumsyChinchilla.Users.Account.create(%{
     name: "Alabaster Wolf",
     email_address: "alabaster@clumsy-chinchilla.club",
     username: "alabaster",
@@ -44,9 +33,9 @@ alabaster =
   })
 
 {:ok, _} =
-  Database.Models.Organization.create(%{
+  ClumsyChinchilla.Users.Organization.create(%{
     name: "Default"
   })
 
-Core.Organization.join(krainboltgreene, "default", "administrator")
-Core.Organization.join(alabaster, "default")
+ClumsyChinchilla.Users.join_organiztion(krainboltgreene, "default", "administrator")
+ClumsyChinchilla.Users.join_organiztion(alabaster, "default")

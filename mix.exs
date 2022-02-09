@@ -1,27 +1,16 @@
-defmodule Core.MixProject do
-  @moduledoc false
+defmodule ClumsyChinchilla.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :clumsy_chinchilla,
-      version: "1.0.0",
-      elixir: "~> 1.7",
+      version: "0.1.0",
+      elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers:
-        [:phoenix, :gettext] ++ Mix.compilers() ++ [:graphql_schema_json, :graphql_schema_sdl],
+      compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
-      releases: [
-        production: [
-          include_erts: true,
-          include_executables_for: [:unix],
-          applications: [
-            runtime_tools: :permanent
-          ]
-        ]
-      ]
+      deps: deps()
     ]
   end
 
@@ -30,8 +19,8 @@ defmodule Core.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Core.Application, []},
-      extra_applications: [:logger, :runtime_tools, :os_mon, :absinthe_plug, :bamboo, :eex, :sasl]
+      mod: {ClumsyChinchilla.Application, []},
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -44,40 +33,43 @@ defmodule Core.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:argon2_elixir, "~> 2.4.0"},
+      {:bcrypt_elixir, "~> 2.0"},
+      {:argon2_elixir, "~> 3.0.0"},
       {:brains, "~> 0.1.5"},
       {:castore, "~> 0.1.11"},
       {:comeonin, "~> 5.3.2"},
       {:cors_plug, "~> 2.0.3"},
       {:coverex, "~> 1.5.0", only: :dev, runtime: false},
-      {:credo, "~> 1.5.6", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.6.3", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:ecto_autoslug_field, "~> 3.0.0"},
       {:ecto_enum, "~> 1.4.0"},
       {:ecto_psql_extras, "~> 0.7.0"},
       {:ecto_sql, "~> 3.7.0"},
+      {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:flippant, "~> 2.0.0"},
-      {:floki, "~> 0.31.0", only: :test},
-      {:gettext, "~> 0.18.2"},
+      {:floki, "~> 0.32.0", only: :test},
+      {:gettext, "~> 0.19.1"},
       {:inflex, "~> 2.1.0"},
-      {:jason, "~> 1.2.2"},
+      {:jason, "~> 1.3.0"},
       {:mix_test_watch, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:oban, "~> 2.9.2"},
+      {:oban, "~> 2.10.1"},
       {:paper_trail, "~> 0.14.2"},
       {:phoenix_ecto, "~> 4.4.0"},
-      {:phoenix_html, "~> 3.0.4"},
-      {:phoenix_live_dashboard, "~> 0.5.2"},
+      {:phoenix_html, "~> 3.2.0"},
+      {:phoenix_live_dashboard, "~> 0.6.4"},
       {:phoenix_live_reload, "~> 1.3.3", only: :dev},
-      {:phoenix_live_view, "~> 0.16.4"},
+      {:phoenix_live_view, "~> 0.17.5"},
       {:phoenix_pubsub, "~> 2.0.0"},
-      {:phoenix, "~> 1.6.0"},
+      {:phoenix, "~> 1.6.6"},
       {:plug_cowboy, "~> 2.5.1"},
       {:plug_telemetry_server_timing, "~> 0.3.0"},
-      {:postgrex, "~> 0.15.10"},
+      {:postgrex, "~> 0.16.1"},
       {:recase, "~> 0.7.0"},
       {:redix, "~> 1.1.4"},
+      {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6.1"},
-      {:telemetry_poller, "~> 0.5.1"}
+      {:telemetry_poller, "~> 1.0.0"}
     ]
   end
 
@@ -89,9 +81,11 @@ defmodule Core.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repository/seeds.exs"],
+      setup: ["deps.get", "ecto.setup"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
 end

@@ -1,4 +1,4 @@
-defmodule Database.Repo.Migrations.CreateTags do
+defmodule ClumsyChinchilla.Repo.Migrations.CreateTags do
   use Ecto.Migration
 
   def change do

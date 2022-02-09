@@ -1,5 +1,4 @@
-postgres 13.2
+postgres 14.2
 redis 6.2.1
-nodejs 16.4.0
-elixir 1.12.1-otp-24
-erlang 24.0.2
+elixir 1.13.1-otp-24
+erlang 24.2.2

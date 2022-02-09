@@ -1,4 +1,4 @@
-defmodule Database.Repo.Migrations.AddProfileToAccounts do
+defmodule ClumsyChinchilla.Repo.Migrations.AddProfileToAccounts do
   use Ecto.Migration
 
   def change do

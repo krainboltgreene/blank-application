@@ -1,54 +1,35 @@
-use Mix.Config
+import Config
 
 Application.put_env(:clumsy_chinchilla, :domain, "localhost")
 Application.put_env(:clumsy_chinchilla, :base_url, "/")
 
 # Configure your database
-config :clumsy_chinchilla, Database.Repo,
+config :clumsy_chinchilla, ClumsyChinchilla.Repo,
   username: "postgres",
   password: "postgres",
-  database: "clumsy_chinchilla_dev",
   hostname: "localhost",
+  database: "clumsy_chinchilla_dev",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
   prepare: :unnamed
-
-# Configure the database for GitHub Actions
-if System.get_env("GITHUB_ACTIONS") do
-  config :clumsy_chinchilla, Database.Repo,
-    username: "postgres",
-    password: "postgres"
-end
-
-config :logger,
-  backends: [:console]
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
-# with webpack to recompile .js and .css sources.
-config :clumsy_chinchilla, Web.Endpoint,
-  http: [port: 4000],
-  debug_errors: true,
-  code_reloader: true,
+# with esbuild to bundle .js and .css sources.
+config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
+  # Binding to loopback ipv4 address prevents access from other machines.
+  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
+  http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
-  live_reload: [
-    patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"lib/web/(live|views)/.*(ex)$",
-      ~r"lib/web/templates/.*(eex)$"
-    ]
-  ]
-config :phoenix_live_reload,
-  dirs: [
-    "priv/static/",
-    "priv/gettext/",
-    "lib/web/live/",
-    "lib/web/views/",
-    "lib/web/templates/"
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: Application.get_env(:clumsy_chinchilla, :secret_key_base),
+  watchers: [
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
@@ -75,19 +56,23 @@ config :phoenix_live_reload,
 # configured to run both http and https servers on
 # different ports.
 
+# Watch static and templates for browser reloading.
+config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
+      ~r"lib/clumsy_chinchilla_web/(live|views)/.*(ex)$",
+      ~r"lib/clumsy_chinchilla_web/templates/.*(eex)$"
+    ]
+  ]
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
-config :phoenix, :stacktrace_depth, 10
+config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
-
-config :clumsy_chinchilla, :flow, max_demand: 8
-
-if System.get_env("GITHUB_ACTIONS") do
-  config :clumsy_chinchilla, Mailer,
-    open_email_in_browser_url: false
-end
