@@ -1,14 +1,16 @@
 defmodule ClumsyChinchilla.Users.AccountNotifier do
+  @moduledoc false
   import Swoosh.Email
-
-  alias ClumsyChinchilla.Mailer
 
   # Delivers the email using the application mailer.
   defp deliver(recipient, subject, body) do
     email =
       new()
       |> to(recipient)
-      |> from({"MyApp", "contact@example.com"})
+      |> from({
+        Application.get_env(:clumsy_chinchilla, :application_name),
+        Application.get_env(:clumsy_chinchilla, :support_email_address)
+      })
       |> subject(subject)
       |> text_body(body)
 
@@ -21,7 +23,7 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
   Deliver instructions to confirm account.
   """
   def deliver_confirmation_instructions(account, url) do
-    deliver(account.email, "Confirmation instructions", """
+    deliver(account.email, "Finish setting up your #{Application.get_env(:clumsy_chinchilla, :application_name)} Account", """
 
     ==============================
 
@@ -75,19 +77,5 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
 
     ==============================
     """)
-  end
-
-  @spec onboarding_email(%{unconfirmed_email_address: String.t(), confirmation_secret: String.t()}) ::
-          Bamboo.Email.t()
-  def onboarding_email(%{
-        unconfirmed_email_address: unconfirmed_email_address,
-        confirmation_secret: confirmation_secret
-      })
-      when is_bitstring(unconfirmed_email_address) and is_bitstring(confirmation_secret) do
-    Mailer.new_application_email()
-    |> assign(:call_to_action, account_confirmation_url(confirmation_secret))
-    |> to(unconfirmed_email_address)
-    |> subject("Finish setting up your #{Application.get_env(:clumsy_chinchilla, :application_name)} Account")
-    |> render(:onboarding_email)
   end
 end

@@ -1,8 +1,6 @@
 defmodule ClumsyChinchillaWeb.AccountResetPasswordController do
   use ClumsyChinchillaWeb, :controller
 
-  alias ClumsyChinchilla.User
-
   plug :get_account_by_reset_password_token when action in [:edit, :update]
 
   def new(conn, _params) do
@@ -10,8 +8,8 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordController do
   end
 
   def create(conn, %{"account" => %{"email" => email}}) do
-    if account = User.get_account_by_email(email) do
-      User.deliver_account_reset_password_instructions(
+    if account = ClumsyChinchilla.Users.get_account_by_email(email) do
+      ClumsyChinchilla.Users.deliver_account_reset_password_instructions(
         account,
         &Routes.account_reset_password_url(conn, :edit, &1)
       )
@@ -26,13 +24,13 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordController do
   end
 
   def edit(conn, _params) do
-    render(conn, "edit.html", changeset: User.change_account_password(conn.assigns.account))
+    render(conn, "edit.html", changeset: ClumsyChinchilla.Users.change_account_password(conn.assigns.account))
   end
 
   # Do not log in the account after reset password to avoid a
   # leaked token giving the account access to the account.
   def update(conn, %{"account" => account_params}) do
-    case User.reset_account_password(conn.assigns.account, account_params) do
+    case ClumsyChinchilla.Users.reset_account_password(conn.assigns.account, account_params) do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Password reset successfully.")
@@ -46,7 +44,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordController do
   defp get_account_by_reset_password_token(conn, _opts) do
     %{"token" => token} = conn.params
 
-    if account = User.get_account_by_reset_password_token(token) do
+    if account = ClumsyChinchilla.Users.get_account_by_reset_password_token(token) do
       conn |> assign(:account, account) |> assign(:token, token)
     else
       conn

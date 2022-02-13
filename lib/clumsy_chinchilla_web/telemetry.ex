@@ -1,4 +1,5 @@
 defmodule ClumsyChinchillaWeb.Telemetry do
+  @moduledoc false
   use Supervisor
   import Telemetry.Metrics
 
@@ -72,19 +73,6 @@ defmodule ClumsyChinchillaWeb.Telemetry do
         tag_values: &live_view_metric_tag_values/1
       ),
 
-      # Database Metrics
-      summary("database.repository.query.total_time", unit: {:native, :millisecond}),
-      summary("database.repository.query.decode_time", unit: {:native, :millisecond}),
-      summary("database.repository.query.query_time", unit: {:native, :millisecond}),
-      summary("database.repository.query.queue_time", unit: {:native, :millisecond}),
-      summary("database.repository.query.idle_time", unit: {:native, :millisecond}),
-
-      # Absinthe Metrics
-      summary("absinthe.execute.operation.stop.duration", unit: {:native, :millisecond}),
-      summary("absinthe.subscription.publish.stop.duration", unit: {:native, :millisecond}),
-      summary("absinthe.resolve.field.stop.duration", unit: {:native, :millisecond}),
-      summary("absinthe.middleware.batch.stop.duration", unit: {:native, :millisecond}),
-
       # Oban Metrics
       summary("oban.job.stop.duration", unit: {:native, :millisecond}),
       summary("oban.job.exception"),
@@ -104,5 +92,11 @@ defmodule ClumsyChinchillaWeb.Telemetry do
       # This function must call :telemetry.execute/3 and a metric must be added above.
       # {ClumsyChinchillaWeb, :count_users, []}
     ]
+  end
+
+  defp live_view_metric_tag_values(metadata) do
+    metadata
+    |> Map.put(:view, metadata.socket.view)
+    |> Map.put(:connected?, metadata.socket.connected?)
   end
 end

@@ -56,7 +56,7 @@ defmodule ClumsyChinchillaWeb.ConnCase do
   It returns an updated `conn`.
   """
   def log_in_account(conn, account) do
-    token = ClumsyChinchilla.User.generate_account_session_token(account)
+    token = ClumsyChinchilla.ClumsyChinchilla.Users.generate_account_session_token(account)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})

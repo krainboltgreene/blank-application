@@ -1,8 +1,6 @@
 defmodule ClumsyChinchillaWeb.AccountAuthTest do
   use ClumsyChinchillaWeb.ConnCase, async: true
 
-  alias ClumsyChinchilla.User
-  alias ClumsyChinchillaWeb.AccountAuth
   import ClumsyChinchilla.UserFixtures
 
   @remember_me_cookie "_clumsy_chinchilla_web_account_remember_me"
@@ -22,7 +20,7 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
       assert token = get_session(conn, :account_token)
       assert get_session(conn, :live_socket_id) == "accounts_sessions:#{Base.url_encode64(token)}"
       assert redirected_to(conn) == "/"
-      assert User.get_account_by_session_token(token)
+      assert ClumsyChinchilla.Users.get_account_by_session_token(token)
     end
 
     test "clears everything previously stored in the session", %{conn: conn, account: account} do
@@ -47,7 +45,7 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
 
   describe "logout_account/1" do
     test "erases session and cookies", %{conn: conn, account: account} do
-      account_token = User.generate_account_session_token(account)
+      account_token = ClumsyChinchilla.Users.generate_account_session_token(account)
 
       conn =
         conn
@@ -60,7 +58,7 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
       refute conn.cookies[@remember_me_cookie]
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
       assert redirected_to(conn) == "/"
-      refute User.get_account_by_session_token(account_token)
+      refute ClumsyChinchilla.Users.get_account_by_session_token(account_token)
     end
 
     test "broadcasts to the given live_socket_id", %{conn: conn} do
@@ -84,7 +82,7 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
 
   describe "fetch_current_account/2" do
     test "authenticates account from session", %{conn: conn, account: account} do
-      account_token = User.generate_account_session_token(account)
+      account_token = ClumsyChinchilla.Users.generate_account_session_token(account)
       conn = conn |> put_session(:account_token, account_token) |> AccountAuth.fetch_current_account([])
       assert conn.assigns.current_account.id == account.id
     end
@@ -106,7 +104,7 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
     end
 
     test "does not authenticate if data is missing", %{conn: conn, account: account} do
-      _ = User.generate_account_session_token(account)
+      _ = ClumsyChinchilla.Users.generate_account_session_token(account)
       conn = AccountAuth.fetch_current_account(conn, [])
       refute get_session(conn, :account_token)
       refute conn.assigns.current_account

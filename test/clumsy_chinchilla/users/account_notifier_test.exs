@@ -2,8 +2,6 @@ defmodule ClumsyChinchilla.Users.AccountNotifierTest do
   use ExUnit.Case, async: true
   import Swoosh.TestAssertions
 
-  alias ClumsyChinchilla.Users.AccountNotifier
-
   test "deliver_onboarding/1" do
     user = %{name: "Alice", email: "alice@example.com"}
 

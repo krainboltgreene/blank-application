@@ -1,4 +1,5 @@
 defmodule ClumsyChinchilla.Users.AccountToken do
+  @moduledoc false
   use Ecto.Schema
   import Ecto.Query
 

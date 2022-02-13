@@ -18,8 +18,6 @@ defmodule ClumsyChinchilla.DataCase do
 
   using do
     quote do
-      alias ClumsyChinchilla.Repo
-
       import Ecto
       import Ecto.Changeset
       import Ecto.Query

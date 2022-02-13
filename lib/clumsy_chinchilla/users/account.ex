@@ -37,56 +37,6 @@ defmodule ClumsyChinchilla.Users.Account do
           organizations: list(ClumsyChinchilla.Users.Organization.t() | nil) | nil
         }
 
-  @spec create(%{email_address: String.t(), password: String.t()}) ::
-          {:ok, ClumsyChinchilla.Users.Account.t()}
-          | {:error, Ecto.Changeset.t(ClumsyChinchilla.Users.Account.t()) | ClumsyChinchilla.Users.Account.t()}
-  def create(%{email_address: email_address, password: password} = attributes)
-      when is_bitstring(email_address) and is_bitstring(password) do
-    ClumsyChinchilla.Users.Account.__struct__(%{
-      username: List.first(String.split(email_address, "@")),
-      settings: %{},
-      profile: %{},
-    })
-    |> changeset(attributes)
-    |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> ClumsyChinchilla.Repo.insert(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
-    end
-    |> Utilities.ok_tap(fn
-      account -> ClumsyChinchilla.Users.join_organization(account, "users")
-    end)
-    |> Utilities.ok_tap(fn
-      account -> Mailer.Accounts.onboarding_email(account) |> Mailer.deliver_now()
-    end)
-  end
-
-  def create(%{email_address: email_address} = attributes) when is_bitstring(email_address) do
-    create(Map.merge(attributes, %{password: default_password()}))
-  end
-
-  @spec confirm!(
-          %ClumsyChinchilla.Users.Account{unconfirmed_email_address: String.t() | nil},
-          String.t()
-        ) ::
-          {:ok, ClumsyChinchilla.Users.Account.t()}
-          | {:error, Ecto.Changeset.t(ClumsyChinchilla.Users.Account.t()) | ClumsyChinchilla.Users.Account.t()}
-  def confirm!(%ClumsyChinchilla.Users.Account{unconfirmed_email_address: nil} = account, _) do
-    {:ok, account}
-  end
-
-  def confirm!(
-        %ClumsyChinchilla.Users.Account{unconfirmed_email_address: unconfirmed_email_address} = account,
-        password
-      )
-      when is_bitstring(unconfirmed_email_address) and is_bitstring(password) do
-    account
-    |> changeset(%{unconfirmed_email_address: nil, password: password})
-    |> case do
-      %Ecto.Changeset{valid?: true} = changeset -> ClumsyChinchilla.Repo.update(changeset)
-      %Ecto.Changeset{valid?: false} = changeset -> {:error, changeset}
-    end
-  end
-
   @spec changeset(ClumsyChinchilla.Users.Account.t(), map) ::
           Ecto.Changeset.t(ClumsyChinchilla.Users.Account.t())
   def changeset(record, attributes) do
@@ -154,9 +104,6 @@ defmodule ClumsyChinchilla.Users.Account do
 
   # If maybe have email_address and given no email_address then return changeset
   defp replace_email_address_with_unconfirmed_email_address(changeset, _), do: changeset
-
-  defp default_password(), do: Utilities.generate_secret()
-
 
   @doc """
   A account changeset for registration.
@@ -264,7 +211,7 @@ defmodule ClumsyChinchilla.Users.Account do
   If there is no account or the account doesn't have a password, we call
   `Bcrypt.no_user_verify/0` to avoid timing attacks.
   """
-  def valid_password?(%ClumsyChinchilla.User.Account{hashed_password: hashed_password}, password)
+  def valid_password?(%__MODULE__{hashed_password: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)
   end

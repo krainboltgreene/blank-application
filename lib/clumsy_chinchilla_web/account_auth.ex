@@ -1,8 +1,8 @@
 defmodule ClumsyChinchillaWeb.AccountAuth do
+  @moduledoc false
   import Plug.Conn
   import Phoenix.Controller
 
-  alias ClumsyChinchilla.User
   alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.
@@ -25,7 +25,7 @@ defmodule ClumsyChinchillaWeb.AccountAuth do
   if you are not using LiveView.
   """
   def log_in_account(conn, account, params \\ %{}) do
-    token = User.generate_account_session_token(account)
+    token = ClumsyChinchilla.Users.generate_account_session_token(account)
     account_return_to = get_session(conn, :account_return_to)
 
     conn
@@ -72,7 +72,7 @@ defmodule ClumsyChinchillaWeb.AccountAuth do
   """
   def log_out_account(conn) do
     account_token = get_session(conn, :account_token)
-    account_token && User.delete_session_token(account_token)
+    account_token && ClumsyChinchilla.Users.delete_session_token(account_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
       ClumsyChinchillaWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
@@ -90,7 +90,7 @@ defmodule ClumsyChinchillaWeb.AccountAuth do
   """
   def fetch_current_account(conn, _opts) do
     {account_token, conn} = ensure_account_token(conn)
-    account = account_token && User.get_account_by_session_token(account_token)
+    account = account_token && ClumsyChinchilla.Users.get_account_by_session_token(account_token)
     assign(conn, :current_account, account)
   end
 

@@ -65,7 +65,7 @@
     <link rel="license" href={Routes.static_path(@conn, "/copyright.html")}>
 
     <%# Prefetching, preloading, prebrowsing (More info: https://css-tricks.com/prefetching-preloading-prebrowsing/) %>
-    <link rel="dns-prefetch" href={"//#{Application.get_env(:clumsy_chinchilla, :browser_metadata).domain}/"}"">
+    <link rel="dns-prefetch" href={"//#{Application.get_env(:clumsy_chinchilla, :browser_metadata).domain}/"}>
     <link rel="preconnect" href={Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url}>
     <link rel="prefetch" href={Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url}>
     <link rel="prerender" href={Application.get_env(:clumsy_chinchilla, :browser_metadata).base_url}>

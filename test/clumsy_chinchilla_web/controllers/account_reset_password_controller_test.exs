@@ -1,8 +1,6 @@
 defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
   use ClumsyChinchillaWeb.ConnCase, async: true
 
-  alias ClumsyChinchilla.User
-  alias ClumsyChinchilla.Repo
   import ClumsyChinchilla.UserFixtures
 
   setup do
@@ -27,7 +25,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
 
       assert redirected_to(conn) == "/"
       assert get_flash(conn, :info) =~ "If your email is in our system"
-      assert Repo.get_by!(User.AccountToken, account_id: account.id).context == "reset_password"
+      assert Repo.get_by!(ClumsyChinchilla.Users.AccountToken, account_id: account.id).context == "reset_password"
     end
 
     test "does not send reset password token if email is invalid", %{conn: conn} do
@@ -38,7 +36,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
 
       assert redirected_to(conn) == "/"
       assert get_flash(conn, :info) =~ "If your email is in our system"
-      assert Repo.all(User.AccountToken) == []
+      assert Repo.all(ClumsyChinchilla.Users.AccountToken) == []
     end
   end
 
@@ -46,7 +44,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
     setup %{account: account} do
       token =
         extract_account_token(fn url ->
-          User.deliver_account_reset_password_instructions(account, url)
+          ClumsyChinchilla.Users.deliver_account_reset_password_instructions(account, url)
         end)
 
       %{token: token}
@@ -68,7 +66,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
     setup %{account: account} do
       token =
         extract_account_token(fn url ->
-          User.deliver_account_reset_password_instructions(account, url)
+          ClumsyChinchilla.Users.deliver_account_reset_password_instructions(account, url)
         end)
 
       %{token: token}
@@ -86,7 +84,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
       assert redirected_to(conn) == Routes.account_session_path(conn, :new)
       refute get_session(conn, :account_token)
       assert get_flash(conn, :info) =~ "Password reset successfully"
-      assert User.get_account_by_email_and_password(account.email, "new valid password")
+      assert ClumsyChinchilla.Users.get_account_by_email_and_password(account.email, "new valid password")
     end
 
     test "does not reset password on invalid data", %{conn: conn, token: token} do

@@ -1,4 +1,7 @@
 defmodule Estate do
+  @moduledoc """
+  This creates a simple state machine definition for a module
+  """
   @spec state_machines(%{atom => %{atom => list(tuple)}}) :: [any]
   defmacro state_machines(machines) do
     Enum.flat_map(machines, fn {column_name, events} ->

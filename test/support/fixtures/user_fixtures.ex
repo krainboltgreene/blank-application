@@ -18,7 +18,7 @@ defmodule ClumsyChinchilla.UserFixtures do
     {:ok, account} =
       attrs
       |> valid_account_attributes()
-      |> ClumsyChinchilla.User.register_account()
+      |> ClumsyChinchilla.ClumsyChinchilla.Users.register_account()
 
     account
   end

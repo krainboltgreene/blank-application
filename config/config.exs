@@ -11,7 +11,6 @@ Application.put_env(:clumsy_chinchilla, :secret_key_base, System.get_env("SECRET
 Application.put_env(:clumsy_chinchilla, :signing_salt, System.get_env("SIGNING_SALT"))
 Application.put_env(:clumsy_chinchilla, :application_name, "Clumsy Chinchilla")
 Application.put_env(:clumsy_chinchilla, :support_email_address, "support@clumsy-chinchilla.club")
-Application.put_env(:clumsy_chinchilla, :reply_email_address, "no-reply@clumsy-chinchilla.club")
 
 config :clumsy_chinchilla,
   ecto_repos: [ClumsyChinchilla.Repo],
