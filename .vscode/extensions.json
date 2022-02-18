@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "krainboltgreene.all-builtin-commands",
+    "ms-vscode.atom-keybindings",
+    "jakebecker.elixir-ls",
+    "benvp.vscode-hex-pm-intellisense",
+    "phoenixframework.phoenix",
+    "ms-vsliveshare.vsliveshare",
+    "abusaidm.html-snippets",
+    "hashicorp.terraform"
+  ]
+}

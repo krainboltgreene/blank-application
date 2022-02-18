@@ -1,14 +1,16 @@
 version: "3.8"
 
 services:
-  codespace:
-    init: true # possibly unneeded
+  project:
+    # init: true # possibly unneeded
     # image: ghcr.io/krainboltgreene/blank-application_devcontainer_codespace:latest
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
+      - ..:/workspace:cached
       - /var/run/docker.sock:/var/run/docker-host.sock
+    command: /bin/sh -c "while sleep 1000; do :; done"
     env_file: .env
     network_mode: service:postgres
 
