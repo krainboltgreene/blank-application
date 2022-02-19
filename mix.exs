@@ -69,6 +69,8 @@ defmodule ClumsyChinchilla.MixProject do
       {:redix, "~> 1.1.4"},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6.1"},
+      {:surface, "~> 0.7.1"},
+      {:surface_catalogue, "~> 0.3.0"},
       {:telemetry_poller, "~> 1.0.0"}
     ]
   end
