@@ -4,13 +4,16 @@ defmodule ClumsyChinchilla.Users.OrganizationPermission do
   import Ecto.Changeset
 
   @type t :: %__MODULE__{
-    organization_membership: ClumsyChinchilla.Users.OrganizationMembership.t() | Ecto.Association.NotLoaded.t(),
-    permission: ClumsyChinchilla.Users.Permission.t() | Ecto.Association.NotLoaded.t(),
-  }
+          organization_membership:
+            ClumsyChinchilla.Users.OrganizationMembership.t() | Ecto.Association.NotLoaded.t(),
+          permission: ClumsyChinchilla.Users.Permission.t() | Ecto.Association.NotLoaded.t()
+        }
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organization_permissions" do
-    belongs_to(:organization_membership, ClumsyChinchilla.Users.OrganizationMembership, primary_key: true)
+    belongs_to(:organization_membership, ClumsyChinchilla.Users.OrganizationMembership,
+      primary_key: true
+    )
 
     belongs_to(:permission, ClumsyChinchilla.Users.Permission, primary_key: true)
     has_one(:account, through: [:organization_membership, :account])

@@ -17,9 +17,9 @@ config :clumsy_chinchilla,
   generators: [binary_id: true]
 
 config :plotgenerator,
-  Plotgenerator.Repo,
-  migration_primary_key: [name: :id, type: :binary_id],
-  migration_foreign_key: [column: :id, type: :binary_id]
+       Plotgenerator.Repo,
+       migration_primary_key: [name: :id, type: :binary_id],
+       migration_foreign_key: [column: :id, type: :binary_id]
 
 # Configures the endpoint
 config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
@@ -52,6 +52,7 @@ config :esbuild,
 
 # Configures Elixir's Logger
 import IO
+
 config :logger, :console,
   format: "[$level] #{IO.ANSI.bright()}$message#{IO.ANSI.normal()} $metadata[$level]\n",
   metadata: :all,
@@ -76,7 +77,7 @@ config :clumsy_chinchilla, Oban,
     default: 10,
     mailers: 20,
     media: 20,
-    events: 50,
+    events: 50
   ]
 
 config :clumsy_chinchilla, :browser_metadata, %{

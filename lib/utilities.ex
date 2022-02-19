@@ -32,5 +32,4 @@ defmodule Utilities do
     |> Enum.find(default, fn {header, _value} -> header == key end)
     |> right()
   end
-
 end

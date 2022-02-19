@@ -1,7 +1,7 @@
 defmodule ClumsyChinchillaWeb.AccountAuthTest do
   use ClumsyChinchillaWeb.ConnCase, async: true
 
-  import ClumsyChinchilla.UserFixtures
+  import ClumsyChinchilla.UsersFixtures
 
   @remember_me_cookie "_clumsy_chinchilla_web_account_remember_me"
 
@@ -29,12 +29,16 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
     end
 
     test "redirects to the configured path", %{conn: conn, account: account} do
-      conn = conn |> put_session(:account_return_to, "/hello") |> AccountAuth.log_in_account(account)
+      conn =
+        conn |> put_session(:account_return_to, "/hello") |> AccountAuth.log_in_account(account)
+
       assert redirected_to(conn) == "/hello"
     end
 
     test "writes a cookie if remember_me is configured", %{conn: conn, account: account} do
-      conn = conn |> fetch_cookies() |> AccountAuth.log_in_account(account, %{"remember_me" => "true"})
+      conn =
+        conn |> fetch_cookies() |> AccountAuth.log_in_account(account, %{"remember_me" => "true"})
+
       assert get_session(conn, :account_token) == conn.cookies[@remember_me_cookie]
 
       assert %{value: signed_token, max_age: max_age} = conn.resp_cookies[@remember_me_cookie]
@@ -83,7 +87,12 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
   describe "fetch_current_account/2" do
     test "authenticates account from session", %{conn: conn, account: account} do
       account_token = ClumsyChinchilla.Users.generate_account_session_token(account)
-      conn = conn |> put_session(:account_token, account_token) |> AccountAuth.fetch_current_account([])
+
+      conn =
+        conn
+        |> put_session(:account_token, account_token)
+        |> AccountAuth.fetch_current_account([])
+
       assert conn.assigns.current_account.id == account.id
     end
 
@@ -113,7 +122,11 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
 
   describe "redirect_if_account_is_authenticated/2" do
     test "redirects if account is authenticated", %{conn: conn, account: account} do
-      conn = conn |> assign(:current_account, account) |> AccountAuth.redirect_if_account_is_authenticated([])
+      conn =
+        conn
+        |> assign(:current_account, account)
+        |> AccountAuth.redirect_if_account_is_authenticated([])
+
       assert conn.halted
       assert redirected_to(conn) == "/"
     end
@@ -160,7 +173,9 @@ defmodule ClumsyChinchillaWeb.AccountAuthTest do
     end
 
     test "does not redirect if account is authenticated", %{conn: conn, account: account} do
-      conn = conn |> assign(:current_account, account) |> AccountAuth.require_authenticated_account([])
+      conn =
+        conn |> assign(:current_account, account) |> AccountAuth.require_authenticated_account([])
+
       refute conn.halted
       refute conn.status
     end

@@ -2,10 +2,9 @@ defmodule ClumsyChinchilla.Users.Settings do
   @moduledoc false
   use Ecto.Schema
 
-
   @type t :: %__MODULE__{
-    light_mode: boolean
-  }
+          light_mode: boolean
+        }
   embedded_schema do
     field(:light_mode, :boolean, default: true)
   end

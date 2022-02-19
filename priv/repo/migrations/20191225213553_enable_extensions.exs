@@ -18,10 +18,12 @@ defmodule ClumsyChinchilla.Repo.Migrations.EnableExtensions do
       "pg_prewarm",
       "pg_stat_statements",
       "pg_trgm",
-      "tablefunc",
+      "tablefunc"
     ]
-      |> Enum.each(fn
-        extension -> execute "CREATE EXTENSION IF NOT EXISTS \"#{extension}\"", "DROP EXTENSION IF EXISTS \"#{extension}\""
-      end)
+    |> Enum.each(fn
+      extension ->
+        execute "CREATE EXTENSION IF NOT EXISTS \"#{extension}\"",
+                "DROP EXTENSION IF EXISTS \"#{extension}\""
+    end)
   end
 end

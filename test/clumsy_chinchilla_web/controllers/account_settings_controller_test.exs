@@ -1,7 +1,7 @@
 defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
   use ClumsyChinchillaWeb.ConnCase, async: true
 
-  import ClumsyChinchilla.UserFixtures
+  import ClumsyChinchilla.UsersFixtures
 
   setup :register_and_log_in_account
 
@@ -34,7 +34,11 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
       assert redirected_to(new_password_conn) == Routes.account_settings_path(conn, :edit)
       assert get_session(new_password_conn, :account_token) != get_session(conn, :account_token)
       assert get_flash(new_password_conn, :info) =~ "Password updated successfully"
-      assert ClumsyChinchilla.Users.get_account_by_email_and_password(account.email, "new valid password")
+
+      assert ClumsyChinchilla.Users.get_account_by_email_and_password(
+               account.email,
+               "new valid password"
+             )
     end
 
     test "does not update password on invalid data", %{conn: conn} do
@@ -94,13 +98,22 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
 
       token =
         extract_account_token(fn url ->
-          ClumsyChinchilla.Users.deliver_update_email_instructions(%{account | email: email}, account.email, url)
+          ClumsyChinchilla.Users.deliver_update_email_instructions(
+            %{account | email: email},
+            account.email,
+            url
+          )
         end)
 
       %{token: token, email: email}
     end
 
-    test "updates the account email once", %{conn: conn, account: account, token: token, email: email} do
+    test "updates the account email once", %{
+      conn: conn,
+      account: account,
+      token: token,
+      email: email
+    } do
       conn = get(conn, Routes.account_settings_path(conn, :confirm_email, token))
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
       assert get_flash(conn, :info) =~ "Email changed successfully"

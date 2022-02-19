@@ -1,7 +1,7 @@
 defmodule ClumsyChinchillaWeb.AccountSessionControllerTest do
   use ClumsyChinchillaWeb.ConnCase, async: true
 
-  import ClumsyChinchilla.UserFixtures
+  import ClumsyChinchilla.UsersFixtures
 
   setup do
     %{account: account_fixture()}

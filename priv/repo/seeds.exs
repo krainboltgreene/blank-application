@@ -13,6 +13,7 @@
 ClumsyChinchilla.Users.Permission.create(%{
   name: "Administrator"
 })
+
 ClumsyChinchilla.Users.Permission.create(%{
   name: "Default"
 })
@@ -24,6 +25,7 @@ krainboltgreene =
     username: "krainboltgreene",
     password: "password"
   })
+
 alabaster =
   ClumsyChinchilla.Users.Account.create(%{
     name: "Alabaster Wolf",

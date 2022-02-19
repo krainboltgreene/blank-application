@@ -54,8 +54,7 @@ defmodule Cache do
 
   @spec write(String.t(), any, nil | integer) ::
           {:commit, any}
-          | {:error,
-             atom | Redix.ConnectionError.t | Redix.Error.t}
+          | {:error, atom | Redix.ConnectionError.t() | Redix.Error.t()}
           | {:ok,
              nil
              | String.t()
@@ -85,7 +84,8 @@ defmodule Cache do
   @spec erase(String.t()) ::
           {:error,
            atom
-           | Redix.ConnectionError.t | Redix.Error.t}
+           | Redix.ConnectionError.t()
+           | Redix.Error.t()}
           | {:ok,
              nil
              | String.t()

@@ -23,20 +23,24 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
   Deliver instructions to confirm account.
   """
   def deliver_confirmation_instructions(account, url) do
-    deliver(account.email, "Finish setting up your #{Application.get_env(:clumsy_chinchilla, :application_name)} Account", """
+    deliver(
+      account.email,
+      "Finish setting up your #{Application.get_env(:clumsy_chinchilla, :application_name)} Account",
+      """
 
-    ==============================
+      ==============================
 
-    Hi #{account.email},
+      Hi #{account.email},
 
-    You can confirm your account by visiting the URL below:
+      You can confirm your account by visiting the URL below:
 
-    #{url}
+      #{url}
 
-    If you didn't create an account with us, please ignore this.
+      If you didn't create an account with us, please ignore this.
 
-    ==============================
-    """)
+      ==============================
+      """
+    )
   end
 
   @doc """

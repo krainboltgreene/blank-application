@@ -1,7 +1,7 @@
 defmodule ClumsyChinchillaWeb.AccountConfirmationControllerTest do
   use ClumsyChinchillaWeb.ConnCase, async: true
 
-  import ClumsyChinchilla.UserFixtures
+  import ClumsyChinchilla.UsersFixtures
 
   setup do
     %{account: account_fixture()}
@@ -25,11 +25,17 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationControllerTest do
 
       assert redirected_to(conn) == "/"
       assert get_flash(conn, :info) =~ "If your email is in our system"
-      assert Repo.get_by!(ClumsyChinchilla.Users.AccountToken, account_id: account.id).context == "confirm"
+
+      assert ClumsyChinchilla.Repo.get_by!(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             ).context == "confirm"
     end
 
-    test "does not send confirmation token if Account is confirmed", %{conn: conn, account: account} do
-      Repo.update!(ClumsyChinchilla.Users.Account.confirm_changeset(account))
+    test "does not send confirmation token if Account is confirmed", %{
+      conn: conn,
+      account: account
+    } do
+      ClumsyChinchilla.Repo.update!(ClumsyChinchilla.Users.Account.confirm_changeset(account))
 
       conn =
         post(conn, Routes.account_confirmation_path(conn, :create), %{
@@ -38,7 +44,10 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationControllerTest do
 
       assert redirected_to(conn) == "/"
       assert get_flash(conn, :info) =~ "If your email is in our system"
-      refute Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
 
     test "does not send confirmation token if email is invalid", %{conn: conn} do
@@ -49,7 +58,7 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationControllerTest do
 
       assert redirected_to(conn) == "/"
       assert get_flash(conn, :info) =~ "If your email is in our system"
-      assert Repo.all(ClumsyChinchilla.Users.AccountToken) == []
+      assert ClumsyChinchilla.Repo.all(ClumsyChinchilla.Users.AccountToken) == []
     end
   end
 
@@ -76,7 +85,7 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationControllerTest do
       assert get_flash(conn, :info) =~ "Account confirmed successfully"
       assert ClumsyChinchilla.Users.get_account!(account.id).confirmed_at
       refute get_session(conn, :account_token)
-      assert Repo.all(ClumsyChinchilla.Users.AccountToken) == []
+      assert ClumsyChinchilla.Repo.all(ClumsyChinchilla.Users.AccountToken) == []
 
       # When not logged in
       conn = post(conn, Routes.account_confirmation_path(conn, :update, token))

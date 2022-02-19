@@ -46,7 +46,7 @@ defmodule ClumsyChinchillaWeb.ConnCase do
   test context.
   """
   def register_and_log_in_account(%{conn: conn}) do
-    account = ClumsyChinchilla.UserFixtures.account_fixture()
+    account = ClumsyChinchilla.UsersFixtures.account_fixture()
     %{conn: log_in_account(conn, account), account: account}
   end
 
@@ -56,7 +56,7 @@ defmodule ClumsyChinchillaWeb.ConnCase do
   It returns an updated `conn`.
   """
   def log_in_account(conn, account) do
-    token = ClumsyChinchilla.ClumsyChinchilla.Users.generate_account_session_token(account)
+    token = ClumsyChinchilla.Users.generate_account_session_token(account)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})

@@ -2,7 +2,9 @@ defmodule ClumsyChinchillaWeb.AccountRegistrationController do
   use ClumsyChinchillaWeb, :controller
 
   def new(conn, _params) do
-    changeset = ClumsyChinchilla.Users.change_account_registration(%ClumsyChinchilla.Users.Account{})
+    changeset =
+      ClumsyChinchilla.Users.change_account_registration(%ClumsyChinchilla.Users.Account{})
+
     render(conn, "new.html", changeset: changeset)
   end
 

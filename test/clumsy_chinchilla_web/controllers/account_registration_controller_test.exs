@@ -1,7 +1,7 @@
 defmodule ClumsyChinchillaWeb.AccountRegistrationControllerTest do
   use ClumsyChinchillaWeb.ConnCase, async: true
 
-  import ClumsyChinchilla.UserFixtures
+  import ClumsyChinchilla.UsersFixtures
 
   describe "GET /accounts/register" do
     test "renders registration page", %{conn: conn} do
@@ -13,7 +13,11 @@ defmodule ClumsyChinchillaWeb.AccountRegistrationControllerTest do
     end
 
     test "redirects if already logged in", %{conn: conn} do
-      conn = conn |> log_in_account(account_fixture()) |> get(Routes.account_registration_path(conn, :new))
+      conn =
+        conn
+        |> log_in_account(account_fixture())
+        |> get(Routes.account_registration_path(conn, :new))
+
       assert redirected_to(conn) == "/"
     end
   end
