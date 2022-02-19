@@ -33,8 +33,7 @@ defmodule ClumsyChinchilla.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 2.0"},
-      {:argon2_elixir, "~> 3.0.0"},
+      {:bcrypt_elixir, "~> 2.0.0"},
       {:brains, "~> 0.1.5"},
       {:castore, "~> 0.1.11"},
       {:comeonin, "~> 5.3.2"},

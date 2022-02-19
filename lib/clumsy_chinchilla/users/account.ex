@@ -42,15 +42,10 @@ defmodule ClumsyChinchilla.Users.Account do
   def changeset(record, attributes) do
     record
     |> Ecto.Changeset.change()
-    |> set_password_hash_if_changing_password(attributes)
-    |> generate_confirmation_secret_if_new_record()
-    |> replace_email_address_with_unconfirmed_email_address(attributes)
     |> cast(attributes, [
       :email_address,
       :username,
-      :password_hash,
-      :confirmation_secret,
-      :unconfirmed_email_address
+      :password_hash
     ])
     |> cast_embed(:settings)
     |> cast_embed(:profile)
@@ -58,39 +53,6 @@ defmodule ClumsyChinchilla.Users.Account do
     |> unique_constraint(:email_address)
     |> unique_constraint(:username)
   end
-
-  defp set_password_hash_if_changing_password(changeset, %{password: password})
-       when is_bitstring(password) do
-    changeset |> Ecto.Changeset.change(Argon2.add_hash(password))
-  end
-
-  defp set_password_hash_if_changing_password(changeset, _), do: changeset
-
-  defp generate_confirmation_secret_if_new_record(
-         %Ecto.Changeset{data: %ClumsyChinchilla.Users.Account{id: nil}} = changeset
-       ) do
-    changeset |> Ecto.Changeset.change(%{confirmation_secret: Utilities.generate_secret()})
-  end
-
-  defp generate_confirmation_secret_if_new_record(changeset), do: changeset
-
-  # If have email address, given email address, and not the same then remove given email address and update unconfirmed
-  # If have email address, given email address, and the same then remove given email address and return changeset
-  defp replace_email_address_with_unconfirmed_email_address(
-         %Ecto.Changeset{data: %ClumsyChinchilla.Users.Account{email_address: recorded_email_address}} =
-           changeset,
-         %{email_address: unconfirmed_email_address} = attributes
-       )
-       when is_bitstring(recorded_email_address) and is_bitstring(unconfirmed_email_address) do
-    Map.delete(attributes, :email_address)
-
-    if unconfirmed_email_address != recorded_email_address do
-      changeset |> Ecto.Changeset.change(%{unconfirmed_email_address: unconfirmed_email_address})
-    else
-      changeset
-    end
-  end
-
   # If have no email address, and given email, remove given email address and update confirmed
   defp replace_email_address_with_unconfirmed_email_address(
          %Ecto.Changeset{data: %ClumsyChinchilla.Users.Account{email_address: nil}} = changeset,
