@@ -8,7 +8,7 @@ ENV DOCKER_BUILDKIT=1
 COPY library-scripts/*.sh library-scripts/*.env /tmp/library-scripts/
 RUN echo "deb https://packages.erlang-solutions.com/ubuntu focal contrib" | tee /etc/apt/sources.list.d/erlang.list > /dev/null && wget -O- https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc | apt-key add -
 RUN /bin/bash /tmp/library-scripts/common-debian.sh "true" "${USERNAME}" "${USER_UID}" "${USER_GID}" "false" "true" "true"
-RUN apt-get install -y software-properties-common
+RUN apt-get install -y build-essential autoconf m4 software-properties-common
 RUN add-apt-repository ppa:aos1/diff-so-fancy && apt-get install -y diff-so-fancy
 RUN /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "false"
 RUN /bin/bash /tmp/library-scripts/postgresql-debian.sh

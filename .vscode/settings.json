@@ -25,5 +25,6 @@
   "liveshare.presence": true,
   "terminal.integrated.copyOnSelection": true,
   "window.autoDetectColorScheme": true,
-  "workbench.sideBar.location": "right"
+  "workbench.sideBar.location": "right",
+  "terminal.integrated.defaultLocation": "editor"
 }
