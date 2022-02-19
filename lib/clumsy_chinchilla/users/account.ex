@@ -18,6 +18,7 @@ defmodule ClumsyChinchilla.Users.Account do
     field(:onboarding_state, :string, default: "converted")
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
+    field :confirmed_at, :naive_datetime
     embeds_one(:settings, ClumsyChinchilla.Users.Settings)
     embeds_one(:profile, ClumsyChinchilla.Users.Profile)
     has_many(:organization_memberships, ClumsyChinchilla.Users.OrganizationMembership)
@@ -37,36 +38,6 @@ defmodule ClumsyChinchilla.Users.Account do
           organizations: list(ClumsyChinchilla.Users.Organization.t() | nil) | nil
         }
 
-  @spec changeset(ClumsyChinchilla.Users.Account.t(), map) ::
-          Ecto.Changeset.t(ClumsyChinchilla.Users.Account.t())
-  def changeset(record, attributes) do
-    record
-    |> Ecto.Changeset.change()
-    |> cast(attributes, [
-      :email_address,
-      :username,
-      :password_hash
-    ])
-    |> cast_embed(:settings)
-    |> cast_embed(:profile)
-    |> validate_required([:email_address])
-    |> unique_constraint(:email_address)
-    |> unique_constraint(:username)
-  end
-  # If have no email address, and given email, remove given email address and update confirmed
-  defp replace_email_address_with_unconfirmed_email_address(
-         %Ecto.Changeset{data: %ClumsyChinchilla.Users.Account{email_address: nil}} = changeset,
-         %{email_address: unconfirmed_email_address} = attributes
-       )
-       when is_bitstring(unconfirmed_email_address) do
-    Map.delete(attributes, :email_address)
-
-    changeset |> Ecto.Changeset.change(%{unconfirmed_email_address: unconfirmed_email_address})
-  end
-
-  # If maybe have email_address and given no email_address then return changeset
-  defp replace_email_address_with_unconfirmed_email_address(changeset, _), do: changeset
-
   @doc """
   A account changeset for registration.
 
@@ -84,9 +55,9 @@ defmodule ClumsyChinchilla.Users.Account do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  def registration_changeset(account, attrs, opts \\ []) do
-    account
-    |> cast(attrs, [:email, :password])
+  def registration_changeset(record, attributes, opts \\ []) do
+    record
+    |> cast(attributes, [:email, :password])
     |> validate_email()
     |> validate_password(opts)
   end
@@ -130,9 +101,9 @@ defmodule ClumsyChinchilla.Users.Account do
 
   It requires the email to change otherwise an error is added.
   """
-  def email_changeset(account, attrs) do
+  def email_changeset(account, attributes) do
     account
-    |> cast(attrs, [:email])
+    |> cast(attributes, [:email])
     |> validate_email()
     |> case do
       %{changes: %{email: _}} = changeset -> changeset
@@ -152,9 +123,9 @@ defmodule ClumsyChinchilla.Users.Account do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
-  def password_changeset(account, attrs, opts \\ []) do
+  def password_changeset(account, attributes, opts \\ []) do
     account
-    |> cast(attrs, [:password])
+    |> cast(attributes, [:password])
     |> validate_confirmation(:password, message: "does not match password")
     |> validate_password(opts)
   end
