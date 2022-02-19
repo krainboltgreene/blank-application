@@ -35,8 +35,8 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
       assert get_session(new_password_conn, :account_token) != get_session(conn, :account_token)
       assert get_flash(new_password_conn, :info) =~ "Password updated successfully"
 
-      assert ClumsyChinchilla.Users.get_account_by_email_and_password(
-               account.email,
+      assert ClumsyChinchilla.Users.get_account_by_email_address_and_password(
+               account.email_address,
                "new valid password"
              )
     end
@@ -67,22 +67,22 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
     test "updates the account email", %{conn: conn, account: account} do
       conn =
         put(conn, Routes.account_settings_path(conn, :update), %{
-          "action" => "update_email",
+          "action" => "update_email_address",
           "current_password" => valid_account_password(),
-          "account" => %{"email" => unique_account_email()}
+          "account" => %{"email_address" => unique_account_email_address()}
         })
 
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
       assert get_flash(conn, :info) =~ "A link to confirm your email"
-      assert ClumsyChinchilla.Users.get_account_by_email(account.email)
+      assert ClumsyChinchilla.Users.get_account_by_email_address(account.email_address)
     end
 
     test "does not update email on invalid data", %{conn: conn} do
       conn =
         put(conn, Routes.account_settings_path(conn, :update), %{
-          "action" => "update_email",
+          "action" => "update_email_address",
           "current_password" => "invalid",
-          "account" => %{"email" => "with spaces"}
+          "account" => %{"email_address" => "with spaces"}
         })
 
       response = html_response(conn, 200)
@@ -92,49 +92,49 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
     end
   end
 
-  describe "GET /accounts/settings/confirm_email/:token" do
+  describe "GET /accounts/settings/confirm_email_address/:token" do
     setup %{account: account} do
-      email = unique_account_email()
+      email_address = unique_account_email_address()
 
       token =
         extract_account_token(fn url ->
-          ClumsyChinchilla.Users.deliver_update_email_instructions(
-            %{account | email: email},
-            account.email,
+          ClumsyChinchilla.Users.deliver_update_email_address_instructions(
+            %{account | email_address: email_address},
+            account.email_address,
             url
           )
         end)
 
-      %{token: token, email: email}
+      %{token: token, email_address: email_address}
     end
 
-    test "updates the account email once", %{
+    test "updates the account email_address once", %{
       conn: conn,
       account: account,
       token: token,
-      email: email
+      email_address: email_address
     } do
-      conn = get(conn, Routes.account_settings_path(conn, :confirm_email, token))
+      conn = get(conn, Routes.account_settings_path(conn, :confirm_email_address, token))
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
       assert get_flash(conn, :info) =~ "Email changed successfully"
-      refute ClumsyChinchilla.Users.get_account_by_email(account.email)
-      assert ClumsyChinchilla.Users.get_account_by_email(email)
+      refute ClumsyChinchilla.Users.get_account_by_email_address(account.email_address)
+      assert ClumsyChinchilla.Users.get_account_by_email_address(email_address)
 
-      conn = get(conn, Routes.account_settings_path(conn, :confirm_email, token))
+      conn = get(conn, Routes.account_settings_path(conn, :confirm_email_address, token))
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
       assert get_flash(conn, :error) =~ "Email change link is invalid or it has expired"
     end
 
     test "does not update email with invalid token", %{conn: conn, account: account} do
-      conn = get(conn, Routes.account_settings_path(conn, :confirm_email, "oops"))
+      conn = get(conn, Routes.account_settings_path(conn, :confirm_email_address, "oops"))
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
       assert get_flash(conn, :error) =~ "Email change link is invalid or it has expired"
-      assert ClumsyChinchilla.Users.get_account_by_email(account.email)
+      assert ClumsyChinchilla.Users.get_account_by_email_address(account.email_address)
     end
 
     test "redirects if account is not logged in", %{token: token} do
       conn = build_conn()
-      conn = get(conn, Routes.account_settings_path(conn, :confirm_email, token))
+      conn = get(conn, Routes.account_settings_path(conn, :confirm_email_address, token))
       assert redirected_to(conn) == Routes.account_session_path(conn, :new)
     end
   end

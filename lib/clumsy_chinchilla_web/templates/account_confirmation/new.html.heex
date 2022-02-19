@@ -1,8 +1,8 @@
 <h1>Resend confirmation instructions</h1>
 
 <.form let={f} for={:account} action={Routes.account_confirmation_path(@conn, :create)}>
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+  <%= label f, :email_address %>
+  <%= email_input f, :email_address, required: true %>
 
   <div>
     <%= submit "Resend confirmation instructions" %>

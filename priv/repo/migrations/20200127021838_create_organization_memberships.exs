@@ -3,8 +3,6 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateOrganizationMemberships do
 
   def change do
     create table(:organization_memberships) do
-      add :id, :binary_id, primary_key: true
-
       add :account_id,
           references(:accounts, on_delete: :nothing, type: :binary_id),
           null: false

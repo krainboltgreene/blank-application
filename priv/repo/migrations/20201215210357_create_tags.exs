@@ -3,7 +3,6 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateTags do
 
   def change do
     create table(:tags) do
-      add :id, :binary_id, primary_key: true
       add :name, :text, null: false
       add :slug, :citext, null: false
 

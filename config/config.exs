@@ -16,8 +16,8 @@ config :clumsy_chinchilla,
   ecto_repos: [ClumsyChinchilla.Repo],
   generators: [binary_id: true]
 
-config :plotgenerator,
-       Plotgenerator.Repo,
+config :clumsy_chinchilla,
+       ClumsyChinchilla.Repo,
        migration_primary_key: [name: :id, type: :binary_id],
        migration_foreign_key: [column: :id, type: :binary_id]
 

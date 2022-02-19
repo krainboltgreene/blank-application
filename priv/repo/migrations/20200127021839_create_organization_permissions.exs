@@ -3,8 +3,6 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateOrganizationAccountPermissions 
 
   def change do
     create table(:organization_permissions) do
-      add :id, :binary_id, primary_key: true
-
       add :permission_id,
           references(:permissions, on_delete: :nothing, type: :binary_id),
           null: false

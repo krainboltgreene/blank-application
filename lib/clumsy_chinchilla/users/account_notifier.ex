@@ -24,13 +24,13 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
   """
   def deliver_confirmation_instructions(account, url) do
     deliver(
-      account.email,
+      account.email_address,
       "Finish setting up your #{Application.get_env(:clumsy_chinchilla, :application_name)} Account",
       """
 
       ==============================
 
-      Hi #{account.email},
+      Hi #{account.email_address},
 
       You can confirm your account by visiting the URL below:
 
@@ -47,11 +47,11 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
   Deliver instructions to reset a account password.
   """
   def deliver_reset_password_instructions(account, url) do
-    deliver(account.email, "Reset password instructions", """
+    deliver(account.email_address, "Reset password instructions", """
 
     ==============================
 
-    Hi #{account.email},
+    Hi #{account.email_address},
 
     You can reset your password by visiting the URL below:
 
@@ -66,12 +66,12 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
   @doc """
   Deliver instructions to update a account email.
   """
-  def deliver_update_email_instructions(account, url) do
-    deliver(account.email, "Update email instructions", """
+  def deliver_update_email_address_instructions(account, url) do
+    deliver(account.email_address, "Update email instructions", """
 
     ==============================
 
-    Hi #{account.email},
+    Hi #{account.email_address},
 
     You can change your email by visiting the URL below:
 

@@ -3,7 +3,6 @@ defmodule ClumsyChinchilla.Repo.Migrations.CreateAccounts do
 
   def change do
     create table(:accounts) do
-      add :id, :binary_id, primary_key: true
       add :email_address, :citext, null: false
       add :confirmed_at, :naive_datetime
       add :username, :citext

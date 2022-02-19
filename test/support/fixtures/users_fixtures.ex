@@ -4,12 +4,12 @@ defmodule ClumsyChinchilla.UsersFixtures do
   entities via the `ClumsyChinchilla.Users` context.
   """
 
-  def unique_account_email, do: "account#{System.unique_integer()}@example.com"
+  def unique_account_email_address, do: "account#{System.unique_integer()}@example.com"
   def valid_account_password, do: "hello world!"
 
   def valid_account_attributes(attrs \\ %{}) do
     Enum.into(attrs, %{
-      email: unique_account_email(),
+      email_address: unique_account_email_address(),
       password: valid_account_password()
     })
   end

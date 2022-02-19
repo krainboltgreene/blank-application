@@ -6,9 +6,9 @@ defmodule ClumsyChinchillaWeb.AccountSessionController do
   end
 
   def create(conn, %{"account" => account_params}) do
-    %{"email" => email, "password" => password} = account_params
+    %{"email_address" => email_address, "password" => password} = account_params
 
-    if account = ClumsyChinchilla.Users.get_account_by_email_and_password(email, password) do
+    if account = ClumsyChinchilla.Users.get_account_by_email_address_and_password(email_address, password) do
       ClumsyChinchillaWeb.AccountAuth.log_in_account(conn, account, account_params)
     else
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.

@@ -8,19 +8,19 @@ defmodule ClumsyChinchilla.Users do
   ## Database getters
 
   @doc """
-  Gets a account by email.
+  Gets a account by email_address.
 
   ## Examples
 
-      iex> get_account_by_email("foo@example.com")
+      iex> get_account_by_email_address("foo@example.com")
       %__MODULE__.Account{}
 
-      iex> get_account_by_email("unknown@example.com")
+      iex> get_account_by_email_address("unknown@example.com")
       nil
 
   """
-  def get_account_by_email(email) when is_binary(email) do
-    ClumsyChinchilla.Repo.get_by(__MODULE__.Account, email: email)
+  def get_account_by_email_address(email_address) when is_binary(email_address) do
+    ClumsyChinchilla.Repo.get_by(__MODULE__.Account, email_address: email_address)
   end
 
   @doc """
@@ -28,16 +28,16 @@ defmodule ClumsyChinchilla.Users do
 
   ## Examples
 
-      iex> get_account_by_email_and_password("foo@example.com", "correct_password")
+      iex> get_account_by_email_address_and_password("foo@example.com", "correct_password")
       %__MODULE__.Account{}
 
-      iex> get_account_by_email_and_password("foo@example.com", "invalid_password")
+      iex> get_account_by_email_address_and_password("foo@example.com", "invalid_password")
       nil
 
   """
-  def get_account_by_email_and_password(email, password)
-      when is_binary(email) and is_binary(password) do
-    account = ClumsyChinchilla.Repo.get_by(__MODULE__.Account, email: email)
+  def get_account_by_email_address_and_password(email_address, password)
+      when is_binary(email_address) and is_binary(password) do
+    account = ClumsyChinchilla.Repo.get_by(__MODULE__.Account, email_address: email_address)
     if __MODULE__.Account.valid_password?(account, password), do: account
   end
 
@@ -93,61 +93,61 @@ defmodule ClumsyChinchilla.Users do
   ## Settings
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for changing the account email.
+  Returns an `%Ecto.Changeset{}` for changing the account email_address.
 
   ## Examples
 
-      iex> change_account_email(account)
+      iex> change_account_email_address(account)
       %Ecto.Changeset{data: %__MODULE__.Account{}}
 
   """
-  def change_account_email(account, attrs \\ %{}) do
+  def change_account_email_address(account, attrs \\ %{}) do
     __MODULE__.Account.email_changeset(account, attrs)
   end
 
   @doc """
-  Emulates that the email will change without actually changing
+  Emulates that the email_address will change without actually changing
   it in the database.
 
   ## Examples
 
-      iex> apply_account_email(account, "valid password", %{email: ...})
+      iex> apply_account_email_address(account, "valid password", %{email_address: ...})
       {:ok, %__MODULE__.Account{}}
 
-      iex> apply_account_email(account, "invalid password", %{email: ...})
+      iex> apply_account_email_address(account, "invalid password", %{email_address: ...})
       {:error, %Ecto.Changeset{}}
 
   """
-  def apply_account_email(account, password, attrs) do
+  def apply_account_email_address(account, password, attrs) do
     account
-    |> __MODULE__.Account.email_changeset(attrs)
+    |> __MODULE__.Account.email_address_changeset(attrs)
     |> __MODULE__.Account.validate_current_password(password)
     |> Ecto.Changeset.apply_action(:update)
   end
 
   @doc """
-  Updates the account email using the given token.
+  Updates the account email_address using the given token.
 
-  If the token matches, the account email is updated and the token is deleted.
+  If the token matches, the account email_address is updated and the token is deleted.
   The confirmed_at date is also updated to the current time.
   """
-  def update_account_email(account, token) do
-    context = "change:#{account.email}"
+  def update_account_email_address(account, token) do
+    context = "change:#{account.email_address}"
 
     with {:ok, query} <- __MODULE__.AccountToken.verify_change_email_token_query(token, context),
-         %__MODULE__.AccountToken{sent_to: email} <- ClumsyChinchilla.Repo.one(query),
+         %__MODULE__.AccountToken{sent_to: email_address} <- ClumsyChinchilla.Repo.one(query),
          {:ok, _} <-
-           ClumsyChinchilla.Repo.transaction(account_email_multi(account, email, context)) do
+           ClumsyChinchilla.Repo.transaction(account_email_address_multi(account, email_address, context)) do
       :ok
     else
       _ -> :error
     end
   end
 
-  defp account_email_multi(account, email, context) do
+  defp account_email_address_multi(account, email_address, context) do
     changeset =
       account
-      |> __MODULE__.Account.email_changeset(%{email: email})
+      |> __MODULE__.Account.email_address_changeset(%{email_address: email_address})
       |> __MODULE__.Account.confirm_changeset()
 
     Ecto.Multi.new()
@@ -163,24 +163,24 @@ defmodule ClumsyChinchilla.Users do
 
   ## Examples
 
-      iex> deliver_update_email_instructions(account, current_email, &Routes.account_update_email_url(conn, :edit, &1))
+      iex> deliver_update_email_address_instructions(account, current_email_address, &Routes.account_update_email_address_url(conn, :edit, &1))
       {:ok, %{to: ..., body: ...}}
 
   """
-  def deliver_update_email_instructions(
+  def deliver_update_email_address_instructions(
         %__MODULE__.Account{} = account,
-        current_email,
-        update_email_url_fun
+        current_email_address,
+        update_email_address_url_fun
       )
-      when is_function(update_email_url_fun, 1) do
+      when is_function(update_email_address_url_fun, 1) do
     {encoded_token, account_token} =
-      __MODULE__.AccountToken.build_email_token(account, "change:#{current_email}")
+      __MODULE__.AccountToken.build_email_token(account, "change:#{current_email_address}")
 
     ClumsyChinchilla.Repo.insert!(account_token)
 
-    __MODULE__.AccountNotifier.deliver_update_email_instructions(
+    __MODULE__.AccountNotifier.deliver_update_email_address_instructions(
       account,
-      update_email_url_fun.(encoded_token)
+      update_email_address_url_fun.(encoded_token)
     )
   end
 

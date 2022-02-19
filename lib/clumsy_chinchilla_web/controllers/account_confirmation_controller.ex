@@ -5,8 +5,8 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationController do
     render(conn, "new.html")
   end
 
-  def create(conn, %{"account" => %{"email" => email}}) do
-    if account = ClumsyChinchilla.Users.get_account_by_email(email) do
+  def create(conn, %{"account" => %{"email_address" => email_address}}) do
+    if account = ClumsyChinchilla.Users.get_account_by_email_address(email_address) do
       ClumsyChinchilla.Users.deliver_account_confirmation_instructions(
         account,
         &Routes.account_confirmation_url(conn, :edit, &1)

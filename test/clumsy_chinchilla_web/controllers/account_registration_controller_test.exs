@@ -25,11 +25,11 @@ defmodule ClumsyChinchillaWeb.AccountRegistrationControllerTest do
   describe "POST /accounts/register" do
     @tag :capture_log
     test "creates account and logs the account in", %{conn: conn} do
-      email = unique_account_email()
+      email_address = unique_account_email_address()
 
       conn =
         post(conn, Routes.account_registration_path(conn, :create), %{
-          "account" => valid_account_attributes(email: email)
+          "account" => valid_account_attributes(email_address: email_address)
         })
 
       assert get_session(conn, :account_token)
@@ -38,7 +38,7 @@ defmodule ClumsyChinchillaWeb.AccountRegistrationControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
       response = html_response(conn, 200)
-      assert response =~ email
+      assert response =~ email_address
       assert response =~ "Settings</a>"
       assert response =~ "Log out</a>"
     end
@@ -46,7 +46,7 @@ defmodule ClumsyChinchillaWeb.AccountRegistrationControllerTest do
     test "render errors for invalid data", %{conn: conn} do
       conn =
         post(conn, Routes.account_registration_path(conn, :create), %{
-          "account" => %{"email" => "with spaces", "password" => "too short"}
+          "account" => %{"email_address" => "with spaces", "password" => "too short"}
         })
 
       response = html_response(conn, 200)

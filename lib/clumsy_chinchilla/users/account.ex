@@ -57,24 +57,26 @@ defmodule ClumsyChinchilla.Users.Account do
   """
   def registration_changeset(record, attributes, opts \\ []) do
     record
-    |> cast(attributes, [:email, :password])
-    |> validate_email()
+    |> cast(attributes, [:email_address, :username, :password])
+    |> validate_required([:username])
+    |> validate_email_address()
     |> validate_password(opts)
   end
 
-  defp validate_email(changeset) do
+  defp validate_email_address(changeset) do
     changeset
-    |> validate_required([:email])
-    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
-    |> validate_length(:email, max: 160)
-    |> unsafe_validate_unique(:email, ClumsyChinchilla.Repo)
-    |> unique_constraint(:email)
+    |> validate_required([:email_address])
+    |> validate_format(:email_address, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
+    |> validate_length(:email_address, max: 160)
+    |> unsafe_validate_unique(:email_address, ClumsyChinchilla.Repo)
+    |> unique_constraint(:email_address)
   end
 
   defp validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
     |> validate_length(:password, min: 12, max: 72)
+    # Replace this with actual password complexity logic
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
     # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
@@ -101,13 +103,13 @@ defmodule ClumsyChinchilla.Users.Account do
 
   It requires the email to change otherwise an error is added.
   """
-  def email_changeset(account, attributes) do
+  def email_address_changeset(account, attributes) do
     account
-    |> cast(attributes, [:email])
-    |> validate_email()
+    |> cast(attributes, [:email_address])
+    |> validate_email_address()
     |> case do
-      %{changes: %{email: _}} = changeset -> changeset
-      %{} = changeset -> add_error(changeset, :email, "did not change")
+      %{changes: %{email_address: _}} = changeset -> changeset
+      %{} = changeset -> add_error(changeset, :email_address, "did not change")
     end
   end
 

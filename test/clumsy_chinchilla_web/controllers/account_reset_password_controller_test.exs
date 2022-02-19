@@ -20,7 +20,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
     test "sends a new reset password token", %{conn: conn, account: account} do
       conn =
         post(conn, Routes.account_reset_password_path(conn, :create), %{
-          "account" => %{"email" => account.email}
+          "account" => %{"email_address" => account.email_address}
         })
 
       assert redirected_to(conn) == "/"
@@ -34,7 +34,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
     test "does not send reset password token if email is invalid", %{conn: conn} do
       conn =
         post(conn, Routes.account_reset_password_path(conn, :create), %{
-          "account" => %{"email" => "unknown@example.com"}
+          "account" => %{"email_address" => "unknown@example.com"}
         })
 
       assert redirected_to(conn) == "/"
@@ -88,8 +88,8 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordControllerTest do
       refute get_session(conn, :account_token)
       assert get_flash(conn, :info) =~ "Password reset successfully"
 
-      assert ClumsyChinchilla.Users.get_account_by_email_and_password(
-               account.email,
+      assert ClumsyChinchilla.Users.get_account_by_email_address_and_password(
+               account.email_address,
                "new valid password"
              )
     end

@@ -26,7 +26,7 @@ defmodule ClumsyChinchillaWeb.AccountSessionControllerTest do
     test "logs the account in", %{conn: conn, account: account} do
       conn =
         post(conn, Routes.account_session_path(conn, :create), %{
-          "account" => %{"email" => account.email, "password" => valid_account_password()}
+          "account" => %{"email_address" => account.email_address, "password" => valid_account_password()}
         })
 
       assert get_session(conn, :account_token)
@@ -35,7 +35,7 @@ defmodule ClumsyChinchillaWeb.AccountSessionControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
       response = html_response(conn, 200)
-      assert response =~ account.email
+      assert response =~ account.email_address
       assert response =~ "Settings</a>"
       assert response =~ "Log out</a>"
     end
@@ -44,7 +44,7 @@ defmodule ClumsyChinchillaWeb.AccountSessionControllerTest do
       conn =
         post(conn, Routes.account_session_path(conn, :create), %{
           "account" => %{
-            "email" => account.email,
+            "email_address" => account.email_address,
             "password" => valid_account_password(),
             "remember_me" => "true"
           }
@@ -60,7 +60,7 @@ defmodule ClumsyChinchillaWeb.AccountSessionControllerTest do
         |> init_test_session(account_return_to: "/foo/bar")
         |> post(Routes.account_session_path(conn, :create), %{
           "account" => %{
-            "email" => account.email,
+            "email_address" => account.email_address,
             "password" => valid_account_password()
           }
         })
@@ -71,7 +71,7 @@ defmodule ClumsyChinchillaWeb.AccountSessionControllerTest do
     test "emits error message with invalid credentials", %{conn: conn, account: account} do
       conn =
         post(conn, Routes.account_session_path(conn, :create), %{
-          "account" => %{"email" => account.email, "password" => "invalid_password"}
+          "account" => %{"email_address" => account.email_address, "password" => "invalid_password"}
         })
 
       response = html_response(conn, 200)

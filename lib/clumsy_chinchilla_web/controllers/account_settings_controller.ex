@@ -7,16 +7,16 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
     render(conn, "edit.html")
   end
 
-  def update(conn, %{"action" => "update_email"} = params) do
+  def update(conn, %{"action" => "update_email_address"} = params) do
     %{"current_password" => password, "account" => account_params} = params
     account = conn.assigns.current_account
 
-    case ClumsyChinchilla.Users.apply_account_email(account, password, account_params) do
+    case ClumsyChinchilla.Users.apply_account_email_address(account, password, account_params) do
       {:ok, applied_account} ->
-        ClumsyChinchilla.Users.deliver_update_email_instructions(
+        ClumsyChinchilla.Users.deliver_update_email_address_instructions(
           applied_account,
-          account.email,
-          &Routes.account_settings_url(conn, :confirm_email, &1)
+          account.email_address,
+          &Routes.account_settings_url(conn, :confirm_email_address, &1)
         )
 
         conn
@@ -27,7 +27,7 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
         |> redirect(to: Routes.account_settings_path(conn, :edit))
 
       {:error, changeset} ->
-        render(conn, "edit.html", email_changeset: changeset)
+        render(conn, "edit.html", email_address_changeset: changeset)
     end
   end
 
@@ -47,8 +47,8 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
     end
   end
 
-  def confirm_email(conn, %{"token" => token}) do
-    case ClumsyChinchilla.Users.update_account_email(conn.assigns.current_account, token) do
+  def confirm_email_address(conn, %{"token" => token}) do
+    case ClumsyChinchilla.Users.update_account_email_address(conn.assigns.current_account, token) do
       :ok ->
         conn
         |> put_flash(:info, "Email changed successfully.")
@@ -61,11 +61,11 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
     end
   end
 
-  defp assign_email_and_password_changesets(conn, _opts) do
+  defp assign_email_address_and_password_changesets(conn, _opts) do
     account = conn.assigns.current_account
 
     conn
-    |> assign(:email_changeset, ClumsyChinchilla.Users.change_account_email(account))
+    |> assign(:email_address_changeset, ClumsyChinchilla.Users.change_account_email_address(account))
     |> assign(:password_changeset, ClumsyChinchilla.Users.change_account_password(account))
   end
 end

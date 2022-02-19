@@ -3,7 +3,7 @@ defmodule ClumsyChinchilla.Users.AccountNotifierTest do
   import Swoosh.TestAssertions
 
   test "deliver_onboarding/1" do
-    user = %{name: "Alice", email: "alice@example.com"}
+    user = %{name: "Alice", email_address: "alice@example.com"}
 
     AccountNotifier.deliver_onboarding(user)
 

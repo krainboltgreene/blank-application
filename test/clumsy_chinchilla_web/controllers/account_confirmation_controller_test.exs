@@ -20,7 +20,7 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationControllerTest do
     test "sends a new confirmation token", %{conn: conn, account: account} do
       conn =
         post(conn, Routes.account_confirmation_path(conn, :create), %{
-          "account" => %{"email" => account.email}
+          "account" => %{"email_address" => account.email_address}
         })
 
       assert redirected_to(conn) == "/"
@@ -39,7 +39,7 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationControllerTest do
 
       conn =
         post(conn, Routes.account_confirmation_path(conn, :create), %{
-          "account" => %{"email" => account.email}
+          "account" => %{"email_address" => account.email_address}
         })
 
       assert redirected_to(conn) == "/"
@@ -53,7 +53,7 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationControllerTest do
     test "does not send confirmation token if email is invalid", %{conn: conn} do
       conn =
         post(conn, Routes.account_confirmation_path(conn, :create), %{
-          "account" => %{"email" => "unknown@example.com"}
+          "account" => %{"email_address" => "unknown@example.com"}
         })
 
       assert redirected_to(conn) == "/"

@@ -86,7 +86,7 @@ defmodule ClumsyChinchilla.Users.AccountToken do
   for example, by phone numbers.
   """
   def build_email_token(account, context) do
-    build_hashed_token(account, context, account.email)
+    build_hashed_token(account, context, account.email_address)
   end
 
   defp build_hashed_token(account, context, sent_to) do
@@ -124,7 +124,7 @@ defmodule ClumsyChinchilla.Users.AccountToken do
         query =
           from token in token_and_context_query(hashed_token, context),
             join: account in assoc(token, :account),
-            where: token.inserted_at > ago(^days, "day") and token.sent_to == account.email,
+            where: token.inserted_at > ago(^days, "day") and token.sent_to == account.email_address,
             select: account
 
         {:ok, query}

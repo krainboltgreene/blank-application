@@ -1,6 +1,6 @@
 <ul>
 <%= if @current_account do %>
-  <li><%= @current_account.email %></li>
+  <li><%= @current_account.email_address %></li>
   <li><%= link "Settings", to: Routes.account_settings_path(@conn, :edit) %></li>
   <li><%= link "Log out", to: Routes.account_session_path(@conn, :delete), method: :delete %></li>
 <% else %>
