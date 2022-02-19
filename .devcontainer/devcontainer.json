@@ -2,44 +2,17 @@
 {
   "name": "Project",
   "dockerComposeFile": "docker-compose.yml",
-  "overrideCommand": false,
+  "service": "project",
+  "workspaceFolder": "/workspace",
   "userEnvProbe": "loginInteractiveShell",
-  "service": "codespace",
   "settings": {
     "terminal.integrated.defaultProfile.linux": "zsh",
-    "terminal.integrated.automationShell.linux": "zsh",
-    "files.autoSave": "onFocusChange",
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
-    "terminal.integrated.copyOnSelection": true,
-    "elixirLS.fetchDeps": false,
-    "sqltools.connections": [
-      {
-        "name": "Primary database",
-        "driver": "PostgreSQL",
-        "previewLimit": 50,
-        "server": "localhost",
-        "port": 5432,
-        "database": "clumsy_chinchilla_dev",
-        "username": "postgres",
-        "password": ""
-      }
-    ]
+    "terminal.integrated.automationShell.linux": "zsh"
   },
-  "remoteUser": "codespace",
+  "remoteUser": "vscode",
   "forwardPorts": [4000, 5432],
-  "workspaceFolder": "/home/codespace/source",
   "extensions": [
-    "krainboltgreene.all-builtin-commands",
-    "ms-vscode.atom-keybindings",
-    "mgmcdermott.vscode-language-babel",
-    "apollographql.vscode-apollo",
-    "dbaeumer.vscode-eslint",
-    "github.codespaces",
-    "jakebecker.elixir-ls",
-    "csstools.postcss",
-    "benvp.vscode-hex-pm-intellisense"
+    "github.codespaces"
   ],
   "onCreateCommand": "/bin/zsh -i -c .devcontainer/onCreate.sh",
 }

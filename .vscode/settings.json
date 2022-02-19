@@ -1,0 +1,37 @@
+{
+  "files.autoSave": "onFocusChange",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "terminal.integrated.copyOnSelection": true,
+  "elixirLS.fetchDeps": false,
+  "atomKeymap.promptV3Features": true,
+  "diffEditor.renderSideBySide": false,
+  "editor.fontFamily": "'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "elixirLS.mixEnv": "dev",
+  "explorer.confirmDragAndDrop": false,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "window.autoDetectColorScheme": true,
+  "workbench.sideBar.location": "right",
+  "cSpell.userWords": [
+    "camelcase",
+    "denylist",
+    "iife",
+    "linebreak",
+    "stdlib"
+  ],
+  "liveshare.presence": true,
+  "elixirLS.dialyzerEnabled": false,
+  "elixirLS.trace.server": "messages",
+  "elixirLS.dialyzerFormat": "dialyzer",
+  "editor.fontSize": 14
+}
