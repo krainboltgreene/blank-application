@@ -137,7 +137,9 @@ defmodule ClumsyChinchilla.Users do
     with {:ok, query} <- __MODULE__.AccountToken.verify_change_email_token_query(token, context),
          %__MODULE__.AccountToken{sent_to: email_address} <- ClumsyChinchilla.Repo.one(query),
          {:ok, _} <-
-           ClumsyChinchilla.Repo.transaction(account_email_address_multi(account, email_address, context)) do
+           ClumsyChinchilla.Repo.transaction(
+             account_email_address_multi(account, email_address, context)
+           ) do
       :ok
     else
       _ -> :error

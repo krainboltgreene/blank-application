@@ -77,7 +77,10 @@ defmodule ClumsyChinchillaWeb.Router do
 
     get "/accounts/settings", AccountSettingsController, :edit
     put "/accounts/settings", AccountSettingsController, :update
-    get "/accounts/settings/confirm_email_address/:token", AccountSettingsController, :confirm_email_address
+
+    get "/accounts/settings/confirm_email_address/:token",
+        AccountSettingsController,
+        :confirm_email_address
   end
 
   scope "/", ClumsyChinchillaWeb do

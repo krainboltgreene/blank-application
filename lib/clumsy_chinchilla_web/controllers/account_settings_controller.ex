@@ -65,7 +65,10 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
     account = conn.assigns.current_account
 
     conn
-    |> assign(:email_address_changeset, ClumsyChinchilla.Users.change_account_email_address(account))
+    |> assign(
+      :email_address_changeset,
+      ClumsyChinchilla.Users.change_account_email_address(account)
+    )
     |> assign(:password_changeset, ClumsyChinchilla.Users.change_account_password(account))
   end
 end

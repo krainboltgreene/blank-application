@@ -66,7 +66,9 @@ defmodule ClumsyChinchilla.Users.Account do
   defp validate_email_address(changeset) do
     changeset
     |> Ecto.Changeset.validate_required([:email_address])
-    |> Ecto.Changeset.validate_format(:email_address, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
+    |> Ecto.Changeset.validate_format(:email_address, ~r/^[^\s]+@[^\s]+$/,
+      message: "must have the @ sign and no spaces"
+    )
     |> Ecto.Changeset.validate_length(:email_address, max: 160)
     |> Ecto.Changeset.unsafe_validate_unique(:email_address, ClumsyChinchilla.Repo)
     |> Ecto.Changeset.unique_constraint(:email_address)
@@ -98,10 +100,13 @@ defmodule ClumsyChinchilla.Users.Account do
     end
   end
 
-  defp with_autousername(%{"email_address" => email_address}) when is_bitstring(email_address), do: with_autousername(%{email_address: email_address})
+  defp with_autousername(%{"email_address" => email_address}) when is_bitstring(email_address),
+    do: with_autousername(%{email_address: email_address})
+
   defp with_autousername(%{email_address: email_address}) when is_bitstring(email_address) do
     %{username: email_address |> String.split("@") |> List.first()}
   end
+
   defp with_autousername(attributes), do: attributes
 
   @doc """

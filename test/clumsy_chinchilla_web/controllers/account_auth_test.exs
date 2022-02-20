@@ -24,20 +24,28 @@ defmodule ClumsyChinchillaWeb.ClumsyChinchillaWeb.AccountAuthTest do
     end
 
     test "clears everything previously stored in the session", %{conn: conn, account: account} do
-      conn = conn |> put_session(:to_be_removed, "value") |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account)
+      conn =
+        conn
+        |> put_session(:to_be_removed, "value")
+        |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account)
+
       refute get_session(conn, :to_be_removed)
     end
 
     test "redirects to the configured path", %{conn: conn, account: account} do
       conn =
-        conn |> put_session(:account_return_to, "/hello") |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account)
+        conn
+        |> put_session(:account_return_to, "/hello")
+        |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account)
 
       assert redirected_to(conn) == "/hello"
     end
 
     test "writes a cookie if remember_me is configured", %{conn: conn, account: account} do
       conn =
-        conn |> fetch_cookies() |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account, %{"remember_me" => "true"})
+        conn
+        |> fetch_cookies()
+        |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account, %{"remember_me" => "true"})
 
       assert get_session(conn, :account_token) == conn.cookies[@remember_me_cookie]
 
@@ -98,7 +106,9 @@ defmodule ClumsyChinchillaWeb.ClumsyChinchillaWeb.AccountAuthTest do
 
     test "authenticates account from cookies", %{conn: conn, account: account} do
       logged_in_conn =
-        conn |> fetch_cookies() |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account, %{"remember_me" => "true"})
+        conn
+        |> fetch_cookies()
+        |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account, %{"remember_me" => "true"})
 
       account_token = logged_in_conn.cookies[@remember_me_cookie]
       %{value: signed_token} = logged_in_conn.resp_cookies[@remember_me_cookie]
@@ -140,7 +150,9 @@ defmodule ClumsyChinchillaWeb.ClumsyChinchillaWeb.AccountAuthTest do
 
   describe "require_authenticated_account/2" do
     test "redirects if account is not authenticated", %{conn: conn} do
-      conn = conn |> fetch_flash() |> ClumsyChinchillaWeb.AccountAuth.require_authenticated_account([])
+      conn =
+        conn |> fetch_flash() |> ClumsyChinchillaWeb.AccountAuth.require_authenticated_account([])
+
       assert conn.halted
       assert redirected_to(conn) == Routes.account_session_path(conn, :new)
       assert get_flash(conn, :error) == "You must log in to access this page."
@@ -174,7 +186,9 @@ defmodule ClumsyChinchillaWeb.ClumsyChinchillaWeb.AccountAuthTest do
 
     test "does not redirect if account is authenticated", %{conn: conn, account: account} do
       conn =
-        conn |> assign(:current_account, account) |> ClumsyChinchillaWeb.AccountAuth.require_authenticated_account([])
+        conn
+        |> assign(:current_account, account)
+        |> ClumsyChinchillaWeb.AccountAuth.require_authenticated_account([])
 
       refute conn.halted
       refute conn.status

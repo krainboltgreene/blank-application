@@ -124,7 +124,8 @@ defmodule ClumsyChinchilla.Users.AccountToken do
         query =
           from token in token_and_context_query(hashed_token, context),
             join: account in assoc(token, :account),
-            where: token.inserted_at > ago(^days, "day") and token.sent_to == account.email_address,
+            where:
+              token.inserted_at > ago(^days, "day") and token.sent_to == account.email_address,
             select: account
 
         {:ok, query}

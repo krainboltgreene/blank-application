@@ -10,7 +10,9 @@ defmodule ClumsyChinchilla.UsersTest do
 
     test "returns the account if the email_address exists" do
       %{id: id} = account = account_fixture()
-      assert %ClumsyChinchilla.Users.Account{id: ^id} = ClumsyChinchilla.Users.get_account_by_email_address(account.email_address)
+
+      assert %ClumsyChinchilla.Users.Account{id: ^id} =
+               ClumsyChinchilla.Users.get_account_by_email_address(account.email_address)
     end
   end
 
@@ -24,7 +26,11 @@ defmodule ClumsyChinchilla.UsersTest do
 
     test "does not return the account if the password is not valid" do
       account = account_fixture()
-      refute ClumsyChinchilla.Users.get_account_by_email_address_and_password(account.email_address, "invalid")
+
+      refute ClumsyChinchilla.Users.get_account_by_email_address_and_password(
+               account.email_address,
+               "invalid"
+             )
     end
 
     test "returns the account if the email_address and password are valid" do
@@ -47,7 +53,9 @@ defmodule ClumsyChinchilla.UsersTest do
 
     test "returns the account with the given id" do
       %{id: id} = account = account_fixture()
-      assert %ClumsyChinchilla.Users.Account{id: ^id} = ClumsyChinchilla.Users.get_account!(account.id)
+
+      assert %ClumsyChinchilla.Users.Account{id: ^id} =
+               ClumsyChinchilla.Users.get_account!(account.id)
     end
   end
 
@@ -63,7 +71,10 @@ defmodule ClumsyChinchilla.UsersTest do
 
     test "validates email_address and password when given" do
       {:error, changeset} =
-        ClumsyChinchilla.Users.register_account(%{email_address: "not valid", password: "not valid"})
+        ClumsyChinchilla.Users.register_account(%{
+          email_address: "not valid",
+          password: "not valid"
+        })
 
       assert %{
                email_address: ["must have the @ sign and no spaces"],
@@ -83,7 +94,10 @@ defmodule ClumsyChinchilla.UsersTest do
 
     test "validates email_address uniqueness" do
       %{email_address: email_address} = account_fixture()
-      {:error, changeset} = ClumsyChinchilla.Users.register_account(%{email_address: email_address})
+
+      {:error, changeset} =
+        ClumsyChinchilla.Users.register_account(%{email_address: email_address})
+
       assert "has already been taken" in errors_on(changeset).email_address
 
       # Now try with the upper cased email_address too, to check that email_address case is ignored.
@@ -97,7 +111,9 @@ defmodule ClumsyChinchilla.UsersTest do
       email_address = unique_account_email_address()
 
       {:ok, account} =
-        ClumsyChinchilla.Users.register_account(valid_account_attributes(email_address: email_address))
+        ClumsyChinchilla.Users.register_account(
+          valid_account_attributes(email_address: email_address)
+        )
 
       assert account.email_address == email_address
       assert is_binary(account.hashed_password)
@@ -109,7 +125,10 @@ defmodule ClumsyChinchilla.UsersTest do
   describe "change_account_registration/2" do
     test "returns a changeset" do
       assert %Ecto.Changeset{} =
-               changeset = ClumsyChinchilla.Users.change_account_registration(%ClumsyChinchilla.Users.Account{})
+               changeset =
+               ClumsyChinchilla.Users.change_account_registration(
+                 %ClumsyChinchilla.Users.Account{}
+               )
 
       assert changeset.required == [:password, :email_address, :username]
     end
@@ -134,7 +153,10 @@ defmodule ClumsyChinchilla.UsersTest do
   describe "change_account_email_address/2" do
     test "returns a account changeset" do
       assert %Ecto.Changeset{} =
-               changeset = ClumsyChinchilla.Users.change_account_email_address(%ClumsyChinchilla.Users.Account{})
+               changeset =
+               ClumsyChinchilla.Users.change_account_email_address(
+                 %ClumsyChinchilla.Users.Account{}
+               )
 
       assert changeset.required == [:email_address]
     end
@@ -221,7 +243,12 @@ defmodule ClumsyChinchilla.UsersTest do
         end)
 
       {:ok, token} = Base.url_decode64(token, padding: false)
-      assert account_token = ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, token: :crypto.hash(:sha256, token))
+
+      assert account_token =
+               ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+                 token: :crypto.hash(:sha256, token)
+               )
+
       assert account_token.account_id == account.id
       assert account_token.sent_to == account.email_address
       assert account_token.context == "change:current@example.com"
@@ -245,44 +272,73 @@ defmodule ClumsyChinchilla.UsersTest do
       %{account: account, token: token, email_address: email_address}
     end
 
-    test "updates the email_address with a valid token", %{account: account, token: token, email_address: email_address} do
+    test "updates the email_address with a valid token", %{
+      account: account,
+      token: token,
+      email_address: email_address
+    } do
       assert ClumsyChinchilla.Users.update_account_email_address(account, token) == :ok
       changed_account = ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id)
       assert changed_account.email_address != account.email_address
       assert changed_account.email_address == email_address
       assert changed_account.confirmed_at
       assert changed_account.confirmed_at != account.confirmed_at
-      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
 
     test "does not update email_address with invalid token", %{account: account} do
       assert ClumsyChinchilla.Users.update_account_email_address(account, "oops") == :error
-      assert ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).email_address == account.email_address
-      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      assert ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).email_address ==
+               account.email_address
+
+      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
 
-    test "does not update email_address if account email_address changed", %{account: account, token: token} do
+    test "does not update email_address if account email_address changed", %{
+      account: account,
+      token: token
+    } do
       assert ClumsyChinchilla.Users.update_account_email_address(
                %{account | email_address: "current@example.com"},
                token
              ) == :error
 
-      assert ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).email_address == account.email_address
-      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+      assert ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).email_address ==
+               account.email_address
+
+      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
 
     test "does not update email_address if token expired", %{account: account, token: token} do
-      {1, nil} = ClumsyChinchilla.Repo.update_all(ClumsyChinchilla.Users.AccountToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
+      {1, nil} =
+        ClumsyChinchilla.Repo.update_all(ClumsyChinchilla.Users.AccountToken,
+          set: [inserted_at: ~N[2020-01-01 00:00:00]]
+        )
+
       assert ClumsyChinchilla.Users.update_account_email_address(account, token) == :error
-      assert ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).email_address == account.email_address
-      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      assert ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).email_address ==
+               account.email_address
+
+      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
   end
 
   describe "change_account_password/2" do
     test "returns a account changeset" do
       assert %Ecto.Changeset{} =
-               changeset = ClumsyChinchilla.Users.change_account_password(%ClumsyChinchilla.Users.Account{})
+               changeset =
+               ClumsyChinchilla.Users.change_account_password(%ClumsyChinchilla.Users.Account{})
 
       assert changeset.required == [:password]
     end
@@ -359,7 +415,9 @@ defmodule ClumsyChinchilla.UsersTest do
           password: "new valid password"
         })
 
-      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
   end
 
@@ -370,7 +428,10 @@ defmodule ClumsyChinchilla.UsersTest do
 
     test "generates a token", %{account: account} do
       token = ClumsyChinchilla.Users.generate_account_session_token(account)
-      assert account_token = ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, token: token)
+
+      assert account_token =
+               ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, token: token)
+
       assert account_token.context == "session"
 
       # Creating the same token for another account should fail
@@ -401,7 +462,11 @@ defmodule ClumsyChinchilla.UsersTest do
     end
 
     test "does not return account for expired token", %{token: token} do
-      {1, nil} = ClumsyChinchilla.Repo.update_all(ClumsyChinchilla.Users.AccountToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
+      {1, nil} =
+        ClumsyChinchilla.Repo.update_all(ClumsyChinchilla.Users.AccountToken,
+          set: [inserted_at: ~N[2020-01-01 00:00:00]]
+        )
+
       refute ClumsyChinchilla.Users.get_account_by_session_token(token)
     end
   end
@@ -427,7 +492,12 @@ defmodule ClumsyChinchilla.UsersTest do
         end)
 
       {:ok, token} = Base.url_decode64(token, padding: false)
-      assert account_token = ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, token: :crypto.hash(:sha256, token))
+
+      assert account_token =
+               ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+                 token: :crypto.hash(:sha256, token)
+               )
+
       assert account_token.account_id == account.id
       assert account_token.sent_to == account.email_address
       assert account_token.context == "confirm"
@@ -451,20 +521,33 @@ defmodule ClumsyChinchilla.UsersTest do
       assert confirmed_account.confirmed_at
       assert confirmed_account.confirmed_at != account.confirmed_at
       assert ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).confirmed_at
-      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
 
     test "does not confirm with invalid token", %{account: account} do
       assert ClumsyChinchilla.Users.confirm_account("oops") == :error
       refute ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).confirmed_at
-      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
 
     test "does not confirm email_address if token expired", %{account: account, token: token} do
-      {1, nil} = ClumsyChinchilla.Repo.update_all(ClumsyChinchilla.Users.AccountToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
+      {1, nil} =
+        ClumsyChinchilla.Repo.update_all(ClumsyChinchilla.Users.AccountToken,
+          set: [inserted_at: ~N[2020-01-01 00:00:00]]
+        )
+
       assert ClumsyChinchilla.Users.confirm_account(token) == :error
       refute ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, account.id).confirmed_at
-      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
   end
 
@@ -480,7 +563,12 @@ defmodule ClumsyChinchilla.UsersTest do
         end)
 
       {:ok, token} = Base.url_decode64(token, padding: false)
-      assert account_token = ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, token: :crypto.hash(:sha256, token))
+
+      assert account_token =
+               ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+                 token: :crypto.hash(:sha256, token)
+               )
+
       assert account_token.account_id == account.id
       assert account_token.sent_to == account.email_address
       assert account_token.context == "reset_password"
@@ -500,19 +588,31 @@ defmodule ClumsyChinchilla.UsersTest do
     end
 
     test "returns the account with valid token", %{account: %{id: id}, token: token} do
-      assert %ClumsyChinchilla.Users.Account{id: ^id} = ClumsyChinchilla.Users.get_account_by_reset_password_token(token)
+      assert %ClumsyChinchilla.Users.Account{id: ^id} =
+               ClumsyChinchilla.Users.get_account_by_reset_password_token(token)
+
       assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: id)
     end
 
     test "does not return the account with invalid token", %{account: account} do
       refute ClumsyChinchilla.Users.get_account_by_reset_password_token("oops")
-      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
 
     test "does not return the account if token expired", %{account: account, token: token} do
-      {1, nil} = ClumsyChinchilla.Repo.update_all(ClumsyChinchilla.Users.AccountToken, set: [inserted_at: ~N[2020-01-01 00:00:00]])
+      {1, nil} =
+        ClumsyChinchilla.Repo.update_all(ClumsyChinchilla.Users.AccountToken,
+          set: [inserted_at: ~N[2020-01-01 00:00:00]]
+        )
+
       refute ClumsyChinchilla.Users.get_account_by_reset_password_token(token)
-      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+
+      assert ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
   end
 
@@ -561,13 +661,16 @@ defmodule ClumsyChinchilla.UsersTest do
       {:ok, _} =
         ClumsyChinchilla.Users.reset_account_password(account, %{password: "new valid password"})
 
-      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken, account_id: account.id)
+      refute ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.AccountToken,
+               account_id: account.id
+             )
     end
   end
 
   describe "inspect/2" do
     test "does not include password" do
-      refute inspect(%ClumsyChinchilla.Users.Account{password: "123456"}) =~ "password: \"123456\""
+      refute inspect(%ClumsyChinchilla.Users.Account{password: "123456"}) =~
+               "password: \"123456\""
     end
   end
 end
