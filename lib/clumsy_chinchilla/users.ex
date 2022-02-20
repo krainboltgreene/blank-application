@@ -13,14 +13,14 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> get_account_by_email_address("foo@example.com")
-      %__MODULE__.Account{}
+      %ClumsyChinchilla.Users.Account{}
 
       iex> get_account_by_email_address("unknown@example.com")
       nil
 
   """
   def get_account_by_email_address(email_address) when is_binary(email_address) do
-    ClumsyChinchilla.Repo.get_by(__MODULE__.Account, email_address: email_address)
+    ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.Account, email_address: email_address)
   end
 
   @doc """
@@ -29,7 +29,7 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> get_account_by_email_address_and_password("foo@example.com", "correct_password")
-      %__MODULE__.Account{}
+      %ClumsyChinchilla.Users.Account{}
 
       iex> get_account_by_email_address_and_password("foo@example.com", "invalid_password")
       nil
@@ -37,8 +37,8 @@ defmodule ClumsyChinchilla.Users do
   """
   def get_account_by_email_address_and_password(email_address, password)
       when is_binary(email_address) and is_binary(password) do
-    account = ClumsyChinchilla.Repo.get_by(__MODULE__.Account, email_address: email_address)
-    if __MODULE__.Account.valid_password?(account, password), do: account
+    account = ClumsyChinchilla.Repo.get_by(ClumsyChinchilla.Users.Account, email_address: email_address)
+    if ClumsyChinchilla.Users.Account.valid_password?(account, password), do: account
   end
 
   @doc """
@@ -49,13 +49,13 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> get_account!(123)
-      %__MODULE__.Account{}
+      %ClumsyChinchilla.Users.Account{}
 
       iex> get_account!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_account!(id), do: ClumsyChinchilla.Repo.get!(__MODULE__.Account, id)
+  def get_account!(id), do: ClumsyChinchilla.Repo.get!(ClumsyChinchilla.Users.Account, id)
 
   ## Account registration
 
@@ -65,15 +65,15 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> register_account(%{field: value})
-      {:ok, %__MODULE__.Account{}}
+      {:ok, %ClumsyChinchilla.Users.Account{}}
 
       iex> register_account(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
   def register_account(attrs) do
-    %__MODULE__.Account{}
-    |> __MODULE__.Account.registration_changeset(attrs)
+    %ClumsyChinchilla.Users.Account{}
+    |> ClumsyChinchilla.Users.Account.registration_changeset(attrs)
     |> ClumsyChinchilla.Repo.insert()
   end
 
@@ -83,11 +83,11 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> change_account_registration(account)
-      %Ecto.Changeset{data: %__MODULE__.Account{}}
+      %Ecto.Changeset{data: %ClumsyChinchilla.Users.Account{}}
 
   """
-  def change_account_registration(%__MODULE__.Account{} = account, attrs \\ %{}) do
-    __MODULE__.Account.registration_changeset(account, attrs, hash_password: false)
+  def change_account_registration(%ClumsyChinchilla.Users.Account{} = account, attrs \\ %{}) do
+    ClumsyChinchilla.Users.Account.registration_changeset(account, attrs, hash_password: false)
   end
 
   ## Settings
@@ -98,11 +98,11 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> change_account_email_address(account)
-      %Ecto.Changeset{data: %__MODULE__.Account{}}
+      %Ecto.Changeset{data: %ClumsyChinchilla.Users.Account{}}
 
   """
   def change_account_email_address(account, attrs \\ %{}) do
-    __MODULE__.Account.email_address_changeset(account, attrs)
+    ClumsyChinchilla.Users.Account.email_address_changeset(account, attrs)
   end
 
   @doc """
@@ -112,7 +112,7 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> apply_account_email_address(account, "valid password", %{email_address: ...})
-      {:ok, %__MODULE__.Account{}}
+      {:ok, %ClumsyChinchilla.Users.Account{}}
 
       iex> apply_account_email_address(account, "invalid password", %{email_address: ...})
       {:error, %Ecto.Changeset{}}
@@ -120,8 +120,8 @@ defmodule ClumsyChinchilla.Users do
   """
   def apply_account_email_address(account, password, attrs) do
     account
-    |> __MODULE__.Account.email_address_changeset(attrs)
-    |> __MODULE__.Account.validate_current_password(password)
+    |> ClumsyChinchilla.Users.Account.email_address_changeset(attrs)
+    |> ClumsyChinchilla.Users.Account.validate_current_password(password)
     |> Ecto.Changeset.apply_action(:update)
   end
 
@@ -134,8 +134,8 @@ defmodule ClumsyChinchilla.Users do
   def update_account_email_address(account, token) do
     context = "change:#{account.email_address}"
 
-    with {:ok, query} <- __MODULE__.AccountToken.verify_change_email_token_query(token, context),
-         %__MODULE__.AccountToken{sent_to: email_address} <- ClumsyChinchilla.Repo.one(query),
+    with {:ok, query} <- ClumsyChinchilla.Users.AccountToken.verify_change_email_token_query(token, context),
+         %ClumsyChinchilla.Users.AccountToken{sent_to: email_address} <- ClumsyChinchilla.Repo.one(query),
          {:ok, _} <-
            ClumsyChinchilla.Repo.transaction(
              account_email_address_multi(account, email_address, context)
@@ -149,14 +149,14 @@ defmodule ClumsyChinchilla.Users do
   defp account_email_address_multi(account, email_address, context) do
     changeset =
       account
-      |> __MODULE__.Account.email_address_changeset(%{email_address: email_address})
-      |> __MODULE__.Account.confirm_changeset()
+      |> ClumsyChinchilla.Users.Account.email_address_changeset(%{email_address: email_address})
+      |> ClumsyChinchilla.Users.Account.confirm_changeset()
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:account, changeset)
     |> Ecto.Multi.delete_all(
       :tokens,
-      __MODULE__.AccountToken.account_and_contexts_query(account, [context])
+      ClumsyChinchilla.Users.AccountToken.account_and_contexts_query(account, [context])
     )
   end
 
@@ -170,17 +170,17 @@ defmodule ClumsyChinchilla.Users do
 
   """
   def deliver_update_email_address_instructions(
-        %__MODULE__.Account{} = account,
+        %ClumsyChinchilla.Users.Account{} = account,
         current_email_address,
         update_email_address_url_fun
       )
       when is_function(update_email_address_url_fun, 1) do
     {encoded_token, account_token} =
-      __MODULE__.AccountToken.build_email_token(account, "change:#{current_email_address}")
+      ClumsyChinchilla.Users.AccountToken.build_email_token(account, "change:#{current_email_address}")
 
     ClumsyChinchilla.Repo.insert!(account_token)
 
-    __MODULE__.AccountNotifier.deliver_update_email_address_instructions(
+    ClumsyChinchilla.Users.AccountNotifier.deliver_update_email_address_instructions(
       account,
       update_email_address_url_fun.(encoded_token)
     )
@@ -192,11 +192,11 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> change_account_password(account)
-      %Ecto.Changeset{data: %__MODULE__.Account{}}
+      %Ecto.Changeset{data: %ClumsyChinchilla.Users.Account{}}
 
   """
   def change_account_password(account, attrs \\ %{}) do
-    __MODULE__.Account.password_changeset(account, attrs, hash_password: false)
+    ClumsyChinchilla.Users.Account.password_changeset(account, attrs, hash_password: false)
   end
 
   @doc """
@@ -205,7 +205,7 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> update_account_password(account, "valid password", %{password: ...})
-      {:ok, %__MODULE__.Account{}}
+      {:ok, %ClumsyChinchilla.Users.Account{}}
 
       iex> update_account_password(account, "invalid password", %{password: ...})
       {:error, %Ecto.Changeset{}}
@@ -214,14 +214,14 @@ defmodule ClumsyChinchilla.Users do
   def update_account_password(account, password, attrs) do
     changeset =
       account
-      |> __MODULE__.Account.password_changeset(attrs)
-      |> __MODULE__.Account.validate_current_password(password)
+      |> ClumsyChinchilla.Users.Account.password_changeset(attrs)
+      |> ClumsyChinchilla.Users.Account.validate_current_password(password)
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:account, changeset)
     |> Ecto.Multi.delete_all(
       :tokens,
-      __MODULE__.AccountToken.account_and_contexts_query(account, :all)
+      ClumsyChinchilla.Users.AccountToken.account_and_contexts_query(account, :all)
     )
     |> ClumsyChinchilla.Repo.transaction()
     |> case do
@@ -236,7 +236,7 @@ defmodule ClumsyChinchilla.Users do
   Generates a session token.
   """
   def generate_account_session_token(account) do
-    {token, account_token} = __MODULE__.AccountToken.build_session_token(account)
+    {token, account_token} = ClumsyChinchilla.Users.AccountToken.build_session_token(account)
     ClumsyChinchilla.Repo.insert!(account_token)
     token
   end
@@ -245,7 +245,7 @@ defmodule ClumsyChinchilla.Users do
   Gets the account with the given signed token.
   """
   def get_account_by_session_token(token) do
-    {:ok, query} = __MODULE__.AccountToken.verify_session_token_query(token)
+    {:ok, query} = ClumsyChinchilla.Users.AccountToken.verify_session_token_query(token)
     ClumsyChinchilla.Repo.one(query)
   end
 
@@ -254,7 +254,7 @@ defmodule ClumsyChinchilla.Users do
   """
   def delete_session_token(token) do
     ClumsyChinchilla.Repo.delete_all(
-      __MODULE__.AccountToken.token_and_context_query(token, "session")
+      ClumsyChinchilla.Users.AccountToken.token_and_context_query(token, "session")
     )
 
     :ok
@@ -275,7 +275,7 @@ defmodule ClumsyChinchilla.Users do
 
   """
   def deliver_account_confirmation_instructions(
-        %__MODULE__.Account{} = account,
+        %ClumsyChinchilla.Users.Account{} = account,
         confirmation_url_fun
       )
       when is_function(confirmation_url_fun, 1) do
@@ -283,11 +283,11 @@ defmodule ClumsyChinchilla.Users do
       {:error, :already_confirmed}
     else
       {encoded_token, account_token} =
-        __MODULE__.AccountToken.build_email_token(account, "confirm")
+        ClumsyChinchilla.Users.AccountToken.build_email_token(account, "confirm")
 
       ClumsyChinchilla.Repo.insert!(account_token)
 
-      __MODULE__.AccountNotifier.deliver_confirmation_instructions(
+      ClumsyChinchilla.Users.AccountNotifier.deliver_confirmation_instructions(
         account,
         confirmation_url_fun.(encoded_token)
       )
@@ -301,8 +301,8 @@ defmodule ClumsyChinchilla.Users do
   and the token is deleted.
   """
   def confirm_account(token) do
-    with {:ok, query} <- __MODULE__.AccountToken.verify_email_token_query(token, "confirm"),
-         %__MODULE__.Account{} = account <- ClumsyChinchilla.Repo.one(query),
+    with {:ok, query} <- ClumsyChinchilla.Users.AccountToken.verify_email_token_query(token, "confirm"),
+         %ClumsyChinchilla.Users.Account{} = account <- ClumsyChinchilla.Repo.one(query),
          {:ok, %{account: account}} <-
            ClumsyChinchilla.Repo.transaction(confirm_account_multi(account)) do
       {:ok, account}
@@ -313,10 +313,10 @@ defmodule ClumsyChinchilla.Users do
 
   defp confirm_account_multi(account) do
     Ecto.Multi.new()
-    |> Ecto.Multi.update(:account, __MODULE__.Account.confirm_changeset(account))
+    |> Ecto.Multi.update(:account, ClumsyChinchilla.Users.Account.confirm_changeset(account))
     |> Ecto.Multi.delete_all(
       :tokens,
-      __MODULE__.AccountToken.account_and_contexts_query(account, ["confirm"])
+      ClumsyChinchilla.Users.AccountToken.account_and_contexts_query(account, ["confirm"])
     )
   end
 
@@ -332,16 +332,16 @@ defmodule ClumsyChinchilla.Users do
 
   """
   def deliver_account_reset_password_instructions(
-        %__MODULE__.Account{} = account,
+        %ClumsyChinchilla.Users.Account{} = account,
         reset_password_url_fun
       )
       when is_function(reset_password_url_fun, 1) do
     {encoded_token, account_token} =
-      __MODULE__.AccountToken.build_email_token(account, "reset_password")
+      ClumsyChinchilla.Users.AccountToken.build_email_token(account, "reset_password")
 
     ClumsyChinchilla.Repo.insert!(account_token)
 
-    __MODULE__.AccountNotifier.deliver_reset_password_instructions(
+    ClumsyChinchilla.Users.AccountNotifier.deliver_reset_password_instructions(
       account,
       reset_password_url_fun.(encoded_token)
     )
@@ -353,7 +353,7 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> get_account_by_reset_password_token("validtoken")
-      %__MODULE__.Account{}
+      %ClumsyChinchilla.Users.Account{}
 
       iex> get_account_by_reset_password_token("invalidtoken")
       nil
@@ -361,8 +361,8 @@ defmodule ClumsyChinchilla.Users do
   """
   def get_account_by_reset_password_token(token) do
     with {:ok, query} <-
-           __MODULE__.AccountToken.verify_email_token_query(token, "reset_password"),
-         %__MODULE__.Account{} = account <- ClumsyChinchilla.Repo.one(query) do
+           ClumsyChinchilla.Users.AccountToken.verify_email_token_query(token, "reset_password"),
+         %ClumsyChinchilla.Users.Account{} = account <- ClumsyChinchilla.Repo.one(query) do
       account
     else
       _ -> nil
@@ -375,7 +375,7 @@ defmodule ClumsyChinchilla.Users do
   ## Examples
 
       iex> reset_account_password(account, %{password: "new long password", password_confirmation: "new long password"})
-      {:ok, %__MODULE__.Account{}}
+      {:ok, %ClumsyChinchilla.Users.Account{}}
 
       iex> reset_account_password(account, %{password: "valid", password_confirmation: "not the same"})
       {:error, %Ecto.Changeset{}}
@@ -383,10 +383,10 @@ defmodule ClumsyChinchilla.Users do
   """
   def reset_account_password(account, attrs) do
     Ecto.Multi.new()
-    |> Ecto.Multi.update(:account, __MODULE__.Account.password_changeset(account, attrs))
+    |> Ecto.Multi.update(:account, ClumsyChinchilla.Users.Account.password_changeset(account, attrs))
     |> Ecto.Multi.delete_all(
       :tokens,
-      __MODULE__.AccountToken.account_and_contexts_query(account, :all)
+      ClumsyChinchilla.Users.AccountToken.account_and_contexts_query(account, :all)
     )
     |> ClumsyChinchilla.Repo.transaction()
     |> case do
@@ -395,54 +395,57 @@ defmodule ClumsyChinchilla.Users do
     end
   end
 
-  @spec join_organization_by_slug(__MODULE__.Account.t(), String.t()) ::
-          {:ok, __MODULE__.Organization.t()}
-          | {:error, :not_found | Ecto.Changeset.t(__MODULE__.OrganizationPermission.t())}
+  @spec join_organization_by_slug(ClumsyChinchilla.Users.Account.t(), String.t()) ::
+          {:ok, ClumsyChinchilla.Users.Organization.t()}
+          | {:error, :not_found | Ecto.Changeset.t(ClumsyChinchilla.Users.OrganizationPermission.t())}
   def join_organization_by_slug(account, organization_slug) do
     join_organization_by_slug(account, organization_slug, "default")
   end
 
-  @spec join_organization_by_slug(__MODULE__.Account.t(), String.t(), String.t()) ::
-          {:ok, __MODULE__.Organization.t()}
-          | {:error, :not_found | Ecto.Changeset.t(__MODULE__.OrganizationPermission.t())}
+  @spec join_organization_by_slug(ClumsyChinchilla.Users.Account.t(), String.t(), String.t()) ::
+          {:ok, ClumsyChinchilla.Users.Organization.t()}
+          | {:error, :not_found | Ecto.Changeset.t(ClumsyChinchilla.Users.OrganizationPermission.t())}
   def join_organization_by_slug(account, organization_slug, permission_slug) do
-    __MODULE__.Organization
+    ClumsyChinchilla.Users.Organization
     |> ClumsyChinchilla.Repo.get_by(%{slug: organization_slug})
-    |> case do
-      nil ->
-        {:error, :not_found}
-
-      organization ->
-        __MODULE__.Permission
-        |> ClumsyChinchilla.Repo.get_by(%{slug: permission_slug})
-        |> case do
-          nil -> {:error, :not_found}
-          permission -> {:ok, {organization, permission}}
-        end
-    end
-    |> case do
-      {:ok, {organization, permission}} ->
-        __MODULE__.create_organization_membership(organization, account)
-        |> case do
-          {:ok, organization_membership} -> {:ok, {organization_membership, permission}}
-          error -> error
-        end
-
-      error ->
-        error
-    end
+    |> with_permission(permission_slug)
+    |> with_organization_membership(account)
     |> case do
       {:ok, {organization_membership, permission}} ->
-        __MODULE__.create_organization_permission(organization_membership, permission)
+        ClumsyChinchilla.Users.create_organization_permission(%{organization_membership: organization_membership, permission: permission})
 
       error ->
         error
     end
   end
 
-  def create_organization_membership(organization, account) do
+  defp with_permission(organization, permission_slug) do
+    ClumsyChinchilla.Users.Permission
+      |> ClumsyChinchilla.Repo.get_by(%{slug: permission_slug})
+      |> case do
+        nil -> {:error, :not_found}
+        permission -> {:ok, {organization, permission}}
+      end
+  end
+  defp with_permission(nil), do: {:error, :not_found}
+  defp with_organization_membership({:ok, {organization, permission}}, account) do
+    ClumsyChinchilla.Users.create_organization_membership(%{organization: organization, account: account})
+    |> case do
+      {:ok, organization_membership} -> {:ok, {organization_membership, permission}}
+      error -> error
+    end
+  end
+  defp with_organization_membership({:error, message}), do: {:error, message}
+
+  def create_organization_membership(attributes) do
+    %ClumsyChinchilla.Users.OrganizationMembership{}
+    |> ClumsyChinchilla.Users.OrganizationMembership.changeset(attributes)
+    |> ClumsyChinchilla.Repo.insert()
   end
 
-  def create_organization_permission(organization_membership, permission) do
+  def create_organization_permission(attributes) do
+    %ClumsyChinchilla.Users.OrganizationPermission{}
+    |> ClumsyChinchilla.Users.OrganizationPermission.changeset(attributes)
+    |> ClumsyChinchilla.Repo.insert()
   end
 end
