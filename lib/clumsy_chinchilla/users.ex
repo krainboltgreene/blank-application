@@ -419,7 +419,7 @@ defmodule ClumsyChinchilla.Users do
     end
   end
 
-  defp with_permission(organization, permission_slug) do
+  defp with_permission(organization, permission_slug) when is_struct(organization, ClumsyChinchilla.Users.Organization) and is_bitstring(permission_slug) do
     ClumsyChinchilla.Users.Permission
       |> ClumsyChinchilla.Repo.get_by(%{slug: permission_slug})
       |> case do
@@ -427,7 +427,7 @@ defmodule ClumsyChinchilla.Users do
         permission -> {:ok, {organization, permission}}
       end
   end
-  defp with_permission(nil), do: {:error, :not_found}
+  defp with_permission(nil, _), do: {:error, :not_found}
   defp with_organization_membership({:ok, {organization, permission}}, account) do
     ClumsyChinchilla.Users.create_organization_membership(%{organization: organization, account: account})
     |> case do
@@ -435,7 +435,7 @@ defmodule ClumsyChinchilla.Users do
       error -> error
     end
   end
-  defp with_organization_membership({:error, message}), do: {:error, message}
+  defp with_organization_membership({:error, message}, _), do: {:error, message}
 
   def create_organization_membership(attributes) do
     %ClumsyChinchilla.Users.OrganizationMembership{}
