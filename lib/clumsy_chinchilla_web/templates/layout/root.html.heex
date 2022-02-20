@@ -94,6 +94,9 @@
   </head>
 
   <body id="application">
+    <nav>
+      <%= render "_account_menu.html", assigns %>
+    </nav>
     <%= @inner_content %>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
     <noscript>

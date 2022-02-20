@@ -102,7 +102,7 @@ defmodule ClumsyChinchilla.Users do
 
   """
   def change_account_email_address(account, attrs \\ %{}) do
-    __MODULE__.Account.email_changeset(account, attrs)
+    __MODULE__.Account.email_address_changeset(account, attrs)
   end
 
   @doc """

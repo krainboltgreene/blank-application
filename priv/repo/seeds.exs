@@ -10,16 +10,16 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-ClumsyChinchilla.Users.Permission.create(%{
+ClumsyChinchilla.Users.create_permission(%{
   name: "Administrator"
 })
 
-ClumsyChinchilla.Users.Permission.create(%{
+ClumsyChinchilla.Users.create_permission(%{
   name: "Default"
 })
 
 krainboltgreene =
-  ClumsyChinchilla.Users.Account.create(%{
+  ClumsyChinchilla.Users.register_account(%{
     name: "Kurtis Rainbolt-Greene",
     email_address: "kurtis@clumsy-chinchilla.club",
     username: "krainboltgreene",
@@ -27,7 +27,7 @@ krainboltgreene =
   })
 
 alabaster =
-  ClumsyChinchilla.Users.Account.create(%{
+  ClumsyChinchilla.Users.register_account(%{
     name: "Alabaster Wolf",
     email_address: "alabaster@clumsy-chinchilla.club",
     username: "alabaster",
@@ -35,7 +35,7 @@ alabaster =
   })
 
 {:ok, _} =
-  ClumsyChinchilla.Users.Organization.create(%{
+  ClumsyChinchilla.Users.create_organization(%{
     name: "Default"
   })
 

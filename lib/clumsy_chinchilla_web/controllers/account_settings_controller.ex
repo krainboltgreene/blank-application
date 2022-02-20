@@ -1,7 +1,7 @@
 defmodule ClumsyChinchillaWeb.AccountSettingsController do
   use ClumsyChinchillaWeb, :controller
 
-  plug :assign_email_and_password_changesets
+  plug :assign_email_address_and_password_changesets
 
   def edit(conn, _params) do
     render(conn, "edit.html")

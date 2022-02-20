@@ -2,7 +2,6 @@ defmodule ClumsyChinchilla.Users.Account do
   @moduledoc false
   use Ecto.Schema
   import Estate, only: [state_machines: 1]
-  import Ecto.Changeset
 
   state_machines(
     onboarding_state: [
@@ -57,46 +56,53 @@ defmodule ClumsyChinchilla.Users.Account do
   """
   def registration_changeset(record, attributes, opts \\ []) do
     record
-    |> cast(attributes, [:email_address, :username, :password])
-    |> validate_required([:username])
+    |> Ecto.Changeset.change(with_autousername(attributes))
+    |> Ecto.Changeset.cast(attributes, [:email_address, :username, :password])
+    |> Ecto.Changeset.validate_required([:username])
     |> validate_email_address()
     |> validate_password(opts)
   end
 
   defp validate_email_address(changeset) do
     changeset
-    |> validate_required([:email_address])
-    |> validate_format(:email_address, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
-    |> validate_length(:email_address, max: 160)
-    |> unsafe_validate_unique(:email_address, ClumsyChinchilla.Repo)
-    |> unique_constraint(:email_address)
+    |> Ecto.Changeset.validate_required([:email_address])
+    |> Ecto.Changeset.validate_format(:email_address, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
+    |> Ecto.Changeset.validate_length(:email_address, max: 160)
+    |> Ecto.Changeset.unsafe_validate_unique(:email_address, ClumsyChinchilla.Repo)
+    |> Ecto.Changeset.unique_constraint(:email_address)
   end
 
   defp validate_password(changeset, opts) do
     changeset
-    |> validate_required([:password])
-    |> validate_length(:password, min: 12, max: 72)
+    |> Ecto.Changeset.validate_required([:password])
+    |> Ecto.Changeset.validate_length(:password, min: 12, max: 72)
     # Replace this with actual password complexity logic
-    # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
-    # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
-    # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
+    # |> Ecto.Changeset.validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
+    # |> Ecto.Changeset.validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
+    # |> Ecto.Changeset.validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
     |> maybe_hash_password(opts)
   end
 
   defp maybe_hash_password(changeset, opts) do
     hash_password? = Keyword.get(opts, :hash_password, true)
-    password = get_change(changeset, :password)
+    password = Ecto.Changeset.get_change(changeset, :password)
 
     if hash_password? && password && changeset.valid? do
       changeset
       # If using Bcrypt, then further validate it is at most 72 bytes long
-      |> validate_length(:password, max: 72, count: :bytes)
-      |> put_change(:hashed_password, Bcrypt.hash_pwd_salt(password))
-      |> delete_change(:password)
+      |> Ecto.Changeset.validate_length(:password, max: 72, count: :bytes)
+      |> Ecto.Changeset.put_change(:hashed_password, Bcrypt.hash_pwd_salt(password))
+      |> Ecto.Changeset.delete_change(:password)
     else
       changeset
     end
   end
+
+  defp with_autousername(%{"email_address" => email_address}) when is_bitstring(email_address), do: with_autousername(%{email_address: email_address})
+  defp with_autousername(%{email_address: email_address}) when is_bitstring(email_address) do
+    %{username: email_address |> String.split("@") |> List.first()}
+  end
+  defp with_autousername(attributes), do: attributes
 
   @doc """
   A account changeset for changing the email.
@@ -105,11 +111,11 @@ defmodule ClumsyChinchilla.Users.Account do
   """
   def email_address_changeset(account, attributes) do
     account
-    |> cast(attributes, [:email_address])
+    |> Ecto.Changeset.cast(attributes, [:email_address])
     |> validate_email_address()
     |> case do
       %{changes: %{email_address: _}} = changeset -> changeset
-      %{} = changeset -> add_error(changeset, :email_address, "did not change")
+      %{} = changeset -> Ecto.Changeset.add_error(changeset, :email_address, "did not change")
     end
   end
 
@@ -127,8 +133,8 @@ defmodule ClumsyChinchilla.Users.Account do
   """
   def password_changeset(account, attributes, opts \\ []) do
     account
-    |> cast(attributes, [:password])
-    |> validate_confirmation(:password, message: "does not match password")
+    |> Ecto.Changeset.cast(attributes, [:password])
+    |> Ecto.Changeset.validate_confirmation(:password, message: "does not match password")
     |> validate_password(opts)
   end
 
@@ -137,7 +143,7 @@ defmodule ClumsyChinchilla.Users.Account do
   """
   def confirm_changeset(account) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
-    change(account, confirmed_at: now)
+    Ecto.Changeset.change(account, confirmed_at: now)
   end
 
   @doc """
@@ -163,7 +169,7 @@ defmodule ClumsyChinchilla.Users.Account do
     if valid_password?(changeset.data, password) do
       changeset
     else
-      add_error(changeset, :current_password, "is not valid")
+      Ecto.Changeset.add_error(changeset, :current_password, "is not valid")
     end
   end
 end

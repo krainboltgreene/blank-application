@@ -14,7 +14,7 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
       |> subject(subject)
       |> text_body(body)
 
-    with {:ok, _metadata} <- Mailer.deliver(email) do
+    with {:ok, _metadata} <- ClumsyChinchilla.Mailer.deliver(email) do
       {:ok, email}
     end
   end
