@@ -19,12 +19,10 @@ defmodule ClumsyChinchillaWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ClumsyChinchillaWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
+  pipeline :admin do
+    plug :put_layout, {ClumsyChinchillaWeb.LayoutView, :app}
+    plug :put_layout, {ClumsyChinchillaWeb.LayoutView, :admin}
   end
-
 
   ## Authentication routes
 
@@ -55,6 +53,7 @@ defmodule ClumsyChinchillaWeb.Router do
   scope "/", ClumsyChinchillaWeb do
     pipe_through [:browser]
 
+    get "/", PageController, :index
     delete "/accounts/log_out", AccountSessionController, :delete
     get "/accounts/confirm", AccountConfirmationController, :new
     post "/accounts/confirm", AccountConfirmationController, :create
@@ -62,8 +61,10 @@ defmodule ClumsyChinchillaWeb.Router do
     post "/accounts/confirm/:token", AccountConfirmationController, :update
   end
 
-  scope "/admin" do
-    pipe_through [:browser, :require_authenticated_account]
+  scope "/admin", ClumsyChinchillaWeb.Admin, as: :admin do
+    pipe_through [:browser, :admin, :require_authenticated_account]
+
+    get "/", PageController, :index
 
     # Enables LiveDashboard only for development
     #
@@ -75,12 +76,16 @@ defmodule ClumsyChinchillaWeb.Router do
     live_dashboard "/dashboard", metrics: ClumsyChinchillaWeb.Telemetry
 
     # Enables showing the styleguide
-    surface_catalogue "/styleguide"
+    if Mix.env() == :dev do
+      surface_catalogue "/styleguide"
+    end
 
     # Enables the Swoosh mailbox preview in development.
     #
     # Note that preview only shows emails that were sent by the same
     # node running the Phoenix server.
-    forward "/mailbox", Plug.Swoosh.MailboxPreview
+    if Mix.env() == :dev do
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
   end
 end

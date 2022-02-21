@@ -10,7 +10,7 @@ config :bcrypt_elixir, :log_rounds, 1
 # Run `mix help test` for more information.
 config :clumsy_chinchilla, ClumsyChinchilla.Repo,
   username: "postgres",
-  password: "postgres",
+  password: if(System.get_env("CI"), do: "postgres"),
   hostname: "localhost",
   database: "clumsy_chinchilla_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,

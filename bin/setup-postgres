@@ -1,3 +1,7 @@
 #!/bin/bash
 
-initdb --username=postgres --pwprompt tmp/postgres/data
+if test -f "/usr/lib/postgresql/13/bin/initdb"; then
+    /usr/lib/postgresql/13/bin/initdb --username=postgres --pwprompt tmp/postgres/data
+else
+  initdb --username=postgres --pwprompt tmp/postgres/data
+fi

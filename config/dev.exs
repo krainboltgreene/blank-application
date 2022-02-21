@@ -6,7 +6,7 @@ Application.put_env(:clumsy_chinchilla, :base_url, "/")
 # Configure your database
 config :clumsy_chinchilla, ClumsyChinchilla.Repo,
   username: "postgres",
-  password: "postgres",
+  password: if(System.get_env("GITHUB_CODESPACE"), do: "postgres"),
   hostname: "localhost",
   database: "clumsy_chinchilla_dev",
   show_sensitive_data_on_connection_error: true,

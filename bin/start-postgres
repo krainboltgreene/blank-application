@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-postgres -F -D tmp/postgres/data
+if test -f "/usr/lib/postgresql/13/bin/pg_ctl"; then
+    /usr/lib/postgresql/13/bin/pg_ctl -D tmp/postgres/data -l tmp/postgres.log start
+else
+  pg_ctl -D tmp/postgres/data -l tmp/postgres.log start
+fi

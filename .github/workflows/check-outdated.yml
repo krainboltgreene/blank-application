@@ -1,0 +1,47 @@
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}-v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: mix deps.get
+  outdated:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+          key: ${{ runner.os }}-24.1-1.13-deps-${{ hashFiles('mix.lock') }}-v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: 24.1
+          elixir-version: 1.13
+      - run: mix hex.outdated
