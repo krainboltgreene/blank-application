@@ -3,6 +3,7 @@ defmodule ClumsyChinchillaWeb.Router do
 
   import ClumsyChinchillaWeb.AccountAuth
   import Surface.Catalogue.Router
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -61,34 +62,25 @@ defmodule ClumsyChinchillaWeb.Router do
     post "/accounts/confirm/:token", AccountConfirmationController, :update
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ClumsyChinchillaWeb do
-  #   pipe_through :api
-  # end
-  if Mix.env() == :dev do
-    import Phoenix.LiveDashboard.Router
+  scope "/admin" do
+    pipe_through [:browser, :require_authenticated_account]
 
-    scope "/admin" do
-      pipe_through :browser
+    # Enables LiveDashboard only for development
+    #
+    # If you want to use the LiveDashboard in production, you should put
+    # it behind authentication and allow only admins to access it.
+    # If your application does not have an admins-only section yet,
+    # you can use Plug.BasicAuth to set up some basic authentication
+    # as long as you are also using SSL (which you should anyway).
+    live_dashboard "/dashboard", metrics: ClumsyChinchillaWeb.Telemetry
 
+    # Enables showing the styleguide
+    surface_catalogue "/styleguide"
 
-      # Enables LiveDashboard only for development
-      #
-      # If you want to use the LiveDashboard in production, you should put
-      # it behind authentication and allow only admins to access it.
-      # If your application does not have an admins-only section yet,
-      # you can use Plug.BasicAuth to set up some basic authentication
-      # as long as you are also using SSL (which you should anyway).
-      live_dashboard "/dashboard", metrics: ClumsyChinchillaWeb.Telemetry
-
-      # Enables showing the styleguide
-      surface_catalogue "/styleguide"
-
-      # Enables the Swoosh mailbox preview in development.
-      #
-      # Note that preview only shows emails that were sent by the same
-      # node running the Phoenix server.
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
-    end
+    # Enables the Swoosh mailbox preview in development.
+    #
+    # Note that preview only shows emails that were sent by the same
+    # node running the Phoenix server.
+    forward "/mailbox", Plug.Swoosh.MailboxPreview
   end
 end
