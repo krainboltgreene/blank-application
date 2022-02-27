@@ -2,8 +2,7 @@ defmodule CoreWeb.AccountRegistrationController do
   use CoreWeb, :controller
 
   def new(conn, _params) do
-    changeset =
-      Core.Users.change_account_registration(%Core.Users.Account{})
+    changeset = Core.Users.change_account_registration(%Core.Users.Account{})
 
     render(conn, "new.html", changeset: changeset)
   end

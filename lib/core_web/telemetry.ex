@@ -30,6 +30,11 @@ defmodule CoreWeb.Telemetry do
         tags: [:route],
         unit: {:native, :millisecond}
       ),
+      summary("phoenix.live_view.mount.stop.duration",
+        unit: {:native, :millisecond},
+        tags: [:view, :connected?],
+        tag_values: &live_view_metric_tag_values/1
+      ),
 
       # Database Metrics
       summary("core.repo.query.total_time",
@@ -52,25 +57,6 @@ defmodule CoreWeb.Telemetry do
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"
-      ),
-
-      # VM Metrics
-      summary("vm.memory.total", unit: {:byte, :kilobyte}),
-      summary("vm.total_run_queue_lengths.total"),
-      summary("vm.total_run_queue_lengths.cpu"),
-      summary("vm.total_run_queue_lengths.io"),
-      # Phoenix Metrics
-      summary("phoenix.endpoint.stop.duration",
-        unit: {:native, :millisecond}
-      ),
-      summary("phoenix.router_dispatch.stop.duration",
-        tags: [:route],
-        unit: {:native, :millisecond}
-      ),
-      summary("phoenix.live_view.mount.stop.duration",
-        unit: {:native, :millisecond},
-        tags: [:view, :connected?],
-        tag_values: &live_view_metric_tag_values/1
       ),
 
       # Oban Metrics

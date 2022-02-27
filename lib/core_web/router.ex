@@ -1,9 +1,9 @@
 defmodule CoreWeb.Router do
   use CoreWeb, :router
 
-  import CoreWeb.AccountAuth
   import Surface.Catalogue.Router
   import Phoenix.LiveDashboard.Router
+  import CoreWeb.AccountAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -77,9 +77,10 @@ defmodule CoreWeb.Router do
 
     # Enables showing the styleguide
     if Mix.env() == :dev do
-      surface_catalogue "/styleguide"
+      surface_catalogue("/styleguide")
     end
-
+  end
+  scope "/admin" do
     # Enables the Swoosh mailbox preview in development.
     #
     # Note that preview only shows emails that were sent by the same

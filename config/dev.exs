@@ -3,7 +3,7 @@ import Config
 config :core,
   secret_key_base: "hPnBNsKd4PUfmSLk2QUu4wLsIFY5Mt1kzplLpgEGQnTkWcNmk9kovkbMujnsm3OI",
   domain: "localhost",
-  base_url: "/",
+  base_url: "/"
 
 # Configure your database
 config :core, Core.Repo,
@@ -60,11 +60,12 @@ config :core, CoreWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :core, CoreWeb.Endpoint,
+  reloadable_compilers: [:gettext, :elixir, :surface],
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/core_web/(live|views)/.*(ex)$",
+      ~r"lib/core_web/(live|views|components)/.*(ex|sface|js)$",
       ~r"lib/core_web/templates/.*(eex)$"
     ]
   ]

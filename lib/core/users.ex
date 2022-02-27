@@ -137,9 +137,7 @@ defmodule Core.Users do
     with {:ok, query} <- Core.Users.AccountToken.verify_change_email_token_query(token, context),
          %Core.Users.AccountToken{sent_to: email_address} <- Core.Repo.one(query),
          {:ok, _} <-
-           Core.Repo.transaction(
-             account_email_address_multi(account, email_address, context)
-           ) do
+           Core.Repo.transaction(account_email_address_multi(account, email_address, context)) do
       :ok
     else
       _ -> :error
@@ -253,9 +251,7 @@ defmodule Core.Users do
   Deletes the signed token with the given context.
   """
   def delete_session_token(token) do
-    Core.Repo.delete_all(
-      Core.Users.AccountToken.token_and_context_query(token, "session")
-    )
+    Core.Repo.delete_all(Core.Users.AccountToken.token_and_context_query(token, "session"))
 
     :ok
   end
@@ -412,22 +408,28 @@ defmodule Core.Users do
     |> with_organization_membership(account)
     |> case do
       {:ok, {organization_membership, permission}} ->
-        Core.Users.create_organization_permission(%{organization_membership: organization_membership, permission: permission})
+        Core.Users.create_organization_permission(%{
+          organization_membership: organization_membership,
+          permission: permission
+        })
 
       error ->
         error
     end
   end
 
-  defp with_permission(organization, permission_slug) when is_struct(organization, Core.Users.Organization) and is_bitstring(permission_slug) do
+  defp with_permission(organization, permission_slug)
+       when is_struct(organization, Core.Users.Organization) and is_bitstring(permission_slug) do
     Core.Users.Permission
-      |> Core.Repo.get_by(%{slug: permission_slug})
-      |> case do
-        nil -> {:error, :not_found}
-        permission -> {:ok, {organization, permission}}
-      end
+    |> Core.Repo.get_by(%{slug: permission_slug})
+    |> case do
+      nil -> {:error, :not_found}
+      permission -> {:ok, {organization, permission}}
+    end
   end
+
   defp with_permission(nil, _), do: {:error, :not_found}
+
   defp with_organization_membership({:ok, {organization, permission}}, account) do
     Core.Users.create_organization_membership(%{organization: organization, account: account})
     |> case do
@@ -435,6 +437,7 @@ defmodule Core.Users do
       error -> error
     end
   end
+
   defp with_organization_membership({:error, message}, _), do: {:error, message}
 
   def create_organization_membership(attributes) do
@@ -447,5 +450,193 @@ defmodule Core.Users do
     %Core.Users.OrganizationPermission{}
     |> Core.Users.OrganizationPermission.changeset(attributes)
     |> Core.Repo.insert()
+  end
+
+  @doc """
+  Returns the list of permissions.
+
+  ## Examples
+
+      iex> list_permissions()
+      [%Core.Users.Permission{}, ...]
+
+  """
+  def list_permissions do
+    Core.Repo.all(Core.Users.Permission)
+  end
+
+  @doc """
+  Gets a single permission.
+
+  Raises `Ecto.NoResultsError` if the Permission does not exist.
+
+  ## Examples
+
+      iex> get_permission!(123)
+      %Core.Users.Permission{}
+
+      iex> get_permission!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_permission!(id), do: Core.Repo.get!(Core.Users.Permission, id)
+
+  @doc """
+  Creates a permission.
+
+  ## Examples
+
+      iex> create_permission(%{field: value})
+      {:ok, %Core.Users.Permission{}}
+
+      iex> create_permission(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_permission(attrs \\ %{}) do
+    %Core.Users.Permission{}
+    |> Core.Users.Permission.changeset(attrs)
+    |> Core.Repo.insert()
+  end
+
+  @doc """
+  Updates a permission.
+
+  ## Examples
+
+      iex> update_permission(permission, %{field: new_value})
+      {:ok, %Core.Users.Permission{}}
+
+      iex> update_permission(permission, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_permission(%Core.Users.Permission{} = permission, attrs) do
+    permission
+    |> Core.Users.Permission.changeset(attrs)
+    |> Core.Repo.update()
+  end
+
+  @doc """
+  Deletes a permission.
+
+  ## Examples
+
+      iex> delete_permission(permission)
+      {:ok, %Core.Users.Permission{}}
+
+      iex> delete_permission(permission)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_permission(%Core.Users.Permission{} = permission) do
+    Core.Repo.delete(permission)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking permission changes.
+
+  ## Examples
+
+      iex> change_permission(permission)
+      %Ecto.Changeset{data: %Core.Users.Permission{}}
+
+  """
+  def change_permission(%Core.Users.Permission{} = permission, attrs \\ %{}) do
+    Core.Users.Permission.changeset(permission, attrs)
+  end
+
+  @doc """
+  Returns the list of organizations.
+
+  ## Examples
+
+      iex> list_organizations()
+      [%Core.Users.Organization{}, ...]
+
+  """
+  def list_organizations do
+    Core.Repo.all(Core.Users.Organization)
+  end
+
+  @doc """
+  Gets a single organization.
+
+  Raises `Ecto.NoResultsError` if the Organization does not exist.
+
+  ## Examples
+
+      iex> get_organization!(123)
+      %Core.Users.Organization{}
+
+      iex> get_organization!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_organization!(id), do: Core.Repo.get!(Core.Users.Organization, id)
+
+  @doc """
+  Creates a organization.
+
+  ## Examples
+
+      iex> create_organization(%{field: value})
+      {:ok, %Core.Users.Organization{}}
+
+      iex> create_organization(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_organization(attrs \\ %{}) do
+    %Core.Users.Organization{}
+    |> Core.Users.Organization.changeset(attrs)
+    |> Core.Repo.insert()
+  end
+
+  @doc """
+  Updates a organization.
+
+  ## Examples
+
+      iex> update_organization(organization, %{field: new_value})
+      {:ok, %Core.Users.Organization{}}
+
+      iex> update_organization(organization, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_organization(%Core.Users.Organization{} = organization, attrs) do
+    organization
+    |> Core.Users.Organization.changeset(attrs)
+    |> Core.Repo.update()
+  end
+
+  @doc """
+  Deletes a organization.
+
+  ## Examples
+
+      iex> delete_organization(organization)
+      {:ok, %Core.Users.Organization{}}
+
+      iex> delete_organization(organization)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_organization(%Core.Users.Organization{} = organization) do
+    Core.Repo.delete(organization)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking organization changes.
+
+  ## Examples
+
+      iex> change_organization(organization)
+      %Ecto.Changeset{data: %Core.Users.Organization{}}
+
+  """
+  def change_organization(%Core.Users.Organization{} = organization, attrs \\ %{}) do
+    Core.Users.Organization.changeset(organization, attrs)
   end
 end

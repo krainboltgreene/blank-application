@@ -65,6 +65,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :surface, :components, [
+  {Surface.Components.Form.ErrorTag, default_translator: {CoreWeb.ErrorHelpers, :translate_error}}
+]
+
 # Setup configuration for paper_trail
 config :paper_trail,
   repo: Core.Repo,

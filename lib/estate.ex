@@ -8,7 +8,8 @@ defmodule Estate do
     Enum.flat_map(events, &transitions(&1, column_name))
   end
 
-  def transitions({event_name, transitions}, column_name) when is_atom(event_name) and is_list(transitions) do
+  def transitions({event_name, transitions}, column_name)
+      when is_atom(event_name) and is_list(transitions) do
     Enum.map(transitions, &transition(&1, event_name, column_name))
   end
 
@@ -44,9 +45,7 @@ defmodule Estate do
       end
 
       @desc "An action to change the state, if the transition matches, but doesn't save"
-      def unquote(event_name)(
-            %{unquote(column_name) => unquote(Atom.to_string(from))} = record
-          ) do
+      def unquote(event_name)(%{unquote(column_name) => unquote(Atom.to_string(from))} = record) do
         record
         |> Ecto.Changeset.change()
         |> unquote(:"before_#{event_name}_from_#{from}")()
@@ -78,6 +77,7 @@ defmodule Estate do
       # If you can't match, then raise transition failure
     end
   end
+
   defmacro state_machines(machines) do
     Enum.flat_map(machines, &Estate.state_machine/1)
   end

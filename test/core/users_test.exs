@@ -54,8 +54,7 @@ defmodule Core.UsersTest do
     test "returns the account with the given id" do
       %{id: id} = account = account_fixture()
 
-      assert %Core.Users.Account{id: ^id} =
-               Core.Users.get_account!(account.id)
+      assert %Core.Users.Account{id: ^id} = Core.Users.get_account!(account.id)
     end
   end
 
@@ -95,8 +94,7 @@ defmodule Core.UsersTest do
     test "validates email_address uniqueness" do
       %{email_address: email_address} = account_fixture()
 
-      {:error, changeset} =
-        Core.Users.register_account(%{email_address: email_address})
+      {:error, changeset} = Core.Users.register_account(%{email_address: email_address})
 
       assert "has already been taken" in errors_on(changeset).email_address
 
@@ -111,9 +109,7 @@ defmodule Core.UsersTest do
       email_address = unique_account_email_address()
 
       {:ok, account} =
-        Core.Users.register_account(
-          valid_account_attributes(email_address: email_address)
-        )
+        Core.Users.register_account(valid_account_attributes(email_address: email_address))
 
       assert account.email_address == email_address
       assert is_binary(account.hashed_password)
@@ -125,10 +121,7 @@ defmodule Core.UsersTest do
   describe "change_account_registration/2" do
     test "returns a changeset" do
       assert %Ecto.Changeset{} =
-               changeset =
-               Core.Users.change_account_registration(
-                 %Core.Users.Account{}
-               )
+               changeset = Core.Users.change_account_registration(%Core.Users.Account{})
 
       assert changeset.required == [:password, :email_address, :username]
     end
@@ -153,10 +146,7 @@ defmodule Core.UsersTest do
   describe "change_account_email_address/2" do
     test "returns a account changeset" do
       assert %Ecto.Changeset{} =
-               changeset =
-               Core.Users.change_account_email_address(
-                 %Core.Users.Account{}
-               )
+               changeset = Core.Users.change_account_email_address(%Core.Users.Account{})
 
       assert changeset.required == [:email_address]
     end
@@ -337,8 +327,7 @@ defmodule Core.UsersTest do
   describe "change_account_password/2" do
     test "returns a account changeset" do
       assert %Ecto.Changeset{} =
-               changeset =
-               Core.Users.change_account_password(%Core.Users.Account{})
+               changeset = Core.Users.change_account_password(%Core.Users.Account{})
 
       assert changeset.required == [:password]
     end
@@ -429,8 +418,7 @@ defmodule Core.UsersTest do
     test "generates a token", %{account: account} do
       token = Core.Users.generate_account_session_token(account)
 
-      assert account_token =
-               Core.Repo.get_by(Core.Users.AccountToken, token: token)
+      assert account_token = Core.Repo.get_by(Core.Users.AccountToken, token: token)
 
       assert account_token.context == "session"
 
@@ -588,8 +576,7 @@ defmodule Core.UsersTest do
     end
 
     test "returns the account with valid token", %{account: %{id: id}, token: token} do
-      assert %Core.Users.Account{id: ^id} =
-               Core.Users.get_account_by_reset_password_token(token)
+      assert %Core.Users.Account{id: ^id} = Core.Users.get_account_by_reset_password_token(token)
 
       assert Core.Repo.get_by(Core.Users.AccountToken, account_id: id)
     end
@@ -637,8 +624,7 @@ defmodule Core.UsersTest do
     test "validates maximum values for password for security", %{account: account} do
       too_long = String.duplicate("db", 100)
 
-      {:error, changeset} =
-        Core.Users.reset_account_password(account, %{password: too_long})
+      {:error, changeset} = Core.Users.reset_account_password(account, %{password: too_long})
 
       assert "should be at most 72 character(s)" in errors_on(changeset).password
     end
@@ -658,8 +644,7 @@ defmodule Core.UsersTest do
     test "deletes all tokens for the given account", %{account: account} do
       _ = Core.Users.generate_account_session_token(account)
 
-      {:ok, _} =
-        Core.Users.reset_account_password(account, %{password: "new valid password"})
+      {:ok, _} = Core.Users.reset_account_password(account, %{password: "new valid password"})
 
       refute Core.Repo.get_by(Core.Users.AccountToken,
                account_id: account.id

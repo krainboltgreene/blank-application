@@ -24,9 +24,7 @@ defmodule CoreWeb.AccountResetPasswordController do
   end
 
   def edit(conn, _params) do
-    render(conn, "edit.html",
-      changeset: Core.Users.change_account_password(conn.assigns.account)
-    )
+    render(conn, "edit.html", changeset: Core.Users.change_account_password(conn.assigns.account))
   end
 
   # Do not log in the account after reset password to avoid a

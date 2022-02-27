@@ -11,9 +11,7 @@ defmodule Core.Users.OrganizationPermission do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "organization_permissions" do
-    belongs_to(:organization_membership, Core.Users.OrganizationMembership,
-      primary_key: true
-    )
+    belongs_to(:organization_membership, Core.Users.OrganizationMembership, primary_key: true)
 
     belongs_to(:permission, Core.Users.Permission, primary_key: true)
     has_one(:account, through: [:organization_membership, :account])

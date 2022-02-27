@@ -39,6 +39,7 @@ defmodule CoreWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+      import Surface
     end
   end
 
@@ -91,6 +92,7 @@ defmodule CoreWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
+      import CoreWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View

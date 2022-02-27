@@ -150,8 +150,7 @@ defmodule CoreWeb.CoreWeb.AccountAuthTest do
 
   describe "require_authenticated_account/2" do
     test "redirects if account is not authenticated", %{conn: conn} do
-      conn =
-        conn |> fetch_flash() |> CoreWeb.AccountAuth.require_authenticated_account([])
+      conn = conn |> fetch_flash() |> CoreWeb.AccountAuth.require_authenticated_account([])
 
       assert conn.halted
       assert redirected_to(conn) == Routes.account_session_path(conn, :new)

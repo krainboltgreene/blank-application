@@ -4,13 +4,14 @@ defmodule Core.MixProject do
   def project do
     [
       app: :core,
-      version: "0.1.0",
-      elixir: "~> 1.12",
+      version: "1.0.0",
+      elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers() ++ [:surface],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_apps: [:mix, :logger, :eex]]
     ]
   end
 
@@ -20,7 +21,7 @@ defmodule Core.MixProject do
   def application do
     [
       mod: {Core.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
@@ -33,44 +34,44 @@ defmodule Core.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 2.0.0"},
+      {:bcrypt_elixir, "~> 3.0"},
       {:brains, "~> 0.1.5"},
       {:castore, "~> 0.1.11"},
-      {:comeonin, "~> 5.3.2"},
-      {:cors_plug, "~> 2.0.3"},
-      {:coverex, "~> 1.5.0", only: :dev, runtime: false},
-      {:credo, "~> 1.6.3", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:ecto_autoslug_field, "~> 3.0.0"},
-      {:ecto_enum, "~> 1.4.0"},
+      {:cors_plug, "~> 2.0"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.1", only: [:dev, :test], runtime: false},
+      {:ecto_autoslug_field, "~> 3.0"},
+      {:ecto_enum, "~> 1.4"},
       {:ecto_psql_extras, "~> 0.7.0"},
-      {:ecto_sql, "~> 3.7.0"},
+      {:ecto_sql, "~> 3.7"},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
-      {:flippant, "~> 2.0.0"},
+      {:flippant, "~> 2.0"},
       {:floki, "~> 0.32.0", only: :test},
       {:gettext, "~> 0.19.1"},
-      {:inflex, "~> 2.1.0"},
-      {:jason, "~> 1.3.0"},
-      {:mix_test_watch, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:oban, "~> 2.10.1"},
+      {:heex_formatter, github: "feliperenan/heex_formatter"},
+      {:inflex, "~> 2.1"},
+      {:mix_test_watch, "~> 1.1", only: [:dev, :test], runtime: false},
+      {:oban, "~> 2.11"},
       {:paper_trail, "~> 0.14.2"},
-      {:phoenix_ecto, "~> 4.4.0"},
-      {:phoenix_html, "~> 3.2.0"},
+      {:phoenix_ecto, "~> 4.4"},
+      {:phoenix_html, "~> 3.2"},
       {:phoenix_live_dashboard, "~> 0.6.4"},
-      {:phoenix_live_reload, "~> 1.3.3", only: :dev},
+      {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
-      {:phoenix_pubsub, "~> 2.0.0"},
-      {:phoenix, "~> 1.6.6"},
-      {:plug_cowboy, "~> 2.5.1"},
+      {:phoenix, "~> 1.6"},
+      {:plug_cowboy, "~> 2.5"},
       {:plug_telemetry_server_timing, "~> 0.3.0"},
-      {:postgrex, "~> 0.16.1"},
+      {:postgrex, "~> 0.16"},
       {:recase, "~> 0.7.0"},
-      {:redix, "~> 1.1.4"},
-      {:swoosh, "~> 1.3"},
-      {:telemetry_metrics, "~> 0.6.1"},
-      {:surface, "~> 0.7.1"},
+      {:redix, "~> 1.1"},
       {:surface_catalogue, "~> 0.3.0"},
-      {:telemetry_poller, "~> 1.0.0"}
+      {:surface, "~> 0.7.0"},
+      {:swoosh, "~> 1.3"},
+      {:telemetry_metrics, "~> 0.6.0"},
+      {:telemetry_poller, "~> 1.0"},
+      # {:dep_from_hexpm, "~> 0.3.0"},
+      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+
     ]
   end
 
@@ -82,10 +83,24 @@ defmodule Core.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      check: [
+        "compile",
+        "ecto.drop --quiet",
+        "ecto.create --quiet",
+        "ecto.migrate --quiet",
+        "credo",
+        "dialyzer --quiet"
+      ],
       setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs --quiet"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      test: [
+        "ecto.drop --quiet",
+        "ecto.create --quiet",
+        "ecto.migrate --quiet",
+        "run priv/repo/seeds.exs",
+        "test"
+      ],
       "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
