@@ -7,10 +7,14 @@
 # General application configuration
 import Config
 
-Application.put_env(:clumsy_chinchilla, :secret_key_base, System.get_env("SECRET_KEY_BASE"))
-Application.put_env(:clumsy_chinchilla, :signing_salt, System.get_env("SIGNING_SALT"))
-Application.put_env(:clumsy_chinchilla, :application_name, "Clumsy Chinchilla")
-Application.put_env(:clumsy_chinchilla, :support_email_address, "support@clumsy-chinchilla.club")
+config :plotgenerator,
+  application_name: "Clumsy Chinchilla",
+  support_email_address: "support@clumsy-chinchilla.club",
+  theme_color: "#ffffff",
+  description: "A website",
+  short_description: "A website",
+  google_site_verification: "",
+  google_tag_manager_id: ""
 
 config :clumsy_chinchilla,
   ecto_repos: [ClumsyChinchilla.Repo],
@@ -79,19 +83,6 @@ config :clumsy_chinchilla, Oban,
     media: 20,
     events: 50
   ]
-
-config :clumsy_chinchilla, :browser_metadata, %{
-  domain: Application.get_env(:clumsy_chinchilla, :domain),
-  application_name: Application.get_env(:clumsy_chinchilla, :application_name),
-  base_url: Application.get_env(:clumsy_chinchilla, :base_url),
-  theme_color: "#ffffff",
-  description: "A website",
-  google_site_verification: "",
-  short_description: "A website",
-  title: Application.get_env(:clumsy_chinchilla, :application_name),
-  google_tag_manager_id: "",
-  support_email_address: Application.get_env(:clumsy_chinchilla, :support_email_address)
-}
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

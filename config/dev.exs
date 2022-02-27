@@ -1,7 +1,9 @@
 import Config
 
-Application.put_env(:clumsy_chinchilla, :domain, "localhost")
-Application.put_env(:clumsy_chinchilla, :base_url, "/")
+config :plotgenerator,
+  secret_key_base: "hPnBNsKd4PUfmSLk2QUu4wLsIFY5Mt1kzplLpgEGQnTkWcNmk9kovkbMujnsm3OI",
+  domain: "localhost",
+  base_url: "/",
 
 # Configure your database
 config :clumsy_chinchilla, ClumsyChinchilla.Repo,

@@ -1,7 +1,9 @@
 import Config
 
-Application.put_env(:clumsy_chinchilla, :domain, "www.clumsy-chinchilla.club")
-Application.put_env(:clumsy_chinchilla, :base_url, "https://www.clumsy-chinchilla.club")
+config :plotgenerator,
+  signing_salt: System.get_env("SIGNING_SALT"),
+  domain: "www.clumsy-chinchilla.club",
+  base_url: "https://www.clumsy-chinchilla.club/"
 
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
