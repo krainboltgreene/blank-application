@@ -1,4 +1,4 @@
-defmodule ClumsyChinchillaWeb.ConnCase do
+defmodule CoreWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule ClumsyChinchillaWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use ClumsyChinchillaWeb.ConnCase, async: true`, although
+  by setting `use CoreWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -22,17 +22,17 @@ defmodule ClumsyChinchillaWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import ClumsyChinchillaWeb.ConnCase
+      import CoreWeb.ConnCase
 
-      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
+      alias CoreWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint ClumsyChinchillaWeb.Endpoint
+      @endpoint CoreWeb.Endpoint
     end
   end
 
   setup tags do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(ClumsyChinchilla.Repo, shared: not tags[:async])
+    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Core.Repo, shared: not tags[:async])
     on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
@@ -46,7 +46,7 @@ defmodule ClumsyChinchillaWeb.ConnCase do
   test context.
   """
   def register_and_log_in_account(%{conn: conn}) do
-    account = ClumsyChinchilla.UsersFixtures.account_fixture()
+    account = Core.UsersFixtures.account_fixture()
     %{conn: log_in_account(conn, account), account: account}
   end
 
@@ -56,7 +56,7 @@ defmodule ClumsyChinchillaWeb.ConnCase do
   It returns an updated `conn`.
   """
   def log_in_account(conn, account) do
-    token = ClumsyChinchilla.Users.generate_account_session_token(account)
+    token = Core.Users.generate_account_session_token(account)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})

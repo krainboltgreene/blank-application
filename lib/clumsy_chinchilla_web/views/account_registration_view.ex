@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.AccountRegistrationView do
-  use ClumsyChinchillaWeb, :view
+defmodule CoreWeb.AccountRegistrationView do
+  use CoreWeb, :view
 end

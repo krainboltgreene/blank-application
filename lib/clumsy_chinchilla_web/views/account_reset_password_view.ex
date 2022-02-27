@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.AccountResetPasswordView do
-  use ClumsyChinchillaWeb, :view
+defmodule CoreWeb.AccountResetPasswordView do
+  use CoreWeb, :view
 end

@@ -1,7 +1,7 @@
-defmodule ClumsyChinchillaWeb.AccountRegistrationControllerTest do
-  use ClumsyChinchillaWeb.ConnCase, async: true
+defmodule CoreWeb.AccountRegistrationControllerTest do
+  use CoreWeb.ConnCase, async: true
 
-  import ClumsyChinchilla.UsersFixtures
+  import Core.UsersFixtures
 
   describe "GET /accounts/register" do
     test "renders registration page", %{conn: conn} do

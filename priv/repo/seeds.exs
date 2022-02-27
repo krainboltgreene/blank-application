@@ -5,21 +5,21 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     ClumsyChinchilla.Repo.insert!(%ClumsyChinchilla.SomeSchema{})
+#     Core.Repo.insert!(%Core.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-ClumsyChinchilla.Users.create_permission(%{
+Core.Users.create_permission(%{
   name: "Administrator"
 })
 
-ClumsyChinchilla.Users.create_permission(%{
+Core.Users.create_permission(%{
   name: "Default"
 })
 
 krainboltgreene =
-  ClumsyChinchilla.Users.register_account(%{
+  Core.Users.register_account(%{
     name: "Kurtis Rainbolt-Greene",
     email_address: "kurtis@clumsy-chinchilla.club",
     username: "krainboltgreene",
@@ -27,7 +27,7 @@ krainboltgreene =
   })
 
 alabaster =
-  ClumsyChinchilla.Users.register_account(%{
+  Core.Users.register_account(%{
     name: "Alabaster Wolf",
     email_address: "alabaster@clumsy-chinchilla.club",
     username: "alabaster",
@@ -35,9 +35,9 @@ alabaster =
   })
 
 {:ok, _} =
-  ClumsyChinchilla.Users.create_organization(%{
+  Core.Users.create_organization(%{
     name: "Default"
   })
 
-ClumsyChinchilla.Users.join_organiztion(krainboltgreene, "default", "administrator")
-ClumsyChinchilla.Users.join_organiztion(alabaster, "default")
+Core.Users.join_organiztion(krainboltgreene, "default", "administrator")
+Core.Users.join_organiztion(alabaster, "default")

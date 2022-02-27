@@ -1,6 +1,6 @@
-defmodule ClumsyChinchilla.Repo do
+defmodule Core.Repo do
   use Ecto.Repo,
-    otp_app: :clumsy_chinchilla,
+    otp_app: :core,
     adapter: Ecto.Adapters.Postgres
 
   require Ecto.Query
@@ -10,7 +10,7 @@ defmodule ClumsyChinchilla.Repo do
       when is_atom(model_or_query) or (is_struct(model_or_query) and is_atom(field)) do
     model_or_query
     |> Ecto.Query.select(^[field])
-    |> ClumsyChinchilla.Repo.all()
+    |> Core.Repo.all()
     |> Enum.map(&Map.get(&1, field))
   end
 
@@ -18,7 +18,7 @@ defmodule ClumsyChinchilla.Repo do
       when is_atom(model_or_query) or (is_struct(model_or_query) and is_list(fields)) do
     model_or_query
     |> Ecto.Query.select(^fields)
-    |> ClumsyChinchilla.Repo.all()
+    |> Core.Repo.all()
     |> Enum.map(fn record -> Map.values(Map.take(record, fields)) end)
   end
 end

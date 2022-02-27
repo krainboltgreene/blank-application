@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Repo.Migrations.CreateObanJobs do
+defmodule Core.Repo.Migrations.CreateObanJobs do
   use Ecto.Migration
 
   def up do

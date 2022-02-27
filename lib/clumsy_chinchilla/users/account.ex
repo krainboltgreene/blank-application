@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Users.Account do
+defmodule Core.Users.Account do
   @moduledoc false
   use Ecto.Schema
   import Estate, only: [state_machines: 1]
@@ -18,9 +18,9 @@ defmodule ClumsyChinchilla.Users.Account do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
-    embeds_one(:settings, ClumsyChinchilla.Users.Settings)
-    embeds_one(:profile, ClumsyChinchilla.Users.Profile)
-    has_many(:organization_memberships, ClumsyChinchilla.Users.OrganizationMembership)
+    embeds_one(:settings, Core.Users.Settings)
+    embeds_one(:profile, Core.Users.Profile)
+    has_many(:organization_memberships, Core.Users.OrganizationMembership)
     has_many(:organizations, through: [:organization_memberships, :organization])
 
     timestamps()
@@ -32,9 +32,9 @@ defmodule ClumsyChinchilla.Users.Account do
           onboarding_state: String.t(),
           password: String.t() | nil,
           hashed_password: String.t() | nil,
-          settings: ClumsyChinchilla.Users.Settings.t() | nil,
-          profile: ClumsyChinchilla.Users.Profile.t() | nil,
-          organizations: list(ClumsyChinchilla.Users.Organization.t() | nil) | nil
+          settings: Core.Users.Settings.t() | nil,
+          profile: Core.Users.Profile.t() | nil,
+          organizations: list(Core.Users.Organization.t() | nil) | nil
         }
 
   @doc """
@@ -70,7 +70,7 @@ defmodule ClumsyChinchilla.Users.Account do
       message: "must have the @ sign and no spaces"
     )
     |> Ecto.Changeset.validate_length(:email_address, max: 160)
-    |> Ecto.Changeset.unsafe_validate_unique(:email_address, ClumsyChinchilla.Repo)
+    |> Ecto.Changeset.unsafe_validate_unique(:email_address, Core.Repo)
     |> Ecto.Changeset.unique_constraint(:email_address)
   end
 

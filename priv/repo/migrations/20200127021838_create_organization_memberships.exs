@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Repo.Migrations.CreateOrganizationMemberships do
+defmodule Core.Repo.Migrations.CreateOrganizationMemberships do
   use Ecto.Migration
 
   def change do

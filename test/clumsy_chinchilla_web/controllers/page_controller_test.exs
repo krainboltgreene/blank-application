@@ -1,5 +1,5 @@
-defmodule ClumsyChinchillaWeb.PageControllerTest do
-  use ClumsyChinchillaWeb.ConnCase
+defmodule CoreWeb.PageControllerTest do
+  use CoreWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

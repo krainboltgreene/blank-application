@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.PageView do
-  use ClumsyChinchillaWeb, :view
+defmodule CoreWeb.PageView do
+  use CoreWeb, :view
 end

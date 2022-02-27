@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Users.Profile do
+defmodule Core.Users.Profile do
   @moduledoc false
   use Ecto.Schema
 
@@ -9,8 +9,8 @@ defmodule ClumsyChinchilla.Users.Profile do
     field(:public_name, :string)
   end
 
-  @spec changeset(ClumsyChinchilla.Users.Profile.t(), map) ::
-          Ecto.Changeset.t(ClumsyChinchilla.Users.Profile.t())
+  @spec changeset(Core.Users.Profile.t(), map) ::
+          Ecto.Changeset.t(Core.Users.Profile.t())
   def changeset(record, attributes) do
     record
     |> Ecto.Changeset.cast(attributes, [:public_name])

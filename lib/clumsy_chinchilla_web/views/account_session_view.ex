@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.AccountSessionView do
-  use ClumsyChinchillaWeb, :view
+defmodule CoreWeb.AccountSessionView do
+  use CoreWeb, :view
 end

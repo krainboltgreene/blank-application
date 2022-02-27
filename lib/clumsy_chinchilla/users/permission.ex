@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Users.Permission do
+defmodule Core.Users.Permission do
   @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
@@ -11,8 +11,8 @@ defmodule ClumsyChinchilla.Users.Permission do
   @foreign_key_type :binary_id
   schema "permissions" do
     field(:name, :string)
-    field(:slug, ClumsyChinchilla.Slugs.Name.Type)
-    has_many(:organization_permissions, ClumsyChinchilla.Users.OrganizationPermission)
+    field(:slug, Core.Slugs.Name.Type)
+    has_many(:organization_permissions, Core.Users.OrganizationPermission)
 
     timestamps()
   end
@@ -23,7 +23,7 @@ defmodule ClumsyChinchilla.Users.Permission do
     record
     |> cast(attributes, [:name])
     |> validate_required([:name])
-    |> ClumsyChinchilla.Slugs.Name.maybe_generate_slug()
-    |> ClumsyChinchilla.Slugs.Name.unique_constraint()
+    |> Core.Slugs.Name.maybe_generate_slug()
+    |> Core.Slugs.Name.unique_constraint()
   end
 end

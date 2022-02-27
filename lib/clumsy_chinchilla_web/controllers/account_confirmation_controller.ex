@@ -1,13 +1,13 @@
-defmodule ClumsyChinchillaWeb.AccountConfirmationController do
-  use ClumsyChinchillaWeb, :controller
+defmodule CoreWeb.AccountConfirmationController do
+  use CoreWeb, :controller
 
   def new(conn, _params) do
     render(conn, "new.html")
   end
 
   def create(conn, %{"account" => %{"email_address" => email_address}}) do
-    if account = ClumsyChinchilla.Users.get_account_by_email_address(email_address) do
-      ClumsyChinchilla.Users.deliver_account_confirmation_instructions(
+    if account = Core.Users.get_account_by_email_address(email_address) do
+      Core.Users.deliver_account_confirmation_instructions(
         account,
         &Routes.account_confirmation_url(conn, :edit, &1)
       )
@@ -29,7 +29,7 @@ defmodule ClumsyChinchillaWeb.AccountConfirmationController do
   # Do not log in the account after confirmation to avoid a
   # leaked token giving the account access to the account.
   def update(conn, %{"token" => token}) do
-    case ClumsyChinchilla.Users.confirm_account(token) do
+    case Core.Users.confirm_account(token) do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Account confirmed successfully.")

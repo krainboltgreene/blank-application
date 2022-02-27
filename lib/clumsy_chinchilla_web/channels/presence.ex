@@ -1,4 +1,4 @@
-defmodule ClumsyChinchillaWeb.Presence do
+defmodule CoreWeb.Presence do
   @moduledoc """
   Provides presence tracking to channels and processes.
 
@@ -6,6 +6,6 @@ defmodule ClumsyChinchillaWeb.Presence do
   docs for more details.
   """
   use Phoenix.Presence,
-    otp_app: :clumsy_chinchilla,
-    pubsub_server: ClumsyChinchilla.PubSub
+    otp_app: :core,
+    pubsub_server: Core.PubSub
 end

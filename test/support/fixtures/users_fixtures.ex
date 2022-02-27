@@ -1,7 +1,7 @@
-defmodule ClumsyChinchilla.UsersFixtures do
+defmodule Core.UsersFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `ClumsyChinchilla.Users` context.
+  entities via the `Core.Users` context.
   """
 
   def unique_account_email_address, do: "account#{System.unique_integer()}@example.com"
@@ -18,7 +18,7 @@ defmodule ClumsyChinchilla.UsersFixtures do
     {:ok, account} =
       attrs
       |> valid_account_attributes()
-      |> ClumsyChinchilla.Users.register_account()
+      |> Core.Users.register_account()
 
     account
   end

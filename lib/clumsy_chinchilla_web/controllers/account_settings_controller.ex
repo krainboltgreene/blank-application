@@ -1,5 +1,5 @@
-defmodule ClumsyChinchillaWeb.AccountSettingsController do
-  use ClumsyChinchillaWeb, :controller
+defmodule CoreWeb.AccountSettingsController do
+  use CoreWeb, :controller
 
   plug :assign_email_address_and_password_changesets
 
@@ -11,9 +11,9 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
     %{"current_password" => password, "account" => account_params} = params
     account = conn.assigns.current_account
 
-    case ClumsyChinchilla.Users.apply_account_email_address(account, password, account_params) do
+    case Core.Users.apply_account_email_address(account, password, account_params) do
       {:ok, applied_account} ->
-        ClumsyChinchilla.Users.deliver_update_email_address_instructions(
+        Core.Users.deliver_update_email_address_instructions(
           applied_account,
           account.email_address,
           &Routes.account_settings_url(conn, :confirm_email_address, &1)
@@ -35,12 +35,12 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
     %{"current_password" => password, "account" => account_params} = params
     account = conn.assigns.current_account
 
-    case ClumsyChinchilla.Users.update_account_password(account, password, account_params) do
+    case Core.Users.update_account_password(account, password, account_params) do
       {:ok, account} ->
         conn
         |> put_flash(:info, "Password updated successfully.")
         |> put_session(:account_return_to, Routes.account_settings_path(conn, :edit))
-        |> ClumsyChinchillaWeb.AccountAuth.log_in_account(account)
+        |> CoreWeb.AccountAuth.log_in_account(account)
 
       {:error, changeset} ->
         render(conn, "edit.html", password_changeset: changeset)
@@ -48,7 +48,7 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
   end
 
   def confirm_email_address(conn, %{"token" => token}) do
-    case ClumsyChinchilla.Users.update_account_email_address(conn.assigns.current_account, token) do
+    case Core.Users.update_account_email_address(conn.assigns.current_account, token) do
       :ok ->
         conn
         |> put_flash(:info, "Email changed successfully.")
@@ -67,8 +67,8 @@ defmodule ClumsyChinchillaWeb.AccountSettingsController do
     conn
     |> assign(
       :email_address_changeset,
-      ClumsyChinchilla.Users.change_account_email_address(account)
+      Core.Users.change_account_email_address(account)
     )
-    |> assign(:password_changeset, ClumsyChinchilla.Users.change_account_password(account))
+    |> assign(:password_changeset, Core.Users.change_account_password(account))
   end
 end

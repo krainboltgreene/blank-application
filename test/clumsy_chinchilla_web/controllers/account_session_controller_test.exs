@@ -1,7 +1,7 @@
-defmodule ClumsyChinchillaWeb.AccountSessionControllerTest do
-  use ClumsyChinchillaWeb.ConnCase, async: true
+defmodule CoreWeb.AccountSessionControllerTest do
+  use CoreWeb.ConnCase, async: true
 
-  import ClumsyChinchilla.UsersFixtures
+  import Core.UsersFixtures
 
   setup do
     %{account: account_fixture()}
@@ -53,7 +53,7 @@ defmodule ClumsyChinchillaWeb.AccountSessionControllerTest do
           }
         })
 
-      assert conn.resp_cookies["_clumsy_chinchilla_web_account_remember_me"]
+      assert conn.resp_cookies["_core_web_account_remember_me"]
       assert redirected_to(conn) == "/"
     end
 

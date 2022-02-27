@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Application do
+defmodule Core.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,18 +9,18 @@ defmodule ClumsyChinchilla.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      ClumsyChinchilla.Repo,
+      Core.Repo,
       # Start the Telemetry supervisor
-      ClumsyChinchillaWeb.Telemetry,
+      CoreWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: ClumsyChinchilla.PubSub},
+      {Phoenix.PubSub, name: Core.PubSub},
       # Start the Endpoint (http/https)
-      ClumsyChinchillaWeb.Endpoint,
+      CoreWeb.Endpoint,
       # Start the background job
-      {Oban, Application.get_env(:clumsy_chinchilla, Oban)},
-      ClumsyChinchillaWeb.Presence
-      # Start a worker by calling: ClumsyChinchilla.Worker.start_link(arg)
-      # {ClumsyChinchilla.Worker, arg}
+      {Oban, Application.get_env(:core, Oban)},
+      CoreWeb.Presence
+      # Start a worker by calling: Core.Worker.start_link(arg)
+      # {Core.Worker, arg}
     ]
 
     Plug.Telemetry.ServerTiming.install([
@@ -40,7 +40,7 @@ defmodule ClumsyChinchilla.Application do
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: ClumsyChinchilla.Supervisor]
+    opts = [strategy: :one_for_one, name: Core.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -48,7 +48,7 @@ defmodule ClumsyChinchilla.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    ClumsyChinchillaWeb.Endpoint.config_change(changed, removed)
+    CoreWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

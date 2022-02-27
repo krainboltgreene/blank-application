@@ -1,5 +1,5 @@
-defmodule ClumsyChinchillaWeb.LayoutViewTest do
-  use ClumsyChinchillaWeb.ConnCase, async: true
+defmodule CoreWeb.LayoutViewTest do
+  use CoreWeb.ConnCase, async: true
 
   # When testing helpers, you may want to import Phoenix.HTML and
   # use functions such as safe_to_string() to convert the helper

@@ -1,15 +1,15 @@
-defmodule ClumsyChinchillaWeb.AccountAuth do
+defmodule CoreWeb.AccountAuth do
   @moduledoc false
   import Plug.Conn
   import Phoenix.Controller
 
-  alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
+  alias CoreWeb.Router.Helpers, as: Routes
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
   # the token expiry itself in AccountToken.
   @max_age 60 * 60 * 24 * 60
-  @remember_me_cookie "_clumsy_chinchilla_web_account_remember_me"
+  @remember_me_cookie "_core_web_account_remember_me"
   @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
 
   @doc """
@@ -25,7 +25,7 @@ defmodule ClumsyChinchillaWeb.AccountAuth do
   if you are not using LiveView.
   """
   def log_in_account(conn, account, params \\ %{}) do
-    token = ClumsyChinchilla.Users.generate_account_session_token(account)
+    token = Core.Users.generate_account_session_token(account)
     account_return_to = get_session(conn, :account_return_to)
 
     conn
@@ -72,10 +72,10 @@ defmodule ClumsyChinchillaWeb.AccountAuth do
   """
   def log_out_account(conn) do
     account_token = get_session(conn, :account_token)
-    account_token && ClumsyChinchilla.Users.delete_session_token(account_token)
+    account_token && Core.Users.delete_session_token(account_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
-      ClumsyChinchillaWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+      CoreWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
 
     conn
@@ -90,7 +90,7 @@ defmodule ClumsyChinchillaWeb.AccountAuth do
   """
   def fetch_current_account(conn, _opts) do
     {account_token, conn} = ensure_account_token(conn)
-    account = account_token && ClumsyChinchilla.Users.get_account_by_session_token(account_token)
+    account = account_token && Core.Users.get_account_by_session_token(account_token)
     assign(conn, :current_account, account)
   end
 

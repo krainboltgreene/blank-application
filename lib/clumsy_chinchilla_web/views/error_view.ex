@@ -1,5 +1,5 @@
-defmodule ClumsyChinchillaWeb.ErrorView do
-  use ClumsyChinchillaWeb, :view
+defmodule CoreWeb.ErrorView do
+  use CoreWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

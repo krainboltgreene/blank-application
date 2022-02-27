@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Content.Tag do
+defmodule Core.Content.Tag do
   @moduledoc false
   use Ecto.Schema
   import Ecto.Changeset
@@ -11,20 +11,20 @@ defmodule ClumsyChinchilla.Content.Tag do
   @foreign_key_type :binary_id
   schema "tags" do
     field :name, :string
-    field :slug, ClumsyChinchilla.Slugs.Name.Type
+    field :slug, Core.Slugs.Name.Type
 
     timestamps()
   end
 
   @doc false
-  @spec changeset(ClumsyChinchilla.Content.Tag.t(), map) ::
-          Ecto.Changeset.t(ClumsyChinchilla.Content.Tag.t())
+  @spec changeset(Core.Content.Tag.t(), map) ::
+          Ecto.Changeset.t(Core.Content.Tag.t())
   def changeset(record, attributes) do
     record
     |> cast(attributes, [:name])
     |> validate_required([:name])
-    |> ClumsyChinchilla.Slugs.Name.maybe_generate_slug()
-    |> ClumsyChinchilla.Slugs.Name.unique_constraint()
+    |> Core.Slugs.Name.maybe_generate_slug()
+    |> Core.Slugs.Name.unique_constraint()
     |> unique_constraint(:name)
   end
 end

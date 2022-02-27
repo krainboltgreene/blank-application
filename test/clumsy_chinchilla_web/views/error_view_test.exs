@@ -1,15 +1,15 @@
-defmodule ClumsyChinchillaWeb.ErrorViewTest do
-  use ClumsyChinchillaWeb.ConnCase, async: true
+defmodule CoreWeb.ErrorViewTest do
+  use CoreWeb.ConnCase, async: true
 
   # Bring render/3 and render_to_string/3 for testing custom views
   import Phoenix.View
 
   test "renders 404.html" do
-    assert render_to_string(ClumsyChinchillaWeb.ErrorView, "404.html", []) == "Not Found"
+    assert render_to_string(CoreWeb.ErrorView, "404.html", []) == "Not Found"
   end
 
   test "renders 500.html" do
-    assert render_to_string(ClumsyChinchillaWeb.ErrorView, "500.html", []) ==
+    assert render_to_string(CoreWeb.ErrorView, "500.html", []) ==
              "Internal Server Error"
   end
 end

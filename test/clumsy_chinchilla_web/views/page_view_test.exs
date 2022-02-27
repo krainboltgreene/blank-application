@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.PageViewTest do
-  use ClumsyChinchillaWeb.ConnCase, async: true
+defmodule CoreWeb.PageViewTest do
+  use CoreWeb.ConnCase, async: true
 end

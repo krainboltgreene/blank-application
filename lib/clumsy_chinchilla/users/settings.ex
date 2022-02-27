@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Users.Settings do
+defmodule Core.Users.Settings do
   @moduledoc false
   use Ecto.Schema
 
@@ -9,8 +9,8 @@ defmodule ClumsyChinchilla.Users.Settings do
     field(:light_mode, :boolean, default: true)
   end
 
-  @spec changeset(ClumsyChinchilla.Users.Settings.t(), map) ::
-          Ecto.Changeset.t(ClumsyChinchilla.Users.Settings.t())
+  @spec changeset(Core.Users.Settings.t(), map) ::
+          Ecto.Changeset.t(Core.Users.Settings.t())
   def changeset(record, attributes) do
     record
     |> Ecto.Changeset.cast(attributes, [:light_mode])

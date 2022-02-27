@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Users.AccountNotifier do
+defmodule Core.Users.AccountNotifier do
   @moduledoc false
   import Swoosh.Email
 
@@ -8,13 +8,13 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
       new()
       |> to(recipient)
       |> from({
-        Application.get_env(:clumsy_chinchilla, :application_name),
-        Application.get_env(:clumsy_chinchilla, :support_email_address)
+        Application.get_env(:core, :application_name),
+        Application.get_env(:core, :support_email_address)
       })
       |> subject(subject)
       |> text_body(body)
 
-    with {:ok, _metadata} <- ClumsyChinchilla.Mailer.deliver(email) do
+    with {:ok, _metadata} <- Core.Mailer.deliver(email) do
       {:ok, email}
     end
   end
@@ -25,7 +25,7 @@ defmodule ClumsyChinchilla.Users.AccountNotifier do
   def deliver_confirmation_instructions(account, url) do
     deliver(
       account.email_address,
-      "Finish setting up your #{Application.get_env(:clumsy_chinchilla, :application_name)} Account",
+      "Finish setting up your #{Application.get_env(:core, :application_name)} Account",
       """
 
       ==============================

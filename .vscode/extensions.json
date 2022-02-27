@@ -7,6 +7,7 @@
     "phoenixframework.phoenix",
     "ms-vsliveshare.vsliveshare",
     "abusaidm.html-snippets",
-    "hashicorp.terraform"
+    "hashicorp.terraform",
+    "msaraiva.surface"
   ]
 }

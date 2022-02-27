@@ -1,4 +1,4 @@
-defmodule ClumsyChinchillaWeb.Telemetry do
+defmodule CoreWeb.Telemetry do
   @moduledoc false
   use Supervisor
   import Telemetry.Metrics
@@ -32,23 +32,23 @@ defmodule ClumsyChinchillaWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("clumsy_chinchilla.repo.query.total_time",
+      summary("core.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("clumsy_chinchilla.repo.query.decode_time",
+      summary("core.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("clumsy_chinchilla.repo.query.query_time",
+      summary("core.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("clumsy_chinchilla.repo.query.queue_time",
+      summary("core.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("clumsy_chinchilla.repo.query.idle_time",
+      summary("core.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"
@@ -90,7 +90,7 @@ defmodule ClumsyChinchillaWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {ClumsyChinchillaWeb, :count_users, []}
+      # {CoreWeb, :count_users, []}
     ]
   end
 

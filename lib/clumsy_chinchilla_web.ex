@@ -1,12 +1,12 @@
-defmodule ClumsyChinchillaWeb do
+defmodule CoreWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use ClumsyChinchillaWeb, :controller
-      use ClumsyChinchillaWeb, :view
+      use CoreWeb, :controller
+      use CoreWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule ClumsyChinchillaWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: ClumsyChinchillaWeb
+      use Phoenix.Controller, namespace: CoreWeb
 
       import Plug.Conn
-      import ClumsyChinchillaWeb.Gettext
-      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
+      import CoreWeb.Gettext
+      alias CoreWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/clumsy_chinchilla_web/templates",
-        namespace: ClumsyChinchillaWeb
+        root: "lib/core_web/templates",
+        namespace: CoreWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +45,7 @@ defmodule ClumsyChinchillaWeb do
   def live_view do
     quote do
       use Surface.LiveView,
-        layout: {ClumsyChinchillaWeb.LayoutView, "live.html"}
+        layout: {CoreWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -80,7 +80,7 @@ defmodule ClumsyChinchillaWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import ClumsyChinchillaWeb.Gettext
+      import CoreWeb.Gettext
     end
   end
 
@@ -95,9 +95,9 @@ defmodule ClumsyChinchillaWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import ClumsyChinchillaWeb.ErrorHelpers
-      import ClumsyChinchillaWeb.Gettext
-      alias ClumsyChinchillaWeb.Router.Helpers, as: Routes
+      import CoreWeb.ErrorHelpers
+      import CoreWeb.Gettext
+      alias CoreWeb.Router.Helpers, as: Routes
     end
   end
 

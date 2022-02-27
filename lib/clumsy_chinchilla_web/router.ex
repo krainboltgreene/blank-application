@@ -1,7 +1,7 @@
-defmodule ClumsyChinchillaWeb.Router do
-  use ClumsyChinchillaWeb, :router
+defmodule CoreWeb.Router do
+  use CoreWeb, :router
 
-  import ClumsyChinchillaWeb.AccountAuth
+  import CoreWeb.AccountAuth
   import Surface.Catalogue.Router
   import Phoenix.LiveDashboard.Router
 
@@ -9,7 +9,7 @@ defmodule ClumsyChinchillaWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {ClumsyChinchillaWeb.LayoutView, :root}
+    plug :put_root_layout, {CoreWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_account
@@ -20,13 +20,13 @@ defmodule ClumsyChinchillaWeb.Router do
   end
 
   pipeline :admin do
-    plug :put_layout, {ClumsyChinchillaWeb.LayoutView, :app}
-    plug :put_layout, {ClumsyChinchillaWeb.LayoutView, :admin}
+    plug :put_layout, {CoreWeb.LayoutView, :app}
+    plug :put_layout, {CoreWeb.LayoutView, :admin}
   end
 
   ## Authentication routes
 
-  scope "/", ClumsyChinchillaWeb do
+  scope "/", CoreWeb do
     pipe_through [:browser, :redirect_if_account_is_authenticated]
 
     get "/accounts/register", AccountRegistrationController, :new
@@ -39,7 +39,7 @@ defmodule ClumsyChinchillaWeb.Router do
     put "/accounts/reset_password/:token", AccountResetPasswordController, :update
   end
 
-  scope "/", ClumsyChinchillaWeb do
+  scope "/", CoreWeb do
     pipe_through [:browser, :require_authenticated_account]
 
     get "/accounts/settings", AccountSettingsController, :edit
@@ -50,7 +50,7 @@ defmodule ClumsyChinchillaWeb.Router do
         :confirm_email_address
   end
 
-  scope "/", ClumsyChinchillaWeb do
+  scope "/", CoreWeb do
     pipe_through [:browser]
 
     get "/", PageController, :index
@@ -61,7 +61,7 @@ defmodule ClumsyChinchillaWeb.Router do
     post "/accounts/confirm/:token", AccountConfirmationController, :update
   end
 
-  scope "/admin", ClumsyChinchillaWeb.Admin, as: :admin do
+  scope "/admin", CoreWeb.Admin, as: :admin do
     pipe_through [:browser, :admin, :require_authenticated_account]
 
     get "/", PageController, :index
@@ -73,7 +73,7 @@ defmodule ClumsyChinchillaWeb.Router do
     # If your application does not have an admins-only section yet,
     # you can use Plug.BasicAuth to set up some basic authentication
     # as long as you are also using SSL (which you should anyway).
-    live_dashboard "/dashboard", metrics: ClumsyChinchillaWeb.Telemetry
+    live_dashboard "/dashboard", metrics: CoreWeb.Telemetry
 
     # Enables showing the styleguide
     if Mix.env() == :dev do

@@ -1,5 +1,5 @@
-defmodule ClumsyChinchillaWeb.AccountResetPasswordController do
-  use ClumsyChinchillaWeb, :controller
+defmodule CoreWeb.AccountResetPasswordController do
+  use CoreWeb, :controller
 
   plug :get_account_by_reset_password_token when action in [:edit, :update]
 
@@ -8,8 +8,8 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordController do
   end
 
   def create(conn, %{"account" => %{"email_address" => email_address}}) do
-    if account = ClumsyChinchilla.Users.get_account_by_email_address(email_address) do
-      ClumsyChinchilla.Users.deliver_account_reset_password_instructions(
+    if account = Core.Users.get_account_by_email_address(email_address) do
+      Core.Users.deliver_account_reset_password_instructions(
         account,
         &Routes.account_reset_password_url(conn, :edit, &1)
       )
@@ -25,14 +25,14 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordController do
 
   def edit(conn, _params) do
     render(conn, "edit.html",
-      changeset: ClumsyChinchilla.Users.change_account_password(conn.assigns.account)
+      changeset: Core.Users.change_account_password(conn.assigns.account)
     )
   end
 
   # Do not log in the account after reset password to avoid a
   # leaked token giving the account access to the account.
   def update(conn, %{"account" => account_params}) do
-    case ClumsyChinchilla.Users.reset_account_password(conn.assigns.account, account_params) do
+    case Core.Users.reset_account_password(conn.assigns.account, account_params) do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Password reset successfully.")
@@ -46,7 +46,7 @@ defmodule ClumsyChinchillaWeb.AccountResetPasswordController do
   defp get_account_by_reset_password_token(conn, _opts) do
     %{"token" => token} = conn.params
 
-    if account = ClumsyChinchilla.Users.get_account_by_reset_password_token(token) do
+    if account = Core.Users.get_account_by_reset_password_token(token) do
       conn |> assign(:account, account) |> assign(:token, token)
     else
       conn

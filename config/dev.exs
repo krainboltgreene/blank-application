@@ -1,16 +1,16 @@
 import Config
 
-config :plotgenerator,
+config :core,
   secret_key_base: "hPnBNsKd4PUfmSLk2QUu4wLsIFY5Mt1kzplLpgEGQnTkWcNmk9kovkbMujnsm3OI",
   domain: "localhost",
   base_url: "/",
 
 # Configure your database
-config :clumsy_chinchilla, ClumsyChinchilla.Repo,
+config :core, Core.Repo,
   username: "postgres",
   password: if(System.get_env("GITHUB_CODESPACE"), do: "postgres"),
   hostname: "localhost",
-  database: "clumsy_chinchilla_dev",
+  database: "core_dev",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
   prepare: :unnamed
@@ -21,14 +21,14 @@ config :clumsy_chinchilla, ClumsyChinchilla.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
-config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
+config :core, CoreWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: Application.get_env(:clumsy_chinchilla, :secret_key_base),
+  secret_key_base: Application.get_env(:core, :secret_key_base),
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
@@ -59,13 +59,13 @@ config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
+config :core, CoreWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/clumsy_chinchilla_web/(live|views)/.*(ex)$",
-      ~r"lib/clumsy_chinchilla_web/templates/.*(eex)$"
+      ~r"lib/core_web/(live|views)/.*(ex)$",
+      ~r"lib/core_web/templates/.*(eex)$"
     ]
   ]
 

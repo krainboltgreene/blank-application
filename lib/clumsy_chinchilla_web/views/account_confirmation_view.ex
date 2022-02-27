@@ -1,3 +1,3 @@
-defmodule ClumsyChinchillaWeb.AccountConfirmationView do
-  use ClumsyChinchillaWeb, :view
+defmodule CoreWeb.AccountConfirmationView do
+  use CoreWeb, :view
 end

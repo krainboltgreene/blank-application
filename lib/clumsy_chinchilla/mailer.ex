@@ -1,4 +1,4 @@
-defmodule ClumsyChinchilla.Mailer do
+defmodule Core.Mailer do
   @moduledoc false
-  use Swoosh.Mailer, otp_app: :clumsy_chinchilla
+  use Swoosh.Mailer, otp_app: :core
 end

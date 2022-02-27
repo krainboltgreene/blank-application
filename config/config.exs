@@ -7,7 +7,7 @@
 # General application configuration
 import Config
 
-config :plotgenerator,
+config :core,
   application_name: "Clumsy Chinchilla",
   support_email_address: "support@clumsy-chinchilla.club",
   theme_color: "#ffffff",
@@ -16,21 +16,21 @@ config :plotgenerator,
   google_site_verification: "",
   google_tag_manager_id: ""
 
-config :clumsy_chinchilla,
-  ecto_repos: [ClumsyChinchilla.Repo],
+config :core,
+  ecto_repos: [Core.Repo],
   generators: [binary_id: true]
 
-config :clumsy_chinchilla,
-       ClumsyChinchilla.Repo,
+config :core,
+       Core.Repo,
        migration_primary_key: [name: :id, type: :binary_id],
        migration_foreign_key: [column: :id, type: :binary_id]
 
 # Configures the endpoint
-config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
-  url: [host: Application.get_env(:clumsy_chinchilla, :domain)],
-  render_errors: [view: ClumsyChinchillaWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: ClumsyChinchilla.PubSub,
-  live_view: [signing_salt: Application.get_env(:clumsy_chinchilla, :signing_salt)]
+config :core, CoreWeb.Endpoint,
+  url: [host: Application.get_env(:core, :domain)],
+  render_errors: [view: CoreWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Core.PubSub,
+  live_view: [signing_salt: Application.get_env(:core, :signing_salt)]
 
 # Configures the mailer
 #
@@ -39,7 +39,7 @@ config :clumsy_chinchilla, ClumsyChinchillaWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :clumsy_chinchilla, ClumsyChinchilla.Mailer, adapter: Swoosh.Adapters.Local
+config :core, Core.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
@@ -67,13 +67,13 @@ config :phoenix, :json_library, Jason
 
 # Setup configuration for paper_trail
 config :paper_trail,
-  repo: ClumsyChinchilla.Repo,
+  repo: Core.Repo,
   item_type: Ecto.UUID,
   originator_type: Ecto.UUID,
-  originator: [name: :account, model: ClumsyChinchilla.Users.Account]
+  originator: [name: :account, model: Core.Users.Account]
 
-config :clumsy_chinchilla, Oban,
-  repo: ClumsyChinchilla.Repo,
+config :core, Oban,
+  repo: Core.Repo,
   plugins: [
     Oban.Plugins.Pruner
   ],

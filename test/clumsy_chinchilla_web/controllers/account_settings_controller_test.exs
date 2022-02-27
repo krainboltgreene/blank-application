@@ -1,7 +1,7 @@
-defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
-  use ClumsyChinchillaWeb.ConnCase, async: true
+defmodule CoreWeb.AccountSettingsControllerTest do
+  use CoreWeb.ConnCase, async: true
 
-  import ClumsyChinchilla.UsersFixtures
+  import Core.UsersFixtures
 
   setup :register_and_log_in_account
 
@@ -35,7 +35,7 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
       assert get_session(new_password_conn, :account_token) != get_session(conn, :account_token)
       assert get_flash(new_password_conn, :info) =~ "Password updated successfully"
 
-      assert ClumsyChinchilla.Users.get_account_by_email_address_and_password(
+      assert Core.Users.get_account_by_email_address_and_password(
                account.email_address,
                "new valid password"
              )
@@ -74,7 +74,7 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
 
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
       assert get_flash(conn, :info) =~ "A link to confirm your email"
-      assert ClumsyChinchilla.Users.get_account_by_email_address(account.email_address)
+      assert Core.Users.get_account_by_email_address(account.email_address)
     end
 
     test "does not update email on invalid data", %{conn: conn} do
@@ -98,7 +98,7 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
 
       token =
         extract_account_token(fn url ->
-          ClumsyChinchilla.Users.deliver_update_email_address_instructions(
+          Core.Users.deliver_update_email_address_instructions(
             %{account | email_address: email_address},
             account.email_address,
             url
@@ -117,8 +117,8 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
       conn = get(conn, Routes.account_settings_path(conn, :confirm_email_address, token))
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
       assert get_flash(conn, :info) =~ "Email changed successfully"
-      refute ClumsyChinchilla.Users.get_account_by_email_address(account.email_address)
-      assert ClumsyChinchilla.Users.get_account_by_email_address(email_address)
+      refute Core.Users.get_account_by_email_address(account.email_address)
+      assert Core.Users.get_account_by_email_address(email_address)
 
       conn = get(conn, Routes.account_settings_path(conn, :confirm_email_address, token))
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
@@ -129,7 +129,7 @@ defmodule ClumsyChinchillaWeb.AccountSettingsControllerTest do
       conn = get(conn, Routes.account_settings_path(conn, :confirm_email_address, "oops"))
       assert redirected_to(conn) == Routes.account_settings_path(conn, :edit)
       assert get_flash(conn, :error) =~ "Email change link is invalid or it has expired"
-      assert ClumsyChinchilla.Users.get_account_by_email_address(account.email_address)
+      assert Core.Users.get_account_by_email_address(account.email_address)
     end
 
     test "redirects if account is not logged in", %{token: token} do
